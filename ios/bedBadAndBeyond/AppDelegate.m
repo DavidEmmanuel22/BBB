@@ -36,11 +36,7 @@ static void InitializeFlipper(UIApplication *application) {
                                                    moduleName:@"bedBadAndBeyond"
                                             initialProperties:nil];
 
-  if (@available(iOS 13.0, *)) {
-      rootView.backgroundColor = [UIColor systemBackgroundColor];
-  } else {
-      rootView.backgroundColor = [UIColor whiteColor];
-  }
+  rootView.backgroundColor = [[UIColor alloc] initWithRed:0.102 green:0.306 blue:0.541 alpha:1.0];
 
   self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
   UIViewController *rootViewController = [UIViewController new];

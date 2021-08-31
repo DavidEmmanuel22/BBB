@@ -4,13 +4,15 @@ import { NavigationContainer } from '@react-navigation/native';
 
 import BottomTabNavigation from './src/routes/bottomTabNavigator';
 import Splash from './src/screens/Splash';
+import Welcome from './src/screens/Welcome';
 
 
 const App = () => {
   return (
     <NavigationContainer>
-      <Splash />
-      <BottomTabNavigation />
+      <Welcome />
+      {/*<Splash />
+      <BottomTabNavigation />*/}
     </NavigationContainer>
   );
 };

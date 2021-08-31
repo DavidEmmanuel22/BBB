@@ -2,6 +2,7 @@ import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 
 import { DARKER_BLUE } from '../constants/colors';
+import { TERMINABOLD } from '../constants/fonts';
 
 export enum POSITION {
   LEFT = 'LEFT',
@@ -54,8 +55,7 @@ const styles = StyleSheet.create({
   },
   title: {
     color: DARKER_BLUE,
-    fontFamily: 'TerminaW05-Bold',
-    fontWeight: 'bold',
+    fontFamily: TERMINABOLD,
     lineHeight: 28
   },
   left: {

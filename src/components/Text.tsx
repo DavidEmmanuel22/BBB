@@ -2,6 +2,7 @@ import React from 'react';
 import { Text as NativeText, StyleSheet } from 'react-native';
 
 import { DARK } from '../constants/colors';
+import { EFFRA } from '../constants/fonts';
 
 interface IProps {
   children:
@@ -40,8 +41,9 @@ const Text: React.FC<IProps> = ({
 
 const styles = StyleSheet.create({
   text: {
-    fontFamily: 'Effra-Regular',
-    fontWeight: '400'
+    fontFamily: EFFRA,
+    fontWeight: '400',
+    letterSpacing: 0.8
   }
 });
 
