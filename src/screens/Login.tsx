@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, StyleSheet, Dimensions } from 'react-native';
+import { View, StyleSheet } from 'react-native';
 import { NavigationProp } from '@react-navigation/core';
 
 import Container from '../components/Container';
@@ -8,8 +8,9 @@ import Input from '../components/Input';
 import Button, { BUTTONTYPE } from '../components/Button';
 import SocialButtons from '../components/SocialButtons';
 import Text from '../components/Text';
-import { GRAY, GRAY2 } from '../constants/colors';
 import Icon from '../components/Icon';
+import LoginRegisterDisclaimer from '../components/LoginRegisterDisclaimer';
+import { GRAY } from '../constants/colors';
 
 interface IProps {
   navigation: NavigationProp<any, any>
@@ -57,10 +58,7 @@ const Login: React.FC<IProps> = ({ navigation }) => {
 
       <SocialButtons />
 
-      <View style={styles.bottomTextContainer}>
-        <Text color={GRAY2} size={14}>Al iniciar sesión o registrarte aceptas las</Text>
-        <Text size={14}>Políticas de Privacidad</Text>
-      </View>
+      <LoginRegisterDisclaimer parent="login" />
     </Container>
   );
 };
@@ -74,10 +72,6 @@ const styles = StyleSheet.create({
   buttonsContainer: {},
   forgotPasswordContainer: {
     alignItems: 'flex-end'
-  },
-  bottomTextContainer: {
-    alignItems: 'center',
-    marginTop: Dimensions.get('screen').height - 700
   }
 });
 
