@@ -77,7 +77,6 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderStyle: 'solid',
     flexDirection: 'row',
-    flex: 1,
     height: 52,
     justifyContent: 'center',
     marginTop: 4,

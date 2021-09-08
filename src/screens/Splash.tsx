@@ -1,7 +1,9 @@
 import React, { useRef, useEffect, useState } from 'react';
 import { Modal, View, Animated, Dimensions, StyleSheet } from 'react-native';
+import { useDispatch, useSelector } from 'react-redux';
 
 import { BLUE } from '../constants/colors';
+import { initialize, selectUIInitialized } from '../store/slices/uiSlice';
 
 
 const images = [
@@ -35,6 +37,8 @@ const opacityStartAnim = (
 };
 
 const Splash: React.FC = () => {
+  const dispatch = useDispatch();
+  const isInitialized = useSelector(selectUIInitialized);
   const [hasAnimationPlayedOnce, setHasAnimationPlayedOnce] = useState(false);
   const animStartAnims = [
     useRef(new Animated.Value(0)).current,
@@ -50,6 +54,10 @@ const Splash: React.FC = () => {
   const duration = 1500;
 
   useEffect(() => {
+    if (isInitialized) {
+      setHasAnimationPlayedOnce(true);
+    }
+
     animStartAnims.forEach((startAnim, index) => {
       opacityStartAnim(startAnim, endAnimNumber, duration, index * duration);
     });
@@ -61,6 +69,7 @@ const Splash: React.FC = () => {
     }).start(() => {
       setTimeout(() => {
         setHasAnimationPlayedOnce(true);
+        dispatch(initialize());
       }, 3000);
     });
   }, []);

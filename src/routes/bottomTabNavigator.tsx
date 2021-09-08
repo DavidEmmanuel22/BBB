@@ -1,13 +1,13 @@
 import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
-import Home from '../screens/Home';
+import HomeStackNavigator from './HomeStackNavigator';
+import LoginStackNavigator from './LoginStackNavigator';
 import Discounts from '../screens/Discounts';
 import Wishlist from '../screens/Wishlist';
-import LoginStackNavigator from './LoginStackNavigator';
 import Menu from '../screens/Menu';
-import { PRIMARY_BLUE } from '../constants/colors';
 import Icon from '../components/Icon';
+import { PRIMARY_BLUE } from '../constants/colors';
 
 
 interface ITabIconProps {
@@ -43,7 +43,7 @@ const BottomTabNavigation = () => {
     >
       <Tab.Screen
         name='Home'
-        component={Home}
+        component={HomeStackNavigator}
         options={{
           tabBarLabel: '',
           tabBarIcon: ({ color, size, focused }) => (
@@ -78,7 +78,7 @@ const BottomTabNavigation = () => {
           tabBarLabel: '',
           tabBarIcon: ({ color, size, focused }) => (
             <TabIcon name="user" focused={focused} color={color} size={size} />
-          ),
+          )
         }}
       />
       <Tab.Screen

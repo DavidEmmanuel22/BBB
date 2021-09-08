@@ -7,46 +7,58 @@ import {
   StyleSheet,
   useColorScheme,
 } from 'react-native';
-import { Colors } from 'react-native/Libraries/NewAppScreen';
 
-import { WHITE } from '../constants/colors';
+import { BLUE, WHITE } from '../constants/colors';
 
-
-interface IProps {
-  scroll?: Boolean,
-  children:
-    JSX.Element
-    | JSX.Element[]
+export enum StatusBarStyle {
+  LIGHT = 'light',
+  DARK = 'dark'
 };
 
-const Container: React.FC<IProps> = ({ scroll = false, children }) => {
-  const isDarkMode = useColorScheme() === 'dark';
+interface IProps {
+  scroll?: Boolean;
+  containerStyles?: object;
+  contentWrapperStyles?: object;
+  statusBarStyle?: StatusBarStyle;
+  children:
+    JSX.Element
+    | JSX.Element[];
+};
 
-  const backgroundStyle = {
-    backgroundColor: isDarkMode ? Colors.darker : 'rgb(255, 255, 255)',
-  };
+const Container: React.FC<IProps> = ({
+  scroll = false,
+  children,
+  statusBarStyle = StatusBarStyle.DARK,
+  containerStyles = {},
+  contentWrapperStyles = {}
+}) => {
+  const isDarkMode = useColorScheme() === 'dark' || statusBarStyle === StatusBarStyle.DARK;
+
+  const content = (
+    <SafeAreaView style={[{ flex: 1 }, contentWrapperStyles]}>
+      <StatusBar barStyle={isDarkMode ? 'dark-content' : 'light-content'} />
+      { children }
+    </SafeAreaView>
+  );
 
   return (
-    <SafeAreaView style={{ flex: 1, ...backgroundStyle}}>
-      <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
-      { scroll
-        ? <ScrollView
-            contentContainerStyle={styles.container}
-            contentInsetAdjustmentBehavior="automatic"
-          >
-            { children }
-          </ScrollView>
-        : <View style={styles.container}>{ children }</View>
-      }
-    </SafeAreaView>
+    scroll
+      ? <ScrollView
+          contentContainerStyle={[styles.container, containerStyles]}
+          contentInsetAdjustmentBehavior="automatic"
+        >
+          {content}
+        </ScrollView>
+      : <View style={styles.container}>{ content }</View>
   );
 };
 
 
 const styles = StyleSheet.create({
   container: {
-    paddingRight: 36,
-    paddingLeft: 36
+    flex: 1,
+    paddingRight: 32,
+    paddingLeft: 32
   }
 });
 
