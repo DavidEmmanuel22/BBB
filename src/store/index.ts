@@ -1,4 +1,4 @@
-import { configureStore, ThunkAction, Action } from '@reduxjs/toolkit';
+import {configureStore, ThunkAction, Action} from '@reduxjs/toolkit';
 
 import userReducer from './slices/userSlice';
 import uiReducer from './slices/uiSlice';
@@ -6,9 +6,9 @@ import uiReducer from './slices/uiSlice';
 export const store = configureStore({
   reducer: {
     user: userReducer,
-    ui: uiReducer
+    ui: uiReducer,
   },
-  devTools: true
+  devTools: true,
 });
 
 export type RootState = ReturnType<typeof store.getState>;

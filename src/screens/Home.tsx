@@ -1,15 +1,20 @@
 /* eslint-disable react-native/no-inline-styles */
-import React from 'react';
-import {Dimensions, ScrollView, StyleSheet, Text, View} from 'react-native';
+import React, {useState} from 'react';
+import {Dimensions, StyleSheet, ScrollView, View} from 'react-native';
 import {FlatList} from 'react-native-gesture-handler';
 
-import Container, {StatusBarStyle} from '../components/Container';
-import Banner from '../components/core/home/Banner';
-import CardCategory from '../components/core/home/CardCategory';
-import CardTopProduct from '../components/core/home/CardTopProduct';
+import Container from '../components/Container';
+import OfferCard from '../components/core/home/OfferCard';
+import CategoryCard from '../components/core/home/CategoryCard';
+import CardSlide from '../components/core/home/CardSlide';
+import TopProductCard from '../components/core/home/TopProductCard';
+import CategoryItem from '../components/core/home/CategoryItem';
+import ProductCard from '../components/core/home/ProductCard';
 import SquareImage from '../components/core/home/SquareImage';
+import SectionHome from '../components/SectionHome';
 
 const dummyList: any[] = [
+  {id: 0},
   {id: 1},
   {id: 2},
   {id: 3},
@@ -20,8 +25,15 @@ const dummyList: any[] = [
   {id: 8},
 ];
 
+const categories: any[] = [
+  {id: 0, text: 'Destacados'},
+  {id: 1, text: 'Categorías'},
+  {id: 2, text: 'Zona oulet'},
+  {id: 4, text: 'Mesa'},
+];
+
 const calcTileDimensions = (deviceWidth: number, tpr: number) => {
-  const margin = deviceWidth / (tpr * 10);
+  const margin = deviceWidth / (tpr * 20);
   const size = (deviceWidth - margin * (tpr * 2)) / tpr;
   return {size, margin};
 };
@@ -29,21 +41,43 @@ const calcTileDimensions = (deviceWidth: number, tpr: number) => {
 const {width} = Dimensions.get('window');
 
 const Home: React.FC = () => {
+  const [categorySelected, setCategory] = useState('Destacados');
   const mosaicDimensions = calcTileDimensions(width - 64, 3);
-  const categoriesDimensions = calcTileDimensions(width - 64, 2);
+  const {size: sizeCategoty, margin: marginCategory} = calcTileDimensions(
+    width - 64,
+    2,
+  );
 
   return (
-    <Container statusBarStyle={StatusBarStyle.DARK}>
-      <ScrollView style={{flex: 1, marginTop: 24}}>
+    <Container>
+      <View style={{flexDirection: 'row'}}>
+        <FlatList
+          horizontal
+          showsHorizontalScrollIndicator={false}
+          data={categories}
+          renderItem={({item}: any) => (
+            <View key={item.id} style={{marginRight: 28}}>
+              <CategoryItem
+                isSelected={item.text === categorySelected}
+                label={item.text}
+                onPress={() => setCategory(item.text)}
+              />
+            </View>
+          )}
+          keyExtractor={item => item.id}
+        />
+      </View>
+      <ScrollView
+        showsVerticalScrollIndicator={false}
+        style={{flex: 1, marginTop: 24}}>
         <FlatList
           horizontal
           showsHorizontalScrollIndicator={false}
           data={dummyList}
           renderItem={() => (
             <View style={{marginRight: 12}}>
-              <Banner
-                containerStyle={{height: 168}}
-                uri="https://static.promodescuentos.com/threads/thread_full_screen/default/605758_1.jpg"
+              <OfferCard
+                source={require('../assets/images/dummy/banner1.png')}
               />
             </View>
           )}
@@ -51,7 +85,7 @@ const Home: React.FC = () => {
         />
         <View
           style={{
-            marginTop: 24,
+            marginTop: 10,
             paddingTop: 24,
             justifyContent: 'flex-start',
             flexWrap: 'wrap',
@@ -62,7 +96,7 @@ const Home: React.FC = () => {
             <View key={item?.id} style={{marginBottom: 16}}>
               <SquareImage
                 background="#f60"
-                uri="https://cdn1.coppel.com/images/catalog/pm/3631213-1.jpg"
+                source={require('../assets/images/dummy/square1.jpg')}
                 styleText={{color: 'black', fontSize: 17}}
                 {...mosaicDimensions}
               />
@@ -70,51 +104,42 @@ const Home: React.FC = () => {
           ))}
         </View>
         <View style={{marginTop: 24}}>
-          <Banner
-            containerStyle={{height: 168}}
-            uri="https://static.promodescuentos.com/threads/thread_full_screen/default/605758_1.jpg"
+          <OfferCard
+            height="auto"
+            source={require('../assets/images/dummy/banner2.png')}
           />
         </View>
-        <View style={{marginTop: 24}}>
-          <Text style={{color: '#002855', fontSize: 18, fontWeight: 'bold'}}>
-            Para tu Recamara
-          </Text>
+
+        <SectionHome title="para tu recámara">
           <View
             style={{
-              marginTop: 24,
               justifyContent: 'flex-start',
               flexWrap: 'wrap',
               flexDirection: 'row',
             }}>
             {dummyList.map((item: any) => (
-              <View key={item?.id} style={{marginBottom: 16}}>
-                <CardCategory
-                  uri="https://cdn1.coppel.com/images/catalog/pm/3631213-1.jpg"
+              <View
+                key={item?.id}
+                style={{marginBottom: 16, marginLeft: marginCategory}}>
+                <CategoryCard
+                  source={require('../assets/images/dummy/bed1.png')}
                   label="Ropa de Cama"
-                  {...categoriesDimensions}
+                  size={sizeCategoty}
                 />
               </View>
             ))}
           </View>
-        </View>
-        <View style={{marginTop: 24}}>
-          <Text
-            style={{
-              color: '#002855',
-              fontSize: 18,
-              fontWeight: 'bold',
-              marginBottom: 24,
-            }}>
-            Top Recamaras
-          </Text>
+        </SectionHome>
+
+        <SectionHome title="top recamaras" seeAllRight>
           <FlatList
             horizontal
             showsHorizontalScrollIndicator={false}
             data={dummyList}
             renderItem={() => (
               <View style={{marginRight: 12}}>
-                <CardTopProduct
-                  url="https://i.pinimg.com/550x/1e/c6/0a/1ec60af568738098aaa52570ac3e6d58.jpg"
+                <TopProductCard
+                  source={require('../assets/images/dummy/bed2.png')}
                   description="Set de colcha matrimonial/queen…"
                   price="3,679.00"
                   onPress={() => {}}
@@ -123,12 +148,9 @@ const Home: React.FC = () => {
             )}
             keyExtractor={item => item.id}
           />
-        </View>
+        </SectionHome>
 
-        <View style={{marginTop: 24}}>
-          <Text style={{color: '#002855', fontSize: 18, fontWeight: 'bold'}}>
-            Exclisivas de la tienda
-          </Text>
+        <SectionHome title="exclusivas de la tienda" seeAllBottom>
           <View
             style={{
               marginTop: 24,
@@ -137,16 +159,19 @@ const Home: React.FC = () => {
               flexDirection: 'row',
             }}>
             {dummyList.map((item: any) => (
-              <View key={item?.id} style={{marginBottom: 16}}>
-                <CardCategory
-                  uri="https://i.pinimg.com/550x/1e/c6/0a/1ec60af568738098aaa52570ac3e6d58.jpg"
+              <View
+                key={item?.id}
+                style={{marginBottom: 16, marginLeft: marginCategory}}>
+                <CategoryCard
+                  source={require('../assets/images/dummy/bathroom.png')}
                   label="Ropa de Cama"
-                  {...categoriesDimensions}
+                  size={sizeCategoty}
                 />
               </View>
             ))}
           </View>
-        </View>
+        </SectionHome>
+
         <View>
           <FlatList
             horizontal
@@ -154,33 +179,27 @@ const Home: React.FC = () => {
             data={dummyList}
             renderItem={() => (
               <View style={{marginRight: 12}}>
-                <Banner
-                  containerStyle={{height: 168}}
-                  uri="https://static.promodescuentos.com/threads/thread_full_screen/default/605758_1.jpg"
+                <OfferCard
+                  source={require('../assets/images/dummy/banner3.png')}
                 />
               </View>
             )}
             keyExtractor={item => item.id}
           />
         </View>
-        <View style={{marginTop: 24}}>
-          <Text
-            style={{
-              color: '#002855',
-              fontSize: 18,
-              fontWeight: 'bold',
-              marginBottom: 24,
-            }}>
-            Te recomendamos
-          </Text>
+        <SectionHome title="destacados" seeAllRight>
+          <CardSlide />
+        </SectionHome>
+
+        <SectionHome title="te recomendamos" seeAllRight>
           <FlatList
             horizontal
             showsHorizontalScrollIndicator={false}
             data={dummyList}
             renderItem={() => (
               <View style={{marginRight: 12}}>
-                <CardTopProduct
-                  url="https://http2.mlstatic.com/D_NQ_NP_2X_692765-MLM43500269825_092020-F.webp"
+                <TopProductCard
+                  source={require('../assets/images/dummy/bed2.png')}
                   description="Escurridor para trastes de acero…"
                   price="3,679.00"
                   onPress={() => {}}
@@ -189,7 +208,27 @@ const Home: React.FC = () => {
             )}
             keyExtractor={item => item.id}
           />
+        </SectionHome>
+
+        <View style={{marginTop: 24}}>
+          <OfferCard
+            height="auto"
+            source={require('../assets/images/dummy/banner4.png')}
+          />
         </View>
+
+        <SectionHome title="ofertas" seeAllRight>
+          <CardSlide />
+        </SectionHome>
+
+        <SectionHome title="más comprados" seeAllRight>
+          {dummyList.map(item => (
+            <View key={item.id}>
+              <ProductCard />
+            </View>
+          ))}
+        </SectionHome>
+
         <View>
           <FlatList
             horizontal
@@ -197,19 +236,16 @@ const Home: React.FC = () => {
             data={dummyList}
             renderItem={() => (
               <View style={{marginRight: 12}}>
-                <Banner
-                  containerStyle={{height: 168}}
-                  uri="https://static.promodescuentos.com/threads/thread_full_screen/default/605758_1.jpg"
+                <OfferCard
+                  source={require('../assets/images/dummy/banner5.png')}
                 />
               </View>
             )}
             keyExtractor={item => item.id}
           />
         </View>
-        <View style={{marginTop: 24}}>
-          <Text style={{color: '#002855', fontSize: 18, fontWeight: 'bold'}}>
-            Categorías
-          </Text>
+
+        <SectionHome title="categorías" seeAllBottom>
           <View
             style={{
               marginTop: 24,
@@ -218,16 +254,18 @@ const Home: React.FC = () => {
               flexDirection: 'row',
             }}>
             {dummyList.map((item: any) => (
-              <View key={item?.id} style={{marginBottom: 16}}>
-                <CardCategory
-                  uri="https://cdn.shopify.com/s/files/1/2217/4155/products/cocina-kioto-2M-mdc10146_1400x.png?v=1598826403"
+              <View
+                key={item?.id}
+                style={{marginBottom: 16, marginRight: marginCategory}}>
+                <CategoryCard
+                  source={require('../assets/images/dummy/home.png')}
                   label="Cocinas"
-                  {...categoriesDimensions}
+                  size={sizeCategoty}
                 />
               </View>
             ))}
           </View>
-        </View>
+        </SectionHome>
       </ScrollView>
     </Container>
   );

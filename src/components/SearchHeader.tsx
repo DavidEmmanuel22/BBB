@@ -1,18 +1,17 @@
-import React, { useRef, useEffect } from 'react';
-import { View, TextInput, StyleSheet } from 'react-native';
-import { StackHeaderProps } from '@react-navigation/stack';
+import React, {useRef, useEffect} from 'react';
+import {View, TextInput, StyleSheet} from 'react-native';
+import {StackHeaderProps} from '@react-navigation/stack';
 
-import Container, { StatusBarStyle } from './Container';
+import Container, {StatusBarStyle} from './Container';
 import Icon from './Icon';
-import { DARK, BLUE, WHITE, LIGHTER_GRAY2 } from '../constants/colors';
-import { EFFRA } from '../constants/fonts';
-
+import {DARK, BLUE, WHITE, LIGHTER_GRAY2} from '../constants/colors';
+import {EFFRA} from '../constants/fonts';
 
 interface IProps extends StackHeaderProps {
-  close?: boolean
+  close?: boolean;
 }
 
-const SearchHeader: React.FC<IProps> = ({ close = false, ...props }) => {
+const SearchHeader: React.FC<IProps> = ({close = false, ...props}) => {
   const searchInputRef = useRef<any>(null);
 
   useEffect(() => {
@@ -32,8 +31,7 @@ const SearchHeader: React.FC<IProps> = ({ close = false, ...props }) => {
       <Container
         scroll={false}
         contentWrapperStyles={styles.wrapper}
-        statusBarStyle={StatusBarStyle.LIGHT}
-      >
+        statusBarStyle={StatusBarStyle.LIGHT}>
         <View style={styles.formGroup}>
           <Icon
             name="search-icon"
@@ -64,7 +62,7 @@ const SearchHeader: React.FC<IProps> = ({ close = false, ...props }) => {
             style={styles.cartIcon}
             onPress={() => {}}
           />
-          { close &&
+          {close && (
             <Icon
               name="cross-icon"
               size={22}
@@ -72,21 +70,22 @@ const SearchHeader: React.FC<IProps> = ({ close = false, ...props }) => {
               style={styles.crossIcon}
               onPress={() => {}}
             />
-          }
+          )}
         </View>
       </Container>
     </View>
-  )
+  );
 };
 
 const styles = StyleSheet.create({
   container: {
     backgroundColor: BLUE,
-    height: 96
+    height: 75,
   },
   wrapper: {
     flexDirection: 'row',
-    flex: 0
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   formGroup: {
     flex: 1,
@@ -101,12 +100,12 @@ const styles = StyleSheet.create({
     paddingLeft: 36,
     paddingRight: 36,
     borderRadius: 18,
-    width: '100%'
+    width: '100%',
   },
   icon: {
     position: 'absolute',
     top: 9,
-    zIndex: 1
+    zIndex: 1,
   },
   searchIcon: {
     left: 14,
@@ -118,11 +117,11 @@ const styles = StyleSheet.create({
   headerRight: {
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'space-between'
+    justifyContent: 'space-between',
   },
   cartIcon: {},
   crossIcon: {
-    marginLeft: 10
+    marginLeft: 10,
   },
 });
 

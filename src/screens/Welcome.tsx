@@ -1,10 +1,9 @@
 import React from 'react';
-import { View, StyleSheet, ImageBackground, Dimensions } from 'react-native';
+import {View, StyleSheet, ImageBackground, Dimensions} from 'react-native';
 
 import Text from '../components/Text';
-import { BLUE, WHITE } from '../constants/colors';
-import { TERMINABOLD } from '../constants/fonts';
-
+import {BLUE, WHITE} from '../constants/colors';
+import {TERMINABOLD} from '../constants/fonts';
 
 const Welcome: React.FC = () => {
   return (
@@ -12,19 +11,26 @@ const Welcome: React.FC = () => {
       <ImageBackground
         source={require('../assets/images/welcome_bg.png')}
         resizeMode="cover"
-        style={styles.backgroundImage}
-      >
+        style={styles.backgroundImage}>
         <View>
-          <Text color={WHITE} size={26}>hola</Text>
-          <Text color={WHITE} size={28} style={styles.username}>ruby green,</Text>
-          <View style={{ alignItems: 'flex-end' }}>
-            <Text color={WHITE} size={22}>te damos</Text>
-            <Text color={WHITE} size={22}>la bienvenida</Text>
+          <Text color={WHITE} size={26}>
+            hola
+          </Text>
+          <Text color={WHITE} size={28} style={styles.username}>
+            ruby green,
+          </Text>
+          <View style={{alignItems: 'flex-end'}}>
+            <Text color={WHITE} size={22}>
+              te damos
+            </Text>
+            <Text color={WHITE} size={22}>
+              la bienvenida
+            </Text>
           </View>
         </View>
       </ImageBackground>
     </View>
-  )
+  );
 };
 
 const styles = StyleSheet.create({
@@ -36,11 +42,11 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     height: Dimensions.get('screen').height,
     justifyContent: 'center',
-    width: Dimensions.get('screen').width
+    width: Dimensions.get('screen').width,
   },
   username: {
-    fontFamily: TERMINABOLD
-  }
+    fontFamily: TERMINABOLD,
+  },
 });
 
 export default Welcome;

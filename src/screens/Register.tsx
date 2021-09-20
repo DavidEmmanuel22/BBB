@@ -1,52 +1,32 @@
 import React from 'react';
-import { ScrollView, View, StyleSheet } from 'react-native';
+import {ScrollView, View, StyleSheet} from 'react-native';
 
 import Container from '../components/Container';
-import Title, { HEADING, POSITION } from '../components/Title';
+import Title, {HEADING, POSITION} from '../components/Title';
 import Input from '../components/Input';
 import Button from '../components/Button';
 import SocialButtons from '../components/SocialButtons';
-import Text from '../components/Text';
 import LoginRegisterDisclaimer from '../components/LoginRegisterDisclaimer';
 
-
 const Register: React.FC = () => {
-
   return (
     <ScrollView
       contentContainerStyle={styles.container}
-      contentInsetAdjustmentBehavior="automatic"
-    >
+      contentInsetAdjustmentBehavior="automatic">
       <Container>
-        <Title
-          heading={HEADING.H2}
-          position={POSITION.CENTER}
-        >
+        <Title heading={HEADING.H2} position={POSITION.CENTER}>
           crear cuenta
         </Title>
 
         <View style={styles.inputsContainer}>
-          <Input
-            label="Nombre"
-          />
-          <Input
-            label="Apellidos"
-          />
-          <Input
-            label="Correo electrónico"
-            keyboardType='email-address'
-          />
-          <Input
-            label="Contraseña"
-            secureTextEntry={true}
-          />
+          <Input label="Nombre" />
+          <Input label="Apellidos" />
+          <Input label="Correo electrónico" keyboardType="email-address" />
+          <Input label="Contraseña" secureTextEntry={true} />
         </View>
 
         <View style={styles.buttonsContainer}>
-          <Button
-            title="Continuar"
-            onPress={() => {}}
-          />
+          <Button title="Continuar" onPress={() => {}} />
         </View>
 
         <SocialButtons />
@@ -57,16 +37,15 @@ const Register: React.FC = () => {
   );
 };
 
-
 const styles = StyleSheet.create({
   container: {
-    minHeight: '100%'
+    minHeight: '100%',
   },
   inputsContainer: {
     marginTop: 24,
-    marginBottom: 24
+    marginBottom: 24,
   },
-  buttonsContainer: {}
+  buttonsContainer: {},
 });
 
 export default Register;

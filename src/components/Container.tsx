@@ -8,58 +8,55 @@ import {
   useColorScheme,
 } from 'react-native';
 
-import { BLUE, WHITE } from '../constants/colors';
-
 export enum StatusBarStyle {
   LIGHT = 'light',
-  DARK = 'dark'
-};
+  DARK = 'dark',
+}
 
 interface IProps {
   scroll?: Boolean;
   containerStyles?: object;
   contentWrapperStyles?: object;
   statusBarStyle?: StatusBarStyle;
-  children:
-    JSX.Element
-    | JSX.Element[];
-};
+  children: JSX.Element | JSX.Element[];
+}
 
 const Container: React.FC<IProps> = ({
   scroll = false,
   children,
   statusBarStyle = StatusBarStyle.DARK,
   containerStyles = {},
-  contentWrapperStyles = {}
+  contentWrapperStyles = {},
 }) => {
-  const isDarkMode = useColorScheme() === 'dark' || statusBarStyle === StatusBarStyle.DARK;
+  const isDarkMode =
+    useColorScheme() === 'dark' || statusBarStyle === StatusBarStyle.DARK;
 
   const content = (
-    <SafeAreaView style={[{ flex: 1 }, contentWrapperStyles]}>
+    <SafeAreaView style={[{flex: 1}, contentWrapperStyles]}>
       <StatusBar barStyle={isDarkMode ? 'dark-content' : 'light-content'} />
-      { children }
+      {children}
     </SafeAreaView>
   );
 
-  return (
-    scroll
-      ? <ScrollView
-          contentContainerStyle={[styles.container, containerStyles]}
-          contentInsetAdjustmentBehavior="automatic"
-        >
-          {content}
-        </ScrollView>
-      : <View style={styles.container}>{ content }</View>
+  return scroll ? (
+    <ScrollView
+      showsVerticalScrollIndicator={false}
+      showsHorizontalScrollIndicator={false}
+      contentContainerStyle={[styles.container, containerStyles]}
+      contentInsetAdjustmentBehavior="automatic">
+      {content}
+    </ScrollView>
+  ) : (
+    <View style={styles.container}>{content}</View>
   );
 };
-
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     paddingRight: 32,
-    paddingLeft: 32
-  }
+    paddingLeft: 32,
+  },
 });
 
 export default Container;

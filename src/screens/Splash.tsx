@@ -1,10 +1,9 @@
-import React, { useRef, useEffect, useState } from 'react';
-import { Modal, View, Animated, Dimensions, StyleSheet } from 'react-native';
-import { useDispatch, useSelector } from 'react-redux';
+import React, {useRef, useEffect, useState} from 'react';
+import {Modal, View, Animated, Dimensions, StyleSheet} from 'react-native';
+import {useDispatch, useSelector} from 'react-redux';
 
-import { BLUE } from '../constants/colors';
-import { initialize, selectUIInitialized } from '../store/slices/uiSlice';
-
+import {BLUE} from '../constants/colors';
+import {initialize, selectUIInitialized} from '../store/slices/uiSlice';
 
 const images = [
   require('../assets/images/splash/Pattern1.png'),
@@ -12,26 +11,26 @@ const images = [
   require('../assets/images/splash/Pattern3.png'),
   require('../assets/images/splash/Pattern4.png'),
   require('../assets/images/splash/Pattern5.png'),
-  require('../assets/images/splash/Pattern6.png')
+  require('../assets/images/splash/Pattern6.png'),
 ];
 
 const opacityStartAnim = (
   startVal: Animated.Value,
   endValNumber: number,
   duration: number,
-  delay: number
+  delay: number,
 ) => {
   Animated.timing(startVal, {
     toValue: endValNumber,
     duration,
     delay,
-    useNativeDriver: true
+    useNativeDriver: true,
   }).start(() => {
     startVal.setValue(1);
     Animated.timing(startVal, {
       toValue: 0,
       duration: duration + 300,
-      useNativeDriver: true
+      useNativeDriver: true,
     }).start();
   });
 };
@@ -47,7 +46,7 @@ const Splash: React.FC = () => {
     useRef(new Animated.Value(0)).current,
     useRef(new Animated.Value(0)).current,
     useRef(new Animated.Value(0)).current,
-    useRef(new Animated.Value(0)).current
+    useRef(new Animated.Value(0)).current,
   ];
   const logoStartAnim = useRef(new Animated.Value(0)).current;
   const endAnimNumber = 1;
@@ -65,7 +64,7 @@ const Splash: React.FC = () => {
       toValue: endAnimNumber,
       duration: 3000,
       delay: duration * animStartAnims.length,
-      useNativeDriver: true
+      useNativeDriver: true,
     }).start(() => {
       setTimeout(() => {
         setHasAnimationPlayedOnce(true);
@@ -75,23 +74,19 @@ const Splash: React.FC = () => {
   }, []);
 
   return (
-    <Modal
-      visible={!hasAnimationPlayedOnce}
-      animationType="fade"
-    >
+    <Modal visible={!hasAnimationPlayedOnce} animationType="fade">
       <View style={styles.container}>
-        { animStartAnims.map((startAnim, index) => (
-            <Animated.Image
-              key={`image${index}`}
-              source={images[index]}
-              resizeMode="cover"
-              style={[styles.image, { opacity: startAnim }]}
-            />
-          ))
-        }
+        {animStartAnims.map((startAnim, index) => (
+          <Animated.Image
+            key={`image${index}`}
+            source={images[index]}
+            resizeMode="cover"
+            style={[styles.image, {opacity: startAnim}]}
+          />
+        ))}
         <Animated.Image
           source={require('../assets/images/splash/BBB.png')}
-          style={[styles.logo, { opacity: logoStartAnim }]}
+          style={[styles.logo, {opacity: logoStartAnim}]}
         />
       </View>
     </Modal>
@@ -103,7 +98,7 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: BLUE,
     alignItems: 'center',
-    justifyContent: 'center'
+    justifyContent: 'center',
   },
   image: {
     backgroundColor: BLUE,
@@ -112,12 +107,12 @@ const styles = StyleSheet.create({
     position: 'absolute',
     top: 0,
     left: 0,
-    zIndex: 1
+    zIndex: 1,
   },
   logo: {
     height: 64,
-    width: 200
-  }
+    width: 200,
+  },
 });
 
 export default Splash;

@@ -1,22 +1,20 @@
 import React from 'react';
 import {ImageBackground, StyleSheet, Text, View} from 'react-native';
 import Button from '../../Button';
-import Favorite from '../../icons/Favorit';
+import Favorite from '../../../assets/icons/Favorit';
 
-type CardTopProduct = {
-  url: string;
+type TopProduct = {
+  source: any;
   description: string;
   price: string;
   onPress: () => void;
 };
 
-const CardTopProduct = ({url, description, price, onPress}: CardTopProduct) => {
+const TopProductCard = ({source, description, price, onPress}: TopProduct) => {
   return (
     <View style={styles.container}>
       <ImageBackground
-        source={{
-          uri: url,
-        }}
+        source={source}
         resizeMode="cover"
         style={[styles.imgProduct, styles.positionIconFavorite]}>
         <Favorite />
@@ -34,7 +32,7 @@ const CardTopProduct = ({url, description, price, onPress}: CardTopProduct) => {
   );
 };
 
-export default CardTopProduct;
+export default TopProductCard;
 
 const styles = StyleSheet.create({
   containerDescription: {
@@ -43,6 +41,7 @@ const styles = StyleSheet.create({
   description: {
     textAlign: 'center',
     color: '#212529',
+    fontFamily: 'Effra',
     fontWeight: '400',
     fontSize: 15,
     marginTop: 12,
@@ -51,6 +50,7 @@ const styles = StyleSheet.create({
   price: {
     fontSize: 14,
     fontWeight: 'bold',
+    fontFamily: 'Effra',
     color: '#1a4e8a',
   },
   container: {
@@ -60,7 +60,7 @@ const styles = StyleSheet.create({
     borderStyle: 'solid',
     height: 280,
     padding: 8,
-    width: 200,
+    width: 170,
     borderRadius: 4,
   },
   positionIconFavorite: {

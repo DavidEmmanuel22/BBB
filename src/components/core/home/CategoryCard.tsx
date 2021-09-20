@@ -1,43 +1,47 @@
 import React from 'react';
 import {Image, StyleSheet, View, Text} from 'react-native';
 
-type CardCategoryProps = {
-  uri: string;
+type CategoryProps = {
+  uri?: string;
   label: string;
   width?: string | number;
   height?: string | number;
   size?: number;
-  margin?: number;
+  source?: any;
 };
 
-const CardCategory = ({
+const CategoryCard = ({
   uri,
-  margin,
+  source,
   size,
   label,
   width,
   height,
-}: CardCategoryProps) => {
+}: CategoryProps) => {
   const image: any = uri ? {uri: uri} : undefined;
+  const media = image || source;
 
   return (
     <View
       style={{
         width: width || size,
         height: height || size,
-        marginHorizontal: margin,
       }}>
-      <View style={{flex: 1, marginBottom: 18}}>
-        <Image style={styles.image} source={image} />
+      <View style={styles.containerImage}>
+        <Image style={styles.image} source={media} />
       </View>
       <Text style={styles.text}>{label}</Text>
     </View>
   );
 };
 
-export default CardCategory;
+export default CategoryCard;
 
 const styles = StyleSheet.create({
+  containerImage: {
+    flex: 1,
+    marginBottom: 18,
+  },
   image: {
     flex: 1,
     width: undefined,
@@ -48,6 +52,7 @@ const styles = StyleSheet.create({
   text: {
     fontSize: 15,
     color: '#1a4e8a',
+    fontFamily: 'Effra',
     fontWeight: 'bold',
   },
 });
