@@ -5,6 +5,9 @@ import Login from '../screens/Login';
 import Welcome from '../screens/Welcome';
 import Register from '../screens/Register';
 import { WHITE } from '../constants/colors';
+import { MyAccount } from '../screens/MyAccount';
+import { Profile } from '../screens/Profile';
+import { NewPassword } from '../screens/NewPassword';
 
 const Stack = createStackNavigator();
 
@@ -21,6 +24,10 @@ const LoginStackNavigator = () => {
       <Stack.Screen name="Index" component={Login} />
       <Stack.Screen name="Register" component={Register} />
       <Stack.Screen name="Welcome" component={Welcome} />
+      <Stack.Screen name="MyAccount" component={MyAccount} />
+      <Stack.Screen name="Profile" component={Profile} />
+      <Stack.Screen name="NewPassword" component={NewPassword} />
+      
     </Stack.Navigator>
   );
 };
