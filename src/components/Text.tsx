@@ -1,40 +1,36 @@
 import React from 'react';
-import { Text as NativeText, StyleSheet } from 'react-native';
+import {Text as NativeText, StyleSheet} from 'react-native';
 
-import { DARK } from '../constants/colors';
-import { EFFRA } from '../constants/fonts';
+import {DARK} from '../constants/colors';
+import {EFFRA} from '../constants/fonts';
 
 interface IProps {
-  children:
-      JSX.Element
-    | JSX.Element[]
-    | string;
+  children: JSX.Element | JSX.Element[] | string;
   onPress?(): void;
   size?: number;
   style?: object;
-  color?: string
-};
+  color?: string;
+}
 
 const Text: React.FC<IProps> = ({
   children,
   size = 16,
   style = {},
   color = DARK,
-  onPress = undefined
+  onPress = undefined,
+  medium,
 }) => {
   const stylesObj = {
     ...styles.text,
     fontSize: size,
+    fontWeight: medium ? '600' : '400',
     color,
-    ...style
+    ...style,
   };
 
   return (
-    <NativeText
-      style={stylesObj}
-      onPress={onPress}
-    >
-      { children }
+    <NativeText style={stylesObj} onPress={onPress}>
+      {children}
     </NativeText>
   );
 };
@@ -42,9 +38,9 @@ const Text: React.FC<IProps> = ({
 const styles = StyleSheet.create({
   text: {
     fontFamily: EFFRA,
-    fontWeight: '400',
-    letterSpacing: 0.8
-  }
+
+    letterSpacing: 0.8,
+  },
 });
 
 export default Text;

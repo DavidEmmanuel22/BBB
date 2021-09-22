@@ -12,13 +12,13 @@
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		195F7CC9E4B4E8E7121647B4 /* libPods-bedBadAndBeyond.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D9BDFBB5299924FDE3F7C6B7 /* libPods-bedBadAndBeyond.a */; };
-		2C0F997D26DF140B00313E6E /* icomoon.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2C0F997C26DF13FF00313E6E /* icomoon.ttf */; };
 		2C10806626D5F75700FEE379 /* Effra_Bd.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2C10806326D5F74600FEE379 /* Effra_Bd.ttf */; };
 		2C10806726D5F75700FEE379 /* Effra_Lt.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2C10806226D5F74600FEE379 /* Effra_Lt.ttf */; };
 		2C10806826D5F75700FEE379 /* Effra_Rg.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2C10806426D5F74600FEE379 /* Effra_Rg.ttf */; };
 		2C10806926D5F75700FEE379 /* TerminaW05-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2C10806526D5F74600FEE379 /* TerminaW05-Bold.ttf */; };
 		5A74D5BF5230776D6C2E2263 /* libPods-bedBadAndBeyond-bedBadAndBeyondTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 652BDCB5D2A0A5BB02D5D602 /* libPods-bedBadAndBeyond-bedBadAndBeyondTests.a */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
+		90557C7626F1929700BCF2F9 /* icomoon.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 90557C7526F1929700BCF2F9 /* icomoon.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -42,7 +42,6 @@
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = bedBadAndBeyond/Info.plist; sourceTree = "<group>"; };
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = bedBadAndBeyond/main.m; sourceTree = "<group>"; };
 		22DC1B277780769B92964A71 /* Pods-bedBadAndBeyond.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-bedBadAndBeyond.release.xcconfig"; path = "Target Support Files/Pods-bedBadAndBeyond/Pods-bedBadAndBeyond.release.xcconfig"; sourceTree = "<group>"; };
-		2C0F997C26DF13FF00313E6E /* icomoon.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = icomoon.ttf; path = ../../../../../Downloads/icomoon/fonts/icomoon.ttf; sourceTree = "<group>"; };
 		2C10806226D5F74600FEE379 /* Effra_Lt.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = Effra_Lt.ttf; path = ../../android/app/src/main/assets/fonts/Effra_Lt.ttf; sourceTree = "<group>"; };
 		2C10806326D5F74600FEE379 /* Effra_Bd.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = Effra_Bd.ttf; path = ../../android/app/src/main/assets/fonts/Effra_Bd.ttf; sourceTree = "<group>"; };
 		2C10806426D5F74600FEE379 /* Effra_Rg.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = Effra_Rg.ttf; path = ../../android/app/src/main/assets/fonts/Effra_Rg.ttf; sourceTree = "<group>"; };
@@ -51,6 +50,7 @@
 		7FE6898EE35283B60229B1C6 /* Pods-bedBadAndBeyond.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-bedBadAndBeyond.debug.xcconfig"; path = "Target Support Files/Pods-bedBadAndBeyond/Pods-bedBadAndBeyond.debug.xcconfig"; sourceTree = "<group>"; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = bedBadAndBeyond/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		85E81C2FA43C21F27BBC84C1 /* Pods-bedBadAndBeyond-bedBadAndBeyondTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-bedBadAndBeyond-bedBadAndBeyondTests.debug.xcconfig"; path = "Target Support Files/Pods-bedBadAndBeyond-bedBadAndBeyondTests/Pods-bedBadAndBeyond-bedBadAndBeyondTests.debug.xcconfig"; sourceTree = "<group>"; };
+		90557C7526F1929700BCF2F9 /* icomoon.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = icomoon.ttf; path = "../../../../Downloads/bbb-develop/ios/Resources/icomoon.ttf"; sourceTree = "<group>"; };
 		D9BDFBB5299924FDE3F7C6B7 /* libPods-bedBadAndBeyond.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-bedBadAndBeyond.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E17A4C9820ABECB61B2D794A /* Pods-bedBadAndBeyond-bedBadAndBeyondTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-bedBadAndBeyond-bedBadAndBeyondTests.release.xcconfig"; path = "Target Support Files/Pods-bedBadAndBeyond-bedBadAndBeyondTests/Pods-bedBadAndBeyond-bedBadAndBeyondTests.release.xcconfig"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
@@ -109,7 +109,7 @@
 		2C7B5D2B26D2D67200CEF6C2 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				2C0F997C26DF13FF00313E6E /* icomoon.ttf */,
+				90557C7526F1929700BCF2F9 /* icomoon.ttf */,
 				2C10806326D5F74600FEE379 /* Effra_Bd.ttf */,
 				2C10806226D5F74600FEE379 /* Effra_Lt.ttf */,
 				2C10806426D5F74600FEE379 /* Effra_Rg.ttf */,
@@ -182,7 +182,6 @@
 				00E356EA1AD99517003FC87E /* Sources */,
 				00E356EB1AD99517003FC87E /* Frameworks */,
 				00E356EC1AD99517003FC87E /* Resources */,
-				8488A2610F5F4E5915D557C2 /* [CP] Embed Pods Frameworks */,
 				F90C7CD18E33FEF7A8EAE0C0 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
@@ -205,7 +204,6 @@
 				13B07F8C1A680F5B00A75B9A /* Frameworks */,
 				13B07F8E1A680F5B00A75B9A /* Resources */,
 				00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */,
-				00E4FF9D97D8896D6C26E768 /* [CP] Embed Pods Frameworks */,
 				C13F00A3B62DA9AD159F0B71 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
@@ -265,8 +263,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2C0F997D26DF140B00313E6E /* icomoon.ttf in Resources */,
 				2C10806626D5F75700FEE379 /* Effra_Bd.ttf in Resources */,
+				90557C7626F1929700BCF2F9 /* icomoon.ttf in Resources */,
 				2C10806726D5F75700FEE379 /* Effra_Lt.ttf in Resources */,
 				2C10806826D5F75700FEE379 /* Effra_Rg.ttf in Resources */,
 				2C10806926D5F75700FEE379 /* TerminaW05-Bold.ttf in Resources */,
@@ -291,40 +289,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "set -e\n\nexport NODE_BINARY=node\n../node_modules/react-native/scripts/react-native-xcode.sh\n";
-		};
-		00E4FF9D97D8896D6C26E768 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-bedBadAndBeyond/Pods-bedBadAndBeyond-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-bedBadAndBeyond/Pods-bedBadAndBeyond-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-bedBadAndBeyond/Pods-bedBadAndBeyond-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		8488A2610F5F4E5915D557C2 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-bedBadAndBeyond-bedBadAndBeyondTests/Pods-bedBadAndBeyond-bedBadAndBeyondTests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-bedBadAndBeyond-bedBadAndBeyondTests/Pods-bedBadAndBeyond-bedBadAndBeyondTests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-bedBadAndBeyond-bedBadAndBeyondTests/Pods-bedBadAndBeyond-bedBadAndBeyondTests-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
 		};
 		C13F00A3B62DA9AD159F0B71 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
