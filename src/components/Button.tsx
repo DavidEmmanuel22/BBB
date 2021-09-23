@@ -9,7 +9,10 @@ import {
 
 import {PRIMARY_BLUE, LIGHTER_GRAY, DARK, WHITE} from '../constants/colors';
 
-export type BUTTONTYPE = 'PRIMARY' | 'SECONDARY';
+export enum BUTTONTYPE {
+  PRIMARY = 'PRIMARY',
+  SECONDARY = 'SECONDARY',
+}
 
 enum ICON_POSITION {
   LEFT = 'LEFT',
@@ -36,10 +39,12 @@ const Button: React.FC<IProps> = ({
 }) => {
   const buttonTypeStyles = () => {
     switch (type) {
-      case 'PRIMARY':
+      case BUTTONTYPE.PRIMARY:
         return [styles.primary, styles.primaryText];
-      case 'SECONDARY':
+      case BUTTONTYPE.SECONDARY:
         return [styles.secondary, styles.secondaryText];
+      default:
+        return [styles.primary, styles.primaryText];
     }
   };
 
