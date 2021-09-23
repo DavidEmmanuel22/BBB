@@ -121,7 +121,7 @@ const Home: React.FC = () => {
             </View>
           ))}
         </View>
-        <View>
+        <View style={{marginTop: 12}}>
           <OfferCard
             height={80}
             source={require('../assets/images/dummy/banner2.png')}
@@ -193,7 +193,7 @@ const Home: React.FC = () => {
           </View>
         </SectionHome>
 
-        <View>
+        <View style={{marginTop: 12}}>
           <FlatList
             horizontal
             showsHorizontalScrollIndicator={false}
@@ -251,7 +251,7 @@ const Home: React.FC = () => {
           ))}
         </SectionHome>
 
-        <View>
+        <View style={{marginTop: 12}}>
           <FlatList
             horizontal
             showsHorizontalScrollIndicator={false}

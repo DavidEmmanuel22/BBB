@@ -23,7 +23,7 @@ const SectionHome = ({
         </Text>
         {seeAllRight && (
           <View style={styles.redirect}>
-            <Text style={styles.title2}>Ver Todo</Text>
+            <Text style={styles.title2}>Ver todo</Text>
             <FontAwesomeIcon color="#147cd1" icon="chevron-right" />
           </View>
         )}
@@ -31,7 +31,7 @@ const SectionHome = ({
       <View>{children}</View>
       {seeAllBottom && (
         <View style={styles.redirect}>
-          <Text style={styles.title2}>Ver Todo</Text>
+          <Text style={styles.title2}>Ver todo</Text>
           <FontAwesomeIcon color="#147cd1" icon="chevron-right" />
         </View>
       )}
@@ -43,6 +43,7 @@ export default SectionHome;
 const styles = StyleSheet.create({
   container: {
     marginTop: 12,
+    marginBottom: 12,
   },
   redirect: {
     flexDirection: 'row',
@@ -59,7 +60,7 @@ const styles = StyleSheet.create({
     color: '#147cd1',
   },
   containerTitle: {
-    marginBottom: 22,
+    marginBottom: 12,
     flexDirection: 'row',
     justifyContent: 'space-between',
   },

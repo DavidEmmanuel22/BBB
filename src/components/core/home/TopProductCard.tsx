@@ -15,7 +15,6 @@ const TopProductCard = ({source, description, price, onPress}: TopProduct) => {
     <View style={styles.container}>
       <ImageBackground
         source={source}
-        resizeMode="cover"
         style={[styles.imgProduct, styles.positionIconFavorite]}>
         <Favorite />
       </ImageBackground>
@@ -72,6 +71,7 @@ const styles = StyleSheet.create({
   imgProduct: {
     margin: 8,
     flex: 1,
-    resizeMode: 'contain',
+    alignSelf: 'center',
+    aspectRatio: 1 / 1,
   },
 });
