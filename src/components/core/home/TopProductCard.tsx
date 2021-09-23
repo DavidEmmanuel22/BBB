@@ -2,6 +2,7 @@ import React from 'react';
 import {ImageBackground, StyleSheet, Text, View} from 'react-native';
 import Button from '../../Button';
 import Favorite from '../../../assets/icons/Favorit';
+import {LIGHTER_GRAY} from '../../../constants/colors';
 
 type TopProduct = {
   source: any;
@@ -54,7 +55,7 @@ const styles = StyleSheet.create({
   },
   container: {
     flexDirection: 'column',
-    borderColor: '#e9ecef',
+    borderColor: LIGHTER_GRAY,
     borderWidth: 1,
     borderStyle: 'solid',
     height: 280,

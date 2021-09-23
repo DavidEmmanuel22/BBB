@@ -1,5 +1,6 @@
 import React from 'react';
 import {Image, StyleSheet, Text, View} from 'react-native';
+import {LIGHTER_GRAY} from '../../../constants/colors';
 
 const ProductCard = () => {
   return (
@@ -31,7 +32,7 @@ const styles = StyleSheet.create({
     height: 103,
     flexDirection: 'row',
     borderBottomWidth: 1,
-    borderColor: '#e9ecef',
+    borderColor: LIGHTER_GRAY,
     marginBottom: 12,
     alignItems: 'center',
   },
