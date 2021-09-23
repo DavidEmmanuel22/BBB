@@ -9,7 +9,7 @@ const CategoryList: React.FC<IProps> = ({data}) => {
   return (
     <FlatList
       keyExtractor={(item, index) => 'key' + index}
-      renderItem={() => <CategoryCard data={[]} />}
+      renderItem={({item}) => <CategoryCard data={item} />}
       data={data}
     />
   );

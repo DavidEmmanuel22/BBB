@@ -5,83 +5,87 @@ import Text from '../Text';
 import {Div} from 'react-native-magnus';
 import Icon from 'react-native-vector-icons/Ionicons';
 import {getHeight, getWidth} from '../../utils/interfaceDimentions';
-import {BLUE, LIGHTER_GRAY3} from '../../constants/colors';
+import {BLUE, BRAND_BLUE, LIGHTER_GRAY3, WHITE} from '../../constants/colors';
 
+interface Data {
+  name: string;
+  children_data: any;
+}
 interface IProps {
-  data: Array<any>;
+  data: Data;
 }
 
 import {useRef, useState} from 'react';
 import {Animated, Easing, View} from 'react-native';
-import SubCategoryList from './subCategoryList';
-const AnimateBox: React.FC<IProps> = ({data}) => {
-  console.log(data);
-  const subCategories = ['Utencilios', 'LLaver', 'otroe'];
-  const opacity = useRef(new Animated.Value(0)).current;
-  const height = useRef(new Animated.Value(0)).current;
-  const [show, setShow] = useState(false);
-  const showCategory = () => {
-    setShow(!show);
-    Animated.timing(height, {
-      toValue: show ? 0 : 1,
-      duration: 400,
-      easing: Easing.linear,
-      useNativeDriver: false, // <-- neccessary
-    }).start(() => {
-      Animated.timing(opacity, {
-        toValue: show ? 0 : 1,
-        duration: 400,
-        easing: Easing.linear,
-        useNativeDriver: false, // <-- neccessary
-      }).start();
-    });
-  };
+import SubCategoryList from './SubCategoryList';
+import {
+  Collapse,
+  CollapseHeader,
+  CollapseBody,
+} from 'accordion-collapse-react-native';
 
-  const maxHeight = height.interpolate({
-    inputRange: [0, 1],
-    outputRange: [0, 1000], // <-- value that larger than your content's height
-  });
+const AnimateBox: React.FC<IProps> = ({data}) => {
+  const {name, children_data} = data;
+  const [show, setShow] = useState(false);
 
   return (
-    <View>
-      <TouchableOpacity onPress={showCategory}>
-        <Div h={getWidth(120)} alignItems="center" row style={styles.card}>
-          <Image
-            resizeMode="cover"
-            style={styles.image}
-            source={{
-              uri: 'https://64.media.tumblr.com/efaa470a462601bee5a49f46115eb755/tumblr_inline_olu4x55Kjg1u0e4qb_400.jpg',
-            }}
-          />
-          <Text
-            style={{marginLeft: getWidth(16)}}
-            color={BLUE}
-            size={getWidth(20)}>
-            Cocina
-          </Text>
+    <Collapse
+      onToggle={(isCollapse: boolean) => {
+        setShow(isCollapse);
+      }}>
+      {/* Header del panel que se colapsa */}
+      <CollapseHeader>
+        <Div
+          bg={show ? BRAND_BLUE : LIGHTER_GRAY3}
+          mt={getHeight(12)}
+          h={getWidth(120)}
+          alignItems="center"
+          row>
+          {/* La imagen se quita cuando se muestran las sub categorías */}
+          {!show && (
+            <Image
+              resizeMode="cover"
+              style={styles.image}
+              source={{
+                uri: 'https://64.media.tumblr.com/efaa470a462601bee5a49f46115eb755/tumblr_inline_olu4x55Kjg1u0e4qb_400.jpg',
+              }}
+            />
+          )}
+          <Div>
+            <Text
+              style={{marginLeft: getWidth(16)}}
+              color={show ? WHITE : BLUE}
+              size={getWidth(20)}>
+              {name}
+            </Text>
+            {show && (
+              <Text
+                style={{marginLeft: getWidth(16)}}
+                color={WHITE}
+                size={getWidth(14)}>
+                Encuentra todo lo que necesites para tu espacio favorito.
+              </Text>
+            )}
+          </Div>
           <Div flex={1} alignItems="flex-end">
             <Icon
               style={{marginRight: getWidth(16)}}
-              color={BLUE}
+              color={show ? WHITE : BLUE}
               size={getWidth(20)}
               name="chevron-down-outline"
             />
           </Div>
         </Div>
-      </TouchableOpacity>
-
-      <Animated.View style={{opacity: opacity, maxHeight: maxHeight}}>
-        <SubCategoryList data={subCategories} />
-      </Animated.View>
-    </View>
+      </CollapseHeader>
+      {/* Lista de categorías que se colapsa */}
+      <CollapseBody>
+        <SubCategoryList data={children_data} />
+      </CollapseBody>
+    </Collapse>
   );
 };
 
 const styles = StyleSheet.create({
-  card: {
-    backgroundColor: LIGHTER_GRAY3,
-    marginTop: getHeight(12),
-  },
   image: {
     width: getHeight(120),
     height: '100%',
