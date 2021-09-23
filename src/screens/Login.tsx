@@ -42,7 +42,10 @@ const Login: React.FC<IProps> = ({navigation}) => {
       </View>
 
       <View style={styles.buttonsContainer}>
-        <Button title="Iniciar sesión" onPress={() => {}} />
+        <Button
+          title="Iniciar sesión"
+          onPress={() => navigation.navigate('MyAccount')}
+        />
         <Button
           title="Crear cuenta"
           onPress={() => navigation.navigate('Register')}

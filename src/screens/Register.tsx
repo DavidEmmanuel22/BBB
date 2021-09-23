@@ -1,5 +1,5 @@
+import { ScrollView, View, StyleSheet, StatusBar } from 'react-native';
 import React from 'react';
-import {ScrollView, View, StyleSheet} from 'react-native';
 
 import Container from '../components/Container';
 import Title, {HEADING, POSITION} from '../components/Title';
@@ -10,6 +10,7 @@ import LoginRegisterDisclaimer from '../components/LoginRegisterDisclaimer';
 
 const Register: React.FC = () => {
   return (
+    
     <ScrollView
       contentContainerStyle={styles.container}
       contentInsetAdjustmentBehavior="automatic">
@@ -17,6 +18,8 @@ const Register: React.FC = () => {
         <Title heading={HEADING.H2} position={POSITION.CENTER}>
           crear cuenta
         </Title>
+      <StatusBar
+        backgroundColor="white" />
 
         <View style={styles.inputsContainer}>
           <Input label="Nombre" />

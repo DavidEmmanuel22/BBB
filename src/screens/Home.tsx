@@ -33,9 +33,21 @@ const categories: any[] = [
 ];
 
 const calcTileDimensions = (deviceWidth: number, tpr: number) => {
-  const margin = deviceWidth / (tpr * 20);
-  const size = (deviceWidth - margin * (tpr * 2)) / tpr;
+  const margin = deviceWidth / (tpr * 10);
+  const size = (deviceWidth - margin * (tpr * 1)) / tpr;
   return {size, margin};
+};
+
+const marginByPosition = (
+  position: number,
+  tpr: number,
+  marginSize: number,
+) => {
+  let margin = 'marginLeft';
+  if (position % tpr === 0) {
+    margin = 'marginRight';
+  }
+  return {[margin]: marginSize};
 };
 
 const {width} = Dimensions.get('window');
@@ -77,6 +89,7 @@ const Home: React.FC = () => {
           renderItem={() => (
             <View style={{marginRight: 12}}>
               <OfferCard
+                height={180}
                 source={require('../assets/images/dummy/banner1.png')}
               />
             </View>
@@ -92,20 +105,25 @@ const Home: React.FC = () => {
             flexDirection: 'row',
             backgroundColor: '#fff7ec',
           }}>
-          {dummyList.map(item => (
-            <View key={item?.id} style={{marginBottom: 16}}>
+          {dummyList.map((item: any, index: number) => (
+            <View
+              key={item?.id}
+              style={{
+                marginBottom: 16,
+                ...marginByPosition(index, 3, mosaicDimensions?.margin),
+              }}>
               <SquareImage
                 background="#f60"
                 source={require('../assets/images/dummy/square1.jpg')}
                 styleText={{color: 'black', fontSize: 17}}
-                {...mosaicDimensions}
+                size={mosaicDimensions?.size}
               />
             </View>
           ))}
         </View>
-        <View style={{marginTop: 24}}>
+        <View>
           <OfferCard
-            height="auto"
+            height={80}
             source={require('../assets/images/dummy/banner2.png')}
           />
         </View>
@@ -117,10 +135,13 @@ const Home: React.FC = () => {
               flexWrap: 'wrap',
               flexDirection: 'row',
             }}>
-            {dummyList.map((item: any) => (
+            {dummyList.map((item: any, index: number) => (
               <View
                 key={item?.id}
-                style={{marginBottom: 16, marginLeft: marginCategory}}>
+                style={{
+                  marginBottom: 16,
+                  ...marginByPosition(index, 2, marginCategory),
+                }}>
                 <CategoryCard
                   source={require('../assets/images/dummy/bed1.png')}
                   label="Ropa de Cama"
@@ -180,6 +201,7 @@ const Home: React.FC = () => {
             renderItem={() => (
               <View style={{marginRight: 12}}>
                 <OfferCard
+                  height={100}
                   source={require('../assets/images/dummy/banner3.png')}
                 />
               </View>
@@ -212,7 +234,7 @@ const Home: React.FC = () => {
 
         <View style={{marginTop: 24}}>
           <OfferCard
-            height="auto"
+            height={150}
             source={require('../assets/images/dummy/banner4.png')}
           />
         </View>
@@ -237,6 +259,7 @@ const Home: React.FC = () => {
             renderItem={() => (
               <View style={{marginRight: 12}}>
                 <OfferCard
+                  height={120}
                   source={require('../assets/images/dummy/banner5.png')}
                 />
               </View>

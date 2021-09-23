@@ -40,7 +40,7 @@ export default CategoryCard;
 const styles = StyleSheet.create({
   containerImage: {
     flex: 1,
-    marginBottom: 18,
+    marginBottom: 4,
   },
   image: {
     flex: 1,
@@ -48,6 +48,7 @@ const styles = StyleSheet.create({
     height: undefined,
     justifyContent: 'center',
     alignItems: 'center',
+    resizeMode: 'stretch',
   },
   text: {
     fontSize: 15,

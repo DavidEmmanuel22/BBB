@@ -6,14 +6,12 @@ type OfferProps = {
   height?: number | string;
 };
 
-const {width: wWidth, height: wHeight} = Dimensions.get('window');
+const {width, height: h} = Dimensions.get('window');
 
-const OfferCard = ({source, height}: OfferProps) => {
+const OfferCard = ({source, height = h / 4}: OfferProps) => {
   return (
-    <View style={[styles.container, {height: height}]}>
-      <View style={{flex: 1}}>
-        <Image style={styles.image} source={source} />
-      </View>
+    <View style={[styles.container, {height}]}>
+      <Image style={styles.image} source={source} />
     </View>
   );
 };
@@ -21,13 +19,12 @@ const OfferCard = ({source, height}: OfferProps) => {
 export default OfferCard;
 const styles = StyleSheet.create({
   container: {
-    height: wHeight / 3,
-    width: wWidth - 62,
+    width: width - 62,
   },
   image: {
-    width: '100%',
+    width: undefined,
     height: undefined,
-    aspectRatio: 135 / 76,
-    resizeMode: 'contain',
+    flex: 1,
+    resizeMode: 'stretch',
   },
 });
