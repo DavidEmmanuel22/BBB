@@ -15,11 +15,11 @@ export const uiSlice = createSlice({
   name: 'ui',
   initialState,
   reducers: {
-    initialize: () => ({
-      initialized: true,
-    }),
     changeSelect(state, action: PayloadAction<string>) {
       state.homeSelect = action.payload;
+    },
+    initialize(state) {
+      state.initialized = true;
     },
   },
 });

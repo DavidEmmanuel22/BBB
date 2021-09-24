@@ -1,7 +1,7 @@
 import React from 'react';
 import {FlatList} from 'react-native';
 
-import CategoryCard from './CategoryCard';
+import CategoryCard from './categoryCard';
 interface IProps {
   data: Array<any>;
 }

@@ -3,7 +3,7 @@ import {StyleSheet} from 'react-native';
 import {NavigationProp} from '@react-navigation/core';
 
 import Container, {StatusBarStyle} from '../components/Container';
-import CategoryList from '../components/categories/CategoryList';
+import CategoryList from '../components/categories/categoryList';
 import {getWidth} from '../utils/interfaceDimentions';
 
 interface IProps {

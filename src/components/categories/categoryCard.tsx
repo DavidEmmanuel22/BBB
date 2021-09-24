@@ -15,9 +15,9 @@ interface IProps {
   data: Data;
 }
 
-import {useRef, useState} from 'react';
-import {Animated, Easing, View} from 'react-native';
-import SubCategoryList from './SubCategoryList';
+import {useState} from 'react';
+
+import SubCategoryList from './subCategoryList';
 import {
   Collapse,
   CollapseHeader,
