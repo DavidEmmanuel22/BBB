@@ -1,5 +1,5 @@
 /* eslint-disable react-native/no-inline-styles */
-import React from 'react';
+import React, { useState } from 'react';
 import {Dimensions, StyleSheet, ScrollView, View} from 'react-native';
 import {FlatList} from 'react-native-gesture-handler';
 
@@ -12,6 +12,7 @@ import ProductCard from '../components/core/home/ProductCard';
 import SquareImage from '../components/core/home/SquareImage';
 import SectionHome from '../components/SectionHome';
 import {NavigationProp} from '@react-navigation/core';
+import CategoryItem from '../components/core/home/CategoryItem';
 
 const dummyList: any[] = [
   {id: 0},
@@ -25,6 +26,13 @@ const dummyList: any[] = [
   {id: 8},
 ];
 
+const categories: any[] = [
+  {id: 0, text: 'Destacados'},
+  {id: 1, text: 'Categorías'},
+  {id: 2, text: 'Zona oulet'},
+  {id: 4, text: 'Mesa'},
+];
+
 const calcTileDimensions = (deviceWidth: number, tpr: number) => {
   const margin = deviceWidth / (tpr * 10);
   const size = (deviceWidth - margin * (tpr * 2)) / tpr;
@@ -36,6 +44,7 @@ interface IProps {
   navigation: NavigationProp<any, any>;
 }
 const Home: React.FC<IProps> = ({navigation}) => {
+  const [categorySelected, setCategory] = useState('Destacados');
   const mosaicDimensions = calcTileDimensions(width - 64, 3);
   const {size: sizeCategoty, margin: marginCategory} = calcTileDimensions(
     width - 64,
@@ -47,6 +56,24 @@ const Home: React.FC<IProps> = ({navigation}) => {
       <ScrollView
         showsVerticalScrollIndicator={false}
         style={{flex: 1, marginTop: 24}}>
+        <View style={{marginBottom: 12, flexDirection: 'row'}}>
+          <FlatList
+            horizontal
+            showsHorizontalScrollIndicator={false}
+            data={categories}
+            renderItem={({item}: any) => (
+              <View key={item.id} style={{marginRight: 28}}>
+                <CategoryItem
+                  isSelected={item.text === categorySelected}
+                  label={item.text}
+                  onPress={() => setCategory(item.text)}
+                />
+              </View>
+            )}
+            keyExtractor={item => item.id}
+          />
+        </View>
+
         <FlatList
           horizontal
           showsHorizontalScrollIndicator={false}
@@ -54,7 +81,7 @@ const Home: React.FC<IProps> = ({navigation}) => {
           renderItem={() => (
             <View style={{marginRight: 12}}>
               <OfferCard
-                height={180}
+                height={width / 2.5}
                 source={require('../assets/images/dummy/banner1.png')}
               />
             </View>
