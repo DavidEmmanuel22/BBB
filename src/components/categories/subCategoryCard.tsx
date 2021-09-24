@@ -1,8 +1,7 @@
 import React from 'react';
-import {StyleSheet, FlatList} from 'react-native';
+import {View, FlatList} from 'react-native';
 
 import Text from '../Text';
-import {Div} from 'react-native-magnus';
 import Icon from 'react-native-vector-icons/Ionicons';
 import {getHeight, getWidth} from '../../utils/interfaceDimentions';
 import {BLUE, PRIMARY_BLUE} from '../../constants/colors';
@@ -22,14 +21,21 @@ const AnimateBox: React.FC<IProps> = ({item}) => {
   // Sub-sub categoría
   const InnerCategory: React.FC<IProps> = ({item}) => {
     return (
-      <Div row alignItems="center" py={getHeight(8)}>
+      <View
+        style={{
+          flexDirection: 'row',
+          alignItems: 'center',
+          paddingVertical: getHeight(8),
+        }}>
         {/* Un dot para cada categoría */}
-        <Div
-          h={getWidth(6)}
-          w={getWidth(6)}
-          ml={getWidth(12)}
-          rounded={getWidth(3)}
-          style={{backgroundColor: BLUE}}
+        <View
+          style={{
+            backgroundColor: BLUE,
+            height: getHeight(6),
+            width: getWidth(6),
+            marginLeft: getWidth(12),
+            borderRadius: getWidth(3),
+          }}
         />
         <Text
           style={{marginLeft: getWidth(14)}}
@@ -37,30 +43,37 @@ const AnimateBox: React.FC<IProps> = ({item}) => {
           size={getWidth(16)}>
           {item.name}
         </Text>
-      </Div>
+      </View>
     );
   };
   return (
-    <Div
-      borderBottomColor={PRIMARY_BLUE}
-      borderBottomWidth={getHeight(show ? 1 : 0.3)}>
+    <View
+      style={{
+        borderBottomColor: PRIMARY_BLUE,
+        borderBottomWidth: getHeight(show ? 1 : 0.3),
+      }}>
       <Collapse
         onToggle={(isCollapse: boolean) => {
           setShow(isCollapse);
         }}>
         <CollapseHeader>
-          <Div py={getHeight(15)} alignItems="center" row>
+          <View
+            style={{
+              paddingVertical: getHeight(15),
+              alignItems: 'center',
+              flexDirection: 'row',
+            }}>
             <Text medium={true} color={BLUE} size={getWidth(16)}>
               {item.name}
             </Text>
-            <Div flex={1} alignItems="flex-end">
+            <View style={{flex: 1, alignItems: 'flex-end'}}>
               <Icon
                 color={BLUE}
                 size={getWidth(20)}
                 name="chevron-down-outline"
               />
-            </Div>
-          </Div>
+            </View>
+          </View>
         </CollapseHeader>
         <CollapseBody>
           <FlatList
@@ -70,7 +83,7 @@ const AnimateBox: React.FC<IProps> = ({item}) => {
           />
         </CollapseBody>
       </Collapse>
-    </Div>
+    </View>
   );
 };
 

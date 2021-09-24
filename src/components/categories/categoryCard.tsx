@@ -1,8 +1,7 @@
 import React from 'react';
-import {StyleSheet, Image, TouchableOpacity} from 'react-native';
+import {StyleSheet, Image, View} from 'react-native';
 
 import Text from '../Text';
-import {Div} from 'react-native-magnus';
 import Icon from 'react-native-vector-icons/Ionicons';
 import {getHeight, getWidth} from '../../utils/interfaceDimentions';
 import {BLUE, BRAND_BLUE, LIGHTER_GRAY3, WHITE} from '../../constants/colors';
@@ -35,12 +34,14 @@ const AnimateBox: React.FC<IProps> = ({data}) => {
       }}>
       {/* Header del panel que se colapsa */}
       <CollapseHeader>
-        <Div
-          bg={show ? BRAND_BLUE : LIGHTER_GRAY3}
-          mt={getHeight(12)}
-          h={getWidth(120)}
-          alignItems="center"
-          row>
+        <View
+          style={{
+            backgroundColor: show ? BRAND_BLUE : LIGHTER_GRAY3,
+            marginTop: getHeight(12),
+            height: getHeight(120),
+            alignItems: 'center',
+            flexDirection: 'row',
+          }}>
           {/* La imagen se quita cuando se muestran las sub categorías */}
           {!show && (
             <Image
@@ -51,7 +52,7 @@ const AnimateBox: React.FC<IProps> = ({data}) => {
               }}
             />
           )}
-          <Div>
+          <View>
             <Text
               style={{marginLeft: getWidth(16)}}
               color={show ? WHITE : BLUE}
@@ -66,16 +67,16 @@ const AnimateBox: React.FC<IProps> = ({data}) => {
                 Encuentra todo lo que necesites para tu espacio favorito.
               </Text>
             )}
-          </Div>
-          <Div flex={1} alignItems="flex-end">
+          </View>
+          <View style={{flex: 1, alignItems: 'flex-end'}}>
             <Icon
               style={{marginRight: getWidth(16)}}
               color={show ? WHITE : BLUE}
               size={getWidth(20)}
               name="chevron-down-outline"
             />
-          </Div>
-        </Div>
+          </View>
+        </View>
       </CollapseHeader>
       {/* Lista de categorías que se colapsa */}
       <CollapseBody>
