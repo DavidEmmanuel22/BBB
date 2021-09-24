@@ -52,7 +52,7 @@ const AnimateBox: React.FC<IProps> = ({data}) => {
               }}
             />
           )}
-          <View style={{flex: 2}}>
+          <View style={{flex: 1}}>
             <Text
               style={{marginLeft: getWidth(16)}}
               color={show ? WHITE : BLUE}
@@ -68,7 +68,7 @@ const AnimateBox: React.FC<IProps> = ({data}) => {
               </Text>
             )}
           </View>
-          <View style={{flex: 1, alignItems: 'flex-end'}}>
+          <View style={{width: getWidth(40), alignItems: 'flex-end'}}>
             <Icon
               style={{marginRight: getWidth(16)}}
               color={show ? WHITE : BLUE}

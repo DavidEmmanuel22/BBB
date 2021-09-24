@@ -130,7 +130,7 @@ const styles = StyleSheet.create({
     backgroundColor: WHITE,
     fontFamily: EFFRA,
     fontSize: getWidth(16),
-    height: getWidth(35),
+    height: getWidth(40),
     paddingLeft: getWidth(36),
     paddingRight: getWidth(36),
     borderRadius: getWidth(15),
@@ -138,14 +138,13 @@ const styles = StyleSheet.create({
   },
   icon: {
     position: 'absolute',
-    top: getHeight(9),
+    top: getWidth(12),
     zIndex: 1,
   },
   searchIcon: {
     left: getWidth(14),
   },
   barcodeIcon: {
-    top: getHeight(10),
     right: getWidth(16),
   },
   headerRight: {
