@@ -56,7 +56,6 @@ interface IProps {
   navigation: NavigationProp<any, any>;
 }
 const Home: React.FC<IProps> = ({navigation}) => {
-  const [categorySelected, setCategory] = useState('Destacados');
   const mosaicDimensions = calcTileDimensions(width - 64, 3);
   const {size: sizeCategoty, margin: marginCategory} = calcTileDimensions(
     width - 64,
@@ -65,26 +64,6 @@ const Home: React.FC<IProps> = ({navigation}) => {
 
   return (
     <Container>
-      <View style={{flexDirection: 'row'}}>
-        <FlatList
-          horizontal
-          showsHorizontalScrollIndicator={false}
-          data={categories}
-          renderItem={({item}: any) => (
-            <View key={item.id} style={{marginRight: 28}}>
-              <CategoryItem
-                isSelected={item.text === categorySelected}
-                label={item.text}
-                onPress={() => {
-                  navigation.navigate(item?.nameNav);
-                  setCategory(item.text);
-                }}
-              />
-            </View>
-          )}
-          keyExtractor={item => item.id}
-        />
-      </View>
       <ScrollView
         showsVerticalScrollIndicator={false}
         style={{flex: 1, marginTop: 24}}>
