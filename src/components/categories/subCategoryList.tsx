@@ -3,7 +3,7 @@ import {FlatList} from 'react-native';
 import {LIGHTER_BLUE} from '../../constants/colors';
 import {getWidth} from '../../utils/interfaceDimentions';
 
-import SubCategoryCard from './subCategoryCard';
+import SubCategoryCard from './SubCategoryCard';
 interface IProps {
   data: Array<any>;
 }
