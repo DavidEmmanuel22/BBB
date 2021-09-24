@@ -52,7 +52,7 @@ const AnimateBox: React.FC<IProps> = ({data}) => {
               }}
             />
           )}
-          <View>
+          <View style={{flex: 2}}>
             <Text
               style={{marginLeft: getWidth(16)}}
               color={show ? WHITE : BLUE}

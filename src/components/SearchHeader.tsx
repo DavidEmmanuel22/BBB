@@ -130,7 +130,7 @@ const styles = StyleSheet.create({
     backgroundColor: WHITE,
     fontFamily: EFFRA,
     fontSize: getWidth(16),
-    height: getHeight(30),
+    height: getWidth(35),
     paddingLeft: getWidth(36),
     paddingRight: getWidth(36),
     borderRadius: getWidth(15),
