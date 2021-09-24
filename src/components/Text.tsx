@@ -39,7 +39,6 @@ const Text: React.FC<IProps> = ({
 const styles = StyleSheet.create({
   text: {
     fontFamily: EFFRA,
-
     letterSpacing: 0.8,
   },
 });

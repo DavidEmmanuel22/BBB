@@ -42,6 +42,8 @@ const Container: React.FC<IProps> = ({
 
   return scroll ? (
     <ScrollView
+      showsVerticalScrollIndicator={false}
+      showsHorizontalScrollIndicator={false}
       contentContainerStyle={[styles.container, containerStyles]}
       contentInsetAdjustmentBehavior="automatic">
       {content}

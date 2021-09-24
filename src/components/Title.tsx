@@ -1,14 +1,14 @@
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import {View, Text, StyleSheet} from 'react-native';
 
-import { DARKER_BLUE } from '../constants/colors';
-import { TERMINABOLD } from '../constants/fonts';
+import {DARKER_BLUE} from '../constants/colors';
+import {TERMINABOLD} from '../constants/fonts';
 
 export enum POSITION {
   LEFT = 'LEFT',
   CENTER = 'CENTER',
-  RIGHT = 'RIGHT'
-};
+  RIGHT = 'RIGHT',
+}
 
 export enum HEADING {
   H1 = 'H1',
@@ -16,63 +16,63 @@ export enum HEADING {
   H3 = 'H3',
   H4 = 'H4',
   H5 = 'H5',
-  H6 = 'H6'
-};
+  H6 = 'H6',
+}
 
 interface IProps {
-  children:
-      JSX.Element
-      | JSX.Element[]
-      | string;
-  heading?: HEADING,
-  position?: POSITION
-};
+  children: JSX.Element | JSX.Element[] | string;
+  heading?: HEADING;
+  position?: POSITION;
+}
 
 const Title: React.FC<IProps> = ({
   children,
   heading = HEADING.H1,
-  position = POSITION.LEFT
+  position = POSITION.LEFT,
 }) => {
   // @ts-ignore
   const headingStyles = styles[heading.toLowerCase()];
   // @ts-ignore
   const positionStyles = styles[position.toLowerCase()];
 
-  return <View style={styles.wrapper}>
-      <Text style={{
+  return (
+    <View style={styles.wrapper}>
+      <Text
+        style={{
           ...styles.title,
           ...headingStyles,
-          ...positionStyles
-      }}>
-          { children }
+          ...positionStyles,
+        }}>
+        {children}
       </Text>
-  </View>;
+    </View>
+  );
 };
 
 const styles = StyleSheet.create({
   wrapper: {
-    marginTop: 12
+    marginTop: 12,
   },
   title: {
     color: DARKER_BLUE,
     fontFamily: TERMINABOLD,
-    lineHeight: 28
+    lineHeight: 28,
   },
   left: {
-    textAlign: 'left'
+    textAlign: 'left',
   },
   center: {
-    textAlign: 'center'
+    textAlign: 'center',
   },
   right: {
-    textAlign: 'right'
+    textAlign: 'right',
   },
   h1: {
-    fontSize: 24
+    fontSize: 24,
   },
   h2: {
-    fontSize: 20
-  }
+    fontSize: 20,
+  },
 });
 
 export default Title;
