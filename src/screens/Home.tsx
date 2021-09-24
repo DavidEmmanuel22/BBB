@@ -1,5 +1,5 @@
 /* eslint-disable react-native/no-inline-styles */
-import React, {useState} from 'react';
+import React from 'react';
 import {Dimensions, StyleSheet, ScrollView, View} from 'react-native';
 import {FlatList} from 'react-native-gesture-handler';
 
@@ -8,7 +8,6 @@ import OfferCard from '../components/core/home/OfferCard';
 import CategoryCard from '../components/core/home/CategoryCard';
 import CardSlide from '../components/core/home/CardSlide';
 import TopProductCard from '../components/core/home/TopProductCard';
-import CategoryItem from '../components/core/home/CategoryItem';
 import ProductCard from '../components/core/home/ProductCard';
 import SquareImage from '../components/core/home/SquareImage';
 import SectionHome from '../components/SectionHome';
@@ -26,29 +25,10 @@ const dummyList: any[] = [
   {id: 8},
 ];
 
-const categories: any[] = [
-  {id: 0, text: 'Destacados', nameNav: 'Categories'},
-  {id: 1, text: 'Categorías', nameNav: 'Categories'},
-  {id: 2, text: 'Zona oulet', nameNav: 'Categories'},
-  {id: 4, text: 'Mesa', nameNav: 'Categories'},
-];
-
 const calcTileDimensions = (deviceWidth: number, tpr: number) => {
   const margin = deviceWidth / (tpr * 10);
-  const size = (deviceWidth - margin * (tpr * 1)) / tpr;
+  const size = (deviceWidth - margin * (tpr * 2)) / tpr;
   return {size, margin};
-};
-
-const marginByPosition = (
-  position: number,
-  tpr: number,
-  marginSize: number,
-) => {
-  let margin = 'marginLeft';
-  if (position % tpr === 0) {
-    margin = 'marginRight';
-  }
-  return {[margin]: marginSize};
 };
 
 const {width} = Dimensions.get('window');
@@ -90,18 +70,17 @@ const Home: React.FC<IProps> = ({navigation}) => {
             flexDirection: 'row',
             backgroundColor: '#fff7ec',
           }}>
-          {dummyList.map((item: any, index: number) => (
+          {dummyList.map((item: any) => (
             <View
               key={item?.id}
               style={{
                 marginBottom: 16,
-                ...marginByPosition(index, 3, mosaicDimensions?.margin),
               }}>
               <SquareImage
                 background="#f60"
                 source={require('../assets/images/dummy/square1.jpg')}
                 styleText={{color: 'black', fontSize: 17}}
-                size={mosaicDimensions?.size}
+                {...mosaicDimensions}
               />
             </View>
           ))}
@@ -120,12 +99,12 @@ const Home: React.FC<IProps> = ({navigation}) => {
               flexWrap: 'wrap',
               flexDirection: 'row',
             }}>
-            {dummyList.map((item: any, index: number) => (
+            {dummyList.map((item: any) => (
               <View
                 key={item?.id}
                 style={{
                   marginBottom: 16,
-                  ...marginByPosition(index, 2, marginCategory),
+                  marginHorizontal: marginCategory,
                 }}>
                 <CategoryCard
                   source={require('../assets/images/dummy/bed1.png')}
@@ -167,7 +146,7 @@ const Home: React.FC<IProps> = ({navigation}) => {
             {dummyList.map((item: any) => (
               <View
                 key={item?.id}
-                style={{marginBottom: 16, marginLeft: marginCategory}}>
+                style={{marginBottom: 16, marginHorizontal: marginCategory}}>
                 <CategoryCard
                   source={require('../assets/images/dummy/bathroom.png')}
                   label="Ropa de Cama"
@@ -264,7 +243,7 @@ const Home: React.FC<IProps> = ({navigation}) => {
             {dummyList.map((item: any) => (
               <View
                 key={item?.id}
-                style={{marginBottom: 16, marginRight: marginCategory}}>
+                style={{marginBottom: 16, marginHorizontal: marginCategory}}>
                 <CategoryCard
                   source={require('../assets/images/dummy/home.png')}
                   label="Cocinas"
