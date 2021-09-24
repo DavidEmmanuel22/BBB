@@ -1,5 +1,5 @@
 import React from 'react';
-import {Text as NativeText, StyleSheet} from 'react-native';
+import {Text as NativeText, StyleSheet, TextStyle} from 'react-native';
 
 import {DARK} from '../constants/colors';
 import {EFFRA} from '../constants/fonts';
@@ -10,6 +10,7 @@ interface IProps {
   size?: number;
   style?: object;
   color?: string;
+  medium?: boolean;
 }
 
 const Text: React.FC<IProps> = ({
@@ -18,10 +19,12 @@ const Text: React.FC<IProps> = ({
   style = {},
   color = DARK,
   onPress = undefined,
+  medium = false,
 }) => {
-  const stylesObj = {
+  const stylesObj: TextStyle = {
     ...styles.text,
     fontSize: size,
+    fontWeight: medium ? '600' : '400',
     color,
     ...style,
   };
@@ -36,7 +39,6 @@ const Text: React.FC<IProps> = ({
 const styles = StyleSheet.create({
   text: {
     fontFamily: EFFRA,
-    fontWeight: '400',
     letterSpacing: 0.8,
   },
 });

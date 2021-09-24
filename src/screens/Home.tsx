@@ -12,6 +12,7 @@ import CategoryItem from '../components/core/home/CategoryItem';
 import ProductCard from '../components/core/home/ProductCard';
 import SquareImage from '../components/core/home/SquareImage';
 import SectionHome from '../components/SectionHome';
+import {NavigationProp} from '@react-navigation/core';
 
 const dummyList: any[] = [
   {id: 0},
@@ -26,10 +27,10 @@ const dummyList: any[] = [
 ];
 
 const categories: any[] = [
-  {id: 0, text: 'Destacados'},
-  {id: 1, text: 'Categorías'},
-  {id: 2, text: 'Zona oulet'},
-  {id: 4, text: 'Mesa'},
+  {id: 0, text: 'Destacados', nameNav: 'Categories'},
+  {id: 1, text: 'Categorías', nameNav: 'Categories'},
+  {id: 2, text: 'Zona oulet', nameNav: 'Categories'},
+  {id: 4, text: 'Mesa', nameNav: 'Categories'},
 ];
 
 const calcTileDimensions = (deviceWidth: number, tpr: number) => {
@@ -51,9 +52,10 @@ const marginByPosition = (
 };
 
 const {width} = Dimensions.get('window');
-
-const Home: React.FC = () => {
-  const [categorySelected, setCategory] = useState('Destacados');
+interface IProps {
+  navigation: NavigationProp<any, any>;
+}
+const Home: React.FC<IProps> = ({navigation}) => {
   const mosaicDimensions = calcTileDimensions(width - 64, 3);
   const {size: sizeCategoty, margin: marginCategory} = calcTileDimensions(
     width - 64,
@@ -62,23 +64,6 @@ const Home: React.FC = () => {
 
   return (
     <Container>
-      <View style={{flexDirection: 'row'}}>
-        <FlatList
-          horizontal
-          showsHorizontalScrollIndicator={false}
-          data={categories}
-          renderItem={({item}: any) => (
-            <View key={item.id} style={{marginRight: 28}}>
-              <CategoryItem
-                isSelected={item.text === categorySelected}
-                label={item.text}
-                onPress={() => setCategory(item.text)}
-              />
-            </View>
-          )}
-          keyExtractor={item => item.id}
-        />
-      </View>
       <ScrollView
         showsVerticalScrollIndicator={false}
         style={{flex: 1, marginTop: 24}}>

@@ -8,6 +8,8 @@ import {
   useColorScheme,
 } from 'react-native';
 
+import {BLUE, WHITE} from '../constants/colors';
+
 export enum StatusBarStyle {
   LIGHT = 'light',
   DARK = 'dark',
@@ -47,7 +49,7 @@ const Container: React.FC<IProps> = ({
       {content}
     </ScrollView>
   ) : (
-    <View style={styles.container}>{content}</View>
+    <View style={[styles.container, containerStyles]}>{content}</View>
   );
 };
 
