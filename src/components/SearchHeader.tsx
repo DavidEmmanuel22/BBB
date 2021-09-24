@@ -6,6 +6,7 @@ import Container, {StatusBarStyle} from './Container';
 import Icon from './Icon';
 import {DARK, BLUE, WHITE, LIGHTER_GRAY2} from '../constants/colors';
 import {EFFRA} from '../constants/fonts';
+import {getHeight, getWidth} from '../utils/interfaceDimentions';
 
 interface IProps extends StackHeaderProps {
   close?: boolean;
@@ -80,7 +81,7 @@ const SearchHeader: React.FC<IProps> = ({close = false, ...props}) => {
 const styles = StyleSheet.create({
   container: {
     backgroundColor: BLUE,
-    height: 75,
+    height: getHeight(100),
   },
   wrapper: {
     flexDirection: 'row',
@@ -90,38 +91,38 @@ const styles = StyleSheet.create({
   formGroup: {
     flex: 1,
     position: 'relative',
-    marginRight: 20,
+    marginRight: getWidth(20),
   },
   formControl: {
     backgroundColor: WHITE,
     fontFamily: EFFRA,
-    fontSize: 16,
-    height: 36,
-    paddingLeft: 36,
-    paddingRight: 36,
-    borderRadius: 18,
+    fontSize: getWidth(16),
+    height: getHeight(30),
+    paddingLeft: getWidth(36),
+    paddingRight: getWidth(36),
+    borderRadius: getWidth(15),
     width: '100%',
   },
   icon: {
     position: 'absolute',
-    top: 9,
+    top: getHeight(9),
     zIndex: 1,
   },
   searchIcon: {
-    left: 14,
+    left: getWidth(14),
   },
   barcodeIcon: {
-    top: 10,
-    right: 16,
+    top: getHeight(10),
+    right: getWidth(16),
   },
   headerRight: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
   },
-  cartIcon: {},
+
   crossIcon: {
-    marginLeft: 10,
+    marginLeft: getHeight(10),
   },
 });
 

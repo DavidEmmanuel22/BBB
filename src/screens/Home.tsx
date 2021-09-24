@@ -12,6 +12,7 @@ import CategoryItem from '../components/core/home/CategoryItem';
 import ProductCard from '../components/core/home/ProductCard';
 import SquareImage from '../components/core/home/SquareImage';
 import SectionHome from '../components/SectionHome';
+import {NavigationProp} from '@react-navigation/core';
 
 const dummyList: any[] = [
   {id: 0},
@@ -26,10 +27,10 @@ const dummyList: any[] = [
 ];
 
 const categories: any[] = [
-  {id: 0, text: 'Destacados'},
-  {id: 1, text: 'Categorías'},
-  {id: 2, text: 'Zona oulet'},
-  {id: 4, text: 'Mesa'},
+  {id: 0, text: 'Destacados', nameNav: 'Categories'},
+  {id: 1, text: 'Categorías', nameNav: 'Categories'},
+  {id: 2, text: 'Zona oulet', nameNav: 'Categories'},
+  {id: 4, text: 'Mesa', nameNav: 'Categories'},
 ];
 
 const calcTileDimensions = (deviceWidth: number, tpr: number) => {
@@ -51,8 +52,10 @@ const marginByPosition = (
 };
 
 const {width} = Dimensions.get('window');
-
-const Home: React.FC = () => {
+interface IProps {
+  navigation: NavigationProp<any, any>;
+}
+const Home: React.FC<IProps> = ({navigation}) => {
   const [categorySelected, setCategory] = useState('Destacados');
   const mosaicDimensions = calcTileDimensions(width - 64, 3);
   const {size: sizeCategoty, margin: marginCategory} = calcTileDimensions(
@@ -72,7 +75,10 @@ const Home: React.FC = () => {
               <CategoryItem
                 isSelected={item.text === categorySelected}
                 label={item.text}
-                onPress={() => setCategory(item.text)}
+                onPress={() => {
+                  navigation.navigate(item?.nameNav);
+                  setCategory(item.text);
+                }}
               />
             </View>
           )}

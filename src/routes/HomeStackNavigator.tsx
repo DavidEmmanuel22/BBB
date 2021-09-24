@@ -12,7 +12,7 @@ const Stack = createStackNavigator();
 const HomeStackNavigator = () => {
   return (
     <Stack.Navigator
-      initialRouteName="Categories"
+      initialRouteName="Index"
       screenOptions={{
         header: props => {
           return <SearchHeader {...props} />;
