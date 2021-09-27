@@ -1,8 +1,8 @@
 import React from 'react';
-import {View, Text, StyleSheet, Image} from 'react-native';
+import { View, Text, StyleSheet, Image } from 'react-native';
 
-import Button, {BUTTONTYPE} from '../components/Button';
-import {GRAY2, LIGHTER_GRAY, DARK, PRIMARY_BLUE} from '../constants/colors';
+import Button, { BUTTONTYPE } from '../components/Button';
+import { GRAY2, LIGHTER_GRAY, DARK, PRIMARY_BLUE } from '../constants/colors';
 import Icon from '../components/Icon';
 
 const SocialButtons: React.FC = () => {
@@ -16,7 +16,7 @@ const SocialButtons: React.FC = () => {
 
       <Button
         title="Continuar con Facebook"
-        onPress={() => {}}
+        onPress={() => { }}
         type={BUTTONTYPE.SECONDARY}
         containerStyle={styles.socialButton}
         textStyle={styles.socialButtonText}
@@ -26,16 +26,16 @@ const SocialButtons: React.FC = () => {
       />
       <Button
         title="Continuar con Apple ID"
-        onPress={() => {}}
+        onPress={() => { }}
         type={BUTTONTYPE.SECONDARY}
         containerStyle={styles.socialButton}
         textStyle={styles.socialButtonText}
         icon={() => <Icon name="apple-icon" size={16} />}
-        iconStyle={{marginLeft: -6}}
+        iconStyle={{ marginLeft: -6 }}
       />
       <Button
         title="Continuar con Google"
-        onPress={() => {}}
+        onPress={() => { }}
         type={BUTTONTYPE.SECONDARY}
         containerStyle={styles.socialButton}
         textStyle={styles.socialButtonText}
@@ -45,7 +45,7 @@ const SocialButtons: React.FC = () => {
             source={require('../assets/images/google.png')}
           />
         )}
-        iconStyle={{marginLeft: -10, marginRight: 15}}
+        iconStyle={{ marginLeft: -10, marginRight: 15 }}
       />
     </View>
   );
@@ -57,7 +57,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     marginTop: 24,
-    marginBottom: 14,
+    marginBottom: 14
   },
   sepText: {
     color: GRAY2,
