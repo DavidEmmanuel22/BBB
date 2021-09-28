@@ -10,7 +10,7 @@ interface IProps {
   navigation: NavigationProp<any, any>;
 }
 
-const Login: React.FC<IProps> = ({navigation}) => {
+const Categories: React.FC<IProps> = ({navigation}) => {
   return (
     <Container
       containerStyles={styles.container}
@@ -27,7 +27,7 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Login;
+export default Categories;
 
 const dummy = {
   id: 87,

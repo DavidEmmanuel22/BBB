@@ -3,19 +3,19 @@ import {RootState} from '../';
 
 interface UIState {
   initialized: boolean;
-  homeSelect: string;
+  homeSelect: Number;
 }
 
 const initialState: UIState = {
   initialized: false,
-  homeSelect: 'Destacados',
+  homeSelect: 0,
 };
 
 export const uiSlice = createSlice({
   name: 'ui',
   initialState,
   reducers: {
-    changeSelect(state, action: PayloadAction<string>) {
+    changeSelect(state, action: PayloadAction<Number>) {
       state.homeSelect = action.payload;
     },
     initialize(state) {

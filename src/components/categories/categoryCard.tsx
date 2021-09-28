@@ -22,6 +22,7 @@ import {
   CollapseHeader,
   CollapseBody,
 } from 'accordion-collapse-react-native';
+import {flexGeneric} from '../../utils/stylesGenetic';
 
 const AnimateBox: React.FC<IProps> = ({data}) => {
   const {name, children_data} = data;
@@ -34,14 +35,7 @@ const AnimateBox: React.FC<IProps> = ({data}) => {
       }}>
       {/* Header del panel que se colapsa */}
       <CollapseHeader>
-        <View
-          style={{
-            backgroundColor: show ? BRAND_BLUE : LIGHTER_GRAY3,
-            marginTop: getHeight(12),
-            height: getHeight(120),
-            alignItems: 'center',
-            flexDirection: 'row',
-          }}>
+        <View style={styles.contentCard(show)}>
           {/* La imagen se quita cuando se muestran las sub categorías */}
           {!show && (
             <Image
@@ -52,7 +46,7 @@ const AnimateBox: React.FC<IProps> = ({data}) => {
               }}
             />
           )}
-          <View style={{flex: 1}}>
+          <View style={flexGeneric}>
             <Text
               style={{marginLeft: getWidth(16)}}
               color={show ? WHITE : BLUE}
@@ -68,9 +62,9 @@ const AnimateBox: React.FC<IProps> = ({data}) => {
               </Text>
             )}
           </View>
-          <View style={{width: getWidth(40), alignItems: 'flex-end'}}>
+          <View style={styles.contentIcon}>
             <Icon
-              style={{marginRight: getWidth(16)}}
+              style={styles.leftSpace}
               color={show ? WHITE : BLUE}
               size={getWidth(20)}
               name="chevron-down-outline"
@@ -87,16 +81,29 @@ const AnimateBox: React.FC<IProps> = ({data}) => {
 };
 
 const styles = StyleSheet.create({
+  leftSpace: {
+    marginRight: getWidth(16),
+  },
   image: {
     width: getHeight(120),
     height: '100%',
     resizeMode: 'cover',
   },
-
+  contentIcon: {
+    width: getWidth(40),
+    alignItems: 'flex-end',
+  },
   content: {
     fontSize: 16,
     lineHeight: 30,
     color: '#555',
   },
+  contentCard: (show: boolean) => ({
+    backgroundColor: show ? BRAND_BLUE : LIGHTER_GRAY3,
+    marginTop: getHeight(12),
+    height: getHeight(120),
+    alignItems: 'center',
+    flexDirection: 'row',
+  }),
 });
 export default AnimateBox;

@@ -1,290 +1,56 @@
 /* eslint-disable react-native/no-inline-styles */
-import React, { useState } from 'react';
-import {Dimensions, StyleSheet, ScrollView, View} from 'react-native';
-import {FlatList} from 'react-native-gesture-handler';
-
-import Container from '../components/Container';
-import OfferCard from '../components/core/home/OfferCard';
-import CategoryCard from '../components/core/home/CategoryCard';
-import CardSlide from '../components/core/home/CardSlide';
-import TopProductCard from '../components/core/home/TopProductCard';
-import ProductCard from '../components/core/home/ProductCard';
-import SquareImage from '../components/core/home/SquareImage';
-import SectionHome from '../components/SectionHome';
+import React, {useState} from 'react';
+import {
+  Dimensions,
+  StyleSheet,
+  ScrollView,
+  View,
+  useWindowDimensions,
+} from 'react-native';
 import {NavigationProp} from '@react-navigation/core';
-import CategoryItem from '../components/core/home/CategoryItem';
+import Principal from './Principal';
+import Categories from './Categories';
+import {TabView} from 'react-native-tab-view';
+import {useDispatch, useSelector} from 'react-redux';
+import {changeSelect, selectUIISelected} from '../store/slices/uiSlice';
 
-const dummyList: any[] = [
-  {id: 0},
-  {id: 1},
-  {id: 2},
-  {id: 3},
-  {id: 4},
-  {id: 5},
-  {id: 6},
-  {id: 7},
-  {id: 8},
-];
-
-const categories: any[] = [
-  {id: 0, text: 'Destacados'},
-  {id: 1, text: 'Categorías'},
-  {id: 2, text: 'Zona oulet'},
-  {id: 4, text: 'Mesa'},
-];
-
-const calcTileDimensions = (deviceWidth: number, tpr: number) => {
-  const margin = deviceWidth / (tpr * 10);
-  const size = (deviceWidth - margin * (tpr * 2)) / tpr;
-  return {size, margin};
-};
-
-const {width} = Dimensions.get('window');
 interface IProps {
   navigation: NavigationProp<any, any>;
 }
+
 const Home: React.FC<IProps> = ({navigation}) => {
-  const [categorySelected, setCategory] = useState('Destacados');
-  const mosaicDimensions = calcTileDimensions(width - 64, 3);
-  const {size: sizeCategoty, margin: marginCategory} = calcTileDimensions(
-    width - 64,
-    2,
-  );
+  const index = useSelector(selectUIISelected);
+  const dispatch = useDispatch();
 
+  const layout = useWindowDimensions();
+
+  const [routes] = React.useState([
+    {key: 'destacados', title: 'Destacados'},
+    {key: 'categorias', title: 'Categorias'},
+  ]);
+  const renderScene = ({route}) => {
+    switch (route.key) {
+      case 'destacados':
+        return <Principal navigation={navigation} />;
+      case 'categorias':
+        return <Categories navigation={navigation} />;
+      default:
+        return null;
+    }
+  };
+
+  const onChangeIndex = (id: number) => {
+    dispatch(changeSelect(id));
+  };
   return (
-    <Container>
-      <ScrollView
-        showsVerticalScrollIndicator={false}
-        style={{flex: 1, marginTop: 24}}>
-        <View style={{marginBottom: 12, flexDirection: 'row'}}>
-          <FlatList
-            horizontal
-            showsHorizontalScrollIndicator={false}
-            data={categories}
-            renderItem={({item}: any) => (
-              <View key={item.id} style={{marginRight: 28}}>
-                <CategoryItem
-                  isSelected={item.text === categorySelected}
-                  label={item.text}
-                  onPress={() => setCategory(item.text)}
-                />
-              </View>
-            )}
-            keyExtractor={item => item.id}
-          />
-        </View>
-
-        <FlatList
-          horizontal
-          showsHorizontalScrollIndicator={false}
-          data={dummyList}
-          renderItem={() => (
-            <View style={{marginRight: 12}}>
-              <OfferCard
-                height={width / 2.5}
-                source={require('../assets/images/dummy/banner1.png')}
-              />
-            </View>
-          )}
-          keyExtractor={item => item.id}
-        />
-        <View
-          style={{
-            marginTop: 10,
-            paddingTop: 24,
-            justifyContent: 'flex-start',
-            flexWrap: 'wrap',
-            flexDirection: 'row',
-            backgroundColor: '#fff7ec',
-          }}>
-          {dummyList.map((item: any) => (
-            <View
-              key={item?.id}
-              style={{
-                marginBottom: 16,
-              }}>
-              <SquareImage
-                background="#f60"
-                source={require('../assets/images/dummy/square1.jpg')}
-                styleText={{color: 'black', fontSize: 17}}
-                {...mosaicDimensions}
-              />
-            </View>
-          ))}
-        </View>
-        <View style={{marginTop: 12}}>
-          <OfferCard
-            height={80}
-            source={require('../assets/images/dummy/banner2.png')}
-          />
-        </View>
-
-        <SectionHome title="para tu recámara">
-          <View
-            style={{
-              justifyContent: 'flex-start',
-              flexWrap: 'wrap',
-              flexDirection: 'row',
-            }}>
-            {dummyList.map((item: any) => (
-              <View
-                key={item?.id}
-                style={{
-                  marginBottom: 16,
-                  marginHorizontal: marginCategory,
-                }}>
-                <CategoryCard
-                  source={require('../assets/images/dummy/bed1.png')}
-                  label="Ropa de Cama"
-                  size={sizeCategoty}
-                />
-              </View>
-            ))}
-          </View>
-        </SectionHome>
-
-        <SectionHome title="top recamaras" seeAllRight>
-          <FlatList
-            horizontal
-            showsHorizontalScrollIndicator={false}
-            data={dummyList}
-            renderItem={() => (
-              <View style={{marginRight: 12}}>
-                <TopProductCard
-                  source={require('../assets/images/dummy/bed2.png')}
-                  description="Set de colcha matrimonial/queen…"
-                  price="3,679.00"
-                  onPress={() => {}}
-                />
-              </View>
-            )}
-            keyExtractor={item => item.id}
-          />
-        </SectionHome>
-
-        <SectionHome title="exclusivas de la tienda" seeAllBottom>
-          <View
-            style={{
-              marginTop: 24,
-              justifyContent: 'flex-start',
-              flexWrap: 'wrap',
-              flexDirection: 'row',
-            }}>
-            {dummyList.map((item: any) => (
-              <View
-                key={item?.id}
-                style={{marginBottom: 16, marginHorizontal: marginCategory}}>
-                <CategoryCard
-                  source={require('../assets/images/dummy/bathroom.png')}
-                  label="Ropa de Cama"
-                  size={sizeCategoty}
-                />
-              </View>
-            ))}
-          </View>
-        </SectionHome>
-
-        <View style={{marginTop: 12}}>
-          <FlatList
-            horizontal
-            showsHorizontalScrollIndicator={false}
-            data={dummyList}
-            renderItem={() => (
-              <View style={{marginRight: 12}}>
-                <OfferCard
-                  height={100}
-                  source={require('../assets/images/dummy/banner3.png')}
-                />
-              </View>
-            )}
-            keyExtractor={item => item.id}
-          />
-        </View>
-        <SectionHome title="destacados" seeAllRight>
-          <CardSlide />
-        </SectionHome>
-
-        <SectionHome title="te recomendamos" seeAllRight>
-          <FlatList
-            horizontal
-            showsHorizontalScrollIndicator={false}
-            data={dummyList}
-            renderItem={() => (
-              <View style={{marginRight: 12}}>
-                <TopProductCard
-                  source={require('../assets/images/dummy/bed2.png')}
-                  description="Escurridor para trastes de acero…"
-                  price="3,679.00"
-                  onPress={() => {}}
-                />
-              </View>
-            )}
-            keyExtractor={item => item.id}
-          />
-        </SectionHome>
-
-        <View style={{marginTop: 24}}>
-          <OfferCard
-            height={150}
-            source={require('../assets/images/dummy/banner4.png')}
-          />
-        </View>
-
-        <SectionHome title="ofertas" seeAllRight>
-          <CardSlide />
-        </SectionHome>
-
-        <SectionHome title="más comprados" seeAllRight>
-          {dummyList.map(item => (
-            <View key={item.id}>
-              <ProductCard />
-            </View>
-          ))}
-        </SectionHome>
-
-        <View style={{marginTop: 12}}>
-          <FlatList
-            horizontal
-            showsHorizontalScrollIndicator={false}
-            data={dummyList}
-            renderItem={() => (
-              <View style={{marginRight: 12}}>
-                <OfferCard
-                  height={120}
-                  source={require('../assets/images/dummy/banner5.png')}
-                />
-              </View>
-            )}
-            keyExtractor={item => item.id}
-          />
-        </View>
-
-        <SectionHome title="categorías" seeAllBottom>
-          <View
-            style={{
-              marginTop: 24,
-              justifyContent: 'flex-start',
-              flexWrap: 'wrap',
-              flexDirection: 'row',
-            }}>
-            {dummyList.map((item: any) => (
-              <View
-                key={item?.id}
-                style={{marginBottom: 16, marginHorizontal: marginCategory}}>
-                <CategoryCard
-                  source={require('../assets/images/dummy/home.png')}
-                  label="Cocinas"
-                  size={sizeCategoty}
-                />
-              </View>
-            ))}
-          </View>
-        </SectionHome>
-      </ScrollView>
-    </Container>
+    <TabView
+      navigationState={{index, routes}}
+      renderScene={renderScene}
+      onIndexChange={onChangeIndex}
+      initialLayout={{width: layout.width}}
+      renderTabBar={() => null}
+    />
   );
 };
-
-const styles = StyleSheet.create({});
 
 export default Home;

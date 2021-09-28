@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, FlatList} from 'react-native';
+import {View, FlatList, StyleSheet} from 'react-native';
 
 import Text from '../Text';
 import Icon from 'react-native-vector-icons/Ionicons';
@@ -21,22 +21,9 @@ const AnimateBox: React.FC<IProps> = ({item}) => {
   // Sub-sub categoría
   const InnerCategory: React.FC<IProps> = ({item}) => {
     return (
-      <View
-        style={{
-          flexDirection: 'row',
-          alignItems: 'center',
-          paddingVertical: getHeight(8),
-        }}>
+      <View style={styles.contentSub}>
         {/* Un dot para cada categoría */}
-        <View
-          style={{
-            backgroundColor: BLUE,
-            height: getHeight(6),
-            width: getWidth(6),
-            marginLeft: getWidth(12),
-            borderRadius: getWidth(3),
-          }}
-        />
+        <View style={styles.dot} />
         <Text
           style={{marginLeft: getWidth(14)}}
           color={BLUE}
@@ -57,16 +44,11 @@ const AnimateBox: React.FC<IProps> = ({item}) => {
           setShow(isCollapse);
         }}>
         <CollapseHeader>
-          <View
-            style={{
-              paddingVertical: getHeight(15),
-              alignItems: 'center',
-              flexDirection: 'row',
-            }}>
+          <View style={styles.contentCard}>
             <Text medium={true} color={BLUE} size={getWidth(16)}>
               {item.name}
             </Text>
-            <View style={{flex: 1, alignItems: 'flex-end'}}>
+            <View style={styles.contentIcon}>
               <Icon
                 color={BLUE}
                 size={getWidth(20)}
@@ -86,5 +68,24 @@ const AnimateBox: React.FC<IProps> = ({item}) => {
     </View>
   );
 };
-
+const styles = StyleSheet.create({
+  contentCard: {
+    paddingVertical: getHeight(15),
+    alignItems: 'center',
+    flexDirection: 'row',
+  },
+  contentIcon: {flex: 1, alignItems: 'flex-end'},
+  contentSub: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    paddingVertical: getHeight(8),
+  },
+  dot: {
+    backgroundColor: BLUE,
+    height: getHeight(6),
+    width: getWidth(6),
+    marginLeft: getWidth(12),
+    borderRadius: getWidth(3),
+  },
+});
 export default AnimateBox;
