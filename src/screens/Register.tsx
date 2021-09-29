@@ -1,5 +1,5 @@
 import { ScrollView, View, StyleSheet, StatusBar, TouchableOpacity, Image, Text } from 'react-native';
-import React, { useRef } from 'react';
+import React, { useRef, useEffect } from 'react';
 
 import Container from '../components/Container';
 import SocialButtons from '../components/SocialButtons';
@@ -7,8 +7,13 @@ import LoginRegisterDisclaimer from '../components/LoginRegisterDisclaimer';
 import { TextField } from 'rn-material-ui-textfield';
 import { DARKER_BLUE, PRIMARY_BLUE } from '../constants/colors';
 import { RegisterController } from '../controllers/RegisterController';
+import { NavigationProp } from '@react-navigation/core';
 
-const Register: React.FC = () => {
+interface IProps {
+  navigation: NavigationProp<any, any>
+};
+
+const Register: React.FC<IProps> = ({ navigation }) => {
 
   //Obteniendo los metodos ultilizados en Controller
   const {
@@ -21,6 +26,8 @@ const Register: React.FC = () => {
     emailError,
     passwordError,
     showPassword,
+    getErrors,
+    setEmailError,
     change_Nombre,
     change_Apellidos,
     change_Email,
@@ -33,7 +40,7 @@ const Register: React.FC = () => {
   const ref_textinput_Apellidos = useRef();
   const ref_textinput_Email = useRef();
   const ref_textinput_Password = useRef();
-
+    
   return (
 
     <ScrollView
@@ -122,7 +129,7 @@ const Register: React.FC = () => {
           alignItems: 'center'
         }}>
           <TouchableOpacity
-            onPress={Continuar}
+            onPress={()=>Continuar(navigation)}
             style={{
               backgroundColor: PRIMARY_BLUE,
               width: "100%",

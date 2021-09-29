@@ -1,16 +1,15 @@
-import {Customer} from './Objects/Customer';
-import {URL_REGISTRAR} from '../constants/URLs';
+import { Customer } from './Objects/Customer';
+import { URL_REGISTRAR } from '../constants/URLs';
 import axios from 'axios';
 
 export const RegisterModel = () => {
+
   const RegistarUsuario = async (user: Customer): Promise<string> => {
     let response: string = '';
 
-    console.log(JSON.stringify(user));
-
     await axios({
       method: 'POST',
-      headers: {'content-type': 'application/json'},
+      headers: { 'content-type': 'application/json' },
       data: JSON.stringify(user),
       url: URL_REGISTRAR,
     })
@@ -18,13 +17,15 @@ export const RegisterModel = () => {
         response = JSON.stringify(res.data);
       })
       .catch(error => {
-        response = 'Error ' + error;
+        if (error.response) {
+          response = 'Error '+ error.response.data.message;
+        }
       });
 
     return response;
   };
 
   return {
-    RegistarUsuario,
+    RegistarUsuario
   };
 };

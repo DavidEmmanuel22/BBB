@@ -1,17 +1,43 @@
-import {NavigationProp} from '@react-navigation/core';
-import React from 'react';
-import {Image, View, ScrollView, StatusBar} from 'react-native';
+import { NavigationProp, RouteProp } from '@react-navigation/core';
+import React, { useEffect, useState } from 'react';
+import { Image, View, ScrollView, StatusBar } from 'react-native';
 import Text from '../components/Text';
-import {DARKER_BLUE, PRIMARY_BLUE} from '../constants/colors';
-import {TextField} from 'rn-material-ui-textfield';
+import { DARKER_BLUE, PRIMARY_BLUE } from '../constants/colors';
+import { TextField } from 'rn-material-ui-textfield';
 import BouncyCheckbox from 'react-native-bouncy-checkbox';
-import {TouchableOpacity} from 'react-native-gesture-handler';
+import { TouchableOpacity } from 'react-native-gesture-handler';
+import { Usuario } from '../models/Objects/Usuario';
+import { ProfileController } from '../controllers/ProfileController';
 
 interface IProps {
+  route: RouteProp<any, any>,
   navigation: NavigationProp<any, any>;
 }
 
-export const Profile: React.FC<IProps> = ({navigation}) => {
+export const Profile: React.FC<IProps> = ({ route, navigation }) => {
+
+  const User: Usuario = route.params.User;
+  const token: string = route.params.token;
+
+  const {
+    nombre,
+    setNombre,
+    apellido,
+    setApellido,
+    email,
+    setEmail,
+    nombreError,
+    apellidosError,
+    emailError,
+    Guardar
+  } = ProfileController();
+
+  useEffect(() => {
+    setNombre(User.firstname);
+    setApellido(User.lastname);
+    setEmail(User.email);
+  }, []);
+
   return (
     <View>
       {/* Cambio de color de la Status bar */}
@@ -23,27 +49,41 @@ export const Profile: React.FC<IProps> = ({navigation}) => {
             */}
       <ScrollView>
         {/* Informacion personal */}
-        <Text style={{marginTop: 75, marginLeft: 24, color: PRIMARY_BLUE}}>
+        <Text style={{ marginTop: 75, marginLeft: 24, color: PRIMARY_BLUE }}>
           Informacion personal
         </Text>
 
         {/* Nombre */}
-        <View style={{marginHorizontal: 24, marginTop: -5}}>
-          <TextField label="Nombre" />
+        <View style={{ marginHorizontal: 24, marginTop: -5 }}>
+          <TextField
+            error={nombreError}
+            label="Nombre"
+            value={nombre}
+            onChangeText={nombre => setNombre(nombre)} />
         </View>
 
         {/* Apellido */}
-        <View style={{marginHorizontal: 24, marginTop: -5}}>
-          <TextField label="Apellido" />
+        <View style={{ marginHorizontal: 24, marginTop: -5 }}>
+          <TextField
+            error={apellidosError}
+            label="Apellido"
+            value={apellido}
+            onChangeText={apellido => setApellido(apellido)}
+          />
         </View>
 
         {/* Correo electronico */}
-        <View style={{marginHorizontal: 24, marginTop: -5}}>
-          <TextField label="Correo electrónico" keyboardType="email-address" />
+        <View style={{ marginHorizontal: 24, marginTop: -5 }}>
+          <TextField
+            error={emailError}
+            label="Correo electrónico"
+            keyboardType="email-address"
+            value={email}
+            onChangeText={email => setEmail(email)} />
         </View>
 
         {/* Mis intereses */}
-        <Text style={{marginTop: 18, marginLeft: 24, color: PRIMARY_BLUE}}>
+        <Text style={{ marginTop: 18, marginLeft: 24, color: PRIMARY_BLUE }}>
           Mis intereses
         </Text>
 
@@ -57,8 +97,8 @@ export const Profile: React.FC<IProps> = ({navigation}) => {
             color: 'black',
             textDecorationLine: 'none',
           }}
-          onPress={() => {}}
-          style={{marginLeft: 24, marginTop: 10}}
+          onPress={() => { }}
+          style={{ marginLeft: 24, marginTop: 10 }}
         />
 
         {/* Checkbox de Cocina */}
@@ -71,8 +111,8 @@ export const Profile: React.FC<IProps> = ({navigation}) => {
             color: 'black',
             textDecorationLine: 'none',
           }}
-          onPress={() => {}}
-          style={{marginLeft: 24}}
+          onPress={() => { }}
+          style={{ marginLeft: 24 }}
         />
 
         {/* Checkbox de Cuidado personal */}
@@ -85,8 +125,8 @@ export const Profile: React.FC<IProps> = ({navigation}) => {
             color: 'black',
             textDecorationLine: 'none',
           }}
-          onPress={() => {}}
-          style={{marginLeft: 24}}
+          onPress={() => { }}
+          style={{ marginLeft: 24 }}
         />
 
         {/* Checkbox de Decoracion */}
@@ -99,8 +139,8 @@ export const Profile: React.FC<IProps> = ({navigation}) => {
             color: 'black',
             textDecorationLine: 'none',
           }}
-          onPress={() => {}}
-          style={{marginLeft: 24}}
+          onPress={() => { }}
+          style={{ marginLeft: 24 }}
         />
 
         {/* Checkbox de Mascotas viajes y mas */}
@@ -113,8 +153,8 @@ export const Profile: React.FC<IProps> = ({navigation}) => {
             color: 'black',
             textDecorationLine: 'none',
           }}
-          onPress={() => {}}
-          style={{marginLeft: 24}}
+          onPress={() => { }}
+          style={{ marginLeft: 24 }}
         />
 
         {/* Checkbox de Recamara */}
@@ -127,8 +167,8 @@ export const Profile: React.FC<IProps> = ({navigation}) => {
             color: 'black',
             textDecorationLine: 'none',
           }}
-          onPress={() => {}}
-          style={{marginLeft: 24}}
+          onPress={() => { }}
+          style={{ marginLeft: 24 }}
         />
 
         {/* Checkbox de Organizacion y limpieza */}
@@ -141,8 +181,8 @@ export const Profile: React.FC<IProps> = ({navigation}) => {
             color: 'black',
             textDecorationLine: 'none',
           }}
-          onPress={() => {}}
-          style={{marginLeft: 24}}
+          onPress={() => { }}
+          style={{ marginLeft: 24 }}
         />
 
         {/* Checkbox de Zona Outlet */}
@@ -155,20 +195,21 @@ export const Profile: React.FC<IProps> = ({navigation}) => {
             color: 'black',
             textDecorationLine: 'none',
           }}
-          onPress={() => {}}
-          style={{marginLeft: 24}}
+          onPress={() => { }}
+          style={{ marginLeft: 24 }}
         />
 
         {/* Boton de cambiar contraseña */}
         <TouchableOpacity
-          style={{flexDirection: 'row', alignSelf: 'center', marginTop: 30}}
+          style={{ flexDirection: 'row', alignSelf: 'center', marginTop: 30 }}
           onPress={() => navigation.navigate('NewPassword')}>
           <Image source={require('../assets/Profile/LockIcon.png')} />
-          <Text style={{marginLeft: 10}}>Cambiar contraseña</Text>
+          <Text style={{ marginLeft: 10 }}>Cambiar contraseña</Text>
         </TouchableOpacity>
 
         {/* Boton de guardar */}
         <TouchableOpacity
+        onPress={() => {Guardar(User, token, navigation)}}
           style={{
             backgroundColor: PRIMARY_BLUE,
             alignSelf: 'center',
@@ -179,7 +220,7 @@ export const Profile: React.FC<IProps> = ({navigation}) => {
             justifyContent: 'center',
             alignItems: 'center',
           }}>
-          <Text style={{color: 'white'}}>Guardar</Text>
+          <Text style={{ color: 'white' }}>Guardar</Text>
         </TouchableOpacity>
       </ScrollView>
 
@@ -194,7 +235,7 @@ export const Profile: React.FC<IProps> = ({navigation}) => {
         {/* Icono de flecha */}
         <TouchableOpacity
           onPress={() => navigation.goBack()}
-          style={{marginTop: 24, marginLeft: 24, width: '20%', height: 25}}>
+          style={{ marginTop: 24, marginLeft: 24, width: '20%', height: 25 }}>
           <Image source={require('../assets/Profile/ArrowIcon.png')} />
         </TouchableOpacity>
 

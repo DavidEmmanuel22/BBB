@@ -1,10 +1,9 @@
+
+import { NavigationProp } from "@react-navigation/core";
 import { useState } from "react";
 import { Convert, Customer } from '../models/Objects/Customer';
-import { RegisterModel } from '../models/RegisterModel';
 
 export const RegisterController = () => {
-
-    const { RegistarUsuario } = RegisterModel()
 
     const [nombre, setNombre] = useState("");
     const [apellidos, setApellidos] = useState("");
@@ -32,16 +31,20 @@ export const RegisterController = () => {
     }
     const change_Password = (nuevoPassword: string) => {
         setPassword(nuevoPassword);
+
+        //Menor a 8 caracteres
         if (nuevoPassword.length < 8) {
             setPasswordError('Se requiere al menos 8 caracteres.');
         } else {
+
             setPasswordError('');
         }
     }
     const change_ShowPassword = () => {
         setShowPassword(!showPassword);
     }
-    const Continuar = async () => {
+
+    const Continuar = (navigation: NavigationProp<any, any>) => {
 
         let validations: boolean = true;
 
@@ -84,15 +87,7 @@ export const RegisterController = () => {
             }`
             );
 
-            let response = await RegistarUsuario(customer);
-
-            if (response.includes("Error")) {
-                console.log(response);
-
-            } else {
-                console.log(response);
-
-            }
+            navigation.navigate('RegisterPolicy', { customer });
         }
     }
 
@@ -105,7 +100,9 @@ export const RegisterController = () => {
         nombreError,
         apellidosError,
         emailError,
+        setEmailError,
         passwordError,
+        setPasswordError,
         showPassword,
         change_Nombre,
         change_Apellidos,

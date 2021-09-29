@@ -1,36 +1,11 @@
 import axios from 'axios';
-import {URL_Obtain_Data_User, URL_LOGIN} from '../constants/URLs';
+import { URL_Obtain_Data_User_CUSTOMER, URL_LOGIN_CUSTOMER } from '../constants/URLs';
 import {Convert, Usuario} from './Objects/Usuario';
+
 export const LoginModel = () => {
-  const ObtenerToken = async (
-    email: string,
-    password: string,
-  ): Promise<string> => {
-    let token: string = '';
-
-    const BodyData = {
-      username: email,
-      password: password,
-    };
-
-    await axios({
-      method: 'POST',
-      headers: {'content-type': 'application/json'},
-      data: JSON.stringify(BodyData),
-      url: URL_LOGIN,
-    })
-      .then(res => {
-        token = res.data;
-      })
-      .catch(error => {
-        token = 'Error ' + error;
-      });
-
-    return token;
-  };
+  
 
   const ObtenerDatosUsuario = async (
-    customerId: number,
     token: string,
   ): Promise<Usuario> => {
     let user: any;
@@ -38,7 +13,7 @@ export const LoginModel = () => {
     await axios({
       method: 'GET',
       headers: {Authorization: `Bearer ${token}`},
-      url: URL_Obtain_Data_User.replace(':custoerId', `${customerId}`),
+      url: URL_Obtain_Data_User_CUSTOMER,
     })
       .then(res => {
         user = Convert.toUsuario(JSON.stringify(res.data));
@@ -51,7 +26,6 @@ export const LoginModel = () => {
   };
 
   return {
-    ObtenerToken,
     ObtenerDatosUsuario,
   };
 };

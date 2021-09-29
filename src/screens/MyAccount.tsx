@@ -3,6 +3,7 @@ import React, { useState } from 'react'
 import { View, StyleSheet, Image, TouchableOpacity, ScrollView, StatusBar, Text } from 'react-native';
 import { PRIMARY_BLUE, LIGHTER_GRAY, DARKER_BLUE, DARK } from '../constants/colors';
 import { TERMINABOLD } from '../constants/fonts';
+import { Usuario } from '../models/Objects/Usuario';
 
 interface IProps {
     route: RouteProp<any, any>,
@@ -11,8 +12,8 @@ interface IProps {
 
 export const MyAccount: React.FC<IProps> = ({ route, navigation }) => {
 
-    const User = route.params.datos;
-    console.log(User);
+    const User : Usuario = route.params.datos;
+    const token : string = route.params.token;
 
     return (
         <View style={styles.container}>
@@ -21,13 +22,13 @@ export const MyAccount: React.FC<IProps> = ({ route, navigation }) => {
             <StatusBar
                 animated={true}
                 backgroundColor="white" />
-    
+
             {/* Titulo */}
             <Text style={styles.txthola}>hola,</Text>
             <Text
-            numberOfLines={1}
-            adjustsFontSizeToFit
-            style={styles.txtName}>{User.firstname +" "+ User.lastname}</Text>
+                numberOfLines={1}
+                adjustsFontSizeToFit
+                style={styles.txtName}>{User.firstname + " " + User.lastname}</Text>
 
             {/* TopRight Icons */}
             <View style={{ position: 'absolute', right: 1, flexDirection: 'row', marginTop: 16, marginRight: 33 }}>
@@ -49,7 +50,8 @@ export const MyAccount: React.FC<IProps> = ({ route, navigation }) => {
             <View style={styles.OpcionesContainer}>
 
                 {/* Editar perfil */}
-                <TouchableOpacity style={{ flexDirection: 'row' }} onPress={() => navigation.navigate('Profile')}>
+                <TouchableOpacity style={{ flexDirection: 'row' }}
+                    onPress={() => { navigation.navigate('Profile', { User, token }) }}>
                     <Image source={require("../assets/MyAccount/EditIcon.png")}
                         style={{ marginRight: 8, alignSelf: 'center' }} />
 
@@ -159,7 +161,7 @@ const styles = StyleSheet.create({
         fontSize: 24,
         fontFamily: TERMINABOLD,
         color: DARKER_BLUE,
-        width:"70%"
+        width: "70%"
     },
     OpcionesContainer: {
         flexDirection: 'row',
