@@ -3,6 +3,7 @@ import {Text as NativeText, StyleSheet, TextStyle} from 'react-native';
 
 import {DARK} from '../constants/colors';
 import {EFFRA} from '../constants/fonts';
+import {getWidth} from '../utils/interfaceDimentions';
 
 interface IProps {
   children: JSX.Element | JSX.Element[] | string;
@@ -15,7 +16,7 @@ interface IProps {
 
 const Text: React.FC<IProps> = ({
   children,
-  size = 16,
+  size = getWidth(16),
   style = {},
   color = DARK,
   onPress = undefined,

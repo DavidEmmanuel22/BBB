@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, FlatList, StyleSheet} from 'react-native';
+import {View, FlatList, StyleSheet, TouchableOpacity} from 'react-native';
 
 import Text from '../Text';
 import Icon from 'react-native-vector-icons/Ionicons';
@@ -12,16 +12,21 @@ import {
   CollapseHeader,
   CollapseBody,
 } from 'accordion-collapse-react-native';
+import {useNavigation} from '@react-navigation/native';
 
 interface IProps {
   item: any;
 }
 const AnimateBox: React.FC<IProps> = ({item}) => {
   const [show, setShow] = useState(false);
+  const navigation = useNavigation();
+
   // Sub-sub categoría
   const InnerCategory: React.FC<IProps> = ({item}) => {
     return (
-      <View style={styles.contentSub}>
+      <TouchableOpacity
+        onPress={() => navigation.navigate('Products')}
+        style={styles.contentSub}>
         {/* Un dot para cada categoría */}
         <View style={styles.dot} />
         <Text
@@ -30,7 +35,7 @@ const AnimateBox: React.FC<IProps> = ({item}) => {
           size={getWidth(16)}>
           {item.name}
         </Text>
-      </View>
+      </TouchableOpacity>
     );
   };
   return (

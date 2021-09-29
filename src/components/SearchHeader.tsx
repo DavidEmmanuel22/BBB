@@ -1,4 +1,4 @@
-import React, {useRef, useEffect} from 'react';
+import React, {useRef, useEffect, useState} from 'react';
 import {View, TextInput, TouchableOpacity, Image, FlatList} from 'react-native';
 import {StackHeaderProps} from '@react-navigation/stack';
 import {BLUE, LIGHTER_GRAY2} from '../constants/colors';
@@ -25,10 +25,19 @@ interface IProps extends StackHeaderProps {
 const SearchHeader: React.FC<IProps> = ({close = false, ...props}) => {
   const dispatch = useDispatch();
   const categorySelect = useSelector(selectUIISelected);
+  const [showTab, setShowTab] = useState(false);
   const searchInputRef = useRef<any>(null);
   useEffect(() => {
     if (typeof props.route.name === 'string' && props.route.name === 'Search') {
       searchInputRef.current.focus();
+    }
+    if (
+      typeof props.route.name === 'string' &&
+      props.route.name === 'Products'
+    ) {
+      setShowTab(false);
+    } else {
+      setShowTab(true);
     }
   }, [props.route]);
 
@@ -91,25 +100,27 @@ const SearchHeader: React.FC<IProps> = ({close = false, ...props}) => {
           </TouchableOpacity>
         </View>
       </View>
-      <View style={{flexDirection: 'row'}}>
-        <FlatList
-          horizontal
-          showsHorizontalScrollIndicator={false}
-          data={categories}
-          renderItem={({item}: any) => (
-            <View key={item.id} style={{marginRight: 28}}>
-              <CategoryItem
-                isSelected={item.id === categorySelect}
-                label={item.text}
-                onPress={() => {
-                  handleNav(item);
-                }}
-              />
-            </View>
-          )}
-          keyExtractor={item => 'key' + item.id}
-        />
-      </View>
+      {showTab && (
+        <View style={{flexDirection: 'row'}}>
+          <FlatList
+            horizontal
+            showsHorizontalScrollIndicator={false}
+            data={categories}
+            renderItem={({item}: any) => (
+              <View key={item.id} style={{marginRight: 28}}>
+                <CategoryItem
+                  isSelected={item.id === categorySelect}
+                  label={item.text}
+                  onPress={() => {
+                    handleNav(item);
+                  }}
+                />
+              </View>
+            )}
+            keyExtractor={item => 'key' + item.id}
+          />
+        </View>
+      )}
     </>
   );
 };
