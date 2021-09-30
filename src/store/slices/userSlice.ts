@@ -1,5 +1,5 @@
-import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { RootState} from '../';
+import {createSlice} from '@reduxjs/toolkit';
+import {RootState} from '../';
 
 interface UserState {
   data: object;
@@ -14,13 +14,11 @@ const initialState: UserState = {
 export const userSlice = createSlice({
   name: 'user',
   initialState,
-  reducers: {
-
-  }
+  reducers: {},
 });
 
 // Actions
-export const {  } = userSlice.actions;
+export const {} = userSlice.actions;
 
 // Selectors
 export const selectUser = (state: RootState) => state.user.data;

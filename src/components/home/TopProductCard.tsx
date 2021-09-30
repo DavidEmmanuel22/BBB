@@ -1,8 +1,8 @@
 import React from 'react';
 import {ImageBackground, StyleSheet, Text, View} from 'react-native';
-import Button from '../../Button';
-import Favorite from '../../../assets/icons/Favorit';
-import {LIGHTER_GRAY} from '../../../constants/colors';
+import Button from '../Button';
+import Favorite from '../../assets/icons/Favorit';
+import {LIGHTER_GRAY} from '../../constants/colors';
 
 type TopProduct = {
   source: any;

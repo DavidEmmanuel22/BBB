@@ -1,8 +1,8 @@
 import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
 import React from 'react';
 import {StyleSheet, Text, View} from 'react-native';
-import Button from '../../Button';
-import Carousel from '../../Carousel';
+import Button from '../Button';
+import Carousel from '../Carousel';
 
 type CardSlide = {
   description?: string;

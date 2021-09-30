@@ -1,12 +1,6 @@
 /* eslint-disable react-native/no-inline-styles */
-import React, {useState} from 'react';
-import {
-  Dimensions,
-  StyleSheet,
-  ScrollView,
-  View,
-  useWindowDimensions,
-} from 'react-native';
+import React from 'react';
+import {useWindowDimensions} from 'react-native';
 import {NavigationProp} from '@react-navigation/core';
 import Principal from './Principal';
 import Categories from './Categories';
@@ -28,7 +22,7 @@ const Home: React.FC<IProps> = ({navigation}) => {
     {key: 'destacados', title: 'Destacados'},
     {key: 'categorias', title: 'Categorias'},
   ]);
-  const renderScene = ({route}) => {
+  const renderScene = ({route}: any) => {
     switch (route.key) {
       case 'destacados':
         return <Principal navigation={navigation} />;

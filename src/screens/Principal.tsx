@@ -1,18 +1,18 @@
 /* eslint-disable react-native/no-inline-styles */
-import React, {useState} from 'react';
-import {Dimensions, StyleSheet, ScrollView, View} from 'react-native';
+import React from 'react';
+import {Dimensions, ScrollView, View} from 'react-native';
 import {FlatList} from 'react-native-gesture-handler';
 
 import Container from '../components/Container';
-import OfferCard from '../components/core/home/OfferCard';
-import CategoryCard from '../components/core/home/CategoryCard';
-import CardSlide from '../components/core/home/CardSlide';
-import TopProductCard from '../components/core/home/TopProductCard';
-import ProductCard from '../components/core/home/ProductCard';
-import SquareImage from '../components/core/home/SquareImage';
+import OfferCard from '../components/home/OfferCard';
+import CategoryCard from '../components/home/CategoryCard';
+import CardSlide from '../components/home/CardSlide';
+import TopProductCard from '../components/home/TopProductCard';
+import ProductCard from '../components/home/ProductCard';
+import SquareImage from '../components/home/SquareImage';
 import SectionHome from '../components/SectionHome';
 import {NavigationProp} from '@react-navigation/core';
-import CategoryItem from '../components/core/home/CategoryItem';
+import Orders from './Orders';
 
 const dummyList: any[] = [
   {id: 0},

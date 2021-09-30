@@ -4,7 +4,7 @@ import {StackHeaderProps} from '@react-navigation/stack';
 import {BLUE, LIGHTER_GRAY2} from '../constants/colors';
 import {changeSelect, selectUIISelected} from '../store/slices/uiSlice';
 import {useDispatch, useSelector} from 'react-redux';
-import CategoryItem from '../components/core/home/CategoryItem';
+import CategoryItem from './home/CategoryItem';
 import {getHeight} from '../utils/interfaceDimentions';
 
 interface itemNav {

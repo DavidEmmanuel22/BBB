@@ -8,16 +8,22 @@ import Splash from './src/screens/Splash';
 
 import {store} from './src/store';
 import FlashMessage from 'react-native-flash-message';
+import {QueryClient, QueryClientProvider} from 'react-query';
+
+const queryClient = new QueryClient();
 
 const App = () => {
   return (
-    <Provider store={store}>
-      <NavigationContainer>
-        <Splash />
-        <BottomTabNavigation />
-        <FlashMessage position="top" />
-      </NavigationContainer>
-    </Provider>
+    <QueryClientProvider client={queryClient}>
+      <Provider store={store}>
+        <NavigationContainer>
+          <Splash />
+          <BottomTabNavigation />
+
+          <FlashMessage position="top" />
+        </NavigationContainer>
+      </Provider>
+    </QueryClientProvider>
   );
 };
 

@@ -1,59 +1,60 @@
-
 import axios from 'axios';
-import { URL_LOGIN_ADMIN, URL_LOGIN_CUSTOMER } from '../constants/URLs';
+import {URL_LOGIN_ADMIN, URL_LOGIN_CUSTOMER} from '../constants/URLs';
 
 export const TokenModel = () => {
+  const GetAdminToken = async (): Promise<string> => {
+    let token: string = '';
 
-    const GetAdminToken = async (): Promise<string> => {
-        let token: string = '';
-
-        const BodyData = {
-            username: "ricardo.lopez",
-            password: "MiRich.080921",
-        };
-
-        await axios({
-            method: 'POST',
-            headers: { 'content-type': 'application/json' },
-            data: JSON.stringify(BodyData),
-            url: URL_LOGIN_ADMIN,
-        })
-            .then(res => {
-                token = res.data;
-            })
-            .catch(error => {
-                token = 'Error ' + error;
-            });
-
-        return token;
+    const BodyData = {
+      username: 'ricardo.lopez',
+      password: 'MiRich.080921',
     };
 
-    const GetCustomerToken = async (email: string, password: string): Promise<string> => {
-        let token: string = '';
+    await axios({
+      method: 'POST',
+      headers: {'content-type': 'application/json'},
+      data: JSON.stringify(BodyData),
+      url: URL_LOGIN_ADMIN,
+    })
+      .then(res => {
+        token = res.data;
+      })
+      .catch(error => {
+        token = 'Error ' + error;
+      });
 
-        const BodyData = {
-            username: email,
-            password: password,
-        };
+    return token;
+  };
 
-        await axios({
-            method: 'POST',
-            headers: { 'content-type': 'application/json' },
-            data: JSON.stringify(BodyData),
-            url: URL_LOGIN_CUSTOMER,
-        })
-            .then(res => {
-                token = res.data;
-            })
-            .catch(error => {
-                token = 'Error ' + error;
-            });
+  const GetCustomerToken = async (
+    email: string,
+    password: string,
+  ): Promise<string> => {
+    let token: string = '';
 
-        return token;
+    const BodyData = {
+      username: email,
+      password: password,
     };
 
-    return {
-        GetAdminToken,
-        GetCustomerToken
-    }
-}
+    await axios({
+      method: 'POST',
+      headers: {'content-type': 'application/json'},
+      data: JSON.stringify(BodyData),
+      url: URL_LOGIN_CUSTOMER,
+    })
+      .then(res => {
+        token = res.data;
+      })
+      .catch(error => {
+        token = 'Error ' + error;
+      });
+
+    return token;
+  };
+
+  return {
+    GetAdminToken,
+    GetCustomerToken,
+  };
+};
