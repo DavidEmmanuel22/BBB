@@ -1,69 +1,103 @@
 import { NavigationProp } from '@react-navigation/core';
 import React, { useState } from 'react'
 import { ProfileModel } from '../models/ProfileModel';
-import { Usuario } from '../models/Objects/Usuario';
+import { User } from '../models/Objects/User';
 import { TokenModel } from '../models/TokenModel';
+import { showMessage } from 'react-native-flash-message';
 
 export const ProfileController = () => {
 
-    const { ModificarUsuario } = ProfileModel();
-    const { ObtenerAdminToken } = TokenModel();
+    const { ModifyUser } = ProfileModel();
+    const { GetAdminToken } = TokenModel();
 
-    const [nombre, setNombre] = useState("");
-    const [apellido, setApellido] = useState("");
+    const [name, setName] = useState("");
+    const [lastname, setLastName] = useState("");
     const [email, setEmail] = useState("");
 
-    const [nombreError, setNombreError] = useState("");
-    const [apellidosError, setApellidosError] = useState("");
+    const [nameError, setnameError] = useState("");
+    const [lastnameError, setlastnameError] = useState("");
     const [emailError, setEmailError] = useState("");
 
-    const Guardar = async (user: Usuario, navigation: NavigationProp<any, any>) => {
+    const [saveClicked, setsaveClicked] = useState(false);
+
+    const ChangePassword = (user: User, navigation: NavigationProp<any, any>) => {
+        navigation.navigate("NewPassword", { user });
+    }
+
+    const Save = async (user: User) => {
+
+        setsaveClicked(true);
 
         let validations: boolean = true;
 
-        if (nombre === "") {
-            setNombreError('Este campo es requerido.');
+        if (name === "") {
+            setnameError('Este campo es requerido.');
             validations = false;
+            setsaveClicked(false);
         }
 
-        if (apellido === "") {
-            setApellidosError('Este campo es requerido.');
+        if (lastname === "") {
+            setlastnameError('Este campo es requerido.');
             validations = false;
+            setsaveClicked(false);
         }
 
         if (email === "") {
             setEmailError('Este campo es requerido.');
             validations = false;
+            setsaveClicked(false);
         } else {
             if (!(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email))) {
                 setEmailError('El correo electrónico es incorrecto.');
                 validations = false;
+                setsaveClicked(false);
             }
         }
 
         if (validations) {
 
-            let token : string = await ObtenerAdminToken();
+            let token: string = await GetAdminToken();
 
-            user.firstname = nombre;
-            user.lastname = apellido;
+            user.firstname = name;
+            user.lastname = lastname;
             user.email = email;
 
-            let response = await ModificarUsuario(user, token);
-            console.log(response);
+            let response: string = await ModifyUser(user, token);
+
+            if (response.includes("email address")) {
+
+                showMessage({
+                    message: "El email ingresado ya esta en uso.",
+                    type: "warning",
+                    hideOnPress: true,
+                    duration: 3000
+                });
+                setsaveClicked(false);
+            } else {
+                showMessage({
+                    message: "Tus datos se han modificado.",
+                    type: "success",
+                    hideOnPress: true,
+                    duration: 3000
+                });
+
+                setsaveClicked(false);
+            }
         }
     }
 
     return {
-        nombre,
-        setNombre,
-        apellido,
-        setApellido,
+        name,
+        setName,
+        lastname,
+        setLastName,
         email,
         setEmail,
-        nombreError,
-        apellidosError,
+        nameError,
+        lastnameError,
         emailError,
-        Guardar
+        saveClicked,
+        ChangePassword,
+        Save
     }
 }

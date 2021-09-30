@@ -7,6 +7,7 @@ import BottomTabNavigation from './src/routes/bottomTabNavigator';
 import Splash from './src/screens/Splash';
 
 import {store} from './src/store';
+import FlashMessage from 'react-native-flash-message';
 
 const App = () => {
   return (
@@ -14,6 +15,7 @@ const App = () => {
       <NavigationContainer>
         <Splash />
         <BottomTabNavigation />
+        <FlashMessage position="top" />
       </NavigationContainer>
     </Provider>
   );

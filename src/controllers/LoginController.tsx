@@ -1,17 +1,17 @@
 import { NavigationProp } from '@react-navigation/core';
 import { useState } from 'react';
+import { showMessage } from 'react-native-flash-message';
 import { LoginModel } from '../models/LoginModel'
-import { Usuario } from '../models/Objects/Usuario';
+import { User } from '../models/Objects/User';
 import { TokenModel } from '../models/TokenModel';
 
 export const LoginController = () => {
 
-    //Obteniendo los metodos ultilizados en Model
-
-    const { ObtenerCustomerToken } = TokenModel();
+    //Obtaining the methods used in Model
+    const { GetCustomerToken } = TokenModel();
 
     const {
-        ObtenerDatosUsuario
+        GetUserData
     } = LoginModel();
 
     //Variables de control
@@ -30,27 +30,56 @@ export const LoginController = () => {
     const change_ShowPassword = () => {
         setShowPassword(!showPassword);
     }
-    const iniciarSesion = async (navigation: NavigationProp<any, any>) => {
-        setLogInCLicked(true);
-        const token: string = await ObtenerCustomerToken(email, password);
-        if (token.includes("Error")) {
-            //Error
-            setLogInCLicked(false);
-        } else {
-            const datos: Usuario = await ObtenerDatosUsuario(token);
-            if (datos.firstname === "" || datos.lastname === "") {
-                //Error
-                console.log("ERROR");
-                setLogInCLicked(false);
-            } else {
-                change_Email("");
-                change_Password("");
-                change_ShowPassword();
-                setLogInCLicked(false);
-                navigation.navigate('MyAccount', { datos, token });
-            }
-        }
 
+    const LogIn = async (navigation: NavigationProp<any, any>) => {
+        setLogInCLicked(true);
+
+        if (email === "") {
+            setLogInCLicked(false);
+            showMessage({
+                message: "Ingrese su email.",
+                type: "info",
+                hideOnPress: true,
+                duration: 3000
+            });
+        } else if (password === "") {
+            setLogInCLicked(false);
+            showMessage({
+                message: "Ingrese su contraseña.",
+                type: "info",
+                hideOnPress: true,
+                duration: 3000
+            });
+        } else {
+            const token: string = await GetCustomerToken(email, password);
+            if (token.includes("Error")) {
+                setLogInCLicked(false);
+                showMessage({
+                    message: "El usuario o contraseña ingresados son incorrectos.",
+                    type: "danger",
+                    hideOnPress: true,
+                    duration: 3000
+                });
+            } else {
+                const datos: User = await GetUserData(token);
+                if (datos.firstname === "" || datos.lastname === "") {
+                    showMessage({
+                        message: "A ocurrido error. Intente de nuevo.",
+                        type: "info",
+                        hideOnPress: true,
+                        duration: 3000
+                    });
+                    setLogInCLicked(false);
+                } else {
+                    change_Email("");
+                    change_Password("");
+                    change_ShowPassword();
+                    setLogInCLicked(false);
+                    navigation.navigate('MyAccount', { datos, token });
+                }
+            }
+
+        }
     }
 
     //Retorno de metodos y variables
@@ -62,6 +91,6 @@ export const LoginController = () => {
         showPassword,
         change_ShowPassword,
         LogInCLicked,
-        iniciarSesion
+        LogIn
     }
 }

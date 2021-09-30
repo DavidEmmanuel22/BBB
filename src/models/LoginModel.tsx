@@ -1,13 +1,13 @@
 import axios from 'axios';
 import { URL_Obtain_Data_User_CUSTOMER, URL_LOGIN_CUSTOMER } from '../constants/URLs';
-import {Convert, Usuario} from './Objects/Usuario';
+import {Convert, User} from './Objects/User';
 
 export const LoginModel = () => {
   
 
-  const ObtenerDatosUsuario = async (
+  const GetUserData = async (
     token: string,
-  ): Promise<Usuario> => {
+  ): Promise<User> => {
     let user: any;
 
     await axios({
@@ -26,6 +26,6 @@ export const LoginModel = () => {
   };
 
   return {
-    ObtenerDatosUsuario,
+    GetUserData
   };
 };

@@ -4,7 +4,7 @@ import axios from 'axios';
 
 export const RegisterModel = () => {
 
-  const RegistarUsuario = async (user: Customer): Promise<string> => {
+  const UserRegister = async (user: Customer): Promise<string> => {
     let response: string = '';
 
     await axios({
@@ -26,6 +26,6 @@ export const RegisterModel = () => {
   };
 
   return {
-    RegistarUsuario
+    UserRegister
   };
 };

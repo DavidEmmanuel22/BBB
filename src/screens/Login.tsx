@@ -14,7 +14,7 @@ interface IProps {
 
 const Login: React.FC<IProps> = ({ navigation }) => {
 
-  //Obteniendo los metodos ultilizados en Controller
+  //Obtaining the methods used in Controller
   const {
     email,
     change_Email,
@@ -23,20 +23,20 @@ const Login: React.FC<IProps> = ({ navigation }) => {
     showPassword,
     change_ShowPassword,
     LogInCLicked,
-    iniciarSesion
+    LogIn
   } = LoginController();
 
-  //Referencias
+  //References
   const ref_textinput_password = useRef();
 
   return (
     <ScrollView>
-      {/* Cambio de color de la Status bar */}
+      {/* Status bar color change */}
       <StatusBar
         animated={true}
         backgroundColor="white" />
 
-      {/* Titulo */}
+      {/* Title */}
       <Text
         style={[{
           fontFamily: "TerminaW05-Bold",
@@ -47,7 +47,7 @@ const Login: React.FC<IProps> = ({ navigation }) => {
         }, LogInCLicked ? { opacity: 0.2 } : { opacity: 1 }]}
       >inicia sesión</Text>
 
-      {/* Entrada de texto Correo electronico */}
+      {/* Text input Email */}
       <View style={[{
         marginTop: 26
       },
@@ -90,7 +90,7 @@ const Login: React.FC<IProps> = ({ navigation }) => {
           source={email ? require('../assets/Login/UserBLACKIcon.png') : require('../assets/Login/UserIcon.png')}></Image>
       </View>
 
-      {/* Entrada de texto Contraseña */}
+      {/* Text entry Password */}
       <View style={[{
         marginTop: 26
       },
@@ -158,7 +158,6 @@ const Login: React.FC<IProps> = ({ navigation }) => {
         }, LogInCLicked ? { opacity: 0.2 } : { opacity: 1 }]}>Recuperar contraseña</Text>
       </TouchableOpacity>
 
-      {/* Botones de iniciar sesion y crear cuenta */}
       <View style={{
         marginHorizontal: 30,
         marginTop: 18,
@@ -167,7 +166,7 @@ const Login: React.FC<IProps> = ({ navigation }) => {
         pointerEvents={LogInCLicked ? "none" : "auto"}>
         {/* Boton de iniciar sesion */}
         <TouchableOpacity
-          onPress={() => iniciarSesion(navigation)}
+          onPress={() => LogIn(navigation)}
           style={{
             backgroundColor: PRIMARY_BLUE,
             width: "100%",
@@ -200,7 +199,7 @@ const Login: React.FC<IProps> = ({ navigation }) => {
 
       </View>
 
-      {/* Botones de Facebook/AppleID/Google */}
+      {/* Facebook/AppleID/Google Buttons*/}
       <View style={[{
         marginHorizontal: 30
       }, LogInCLicked ? { opacity: 0.2 } : { opacity: 1 }]}
@@ -208,7 +207,7 @@ const Login: React.FC<IProps> = ({ navigation }) => {
         <SocialButtons />
       </View>
 
-      {/* Texto de politicas de privacidad */}
+      {/* Privacy policy text */}
       <View style={[
         LogInCLicked ? { opacity: 0.2 } : { opacity: 1 }
       ]}

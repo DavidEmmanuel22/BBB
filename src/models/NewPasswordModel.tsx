@@ -1,16 +1,18 @@
-
-import { URL_MODIFY_DATA_CUSTOMER } from '../constants/URLs';
 import axios from 'axios';
 import { User } from './Objects/User';
+import { URL_MODIFY_PASSWORD_CUSTOMER } from '../constants/URLs';
 
-export const ProfileModel = () => {
+export const NewPasswordModel = () => {
 
-    const ModifyUser = async (user: User, token: string): Promise<string> => {
+    const ChangePassword = async (user: User, token: string, oldPassword: string, newPassword: string) => {
         let response: string = '';
 
-        let body = `{ \"customer\": ${JSON.stringify(user)} }`
+        let body = `{
+                "currentPassword": "${oldPassword}",
+                "newPassword": "${newPassword}"
+            }`;
 
-        let url = URL_MODIFY_DATA_CUSTOMER.replace(":customerId", user.id + "");
+        let url = URL_MODIFY_PASSWORD_CUSTOMER + user.id;
 
         await axios({
             method: 'PUT',
@@ -28,9 +30,9 @@ export const ProfileModel = () => {
             });
 
         return response;
-    };
+    }
 
     return {
-        ModifyUser
-    };
-};
+        ChangePassword
+    }
+}

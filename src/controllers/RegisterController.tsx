@@ -5,38 +5,37 @@ import { Convert, Customer } from '../models/Objects/Customer';
 
 export const RegisterController = () => {
 
-    const [nombre, setNombre] = useState("");
-    const [apellidos, setApellidos] = useState("");
+    const [name, setName] = useState("");
+    const [lastname, setLastName] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
 
-    const [nombreError, setNombreError] = useState("");
-    const [apellidosError, setApellidosError] = useState("");
+    const [nameError, setnameError] = useState("");
+    const [lastnameError, setlastnameError] = useState("");
     const [emailError, setEmailError] = useState("");
     const [passwordError, setPasswordError] = useState("");
 
     const [showPassword, setShowPassword] = useState(true);
 
-    const change_Nombre = (nuevoNombre: string) => {
-        setNombre(nuevoNombre);
-        setNombreError('');
+    const change_Name = (newName: string) => {
+        setName(newName);
+        setnameError('');
     }
-    const change_Apellidos = (nuevoApellido: string) => {
-        setApellidos(nuevoApellido);
-        setApellidosError('');
+    const change_Lastname = (newLastname: string) => {
+        setLastName(newLastname);
+        setlastnameError('');
     }
-    const change_Email = (nuevoEmail: string) => {
-        setEmail(nuevoEmail);
+    const change_Email = (newEmail: string) => {
+        setEmail(newEmail);
         setEmailError('');
     }
-    const change_Password = (nuevoPassword: string) => {
-        setPassword(nuevoPassword);
+    const change_Password = (newPassword: string) => {
+        setPassword(newPassword);
 
         //Menor a 8 caracteres
-        if (nuevoPassword.length < 8) {
+        if (newPassword.length < 8) {
             setPasswordError('Se requiere al menos 8 caracteres.');
         } else {
-
             setPasswordError('');
         }
     }
@@ -44,17 +43,17 @@ export const RegisterController = () => {
         setShowPassword(!showPassword);
     }
 
-    const Continuar = (navigation: NavigationProp<any, any>) => {
+    const Continue = (navigation: NavigationProp<any, any>) => {
 
         let validations: boolean = true;
 
-        if (nombre === "") {
-            setNombreError('Este campo es requerido.');
+        if (name === "") {
+            setnameError('Este campo es requerido.');
             validations = false;
         }
 
-        if (apellidos === "") {
-            setApellidosError('Este campo es requerido.');
+        if (lastname === "") {
+            setlastnameError('Este campo es requerido.');
             validations = false;
         }
 
@@ -78,8 +77,8 @@ export const RegisterController = () => {
             let customer: Customer = Convert.toCustomer(
                 `{
                 "customer": {
-                    "lastname": "${apellidos}",
-                    "firstname": "${nombre}",
+                    "lastname": "${lastname}",
+                    "firstname": "${name}",
                     "email": "${email}",
                     "addresses": []
                 },
@@ -93,22 +92,22 @@ export const RegisterController = () => {
 
 
     return {
-        nombre,
-        apellidos,
+        name,
+        lastname,
         email,
         password,
-        nombreError,
-        apellidosError,
+        nameError,
+        lastnameError,
         emailError,
         setEmailError,
         passwordError,
         setPasswordError,
         showPassword,
-        change_Nombre,
-        change_Apellidos,
+        change_Name,
+        change_Lastname,
         change_Email,
         change_Password,
         change_ShowPassword,
-        Continuar
+        Continue
     }
 }

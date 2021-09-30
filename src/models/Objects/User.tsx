@@ -1,5 +1,5 @@
 
-export interface Usuario {
+export interface User {
     id?:                        number;
     group_id?:                  number;
     default_billing?:           string;
@@ -57,11 +57,11 @@ export interface UsuarioExtensionAttributes {
 }
 
 export class Convert {
-    public static toUsuario(json: string): Usuario {
+    public static toUsuario(json: string): User {
         return JSON.parse(json);
     }
 
-    public static usuarioToJson(value: Usuario): string {
+    public static usuarioToJson(value: User): string {
         return JSON.stringify(value);
     }
 }

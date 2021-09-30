@@ -20,17 +20,17 @@ export const RegisterPolicy: React.FC<IProps> = ({ route, navigation }) => {
         setPoliticasSwitch,
         promocionesSwitch,
         setPromocionesSwitch,
-        Continuar
+        Continue
     } = RegisterPolicyController();
 
     return (
         <View>
-            {/* Cambio de color de la Status bar */}
+            {/* Status bar color change */}
             <StatusBar
                 animated={true}
                 backgroundColor="white" />
 
-            {/* Titulo "crear cuenta" */}
+            {/* Title "crear cuenta" */}
             <Text style={{
                 position: 'absolute',
                 alignSelf: 'center',
@@ -42,7 +42,7 @@ export const RegisterPolicy: React.FC<IProps> = ({ route, navigation }) => {
                 crear cuenta
             </Text>
 
-            {/* Icono de flecha */}
+            {/* Arrow icon */}
             <TouchableOpacity
                 onPress={() => navigation.goBack()}
                 style={{
@@ -55,7 +55,7 @@ export const RegisterPolicy: React.FC<IProps> = ({ route, navigation }) => {
                 <Image source={require('../assets/Profile/ArrowIcon.png')} />
             </TouchableOpacity>
 
-            {/* Icono de x */}
+            {/* X icon */}
             <TouchableOpacity style={{
                 marginTop: 26,
                 marginRight: 24,
@@ -65,21 +65,21 @@ export const RegisterPolicy: React.FC<IProps> = ({ route, navigation }) => {
                 <Image source={require('../assets/NewPassword/XIcon.png')} />
             </TouchableOpacity>
 
-            {/* Contenido de pagina */}
+            {/* Page content */}
             <View style={{
                 marginHorizontal: 23,
                 justifyContent: 'center',
                 height: "100%"
             }}>
 
-                {/* Texto superior*/}
+                {/* Upper text */}
                 <Text style={{
                     fontFamily: "Effra_Rg",
                     fontSize: 16,
                     color: DARK
                 }}>Para continuar es necesario aceptar las políticas de privacidad.</Text>
 
-                {/* Politicas de privacidad */}
+                {/* Privacy policies */}
                 <View style={{
                     marginVertical: 30,
                     flexDirection: 'row'
@@ -104,7 +104,7 @@ export const RegisterPolicy: React.FC<IProps> = ({ route, navigation }) => {
 
                 </View>
 
-                {/* Recibir promociones */}
+                {/* Receive promotions */}
                 <View style={{
                     flexDirection: 'row'
                 }}>
@@ -128,13 +128,13 @@ export const RegisterPolicy: React.FC<IProps> = ({ route, navigation }) => {
 
                 </View>
 
-                {/* Boton Continuar */}
+                {/* Continue button */}
                 <View style={[{
                     marginTop: 30,
                     alignItems: 'center'
                 }, politicasSwitch? {opacity:1} : {opacity: 0.3}]}>
                     <TouchableOpacity
-                        onPress={() => { Continuar(customer, navigation) }}
+                        onPress={() => { Continue(customer, navigation) }}
                         disabled={!politicasSwitch}
                         style={{
                             backgroundColor: PRIMARY_BLUE,

@@ -6,7 +6,7 @@ import { DARKER_BLUE, PRIMARY_BLUE } from '../constants/colors';
 import { TextField } from 'rn-material-ui-textfield';
 import BouncyCheckbox from 'react-native-bouncy-checkbox';
 import { TouchableOpacity } from 'react-native-gesture-handler';
-import { Usuario } from '../models/Objects/Usuario';
+import { User } from '../models/Objects/User';
 import { ProfileController } from '../controllers/ProfileController';
 
 interface IProps {
@@ -16,64 +16,67 @@ interface IProps {
 
 export const Profile: React.FC<IProps> = ({ route, navigation }) => {
 
-  const User: Usuario = route.params.User;
-  const token: string = route.params.token;
+  const User: User = route.params.User;
 
   const {
-    nombre,
-    setNombre,
-    apellido,
-    setApellido,
+    name,
+    setName,
+    lastname,
+    setLastName,
     email,
     setEmail,
-    nombreError,
-    apellidosError,
+    nameError,
+    lastnameError,
     emailError,
-    Guardar
+    saveClicked,
+    ChangePassword,
+    Save
   } = ProfileController();
 
   useEffect(() => {
-    setNombre(User.firstname);
-    setApellido(User.lastname);
+    setName(User.firstname);
+    setLastName(User.lastname);
     setEmail(User.email);
   }, []);
 
   return (
-    <View>
-      {/* Cambio de color de la Status bar */}
+    <View
+      pointerEvents={saveClicked ? "none" : "auto"}
+      style={[{}, saveClicked ? { opacity: 0.3 } : { opacity: 1 }]}>
+      {/* Status bar color change */}
       <StatusBar animated={true} backgroundColor="white" />
 
       {/*
-                El siguiente Scroll View contiene toda la vista
-                exceptuando el icono de flecha y el titulo de la vista
-            */}
+        The following Scroll View contains the entire view
+        except for the arrow icon and the title of the view
+      */}
       <ScrollView>
-        {/* Informacion personal */}
+        {/* Personal information */}
         <Text style={{ marginTop: 75, marginLeft: 24, color: PRIMARY_BLUE }}>
           Informacion personal
         </Text>
 
-        {/* Nombre */}
-        <View style={{ marginHorizontal: 24, marginTop: -5 }}>
+        {/* Name */}
+        <View style={{ marginHorizontal: 24 }}>
           <TextField
-            error={nombreError}
+            error={nameError}
             label="Nombre"
-            value={nombre}
-            onChangeText={nombre => setNombre(nombre)} />
+            value={name}
+            onChangeText={name => setName(name)} />
         </View>
 
-        {/* Apellido */}
-        <View style={{ marginHorizontal: 24, marginTop: -5 }}>
+        {/* Lastname */}
+        <View style={{ marginHorizontal: 24 }}>
           <TextField
-            error={apellidosError}
+            error={lastnameError}
             label="Apellido"
-            value={apellido}
-            onChangeText={apellido => setApellido(apellido)}
+            value={lastname}
+            onChangeText={lastname => setLastName(lastname)}
           />
         </View>
 
-        {/* Correo electronico */}
-        <View style={{ marginHorizontal: 24, marginTop: -5 }}>
+        {/* Email */}
+        <View style={{ marginHorizontal: 24 }}>
           <TextField
             error={emailError}
             label="Correo electrónico"
@@ -82,12 +85,12 @@ export const Profile: React.FC<IProps> = ({ route, navigation }) => {
             onChangeText={email => setEmail(email)} />
         </View>
 
-        {/* Mis intereses */}
+        {/* My interests */}
         <Text style={{ marginTop: 18, marginLeft: 24, color: PRIMARY_BLUE }}>
           Mis intereses
         </Text>
 
-        {/* Checkbox de Baño */}
+        {/* Bathroom Checkbox */}
         <BouncyCheckbox
           size={20}
           text="Baño"
@@ -101,7 +104,7 @@ export const Profile: React.FC<IProps> = ({ route, navigation }) => {
           style={{ marginLeft: 24, marginTop: 10 }}
         />
 
-        {/* Checkbox de Cocina */}
+        {/* Kitchen Checkbox */}
         <BouncyCheckbox
           size={20}
           text="Cocina"
@@ -115,7 +118,7 @@ export const Profile: React.FC<IProps> = ({ route, navigation }) => {
           style={{ marginLeft: 24 }}
         />
 
-        {/* Checkbox de Cuidado personal */}
+        {/* Personal Care Checkbox */}
         <BouncyCheckbox
           size={20}
           text="Ciudado personal"
@@ -129,7 +132,7 @@ export const Profile: React.FC<IProps> = ({ route, navigation }) => {
           style={{ marginLeft: 24 }}
         />
 
-        {/* Checkbox de Decoracion */}
+        {/* Decoration Checkbox */}
         <BouncyCheckbox
           size={20}
           text="Decoración"
@@ -143,7 +146,7 @@ export const Profile: React.FC<IProps> = ({ route, navigation }) => {
           style={{ marginLeft: 24 }}
         />
 
-        {/* Checkbox de Mascotas viajes y mas */}
+        {/* Pet checkbox travel and more */}
         <BouncyCheckbox
           size={20}
           text="Mascotas viajes y más"
@@ -157,7 +160,7 @@ export const Profile: React.FC<IProps> = ({ route, navigation }) => {
           style={{ marginLeft: 24 }}
         />
 
-        {/* Checkbox de Recamara */}
+        {/* Bedroom Checkbox */}
         <BouncyCheckbox
           size={20}
           text="Recámara"
@@ -171,7 +174,7 @@ export const Profile: React.FC<IProps> = ({ route, navigation }) => {
           style={{ marginLeft: 24 }}
         />
 
-        {/* Checkbox de Organizacion y limpieza */}
+        {/* Organization and cleaning checkbox */}
         <BouncyCheckbox
           size={20}
           text="Organización y limpieza"
@@ -185,7 +188,7 @@ export const Profile: React.FC<IProps> = ({ route, navigation }) => {
           style={{ marginLeft: 24 }}
         />
 
-        {/* Checkbox de Zona Outlet */}
+        {/* Outlet Zone Checkbox */}
         <BouncyCheckbox
           size={20}
           text="Zona outlet"
@@ -199,17 +202,17 @@ export const Profile: React.FC<IProps> = ({ route, navigation }) => {
           style={{ marginLeft: 24 }}
         />
 
-        {/* Boton de cambiar contraseña */}
+        {/* Change password button */}
         <TouchableOpacity
           style={{ flexDirection: 'row', alignSelf: 'center', marginTop: 30 }}
-          onPress={() => navigation.navigate('NewPassword')}>
+          onPress={() => ChangePassword(User, navigation)}>
           <Image source={require('../assets/Profile/LockIcon.png')} />
           <Text style={{ marginLeft: 10 }}>Cambiar contraseña</Text>
         </TouchableOpacity>
 
-        {/* Boton de guardar */}
+        {/* Save button */}
         <TouchableOpacity
-        onPress={() => {Guardar(User, token, navigation)}}
+          onPress={() => { Save(User) }}
           style={{
             backgroundColor: PRIMARY_BLUE,
             alignSelf: 'center',

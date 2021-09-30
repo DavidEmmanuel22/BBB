@@ -1,25 +1,36 @@
 
 import { NavigationProp } from '@react-navigation/core';
 import { useState } from 'react'
+import { showMessage } from 'react-native-flash-message';
 
 import { Customer } from '../models/Objects/Customer';
 import { RegisterModel } from '../models/RegisterModel';
 
 export const RegisterPolicyController = () => {
 
-    const { RegistarUsuario } = RegisterModel();
+    const { UserRegister } = RegisterModel();
 
     const [politicasSwitch, setPoliticasSwitch] = useState(false);
     const [promocionesSwitch, setPromocionesSwitch] = useState(true);
 
-    const Continuar = async (customer: Customer, navigation: NavigationProp<any, any>) => {
-        let response = await RegistarUsuario(customer);
+    const Continue = async (customer: Customer, navigation: NavigationProp<any, any>) => {
+        let response = await UserRegister(customer);
 
         if (response.includes("Error")) {
             if (response.includes("email address")) {
-                //AsyncStorage.setItem('Email error',"El email ingresado ya esta en uso.");
+                showMessage({
+                    message: "El email ingresado ya esta en uso.",
+                    type: "warning",
+                    hideOnPress:true,
+                    duration:3000
+                });
             } else if (response.includes("contraseña")) {
-                //AsyncStorage.setItem('Password error',"Agrega una mayuscula, un numero o un caracter especial.");
+                showMessage({
+                    message: "Agrega una mayuscula, un numero o un caracter especial a tu contraseña.",
+                    type: "warning",
+                    hideOnPress:true,
+                    duration:3000
+                });
             }
             navigation.goBack();
         } else {
@@ -32,6 +43,6 @@ export const RegisterPolicyController = () => {
         setPoliticasSwitch,
         promocionesSwitch,
         setPromocionesSwitch,
-        Continuar
+        Continue
     }
 }

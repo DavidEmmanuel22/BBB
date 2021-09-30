@@ -15,32 +15,32 @@ interface IProps {
 
 const Register: React.FC<IProps> = ({ navigation }) => {
 
-  //Obteniendo los metodos ultilizados en Controller
+  //Obtaining the methods used in Controller
   const {
-    nombre,
-    apellidos,
+    name,
+    lastname,
     email,
     password,
-    nombreError,
-    apellidosError,
+    nameError,
+    lastnameError,
     emailError,
-    passwordError,
-    showPassword,
-    getErrors,
     setEmailError,
-    change_Nombre,
-    change_Apellidos,
+    passwordError,
+    setPasswordError,
+    showPassword,
+    change_Name,
+    change_Lastname,
     change_Email,
     change_Password,
     change_ShowPassword,
-    Continuar
+    Continue
   } = RegisterController();
 
-  //Referencias
-  const ref_textinput_Apellidos = useRef();
+  //References
+  const ref_textinput_Lastname = useRef();
   const ref_textinput_Email = useRef();
   const ref_textinput_Password = useRef();
-    
+
   return (
 
     <ScrollView
@@ -49,11 +49,11 @@ const Register: React.FC<IProps> = ({ navigation }) => {
 
       <Container>
 
-        {/* Cambio de color de Status bar */}
+        {/* Status bar color change */}
         <StatusBar
           backgroundColor="white" />
 
-        {/* Titulo "crear cuenta" */}
+        {/* Title "crear cuenta" */}
         <Text style={{
           alignSelf: 'center',
           fontFamily: "TerminaW05-Bold",
@@ -64,29 +64,29 @@ const Register: React.FC<IProps> = ({ navigation }) => {
           crear cuenta
         </Text>
 
-        {/* Entradas de texto */}
+        {/* Text inputs */}
         <View style={styles.inputsContainer}>
 
-          {/* Entrada de texto de Nombre */}
+          {/* Text input Nombre */}
           <TextField
             label="Nombre"
-            error={nombreError}
-            value={nombre}
-            onChangeText={nombre => change_Nombre(nombre)}
-            onSubmitEditing={() => ref_textinput_Apellidos.current.focus()}
+            error={nameError}
+            value={name}
+            onChangeText={name => change_Name(name)}
+            onSubmitEditing={() => ref_textinput_Lastname.current.focus()}
             blurOnSubmit={false}></TextField>
 
-          {/* Entrada de texto de Apellidos */}
+          {/* Text input Apellidos */}
           <TextField
             label="Apellidos"
-            error={apellidosError}
-            value={apellidos}
-            onChangeText={apellidos => change_Apellidos(apellidos)}
-            ref={ref_textinput_Apellidos}
+            error={lastnameError}
+            value={lastname}
+            onChangeText={lastname => change_Lastname(lastname)}
+            ref={ref_textinput_Lastname}
             onSubmitEditing={() => ref_textinput_Email.current.focus()}
             blurOnSubmit={false}></TextField>
 
-          {/* Entrada de texto de Correo electrónico */}
+          {/* Text input Correo electrónico */}
           <TextField
             label="Correo electrónico"
             error={emailError}
@@ -97,7 +97,7 @@ const Register: React.FC<IProps> = ({ navigation }) => {
             onSubmitEditing={() => ref_textinput_Password.current.focus()}
             blurOnSubmit={false}></TextField>
 
-          {/* Entrada de texto de Contraseña */}
+          {/* Text input Contraseña */}
           <View>
             <TextField
               label="Contraseña"
@@ -107,14 +107,14 @@ const Register: React.FC<IProps> = ({ navigation }) => {
               secureTextEntry={showPassword}
               ref={ref_textinput_Password}
               style={{
-                marginRight:48
+                marginRight: 48
               }}></TextField>
             <TouchableOpacity
               onPress={change_ShowPassword}
               style={{
                 position: 'absolute',
-                height:30,
-                width:40,
+                height: 30,
+                width: 40,
                 right: 1,
                 marginTop: 34
               }}>
@@ -124,12 +124,12 @@ const Register: React.FC<IProps> = ({ navigation }) => {
 
         </View>
 
-        {/* Boton Continuar */}
+        {/* Button Continuar */}
         <View style={{
           alignItems: 'center'
         }}>
           <TouchableOpacity
-            onPress={()=>Continuar(navigation)}
+            onPress={() => Continue(navigation)}
             style={{
               backgroundColor: PRIMARY_BLUE,
               width: "100%",
@@ -146,10 +146,10 @@ const Register: React.FC<IProps> = ({ navigation }) => {
 
         </View>
 
-        {/* Botones de Facebook/AppleID/Google */}
+        {/* Facebook/AppleID/Google Buttons */}
         <SocialButtons />
 
-        {/* Texto de politicas de privacidad */}
+        {/* Privacy policy text */}
         <LoginRegisterDisclaimer parent="register" />
 
       </Container>

@@ -3,7 +3,7 @@ import React, { useState } from 'react'
 import { View, StyleSheet, Image, TouchableOpacity, ScrollView, StatusBar, Text } from 'react-native';
 import { PRIMARY_BLUE, LIGHTER_GRAY, DARKER_BLUE, DARK } from '../constants/colors';
 import { TERMINABOLD } from '../constants/fonts';
-import { Usuario } from '../models/Objects/Usuario';
+import { User } from '../models/Objects/User';
 
 interface IProps {
     route: RouteProp<any, any>,
@@ -12,18 +12,18 @@ interface IProps {
 
 export const MyAccount: React.FC<IProps> = ({ route, navigation }) => {
 
-    const User : Usuario = route.params.datos;
+    const User : User = route.params.datos;
     const token : string = route.params.token;
 
     return (
         <View style={styles.container}>
 
-            {/* Cambio de color de la Status bar */}
+            {/* Status bar color change */}
             <StatusBar
                 animated={true}
                 backgroundColor="white" />
 
-            {/* Titulo */}
+            {/* Title */}
             <Text style={styles.txthola}>hola,</Text>
             <Text
                 numberOfLines={1}
@@ -46,7 +46,7 @@ export const MyAccount: React.FC<IProps> = ({ route, navigation }) => {
                 </TouchableOpacity>
             </View>
 
-            {/* Opciones: */}
+            {/* Choices: */}
             <View style={styles.OpcionesContainer}>
 
                 {/* Editar perfil */}
@@ -71,7 +71,7 @@ export const MyAccount: React.FC<IProps> = ({ route, navigation }) => {
             {/* Menu */}
             <ScrollView style={styles.MenuContainer}>
 
-                {/* Mis pedidos */}
+                {/* My orders */}
                 <TouchableOpacity style={{ flexDirection: 'row', marginHorizontal: 33, height: 48, justifyContent: 'flex-start', alignItems: 'center' }}>
                     <Image source={require("../assets/MyAccount/MisPedidosIcon.png")} />
                     <Text style={{ marginLeft: 12, fontFamily: "Effra_Rg", fontSize: 16, color: DARK }}>Mis pedidos</Text>
@@ -80,7 +80,7 @@ export const MyAccount: React.FC<IProps> = ({ route, navigation }) => {
 
                 <View style={{ marginHorizontal: 33, height: 1, marginTop: 3, backgroundColor: LIGHTER_GRAY }}></View>
 
-                {/* Mis direcciones */}
+                {/* My Addresses */}
                 <TouchableOpacity style={{ flexDirection: 'row', marginHorizontal: 33, height: 48, justifyContent: 'flex-start', alignItems: 'center' }}>
                     <Image source={require("../assets/MyAccount/MisDireccionesIcon.png")} />
                     <Text style={{ marginLeft: 12, fontFamily: "Effra_Rg", fontSize: 16, color: DARK }}>Mis direcciones</Text>
@@ -89,7 +89,7 @@ export const MyAccount: React.FC<IProps> = ({ route, navigation }) => {
 
                 <View style={{ marginHorizontal: 33, height: 1, marginTop: 3, backgroundColor: LIGHTER_GRAY }}></View>
 
-                {/* Mi tienda favorita */}
+                {/* My favourite store */}
                 <TouchableOpacity style={{ flexDirection: 'row', marginHorizontal: 33, height: 48, justifyContent: 'flex-start', alignItems: 'center' }}>
                     <Image source={require("../assets/MyAccount/MiTiendaFavoritaIcon.png")} />
                     <Text style={{ marginLeft: 12, fontFamily: "Effra_Rg", fontSize: 16, color: DARK }}>Mi tienda favorita</Text>
@@ -98,7 +98,7 @@ export const MyAccount: React.FC<IProps> = ({ route, navigation }) => {
 
                 <View style={{ marginHorizontal: 33, height: 1, marginTop: 3, backgroundColor: LIGHTER_GRAY }}></View>
 
-                {/* Mis opciones de pago */}
+                {/* My payment options */}
                 <TouchableOpacity style={{ flexDirection: 'row', marginHorizontal: 33, height: 48, justifyContent: 'flex-start', alignItems: 'center' }}>
                     <Image source={require("../assets/MyAccount/MisOpcionesDePagoIcon.png")} />
                     <Text style={{ marginLeft: 12, fontFamily: "Effra_Rg", fontSize: 16, color: DARK }}>Mis opciones de pago</Text>
@@ -107,7 +107,7 @@ export const MyAccount: React.FC<IProps> = ({ route, navigation }) => {
 
                 <View style={{ marginHorizontal: 33, height: 1, marginTop: 3, backgroundColor: LIGHTER_GRAY }}></View>
 
-                {/* Mis tarjetas de regalo */}
+                {/* My gift cards */}
                 <TouchableOpacity style={{ flexDirection: 'row', marginHorizontal: 33, height: 48, justifyContent: 'flex-start', alignItems: 'center' }}>
                     <Image source={require("../assets/MyAccount/MisTarjetasDeRegaloIcon.png")} />
                     <Text style={{ marginLeft: 12, fontFamily: "Effra_Rg", fontSize: 16, color: DARK }}>Mis tarjetas de regalo</Text>
@@ -116,7 +116,7 @@ export const MyAccount: React.FC<IProps> = ({ route, navigation }) => {
 
                 <View style={{ marginHorizontal: 33, height: 1, marginTop: 3, backgroundColor: LIGHTER_GRAY }}></View>
 
-                {/* Mis ofertas */}
+                {/* My offers */}
                 <TouchableOpacity style={{ flexDirection: 'row', marginHorizontal: 33, height: 48, justifyContent: 'flex-start', alignItems: 'center' }}>
                     <Image source={require("../assets/MyAccount/MisOfertasIcon.png")} />
                     <Text style={{ marginLeft: 12, fontFamily: "Effra_Rg", fontSize: 16, color: DARK }}>Mis ofertas</Text>
@@ -125,7 +125,7 @@ export const MyAccount: React.FC<IProps> = ({ route, navigation }) => {
 
                 <View style={{ marginHorizontal: 33, height: 1, marginTop: 3, backgroundColor: LIGHTER_GRAY }}></View>
 
-                {/* Mis mesas de regalos */}
+                {/* My gift tables */}
                 <TouchableOpacity style={{ flexDirection: 'row', marginHorizontal: 33, height: 48, justifyContent: 'flex-start', alignItems: 'center' }}>
                     <Image source={require("../assets/MyAccount/MiMesaDeRegalosIcon.png")} />
                     <Text style={{ marginLeft: 12, fontFamily: "Effra_Rg", fontSize: 16, color: DARK }}>Mis mesas de regalos</Text>
@@ -134,7 +134,7 @@ export const MyAccount: React.FC<IProps> = ({ route, navigation }) => {
 
                 <View style={{ marginHorizontal: 33, height: 1, marginTop: 3, backgroundColor: LIGHTER_GRAY }}></View>
 
-                {/* Mis reseñas */}
+                {/* My reviews */}
                 <TouchableOpacity style={{ flexDirection: 'row', marginHorizontal: 33, height: 48, justifyContent: 'flex-start', alignItems: 'center' }}>
                     <Image source={require("../assets/MyAccount/MisResenasIcon.png")} />
                     <Text style={{ marginLeft: 12, fontFamily: "Effra_Rg", fontSize: 16, color: DARK }}>Mis reseñas</Text>
