@@ -21,7 +21,7 @@ interface IProps {
 }
 const Data = [0, 0, 0];
 const Chips = ['Accesorios', 'Repostería', 'Gadgets'];
-const Categories: React.FC<IProps> = ({navigation}) => {
+const ProductsByCategory: React.FC<IProps> = ({navigation}) => {
   const countProducts = `${Data.length} productos`;
   const select = 'Accesorios';
 
@@ -31,15 +31,19 @@ const Categories: React.FC<IProps> = ({navigation}) => {
       <TouchableOpacity
         style={{
           paddingHorizontal: getWidth(12),
-          paddingVertical: getHeight(8),
           backgroundColor: isSelected ? PRIMARY_BLUE : WHITE,
           marginRight: getWidth(12),
           borderRadius: getWidth(16),
           borderWidth: getWidth(1),
           borderColor: PRIMARY_BLUE,
+          justifyContent: 'center',
+          alignItems: 'center',
         }}>
-        <Text size={getWidth(14)} color={isSelected ? WHITE : PRIMARY_BLUE}>
-          hola
+        <Text
+          size={getWidth(14)}
+          style={{marginVertical: getHeight(8)}}
+          color={isSelected ? WHITE : PRIMARY_BLUE}>
+          {chipItem}
         </Text>
       </TouchableOpacity>
     );
@@ -47,13 +51,14 @@ const Categories: React.FC<IProps> = ({navigation}) => {
 
   const ChipScroll = () => {
     return (
-      <FlatList
-        renderItem={({item}) => <Chip chipItem={item} />}
-        keyExtractor={(item, index) => 'key' + index}
-        horizontal={true}
-        data={Chips}
-        style={{marginTop: getHeight(20)}}
-      />
+      <View style={{marginTop: getHeight(20)}}>
+        <FlatList
+          renderItem={({item}) => <Chip chipItem={item} />}
+          keyExtractor={(item, index) => 'key' + index}
+          horizontal={true}
+          data={Chips}
+        />
+      </View>
     );
   };
 
@@ -92,6 +97,7 @@ const styles = StyleSheet.create({
   container: {
     paddingLeft: getWidth(24),
     paddingRight: getWidth(24),
+    flex: 1,
   },
   contentHeader: {
     flexDirection: 'row',
@@ -105,4 +111,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Categories;
+export default ProductsByCategory;

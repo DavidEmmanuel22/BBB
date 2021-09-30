@@ -33,7 +33,7 @@ const SearchHeader: React.FC<IProps> = ({close = false, ...props}) => {
     }
     if (
       typeof props.route.name === 'string' &&
-      props.route.name === 'Products'
+      props.route.name === 'ProductsByCategory'
     ) {
       setShowTab(false);
     } else {

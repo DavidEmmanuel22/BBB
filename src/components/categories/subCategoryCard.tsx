@@ -25,7 +25,7 @@ const AnimateBox: React.FC<IProps> = ({item}) => {
   const InnerCategory: React.FC<IProps> = ({item}) => {
     return (
       <TouchableOpacity
-        onPress={() => navigation.navigate('Products')}
+        onPress={() => navigation.navigate('ProductsByCategory')}
         style={styles.contentSub}>
         {/* Un dot para cada categoría */}
         <View style={styles.dot} />
