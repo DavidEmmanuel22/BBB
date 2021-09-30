@@ -13,19 +13,29 @@ import {
   CollapseBody,
 } from 'accordion-collapse-react-native';
 import {useNavigation} from '@react-navigation/native';
+import {Categories} from '../../models/Objects/Categories';
 
 interface IProps {
-  item: any;
+  item: Categories;
+}
+interface IPropsInner {
+  itemInner: Categories;
 }
 const AnimateBox: React.FC<IProps> = ({item}) => {
   const [show, setShow] = useState(false);
   const navigation = useNavigation();
-
+  const innerCategories = item.children_data;
   // Sub-sub categoría
-  const InnerCategory: React.FC<IProps> = ({item}) => {
+  const InnerCategory: React.FC<IPropsInner> = ({itemInner}) => {
+    console.log('inner', itemInner);
     return (
       <TouchableOpacity
-        onPress={() => navigation.navigate('ProductsByCategory')}
+        onPress={() =>
+          navigation.navigate('ProductsByCategory', {
+            category: itemInner,
+            subCategories: innerCategories,
+          })
+        }
         style={styles.contentSub}>
         {/* Un dot para cada categoría */}
         <View style={styles.dot} />
@@ -33,7 +43,7 @@ const AnimateBox: React.FC<IProps> = ({item}) => {
           style={{marginLeft: getWidth(14)}}
           color={BLUE}
           size={getWidth(16)}>
-          {item.name}
+          {itemInner.name}
         </Text>
       </TouchableOpacity>
     );
@@ -65,8 +75,8 @@ const AnimateBox: React.FC<IProps> = ({item}) => {
         <CollapseBody>
           <FlatList
             keyExtractor={(item, index) => 'key' + index}
-            renderItem={InnerCategory}
-            data={item.children_data}
+            renderItem={({item}) => <InnerCategory itemInner={item} />}
+            data={innerCategories}
           />
         </CollapseBody>
       </Collapse>

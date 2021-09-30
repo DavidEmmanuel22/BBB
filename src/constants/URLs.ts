@@ -11,9 +11,9 @@ export const URL_MODIFY_DATA_CUSTOMER = `${BASE_URL}/rest/default/V1/customers/:
 export const SEARCH_CRITERIAL = 'searchCriteria[filter_groups][0][filters][0]';
 
 export const URL_PRODUCT_BY_CATEGORY = (
-  categoryId = '',
+  categoryId = 0,
   order = 'DESC',
-  page = '1',
+  page = 1,
   pageSize = '50',
 ) =>
   `${BASE_URL}${BASE_INDEX_V1}products?${SEARCH_CRITERIAL}[field]=category_id&${SEARCH_CRITERIAL}[value]=${categoryId}&${SEARCH_CRITERIAL}[condition_type]=eq&searchCriteria[currentPage]=${page}&searchCriteria[pageSize]=${pageSize}&searchCriteria[sortOrders][][direction]=${order}`;

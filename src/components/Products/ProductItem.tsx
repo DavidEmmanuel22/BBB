@@ -1,14 +1,17 @@
 import React from 'react';
 import {StyleSheet, Image, View, TouchableOpacity} from 'react-native';
 import {BLUE, GRAY, LIGHTER_GRAY, PRIMARY_BLUE} from '../../constants/colors';
+import {ProductByCategory} from '../../models/Objects/ProductByCategory';
 import {getHeight, getWidth} from '../../utils/interfaceDimentions';
+import {separateDecimals} from '../../utils/separeteDecimals';
 import Text from '../Text';
 
 interface IProps {
-  item: any;
+  item: ProductByCategory;
 }
 
 const ProductItem: React.FC<IProps> = ({item}) => {
+  const price = separateDecimals(item.price || 0);
   return (
     <View style={styles.contain}>
       <Image
@@ -18,25 +21,25 @@ const ProductItem: React.FC<IProps> = ({item}) => {
         }}
       />
       <Text size={getWidth(14)} style={styles.description}>
-        Description
+        {item.name || ''}
       </Text>
       <View style={styles.contentPrice}>
         <View style={{flexDirection: 'row'}}>
           <Text color={BLUE} size={getWidth(15)} style={styles.normal}>
-            100
+            {price.price}
           </Text>
           <Text size={getWidth(8)} color={BLUE}>
-            00
+            {price.decimals}
           </Text>
         </View>
-        <View style={{flexDirection: 'row'}}>
+        {/* <View style={{flexDirection: 'row'}}>
           <Text color={GRAY} size={getWidth(15)} style={styles.discount}>
             100.00
           </Text>
           <Text color={GRAY} size={getWidth(8)} style={styles.discount}>
             00
           </Text>
-        </View>
+        </View> */}
       </View>
       <TouchableOpacity style={styles.button}>
         <Text color={PRIMARY_BLUE}>Agregar</Text>
@@ -62,6 +65,8 @@ const styles = StyleSheet.create({
   },
   description: {
     maxHeight: getHeight(40),
+    textAlign: 'center',
+    marginHorizontal: getWidth(8),
   },
   contentPrice: {
     flexDirection: 'row',
