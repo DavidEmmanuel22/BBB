@@ -27,7 +27,6 @@ const AnimateBox: React.FC<IProps> = ({item}) => {
   const innerCategories = item.children_data;
   // Sub-sub categoría
   const InnerCategory: React.FC<IPropsInner> = ({itemInner}) => {
-    console.log('inner', itemInner);
     return (
       <TouchableOpacity
         onPress={() =>
@@ -43,7 +42,7 @@ const AnimateBox: React.FC<IProps> = ({item}) => {
           style={{marginLeft: getWidth(14)}}
           color={BLUE}
           size={getWidth(16)}>
-          {itemInner.name}
+          {itemInner.name || ''}
         </Text>
       </TouchableOpacity>
     );
@@ -61,7 +60,7 @@ const AnimateBox: React.FC<IProps> = ({item}) => {
         <CollapseHeader>
           <View style={styles.contentCard}>
             <Text medium={true} color={BLUE} size={getWidth(16)}>
-              {item.name}
+              {item.name || ''}
             </Text>
             <View style={styles.contentIcon}>
               <Icon

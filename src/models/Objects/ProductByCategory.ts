@@ -6,6 +6,10 @@ export interface Media {
   disabled: boolean;
   file: string;
 }
+export interface ExtraAttributes {
+  attribute_code: string;
+  value: string;
+}
 
 export interface ProductByCategory {
   id?: number;
@@ -18,4 +22,5 @@ export interface ProductByCategory {
   type_id?: string;
   weight?: number;
   media_gallery_entries?: Media;
+  custom_attributes: Array<ExtraAttributes>;
 }
