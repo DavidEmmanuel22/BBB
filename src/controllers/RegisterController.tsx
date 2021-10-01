@@ -91,6 +91,7 @@ export const RegisterController = () => {
                 "password": "${password}"
             }`,
       );
+      navigation.navigate('RegisterPolicy', { customer });
     }
   };
 

@@ -34,6 +34,12 @@ export const RegisterPolicyController = () => {
             }
             navigation.goBack();
         } else {
+            showMessage({
+                message: "Registro completado.",
+                type: "success",
+                hideOnPress:true,
+                duration:3000
+            });
             navigation.navigate('Index');
         }
     }
