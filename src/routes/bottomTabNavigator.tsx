@@ -3,11 +3,12 @@ import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 
 import HomeStackNavigator from './HomeStackNavigator';
 import LoginStackNavigator from './LoginStackNavigator';
-import Discounts from '../screens/Discounts';
+//import Discounts from '../screens/Discounts';
 import Wishlist from '../screens/Wishlist';
 import Menu from '../screens/Menu';
 import Icon from '../components/Icon';
 import {PRIMARY_BLUE} from '../constants/colors';
+import Orders from '../screens/Orders';
 
 interface ITabIconProps {
   name: string;
@@ -50,7 +51,7 @@ const BottomTabNavigation = () => {
       />
       <Tab.Screen
         name="Discounts"
-        component={Discounts}
+        component={Orders}
         options={{
           tabBarLabel: '',
           tabBarIcon: ({color, size}) => (

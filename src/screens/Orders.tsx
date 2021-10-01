@@ -1,51 +1,47 @@
-import React from 'react';
-import {FlatList, View, Text, StyleSheet, Dimensions} from 'react-native';
-import Review from '../assets/icons/Review';
-import Button from '../components/Button';
+import React, {useEffect, useState} from 'react';
+import {FlatList, View} from 'react-native';
+import {useQuery} from 'react-query';
+import Indicator from '../components/Indicator';
+import EmptyList from '../components/orders/EmptyList';
 import OrderCard from '../components/orders/OrderCard';
-import { getWidth } from '../utils/interfaceDimentions';
+import {LoginModel} from '../models/LoginModel';
+import {getUserOrders} from '../models/OrdersModel';
+import {TokenModel} from '../models/TokenModel';
 
-const dummyList: any[] = [
-  {id: 0},
-  {id: 1},
-  {id: 2},
-  {id: 3},
-  {id: 4},
-  {id: 5},
-  {id: 6},
-  {id: 7},
-  {id: 8},
-];
-
-const {height} = Dimensions.get('screen');
-
-const EmptyData = () => {
-  return (
-    <View style={[styles.containerMessage, {height: height / 2}]}>
-      <View style={styles.icon}>
-        <Review />
-      </View>
-      <Text style={styles.message1}>No cuentas con pedidos</Text>
-      <Text style={styles.message2}>
-        Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet
-        sint.
-      </Text>
-      <Button
-        containerStyle={styles.buttonStyle}
-        title="Explorar productos"
-        onPress={() => {}}
-      />
-    </View>
-  );
-};
+const {GetUserData} = LoginModel();
+const {GetCustomerToken, GetAdminToken} = TokenModel();
 
 const Orders = () => {
+  const [userId, setUserId] = useState<any>();
+  const [adminToken, setAdminToken] = useState<any>();
+
+  useEffect(() => {
+    GetCustomerToken('ricardo@dgk.com.mx', 'MiRich.2015').then(token =>
+      GetUserData(token).then(data => setUserId(data?.id)),
+    );
+    GetAdminToken().then(token => setAdminToken(token));
+  }, []);
+
+  const {data, isLoading} = useQuery<any>(
+    'orders',
+    () => getUserOrders(userId, adminToken),
+    {
+      enabled: !!userId && !!adminToken,
+    },
+  );
+
+  console.log(data);
+
+  if (isLoading && data?.items?.length <= 0) {
+    return <Indicator />;
+  }
+
   return (
     <View>
       <FlatList
-        data={[]}
-        renderItem={() => <OrderCard />}
-        ListEmptyComponent={<EmptyData />}
+        data={data?.items ?? []}
+        renderItem={({item}) => <OrderCard status={item?.status} />}
+        ListEmptyComponent={<EmptyList />}
         keyExtractor={(item: any) => item?.id}
       />
     </View>
@@ -53,27 +49,3 @@ const Orders = () => {
 };
 
 export default Orders;
-const styles = StyleSheet.create({
-  containerMessage: {
-    flexDirection: 'column',
-    alignItems: 'center',
-    marginHorizontal: 18,
-    justifyContent: 'center',
-  },
-  buttonStyle: {
-    marginTop: 18,
-    width: getWidth(250),
-  },
-  icon: {
-    marginBottom: 18,
-  },
-  message1: {
-    fontSize: 16,
-    fontWeight: 'bold',
-    marginBottom: 16,
-  },
-  message2: {
-    fontSize: 16,
-    textAlign: 'center',
-  },
-});

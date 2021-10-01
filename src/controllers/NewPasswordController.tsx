@@ -1,134 +1,138 @@
-import { useState } from 'react'
-import { NewPasswordModel } from '../models/NewPasswordModel';
-import { TokenModel } from '../models/TokenModel';
-import { User } from '../models/Objects/User';
-import { showMessage } from 'react-native-flash-message';
-import { NavigationProp } from '@react-navigation/core';
+import {useState} from 'react';
+import {NewPasswordModel} from '../models/NewPasswordModel';
+import {TokenModel} from '../models/TokenModel';
+import {User} from '../models/Objects/User';
+import {showMessage} from 'react-native-flash-message';
+import {NavigationProp} from '@react-navigation/core';
 
 export const NewPasswordController = () => {
+  const {GetAdminToken} = TokenModel();
+  const {ChangePassword} = NewPasswordModel();
 
-    const { GetAdminToken } = TokenModel();
-    const { ChangePassword } = NewPasswordModel();
+  const [actualPassword, setactualPassword] = useState('');
+  const [newPassword, setNewPassword] = useState('');
+  const [verificationPassword, setVerificationPassword] = useState('');
 
-    const [actualPassword, setactualPassword] = useState("");
-    const [newPassword, setNewPassword] = useState("");
-    const [verificationPassword, setVerificationPassword] = useState("");
+  const [errorActualPassword, seterroractualPassword] = useState('');
+  const [errorNewPassword, seterrorNewPassword] = useState('');
+  const [errorVerificationPassword, seterrorVerificationPassword] =
+    useState('');
 
-    const [errorActualPassword, seterroractualPassword] = useState("");
-    const [errorNewPassword, seterrorNewPassword] = useState("");
-    const [errorVerificationPassword, seterrorVerificationPassword] = useState("");
+  const [showactualPassword, setshowactualPassword] = useState(true);
+  const [shownewPassword, setshowNewPassword] = useState(true);
+  const [showverificationPassword, setshowVerificationPassword] =
+    useState(true);
 
-    const [showactualPassword, setshowactualPassword] = useState(true);
-    const [shownewPassword, setshowNewPassword] = useState(true);
-    const [showverificationPassword, setshowVerificationPassword] = useState(true);
+  const change_ActualPassword = (nuevoPassword: string) => {
+    setactualPassword(nuevoPassword);
 
-    const change_ActualPassword = (nuevoPassword: string) => {
-        setactualPassword(nuevoPassword);
+    //Menor a 8 caracteres
+    if (nuevoPassword.length < 8) {
+      seterroractualPassword('Se requiere al menos 8 caracteres.');
+    } else {
+      seterroractualPassword('');
+    }
+  };
 
-        //Menor a 8 caracteres
-        if (nuevoPassword.length < 8) {
-            seterroractualPassword('Se requiere al menos 8 caracteres.');
-        } else {
-            seterroractualPassword('');
-        }
+  const change_NewPassword = (nuevoPassword: string) => {
+    setNewPassword(nuevoPassword);
+
+    //Menor a 8 caracteres
+    if (nuevoPassword.length < 8) {
+      seterrorNewPassword('Se requiere al menos 8 caracteres.');
+    } else {
+      seterrorNewPassword('');
+    }
+  };
+
+  const change_VerificationPassword = (nuevoPassword: string) => {
+    setVerificationPassword(nuevoPassword);
+
+    //Menor a 8 caracteres
+    if (nuevoPassword.length < 8) {
+      seterrorVerificationPassword('Se requiere al menos 8 caracteres.');
+    } else {
+      seterrorVerificationPassword('');
+    }
+  };
+
+  const Confirm = async (user: User, navigation: NavigationProp<any, any>) => {
+    let validations: boolean = true;
+
+    if (actualPassword === '') {
+      seterroractualPassword('Este campo es requerido.');
+      validations = false;
+    }
+    if (newPassword === '') {
+      seterrorNewPassword('Este campo es requerido.');
+      validations = false;
+    }
+    if (verificationPassword === '') {
+      seterrorVerificationPassword('Este campo es requerido.');
+      validations = false;
     }
 
-    const change_NewPassword = (nuevoPassword: string) => {
-        setNewPassword(nuevoPassword);
-
-        //Menor a 8 caracteres
-        if (nuevoPassword.length < 8) {
-            seterrorNewPassword('Se requiere al menos 8 caracteres.');
-        } else {
-            seterrorNewPassword('');
-        }
+    if (newPassword != verificationPassword) {
+      seterrorVerificationPassword('Las contraseñas no coinciden.');
+      validations = false;
     }
 
-    const change_VerificationPassword = (nuevoPassword: string) => {
-        setVerificationPassword(nuevoPassword);
+    if (validations) {
+      let token: string = await GetAdminToken();
 
-        //Menor a 8 caracteres
-        if (nuevoPassword.length < 8) {
-            seterrorVerificationPassword('Se requiere al menos 8 caracteres.');
-        } else {
-            seterrorVerificationPassword('');
-        }
-    }
-
-    const Confirm = async (user: User, navigation: NavigationProp<any, any>) => {
-
-        let validations: boolean = true;
-
-        if (actualPassword === "") {
-            seterroractualPassword("Este campo es requerido.");
-            validations = false;
-        }
-        if (newPassword === "") {
-            seterrorNewPassword("Este campo es requerido.");
-            validations = false;
-
-        }
-        if (verificationPassword === "") {
-            seterrorVerificationPassword("Este campo es requerido.");
-            validations = false;
-        }
-
-        if (newPassword != verificationPassword) {
-            seterrorVerificationPassword("Las contraseñas no coinciden.");
-            validations = false;
-        }
-
-        if (validations) {
-            let token: string = await GetAdminToken();
-
-            let response = await ChangePassword(user, token, actualPassword, newPassword);
-
-            if (response.includes("The password doesn't match this account")) {
-                showMessage({
-                    message: "La contraseña actual es incorrecta.",
-                    type: "warning",
-                    hideOnPress: true,
-                    duration: 3000
-                });
-            } else if (response.includes("La contraseña debe contener un mínimo")) {
-                showMessage({
-                    message: "Agrega mayusculas, numeros o caracteres especiales a tu nueva contraseña.",
-                    type: "warning",
-                    hideOnPress: true,
-                    duration: 3000
-                });
-            } else {
-                showMessage({
-                    message: "Contraseña actualizada.",
-                    type: "success",
-                    hideOnPress: true,
-                    duration: 3000
-                });
-                navigation.goBack();
-            }
-        }
-
-    }
-
-    return {
+      let response = await ChangePassword(
+        user,
+        token,
         actualPassword,
-        change_ActualPassword,
         newPassword,
-        change_NewPassword,
-        verificationPassword,
-        change_VerificationPassword,
+      );
 
-        errorActualPassword,
-        errorNewPassword,
-        errorVerificationPassword,
-
-        showactualPassword,
-        setshowactualPassword,
-        shownewPassword,
-        setshowNewPassword,
-        showverificationPassword,
-        setshowVerificationPassword,
-
-        Confirm
+      if (response.includes("The password doesn't match this account")) {
+        showMessage({
+          message: 'La contraseña actual es incorrecta.',
+          type: 'warning',
+          hideOnPress: true,
+          duration: 3000,
+        });
+      } else if (response.includes('La contraseña debe contener un mínimo')) {
+        showMessage({
+          message:
+            'Agrega mayusculas, numeros o caracteres especiales a tu nueva contraseña.',
+          type: 'warning',
+          hideOnPress: true,
+          duration: 3000,
+        });
+      } else {
+        showMessage({
+          message: 'Contraseña actualizada.',
+          type: 'success',
+          hideOnPress: true,
+          duration: 3000,
+        });
+        navigation.goBack();
+      }
     }
-}
+  };
+
+  return {
+    actualPassword,
+    change_ActualPassword,
+    newPassword,
+    change_NewPassword,
+    verificationPassword,
+    change_VerificationPassword,
+
+    errorActualPassword,
+    errorNewPassword,
+    errorVerificationPassword,
+
+    showactualPassword,
+    setshowactualPassword,
+    shownewPassword,
+    setshowNewPassword,
+    showverificationPassword,
+    setshowVerificationPassword,
+
+    Confirm,
+  };
+};

@@ -15,13 +15,23 @@ const orderStatus = {
   delivered: <Delivered />,
 };
 
-const OrderCard = () => {
+const STATUS = {
+  cancel_request: 'Cancelado',
+  closed: 'Cerrado',
+  complete: 'Completado',
+};
+
+type OrderCardProps = {
+  status?: string;
+}
+
+const OrderCard = ({status}: OrderCardProps) => {
   return (
     <View style={styles.container}>
       {orderStatus.cancel}
       <View>
         <Text style={styles.text1}>12233489786545-28/sep/2021</Text>
-        <Text style={styles.text2}>En camino</Text>
+        <Text style={styles.text2}>{status}</Text>
       </View>
       <RightArrow />
     </View>

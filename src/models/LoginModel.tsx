@@ -1,8 +1,5 @@
 import axios from 'axios';
-import {
-  URL_Obtain_Data_User_CUSTOMER,
-  URL_LOGIN_CUSTOMER,
-} from '../constants/URLs';
+import {URL_Obtain_Data_User_CUSTOMER} from '../constants/URLs';
 import {Convert, User} from './Objects/User';
 
 export const LoginModel = () => {
