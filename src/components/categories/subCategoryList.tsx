@@ -1,11 +1,12 @@
 import React from 'react';
 import {FlatList} from 'react-native';
 import {LIGHTER_BLUE} from '../../constants/colors';
+import {Categories} from '../../models/Objects/Categories';
 import {getWidth} from '../../utils/interfaceDimentions';
 
 import SubCategoryCard from './subCategoryCard';
 interface IProps {
-  data: Array<any>;
+  data: Array<Categories>;
 }
 const SubCategoryList: React.FC<IProps> = ({data}) => {
   return (

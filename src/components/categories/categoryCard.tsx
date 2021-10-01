@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {StyleSheet, Image, View} from 'react-native';
 
 import Text from '../Text';
@@ -6,15 +6,9 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import {getHeight, getWidth} from '../../utils/interfaceDimentions';
 import {BLUE, BRAND_BLUE, LIGHTER_GRAY3, WHITE} from '../../constants/colors';
 
-interface Data {
-  name: string;
-  children_data: any;
-}
 interface IProps {
-  data: Data;
+  data: Categories;
 }
-
-import {useState} from 'react';
 
 import SubCategoryList from './subCategoryList';
 import {
@@ -23,11 +17,23 @@ import {
   CollapseBody,
 } from 'accordion-collapse-react-native';
 import {flexGeneric} from '../../utils/stylesGenetic';
+import {CategoryModel} from '../../models/CategoriesModel';
+import {GetAttribute} from '../../utils/genericFunctions';
+import {BASE_URL} from '../../constants/URLs';
+import {Categories} from '../../models/Objects/Categories';
 
 const AnimateBox: React.FC<IProps> = ({data}) => {
-  const {name, children_data} = data;
+  const {name, children_data, id} = data;
+  const [urlImage, setUrlImage] = useState('');
+  const {GetCategoryInfo} = CategoryModel();
   const [show, setShow] = useState(false);
-
+  useEffect(() => {
+    GetCategoryInfo(id || 0).then(res => {
+      const uriImage = GetAttribute(res.custom_attributes || [], 'image');
+      setUrlImage(BASE_URL + uriImage);
+    });
+    return () => {};
+  }, []);
   return (
     <Collapse
       onToggle={(isCollapse: boolean) => {
@@ -42,7 +48,7 @@ const AnimateBox: React.FC<IProps> = ({data}) => {
               resizeMode="cover"
               style={styles.image}
               source={{
-                uri: 'https://64.media.tumblr.com/efaa470a462601bee5a49f46115eb755/tumblr_inline_olu4x55Kjg1u0e4qb_400.jpg',
+                uri: urlImage,
               }}
             />
           )}
@@ -51,7 +57,7 @@ const AnimateBox: React.FC<IProps> = ({data}) => {
               style={{marginLeft: getWidth(16)}}
               color={show ? WHITE : BLUE}
               size={getWidth(20)}>
-              {name}
+              {name || ''}
             </Text>
             {show && (
               <Text
@@ -74,7 +80,7 @@ const AnimateBox: React.FC<IProps> = ({data}) => {
       </CollapseHeader>
       {/* Lista de categorías que se colapsa */}
       <CollapseBody>
-        <SubCategoryList data={children_data} />
+        <SubCategoryList data={children_data || []} />
       </CollapseBody>
     </Collapse>
   );

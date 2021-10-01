@@ -7,6 +7,8 @@ export const URL_Obtain_Data_User_CUSTOMER = `${BASE_URL}/rest/default/V1/custom
 export const URL_REGISTRAR = `${BASE_URL}/rest/default/V1/customers`;
 export const URL_ORDERS = '/rest/default/V1/orders';
 export const URL_CATEGORIES = `${BASE_URL}${BASE_INDEX_V1}categories?storeId=1`;
+export const URL_CATEGORY = (id: number) =>
+  `${BASE_URL}${BASE_INDEX_V1}categories/${id}?storeId=1`;
 
 export const SEARCH_CRITERIAL = 'searchCriteria[filter_groups][0][filters][0]';
 

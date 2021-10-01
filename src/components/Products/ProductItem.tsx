@@ -1,5 +1,4 @@
 import React from 'react';
-import {useEffect} from 'react';
 import {StyleSheet, Image, View, TouchableOpacity} from 'react-native';
 import {BLUE, GRAY, LIGHTER_GRAY, PRIMARY_BLUE} from '../../constants/colors';
 import {ProductByCategory} from '../../models/Objects/ProductByCategory';
