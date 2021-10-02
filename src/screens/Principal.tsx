@@ -12,7 +12,8 @@ import ProductCard from '../components/home/ProductCard';
 import SquareImage from '../components/home/SquareImage';
 import SectionHome from '../components/SectionHome';
 import {NavigationProp} from '@react-navigation/core';
-import Orders from './Orders';
+import {getSlider1} from '../models/HomeModel';
+import {useQuery} from 'react-query';
 
 const dummyList: any[] = [
   {id: 0},
@@ -43,6 +44,8 @@ const Principal: React.FC<IProps> = ({navigation}) => {
     2,
   );
 
+  const {data: slider1} = useQuery('slider1', getSlider1);
+
   return (
     <Container>
       <ScrollView
@@ -51,13 +54,10 @@ const Principal: React.FC<IProps> = ({navigation}) => {
         <FlatList
           horizontal
           showsHorizontalScrollIndicator={false}
-          data={dummyList}
-          renderItem={() => (
-            <View style={{marginRight: 12}}>
-              <OfferCard
-                height={width / 2.5}
-                source={require('../assets/images/dummy/banner1.png')}
-              />
+          data={slider1 ?? []}
+          renderItem={({item, index}) => (
+            <View key={index} style={{marginRight: 12}}>
+              <OfferCard height={width / 2.5} source={{uri: item?.Imagen}} />
             </View>
           )}
           keyExtractor={item => item.id}
