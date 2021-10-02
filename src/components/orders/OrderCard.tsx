@@ -1,3 +1,4 @@
+import dayjs from 'dayjs';
 import React from 'react';
 import {StyleSheet, Text, View} from 'react-native';
 import Cancelled from '../../assets/icons/Cancelled';
@@ -8,30 +9,43 @@ import SuccessfullPayment from '../../assets/icons/SuccessfulPayment';
 import {DARK, LIGHTER_GRAY, PRIMARY_BLUE} from '../../constants/colors';
 import {EFFRA} from '../../constants/fonts';
 
-const orderStatus = {
-  onWay: <OnWay />,
-  success: <SuccessfullPayment />,
-  cancel: <Cancelled />,
-  delivered: <Delivered />,
+const orderStatus: Record<string, any> = {
+  complete: <Delivered />,
+  canceled: <Cancelled />,
+  cancel_requested: <Cancelled />,
+  closed: <SuccessfullPayment />,
+  playment_pending: <Delivered />,
+  payment_review: <Delivered />,
+  payment_confirmation: <Delivered />,
+  default: <OnWay />,
 };
 
-const STATUS = {
-  cancel_request: 'Cancelado',
-  closed: 'Cerrado',
-  complete: 'Completado',
+const STATUS: Record<string, any> = {
+  complete: 'Entregado',
+  canceled: 'Cancelación completa',
+  cancel_requested: 'Solicitud de cancelación',
+  closed: 'Completado',
+  playment_pending: 'Pendiente de pago',
+  payment_review: 'Revisión de pagos',
+  payment_confirmation: 'Confirmación de pago',
+  default: '',
 };
 
 type OrderCardProps = {
   status?: string;
-}
+  id?: string;
+  createdAt?: any;
+};
 
-const OrderCard = ({status}: OrderCardProps) => {
+const OrderCard = ({status, id, createdAt}: OrderCardProps) => {
   return (
     <View style={styles.container}>
-      {orderStatus.cancel}
+      {orderStatus[status || 'default']}
       <View>
-        <Text style={styles.text1}>12233489786545-28/sep/2021</Text>
-        <Text style={styles.text2}>{status}</Text>
+        <Text style={styles.text1}>
+          {`${id} - ${dayjs(createdAt).format('D [de] MMM [del] YYYY')}`}
+        </Text>
+        <Text style={styles.text2}>{STATUS[status || 'default']}</Text>
       </View>
       <RightArrow />
     </View>

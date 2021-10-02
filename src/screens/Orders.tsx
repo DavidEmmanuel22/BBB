@@ -22,17 +22,15 @@ const Orders = () => {
     GetAdminToken().then(token => setAdminToken(token));
   }, []);
 
-  const {data, isLoading} = useQuery<any>(
-    'orders',
+  const {data, isLoading, refetch} = useQuery<any>(
+    'myOrders',
     () => getUserOrders(userId, adminToken),
     {
       enabled: !!userId && !!adminToken,
     },
   );
 
-  console.log(data);
-
-  if (isLoading && data?.items?.length <= 0) {
+  if (isLoading) {
     return <Indicator />;
   }
 
@@ -40,7 +38,16 @@ const Orders = () => {
     <View>
       <FlatList
         data={data?.items ?? []}
-        renderItem={({item}) => <OrderCard status={item?.status} />}
+        onRefresh={() => refetch()}
+        refreshing={isLoading}
+        renderItem={({item}) => (
+          <OrderCard
+            key={item?.id}
+            id={item?.increment_id}
+            createdAt={item?.created_at}
+            status={item?.status}
+          />
+        )}
         ListEmptyComponent={<EmptyList />}
         keyExtractor={(item: any) => item?.id}
       />
