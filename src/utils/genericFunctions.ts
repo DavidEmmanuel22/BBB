@@ -8,3 +8,5 @@ export const GetAttribute = (attributes: Array<ExtraAttributes>, name: string) =
     return null;
   }
 };
+
+export const sortNumberByKey = (list: any[], key: string) => list.sort((a, b) => (a[key] > b[key] ? 1 : -1));

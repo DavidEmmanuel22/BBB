@@ -83,6 +83,7 @@ export const MyAccount: React.FC<IProps> = ({ route, navigation }) => {
             justifyContent: 'flex-start',
             alignItems: 'center',
           }}
+          onPress={() => navigation.navigate('MyOrders', { User, token })}
         >
           <Image source={require('../assets/MyAccount/MisPedidosIcon.png')} />
           <Text

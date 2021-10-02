@@ -9,6 +9,7 @@ import { MyAccount } from '../screens/MyAccount';
 import { Profile } from '../screens/Profile';
 import { NewPassword } from '../screens/NewPassword';
 import { RegisterPolicy } from '../screens/RegisterPolicy';
+import Orders from '../screens/Orders';
 
 const Stack = createStackNavigator();
 
@@ -28,6 +29,7 @@ const LoginStackNavigator = () => {
       <Stack.Screen name="Welcome" component={Welcome} />
       <Stack.Screen name="MyAccount" component={MyAccount} />
       <Stack.Screen name="Profile" component={Profile} />
+      <Stack.Screen name="MyOrders" component={Orders} />
       <Stack.Screen name="NewPassword" component={NewPassword} />
     </Stack.Navigator>
   );
