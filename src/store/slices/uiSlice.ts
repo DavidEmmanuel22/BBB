@@ -1,5 +1,5 @@
-import {createSlice, PayloadAction} from '@reduxjs/toolkit';
-import {RootState} from '../';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { RootState } from '../';
 
 interface UIState {
   initialized: boolean;
@@ -25,7 +25,7 @@ export const uiSlice = createSlice({
 });
 
 // Actions
-export const {initialize, changeSelect} = uiSlice.actions;
+export const { initialize, changeSelect } = uiSlice.actions;
 
 // Selectors
 export const selectUIInitialized = (state: RootState) => state.ui.initialized;

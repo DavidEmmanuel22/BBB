@@ -1,8 +1,8 @@
 import React from 'react';
-import {View, Text, StyleSheet} from 'react-native';
+import { View, Text, StyleSheet } from 'react-native';
 
-import {DARKER_BLUE} from '../constants/colors';
-import {TERMINABOLD} from '../constants/fonts';
+import { DARKER_BLUE } from '../constants/colors';
+import { TERMINABOLD } from '../constants/fonts';
 
 export enum POSITION {
   LEFT = 'LEFT',
@@ -20,16 +20,12 @@ export enum HEADING {
 }
 
 interface IProps {
-  children: JSX.Element | JSX.Element[] | string;
+  children: React.ReactNode | React.ReactNode[] | string;
   heading?: HEADING;
   position?: POSITION;
 }
 
-const Title: React.FC<IProps> = ({
-  children,
-  heading = HEADING.H1,
-  position = POSITION.LEFT,
-}) => {
+const Title: React.FC<IProps> = ({ children, heading = HEADING.H1, position = POSITION.LEFT }) => {
   // @ts-ignore
   const headingStyles = styles[heading.toLowerCase()];
   // @ts-ignore
@@ -42,7 +38,8 @@ const Title: React.FC<IProps> = ({
           ...styles.title,
           ...headingStyles,
           ...positionStyles,
-        }}>
+        }}
+      >
         {children}
       </Text>
     </View>

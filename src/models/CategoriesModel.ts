@@ -1,8 +1,8 @@
 import axios from 'axios';
-import {useDispatch} from 'react-redux';
-import {URL_CATEGORIES, URL_CATEGORY} from '../constants/URLs';
-import {setCategories} from '../store/slices/categorySlice';
-import {Categories} from './Objects/Categories';
+import { useDispatch } from 'react-redux';
+import { URL_CATEGORIES, URL_CATEGORY } from '../constants/URLs';
+import { setCategories } from '../store/slices/categorySlice';
+import { Categories } from './Objects/Categories';
 export const CategoryModel = () => {
   const dispatch = useDispatch();
 
@@ -11,14 +11,14 @@ export const CategoryModel = () => {
 
     await axios({
       method: 'GET',
-      headers: {'content-type': 'application/json'},
+      headers: { 'content-type': 'application/json' },
       url: URL_CATEGORIES,
     })
-      .then(({data}) => {
+      .then(({ data }) => {
         categories = data.children_data[0].children_data;
         dispatch(setCategories(categories));
       })
-      .catch(error => {
+      .catch((error) => {
         console.log('error', error);
       });
     return categories;
@@ -28,13 +28,13 @@ export const CategoryModel = () => {
 
     await axios({
       method: 'GET',
-      headers: {'content-type': 'application/json'},
+      headers: { 'content-type': 'application/json' },
       url: URL_CATEGORY(id),
     })
-      .then(({data}) => {
+      .then(({ data }) => {
         categoryInfo = data;
       })
-      .catch(error => {
+      .catch((error) => {
         console.log('error', error);
       });
     return categoryInfo;

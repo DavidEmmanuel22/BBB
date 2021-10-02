@@ -1,6 +1,6 @@
-import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
+import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import React from 'react';
-import {StyleSheet, Text, View} from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
 import Button from '../Button';
 import Carousel from '../Carousel';
 
@@ -18,15 +18,13 @@ const dummyData = [
   {
     title: 'Food inside a Bowl',
     url: 'https://images-na.ssl-images-amazon.com/images/I/61DvGVOTLGL._AC_SL1000_.jpg',
-    description:
-      'Lorem Ipsum is simply dummy text of the printing and typesetting industry.',
+    description: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry.',
     id: 2,
   },
   {
     title: 'Vegatable Salad',
     url: 'https://i.ibb.co/JxykVBt/flat-lay-photography-of-vegetable-salad-on-plate-1640777.jpg',
-    description:
-      'Lorem Ipsum is simply dummy text of the printing and typesetting industry.',
+    description: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry.',
     id: 3,
   },
 ];
@@ -46,16 +44,11 @@ const CardSlide = () => {
       </View>
       <View>
         <Text style={styles.description} numberOfLines={2}>
-          Escurridor para trastes doble aluminio Namaro Design con charola color
-          gris
+          Escurridor para trastes doble aluminio Namaro Design con charola color gris
         </Text>
         <View style={styles.options}>
           <Text style={styles.priceText}>$1549.00</Text>
-          <Button
-            containerStyle={styles.button}
-            title="Agregar"
-            onPress={() => {}}
-          />
+          <Button containerStyle={styles.button} title="Agregar" onPress={() => {}} />
         </View>
       </View>
     </View>

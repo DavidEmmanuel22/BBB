@@ -1,15 +1,16 @@
-import React, {useState} from 'react';
-import {View, Text, TextInput, TextInputProps, StyleSheet} from 'react-native';
+/* eslint-disable @typescript-eslint/no-unused-vars */
+import React, { useState } from 'react';
+import { View, Text, TextInput, TextInputProps, StyleSheet } from 'react-native';
 
-import {LIGHTER_GRAY, GRAY} from '../constants/colors';
+import { LIGHTER_GRAY, GRAY } from '../constants/colors';
 
 interface IProps extends TextInputProps {
   label?: string;
-  startIcon?(): JSX.Element;
-  endIcon?(): JSX.Element;
+  startIcon?(): React.ReactNode;
+  endIcon?(): React.ReactNode;
 }
 
-const Input: React.FC<IProps> = props => {
+const Input: React.FC<IProps> = (props) => {
   const [value, setValue] = useState<string>('');
   const [focus, setFocus] = useState<boolean>(false);
 
@@ -34,12 +35,13 @@ const Input: React.FC<IProps> = props => {
           style={{
             ...styles.label,
             paddingLeft: props.startIcon ? 24 : 8,
-          }}>
+          }}
+        >
           {props.label}
         </Text>
       ) : null}
       {props.startIcon && (
-        <View style={{...styles.icon, ...styles.iconStart}}>
+        <View style={{ ...styles.icon, ...styles.iconStart }}>
           <Text>{props.startIcon()}</Text>
         </View>
       )}
@@ -57,7 +59,7 @@ const Input: React.FC<IProps> = props => {
       />
 
       {props.endIcon && (
-        <View style={{...styles.icon, ...styles.iconEnd}}>
+        <View style={{ ...styles.icon, ...styles.iconEnd }}>
           <Text>{props.endIcon()}</Text>
         </View>
       )}

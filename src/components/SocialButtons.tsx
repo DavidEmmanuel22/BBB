@@ -16,17 +16,15 @@ const SocialButtons: React.FC = () => {
 
       <Button
         title="Continuar con Facebook"
-        onPress={() => { }}
+        onPress={() => {}}
         type={BUTTONTYPE.SECONDARY}
         containerStyle={styles.socialButton}
         textStyle={styles.socialButtonText}
-        icon={() => (
-          <Icon name="facebook-icon" color={PRIMARY_BLUE} size={16} />
-        )}
+        icon={() => <Icon name="facebook-icon" color={PRIMARY_BLUE} size={16} />}
       />
       <Button
         title="Continuar con Apple ID"
-        onPress={() => { }}
+        onPress={() => {}}
         type={BUTTONTYPE.SECONDARY}
         containerStyle={styles.socialButton}
         textStyle={styles.socialButtonText}
@@ -35,16 +33,11 @@ const SocialButtons: React.FC = () => {
       />
       <Button
         title="Continuar con Google"
-        onPress={() => { }}
+        onPress={() => {}}
         type={BUTTONTYPE.SECONDARY}
         containerStyle={styles.socialButton}
         textStyle={styles.socialButtonText}
-        icon={() => (
-          <Image
-            style={styles.googleLogo}
-            source={require('../assets/images/google.png')}
-          />
-        )}
+        icon={() => <Image style={styles.googleLogo} source={require('../assets/images/google.png')} />}
         iconStyle={{ marginLeft: -10, marginRight: 15 }}
       />
     </View>
@@ -57,7 +50,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     marginTop: 24,
-    marginBottom: 14
+    marginBottom: 14,
   },
   sepText: {
     color: GRAY2,

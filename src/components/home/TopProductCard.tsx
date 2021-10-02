@@ -1,8 +1,8 @@
 import React from 'react';
-import {ImageBackground, StyleSheet, Text, View} from 'react-native';
+import { ImageBackground, StyleSheet, Text, View } from 'react-native';
 import Button from '../Button';
 import Favorite from '../../assets/icons/Favorit';
-import {LIGHTER_GRAY} from '../../constants/colors';
+import { LIGHTER_GRAY } from '../../constants/colors';
 
 type TopProduct = {
   source: any;
@@ -11,12 +11,10 @@ type TopProduct = {
   onPress: () => void;
 };
 
-const TopProductCard = ({source, description, price, onPress}: TopProduct) => {
+const TopProductCard = ({ source, description, price, onPress }: TopProduct) => {
   return (
     <View style={styles.container}>
-      <ImageBackground
-        source={source}
-        style={[styles.imgProduct, styles.positionIconFavorite]}>
+      <ImageBackground source={source} style={[styles.imgProduct, styles.positionIconFavorite]}>
         <Favorite />
       </ImageBackground>
       <View style={styles.containerDescription}>

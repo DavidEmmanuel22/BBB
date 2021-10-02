@@ -1,17 +1,17 @@
 import React from 'react';
-import {StyleSheet, Image, View, TouchableOpacity} from 'react-native';
-import {BLUE, GRAY, LIGHTER_GRAY, PRIMARY_BLUE} from '../../constants/colors';
-import {ProductByCategory} from '../../models/Objects/ProductByCategory';
-import {GetAttribute} from '../../utils/genericFunctions';
-import {getHeight, getWidth} from '../../utils/interfaceDimentions';
-import {separateDecimals} from '../../utils/separeteDecimals';
+import { StyleSheet, Image, View, TouchableOpacity } from 'react-native';
+import { BLUE, GRAY, LIGHTER_GRAY, PRIMARY_BLUE } from '../../constants/colors';
+import { ProductByCategory } from '../../models/Objects/ProductByCategory';
+import { GetAttribute } from '../../utils/genericFunctions';
+import { getHeight, getWidth } from '../../utils/interfaceDimentions';
+import { separateDecimals } from '../../utils/separeteDecimals';
 import Text from '../Text';
 
 interface IProps {
   item: ProductByCategory;
 }
 
-const ProductItem: React.FC<IProps> = ({item}) => {
+const ProductItem: React.FC<IProps> = ({ item }) => {
   const price = separateDecimals(item.price || 0);
   const imageProduct = GetAttribute(item.custom_attributes, 'scene7_urls');
   const priceSpecial = GetAttribute(item.custom_attributes, 'special_price');
@@ -31,7 +31,7 @@ const ProductItem: React.FC<IProps> = ({item}) => {
         {item.name || ''}
       </Text>
       <View style={styles.contentPrice}>
-        <View style={{flexDirection: 'row'}}>
+        <View style={{ flexDirection: 'row' }}>
           <Text color={BLUE} size={getWidth(15)} style={styles.normal}>
             {priceSpecial ? priceDeal.price : price.price}
           </Text>
@@ -40,7 +40,7 @@ const ProductItem: React.FC<IProps> = ({item}) => {
           </Text>
         </View>
         {priceSpecial && (
-          <View style={{flexDirection: 'row'}}>
+          <View style={{ flexDirection: 'row' }}>
             <Text color={GRAY} size={getWidth(15)} style={styles.discount}>
               {price.price}
             </Text>

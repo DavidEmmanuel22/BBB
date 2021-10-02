@@ -1,7 +1,7 @@
 /* eslint-disable react-native/no-inline-styles */
 import React from 'react';
-import {Dimensions, ScrollView, View} from 'react-native';
-import {FlatList} from 'react-native-gesture-handler';
+import { Dimensions, ScrollView, View } from 'react-native';
+import { FlatList } from 'react-native-gesture-handler';
 
 import Container from '../components/Container';
 import OfferCard from '../components/home/OfferCard';
@@ -11,56 +11,51 @@ import TopProductCard from '../components/home/TopProductCard';
 import ProductCard from '../components/home/ProductCard';
 import SquareImage from '../components/home/SquareImage';
 import SectionHome from '../components/SectionHome';
-import {NavigationProp} from '@react-navigation/core';
-import {getSlider1} from '../models/HomeModel';
-import {useQuery} from 'react-query';
+import { NavigationProp } from '@react-navigation/core';
+import { getSlider1 } from '../models/HomeModel';
+import { useQuery } from 'react-query';
 
 const dummyList: any[] = [
-  {id: 0},
-  {id: 1},
-  {id: 2},
-  {id: 3},
-  {id: 4},
-  {id: 5},
-  {id: 6},
-  {id: 7},
-  {id: 8},
+  { id: 0 },
+  { id: 1 },
+  { id: 2 },
+  { id: 3 },
+  { id: 4 },
+  { id: 5 },
+  { id: 6 },
+  { id: 7 },
+  { id: 8 },
 ];
 
 const calcTileDimensions = (deviceWidth: number, tpr: number) => {
   const margin = deviceWidth / (tpr * 10);
   const size = (deviceWidth - margin * (tpr * 2)) / tpr;
-  return {size, margin};
+  return { size, margin };
 };
 
-const {width} = Dimensions.get('window');
+const { width } = Dimensions.get('window');
 interface IProps {
   navigation: NavigationProp<any, any>;
 }
-const Principal: React.FC<IProps> = ({navigation}) => {
+const Principal: React.FC<IProps> = () => {
   const mosaicDimensions = calcTileDimensions(width - 64, 3);
-  const {size: sizeCategoty, margin: marginCategory} = calcTileDimensions(
-    width - 64,
-    2,
-  );
+  const { size: sizeCategoty, margin: marginCategory } = calcTileDimensions(width - 64, 2);
 
-  const {data: slider1} = useQuery('slider1', getSlider1);
+  const { data: slider1 } = useQuery('slider1', getSlider1);
 
   return (
     <Container>
-      <ScrollView
-        showsVerticalScrollIndicator={false}
-        style={{flex: 1, marginTop: 24}}>
+      <ScrollView showsVerticalScrollIndicator={false} style={{ flex: 1, marginTop: 24 }}>
         <FlatList
           horizontal
           showsHorizontalScrollIndicator={false}
           data={slider1 ?? []}
-          renderItem={({item, index}) => (
-            <View key={index} style={{marginRight: 12}}>
-              <OfferCard height={width / 2.5} source={{uri: item?.Imagen}} />
+          renderItem={({ item, index }) => (
+            <View key={index} style={{ marginRight: 12 }}>
+              <OfferCard height={width / 2.5} source={{ uri: item?.Imagen }} />
             </View>
           )}
-          keyExtractor={item => item.id}
+          keyExtractor={(item) => item.id}
         />
         <View
           style={{
@@ -70,27 +65,26 @@ const Principal: React.FC<IProps> = ({navigation}) => {
             flexWrap: 'wrap',
             flexDirection: 'row',
             backgroundColor: '#fff7ec',
-          }}>
+          }}
+        >
           {dummyList.map((item: any) => (
             <View
               key={item?.id}
               style={{
                 marginBottom: 16,
-              }}>
+              }}
+            >
               <SquareImage
                 background="#f60"
                 source={require('../assets/images/dummy/square1.jpg')}
-                styleText={{color: 'black', fontSize: 17}}
+                styleText={{ color: 'black', fontSize: 17 }}
                 {...mosaicDimensions}
               />
             </View>
           ))}
         </View>
-        <View style={{marginTop: 12}}>
-          <OfferCard
-            height={80}
-            source={require('../assets/images/dummy/banner2.png')}
-          />
+        <View style={{ marginTop: 12 }}>
+          <OfferCard height={80} source={require('../assets/images/dummy/banner2.png')} />
         </View>
 
         <SectionHome title="para tu recámara">
@@ -99,14 +93,16 @@ const Principal: React.FC<IProps> = ({navigation}) => {
               justifyContent: 'flex-start',
               flexWrap: 'wrap',
               flexDirection: 'row',
-            }}>
+            }}
+          >
             {dummyList.map((item: any) => (
               <View
                 key={item?.id}
                 style={{
                   marginBottom: 16,
                   marginHorizontal: marginCategory,
-                }}>
+                }}
+              >
                 <CategoryCard
                   source={require('../assets/images/dummy/bed1.png')}
                   label="Ropa de Cama"
@@ -123,7 +119,7 @@ const Principal: React.FC<IProps> = ({navigation}) => {
             showsHorizontalScrollIndicator={false}
             data={dummyList}
             renderItem={() => (
-              <View style={{marginRight: 12}}>
+              <View style={{ marginRight: 12 }}>
                 <TopProductCard
                   source={require('../assets/images/dummy/bed2.png')}
                   description="Set de colcha matrimonial/queen…"
@@ -132,7 +128,7 @@ const Principal: React.FC<IProps> = ({navigation}) => {
                 />
               </View>
             )}
-            keyExtractor={item => item.id}
+            keyExtractor={(item) => item.id}
           />
         </SectionHome>
 
@@ -143,11 +139,10 @@ const Principal: React.FC<IProps> = ({navigation}) => {
               justifyContent: 'flex-start',
               flexWrap: 'wrap',
               flexDirection: 'row',
-            }}>
+            }}
+          >
             {dummyList.map((item: any) => (
-              <View
-                key={item?.id}
-                style={{marginBottom: 16, marginHorizontal: marginCategory}}>
+              <View key={item?.id} style={{ marginBottom: 16, marginHorizontal: marginCategory }}>
                 <CategoryCard
                   source={require('../assets/images/dummy/bathroom.png')}
                   label="Ropa de Cama"
@@ -158,20 +153,17 @@ const Principal: React.FC<IProps> = ({navigation}) => {
           </View>
         </SectionHome>
 
-        <View style={{marginTop: 12}}>
+        <View style={{ marginTop: 12 }}>
           <FlatList
             horizontal
             showsHorizontalScrollIndicator={false}
             data={dummyList}
             renderItem={() => (
-              <View style={{marginRight: 12}}>
-                <OfferCard
-                  height={100}
-                  source={require('../assets/images/dummy/banner3.png')}
-                />
+              <View style={{ marginRight: 12 }}>
+                <OfferCard height={100} source={require('../assets/images/dummy/banner3.png')} />
               </View>
             )}
-            keyExtractor={item => item.id}
+            keyExtractor={(item) => item.id}
           />
         </View>
         <SectionHome title="destacados" seeAllRight>
@@ -184,7 +176,7 @@ const Principal: React.FC<IProps> = ({navigation}) => {
             showsHorizontalScrollIndicator={false}
             data={dummyList}
             renderItem={() => (
-              <View style={{marginRight: 12}}>
+              <View style={{ marginRight: 12 }}>
                 <TopProductCard
                   source={require('../assets/images/dummy/bed2.png')}
                   description="Escurridor para trastes de acero…"
@@ -193,15 +185,12 @@ const Principal: React.FC<IProps> = ({navigation}) => {
                 />
               </View>
             )}
-            keyExtractor={item => item.id}
+            keyExtractor={(item) => item.id}
           />
         </SectionHome>
 
-        <View style={{marginTop: 24}}>
-          <OfferCard
-            height={150}
-            source={require('../assets/images/dummy/banner4.png')}
-          />
+        <View style={{ marginTop: 24 }}>
+          <OfferCard height={150} source={require('../assets/images/dummy/banner4.png')} />
         </View>
 
         <SectionHome title="ofertas" seeAllRight>
@@ -209,27 +198,24 @@ const Principal: React.FC<IProps> = ({navigation}) => {
         </SectionHome>
 
         <SectionHome title="más comprados" seeAllRight>
-          {dummyList.map(item => (
+          {dummyList.map((item) => (
             <View key={item.id}>
               <ProductCard />
             </View>
           ))}
         </SectionHome>
 
-        <View style={{marginTop: 12}}>
+        <View style={{ marginTop: 12 }}>
           <FlatList
             horizontal
             showsHorizontalScrollIndicator={false}
             data={dummyList}
             renderItem={() => (
-              <View style={{marginRight: 12}}>
-                <OfferCard
-                  height={120}
-                  source={require('../assets/images/dummy/banner5.png')}
-                />
+              <View style={{ marginRight: 12 }}>
+                <OfferCard height={120} source={require('../assets/images/dummy/banner5.png')} />
               </View>
             )}
-            keyExtractor={item => item.id}
+            keyExtractor={(item) => item.id}
           />
         </View>
 
@@ -240,16 +226,11 @@ const Principal: React.FC<IProps> = ({navigation}) => {
               justifyContent: 'flex-start',
               flexWrap: 'wrap',
               flexDirection: 'row',
-            }}>
+            }}
+          >
             {dummyList.map((item: any) => (
-              <View
-                key={item?.id}
-                style={{marginBottom: 16, marginHorizontal: marginCategory}}>
-                <CategoryCard
-                  source={require('../assets/images/dummy/home.png')}
-                  label="Cocinas"
-                  size={sizeCategoty}
-                />
+              <View key={item?.id} style={{ marginBottom: 16, marginHorizontal: marginCategory }}>
+                <CategoryCard source={require('../assets/images/dummy/home.png')} label="Cocinas" size={sizeCategoty} />
               </View>
             ))}
           </View>

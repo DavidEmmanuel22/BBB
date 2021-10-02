@@ -1,16 +1,16 @@
 import React from 'react';
-import {Dimensions, Image, StyleSheet, View} from 'react-native';
+import { Dimensions, Image, StyleSheet, View } from 'react-native';
 
 type OfferProps = {
   source: any;
   height?: number | string;
 };
 
-const {width, height: h} = Dimensions.get('window');
+const { width, height: h } = Dimensions.get('window');
 
-const OfferCard = ({source, height = h / 4}: OfferProps) => {
+const OfferCard = ({ source, height = h / 4 }: OfferProps) => {
   return (
-    <View style={[styles.container, {height}]}>
+    <View style={[styles.container, { height }]}>
       <Image style={styles.image} source={source} />
     </View>
   );

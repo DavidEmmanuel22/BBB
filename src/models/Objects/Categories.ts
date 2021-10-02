@@ -1,4 +1,4 @@
-import {ExtraAttributes} from './ProductByCategory';
+import { ExtraAttributes } from './ProductByCategory';
 
 export interface Categories {
   id?: number;
@@ -8,6 +8,7 @@ export interface Categories {
   position?: number;
   level?: number;
   product_count?: number;
+  chipItem?: any;
   children_data?: Array<Categories>;
   custom_attributes?: Array<ExtraAttributes>;
 }

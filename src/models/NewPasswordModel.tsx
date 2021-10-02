@@ -1,14 +1,9 @@
 import axios from 'axios';
-import {User} from './Objects/User';
-import {URL_MODIFY_PASSWORD_CUSTOMER} from '../constants/URLs';
+import { User } from './Objects/User';
+import { URL_MODIFY_PASSWORD_CUSTOMER } from '../constants/URLs';
 
 export const NewPasswordModel = () => {
-  const ChangePassword = async (
-    user: User,
-    token: string,
-    oldPassword: string,
-    newPassword: string,
-  ) => {
+  const ChangePassword = async (user: User, token: string, oldPassword: string, newPassword: string) => {
     let response: string = '';
 
     let body = `{
@@ -27,10 +22,10 @@ export const NewPasswordModel = () => {
       data: body,
       url: url,
     })
-      .then(res => {
+      .then((res) => {
         response = JSON.stringify(res.data);
       })
-      .catch(error => {
+      .catch((error) => {
         if (error.response) {
           response = 'Error ' + error.response.data.message;
         }

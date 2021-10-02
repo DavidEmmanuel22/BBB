@@ -1,5 +1,6 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { NavigationProp, RouteProp } from '@react-navigation/core';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { Image, View, ScrollView, StatusBar } from 'react-native';
 import Text from '../components/Text';
 import { DARKER_BLUE, PRIMARY_BLUE } from '../constants/colors';
@@ -10,13 +11,12 @@ import { User } from '../models/Objects/User';
 import { ProfileController } from '../controllers/ProfileController';
 
 interface IProps {
-  route: RouteProp<any, any>,
+  route: RouteProp<any, any>;
   navigation: NavigationProp<any, any>;
 }
 
 export const Profile: React.FC<IProps> = ({ route, navigation }) => {
-
-  const User: User = route.params.User;
+  const User: User = route?.params?.User;
 
   const {
     name,
@@ -30,7 +30,7 @@ export const Profile: React.FC<IProps> = ({ route, navigation }) => {
     emailError,
     saveClicked,
     ChangePassword,
-    Save
+    Save,
   } = ProfileController();
 
   useEffect(() => {
@@ -40,9 +40,7 @@ export const Profile: React.FC<IProps> = ({ route, navigation }) => {
   }, []);
 
   return (
-    <View
-      pointerEvents={saveClicked ? "none" : "auto"}
-      style={[{}, saveClicked ? { opacity: 0.3 } : { opacity: 1 }]}>
+    <View pointerEvents={saveClicked ? 'none' : 'auto'} style={[{}, saveClicked ? { opacity: 0.3 } : { opacity: 1 }]}>
       {/* Status bar color change */}
       <StatusBar animated={true} backgroundColor="white" />
 
@@ -52,17 +50,11 @@ export const Profile: React.FC<IProps> = ({ route, navigation }) => {
       */}
       <ScrollView>
         {/* Personal information */}
-        <Text style={{ marginTop: 75, marginLeft: 24, color: PRIMARY_BLUE }}>
-          Informacion personal
-        </Text>
+        <Text style={{ marginTop: 75, marginLeft: 24, color: PRIMARY_BLUE }}>Informacion personal</Text>
 
         {/* Name */}
         <View style={{ marginHorizontal: 24 }}>
-          <TextField
-            error={nameError}
-            label="Nombre"
-            value={name}
-            onChangeText={name => setName(name)} />
+          <TextField error={nameError} label="Nombre" value={name} onChangeText={(name) => setName(name)} />
         </View>
 
         {/* Lastname */}
@@ -71,7 +63,7 @@ export const Profile: React.FC<IProps> = ({ route, navigation }) => {
             error={lastnameError}
             label="Apellido"
             value={lastname}
-            onChangeText={lastname => setLastName(lastname)}
+            onChangeText={(lastname) => setLastName(lastname)}
           />
         </View>
 
@@ -82,13 +74,12 @@ export const Profile: React.FC<IProps> = ({ route, navigation }) => {
             label="Correo electrónico"
             keyboardType="email-address"
             value={email}
-            onChangeText={email => setEmail(email)} />
+            onChangeText={(email) => setEmail(email)}
+          />
         </View>
 
         {/* My interests */}
-        <Text style={{ marginTop: 18, marginLeft: 24, color: PRIMARY_BLUE }}>
-          Mis intereses
-        </Text>
+        <Text style={{ marginTop: 18, marginLeft: 24, color: PRIMARY_BLUE }}>Mis intereses</Text>
 
         {/* Bathroom Checkbox */}
         <BouncyCheckbox
@@ -100,7 +91,7 @@ export const Profile: React.FC<IProps> = ({ route, navigation }) => {
             color: 'black',
             textDecorationLine: 'none',
           }}
-          onPress={() => { }}
+          onPress={() => {}}
           style={{ marginLeft: 24, marginTop: 10 }}
         />
 
@@ -114,7 +105,7 @@ export const Profile: React.FC<IProps> = ({ route, navigation }) => {
             color: 'black',
             textDecorationLine: 'none',
           }}
-          onPress={() => { }}
+          onPress={() => {}}
           style={{ marginLeft: 24 }}
         />
 
@@ -128,7 +119,7 @@ export const Profile: React.FC<IProps> = ({ route, navigation }) => {
             color: 'black',
             textDecorationLine: 'none',
           }}
-          onPress={() => { }}
+          onPress={() => {}}
           style={{ marginLeft: 24 }}
         />
 
@@ -142,7 +133,7 @@ export const Profile: React.FC<IProps> = ({ route, navigation }) => {
             color: 'black',
             textDecorationLine: 'none',
           }}
-          onPress={() => { }}
+          onPress={() => {}}
           style={{ marginLeft: 24 }}
         />
 
@@ -156,7 +147,7 @@ export const Profile: React.FC<IProps> = ({ route, navigation }) => {
             color: 'black',
             textDecorationLine: 'none',
           }}
-          onPress={() => { }}
+          onPress={() => {}}
           style={{ marginLeft: 24 }}
         />
 
@@ -170,7 +161,7 @@ export const Profile: React.FC<IProps> = ({ route, navigation }) => {
             color: 'black',
             textDecorationLine: 'none',
           }}
-          onPress={() => { }}
+          onPress={() => {}}
           style={{ marginLeft: 24 }}
         />
 
@@ -184,7 +175,7 @@ export const Profile: React.FC<IProps> = ({ route, navigation }) => {
             color: 'black',
             textDecorationLine: 'none',
           }}
-          onPress={() => { }}
+          onPress={() => {}}
           style={{ marginLeft: 24 }}
         />
 
@@ -198,21 +189,24 @@ export const Profile: React.FC<IProps> = ({ route, navigation }) => {
             color: 'black',
             textDecorationLine: 'none',
           }}
-          onPress={() => { }}
+          onPress={() => {}}
           style={{ marginLeft: 24 }}
         />
 
         {/* Change password button */}
         <TouchableOpacity
           style={{ flexDirection: 'row', alignSelf: 'center', marginTop: 30 }}
-          onPress={() => ChangePassword(User, navigation)}>
+          onPress={() => ChangePassword(User, navigation)}
+        >
           <Image source={require('../assets/Profile/LockIcon.png')} />
           <Text style={{ marginLeft: 10 }}>Cambiar contraseña</Text>
         </TouchableOpacity>
 
         {/* Save button */}
         <TouchableOpacity
-          onPress={() => { Save(User) }}
+          onPress={() => {
+            Save(User);
+          }}
           style={{
             backgroundColor: PRIMARY_BLUE,
             alignSelf: 'center',
@@ -222,7 +216,8 @@ export const Profile: React.FC<IProps> = ({ route, navigation }) => {
             marginBottom: 20,
             justifyContent: 'center',
             alignItems: 'center',
-          }}>
+          }}
+        >
           <Text style={{ color: 'white' }}>Guardar</Text>
         </TouchableOpacity>
       </ScrollView>
@@ -234,11 +229,13 @@ export const Profile: React.FC<IProps> = ({ route, navigation }) => {
           height: 60,
           position: 'absolute',
           backgroundColor: 'white',
-        }}>
+        }}
+      >
         {/* Icono de flecha */}
         <TouchableOpacity
           onPress={() => navigation.goBack()}
-          style={{ marginTop: 24, marginLeft: 24, width: '20%', height: 25 }}>
+          style={{ marginTop: 24, marginLeft: 24, width: '20%', height: 25 }}
+        >
           <Image source={require('../assets/Profile/ArrowIcon.png')} />
         </TouchableOpacity>
 
@@ -251,7 +248,8 @@ export const Profile: React.FC<IProps> = ({ route, navigation }) => {
             alignSelf: 'center',
             marginTop: 20,
             color: DARKER_BLUE,
-          }}>
+          }}
+        >
           mi perfil
         </Text>
       </View>

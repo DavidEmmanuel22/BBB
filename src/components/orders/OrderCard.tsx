@@ -1,13 +1,13 @@
 import dayjs from 'dayjs';
 import React from 'react';
-import {StyleSheet, Text, View} from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
 import Cancelled from '../../assets/icons/Cancelled';
 import Delivered from '../../assets/icons/Delivered';
 import OnWay from '../../assets/icons/OnWay';
 import RightArrow from '../../assets/icons/RightArrow';
 import SuccessfullPayment from '../../assets/icons/SuccessfulPayment';
-import {DARK, LIGHTER_GRAY, PRIMARY_BLUE} from '../../constants/colors';
-import {EFFRA} from '../../constants/fonts';
+import { DARK, LIGHTER_GRAY, PRIMARY_BLUE } from '../../constants/colors';
+import { EFFRA } from '../../constants/fonts';
 
 const orderStatus: Record<string, any> = {
   complete: <Delivered />,
@@ -37,14 +37,12 @@ type OrderCardProps = {
   createdAt?: any;
 };
 
-const OrderCard = ({status, id, createdAt}: OrderCardProps) => {
+const OrderCard = ({ status, id, createdAt }: OrderCardProps) => {
   return (
     <View style={styles.container}>
       {orderStatus[status || 'default']}
       <View>
-        <Text style={styles.text1}>
-          {`${id} - ${dayjs(createdAt).format('D [de] MMM [del] YYYY')}`}
-        </Text>
+        <Text style={styles.text1}>{`${id} - ${dayjs(createdAt).format('D [de] MMM [del] YYYY')}`}</Text>
         <Text style={styles.text2}>{STATUS[status || 'default']}</Text>
       </View>
       <RightArrow />

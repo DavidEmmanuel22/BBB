@@ -1,5 +1,5 @@
 import axios from 'axios';
-import {URL_LOGIN_ADMIN, URL_LOGIN_CUSTOMER} from '../constants/URLs';
+import { URL_LOGIN_ADMIN, URL_LOGIN_CUSTOMER } from '../constants/URLs';
 
 export const TokenModel = () => {
   const GetAdminToken = async (): Promise<string> => {
@@ -12,24 +12,21 @@ export const TokenModel = () => {
 
     await axios({
       method: 'POST',
-      headers: {'content-type': 'application/json'},
+      headers: { 'content-type': 'application/json' },
       data: JSON.stringify(BodyData),
       url: URL_LOGIN_ADMIN,
     })
-      .then(res => {
+      .then((res) => {
         token = res.data;
       })
-      .catch(error => {
+      .catch((error) => {
         token = 'Error ' + error;
       });
 
     return token;
   };
 
-  const GetCustomerToken = async (
-    email: string,
-    password: string,
-  ): Promise<string> => {
+  const GetCustomerToken = async (email: string, password: string): Promise<string> => {
     let token: string = '';
 
     const BodyData = {
@@ -39,14 +36,14 @@ export const TokenModel = () => {
 
     await axios({
       method: 'POST',
-      headers: {'content-type': 'application/json'},
+      headers: { 'content-type': 'application/json' },
       data: JSON.stringify(BodyData),
       url: URL_LOGIN_CUSTOMER,
     })
-      .then(res => {
+      .then((res) => {
         token = res.data;
       })
-      .catch(error => {
+      .catch((error) => {
         token = 'Error ' + error;
       });
 

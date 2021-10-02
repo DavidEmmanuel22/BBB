@@ -1,16 +1,12 @@
 import React from 'react';
-import {View, StyleSheet, Dimensions, ImageBackground} from 'react-native';
+import { View, StyleSheet, Dimensions, ImageBackground } from 'react-native';
 
-const {width, height} = Dimensions.get('window');
+const { width, height } = Dimensions.get('window');
 
-const CarouselItem = ({item}: any) => {
+const CarouselItem = ({ item }: any) => {
   return (
     <View style={styles.cardView}>
-      <ImageBackground
-        source={{uri: item?.url}}
-        resizeMode="cover"
-        style={[styles.image]}
-      />
+      <ImageBackground source={{ uri: item?.url }} resizeMode="cover" style={[styles.image]} />
     </View>
   );
 };

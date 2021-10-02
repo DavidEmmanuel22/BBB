@@ -1,6 +1,6 @@
 /* eslint-disable react-native/no-inline-styles */
 import React from 'react';
-import {StyleSheet, View, Text, ImageBackground, TextStyle} from 'react-native';
+import { StyleSheet, View, Text, ImageBackground, TextStyle } from 'react-native';
 
 type SquareImageProps = {
   uri?: string;
@@ -15,18 +15,8 @@ type SquareImageProps = {
   source?: any;
 };
 
-const SquareImage = ({
-  uri,
-  size,
-  height,
-  source,
-  width,
-  text,
-  margin,
-  styleText,
-  background,
-}: SquareImageProps) => {
-  const image: any = uri ? {uri: uri} : undefined;
+const SquareImage = ({ uri, size, height, source, width, text, margin, styleText, background }: SquareImageProps) => {
+  const image: any = uri ? { uri: uri } : undefined;
   const media = image || source;
 
   return (
@@ -37,7 +27,8 @@ const SquareImage = ({
         marginHorizontal: margin,
         backgroundColor: background,
         alignSelf: 'flex-start',
-      }}>
+      }}
+    >
       <View style={styles.container}>
         <ImageBackground source={media} resizeMode="cover" style={styles.image}>
           <Text style={[styles.text, styleText]}>{text}</Text>

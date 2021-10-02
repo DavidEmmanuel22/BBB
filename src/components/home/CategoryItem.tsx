@@ -1,5 +1,5 @@
 import React from 'react';
-import {StyleSheet, Text, TouchableOpacity} from 'react-native';
+import { StyleSheet, Text, TouchableOpacity } from 'react-native';
 
 type CategoryItem = {
   isSelected?: boolean;
@@ -7,12 +7,10 @@ type CategoryItem = {
   onPress: () => void;
 };
 
-const CategoryItem = ({isSelected, label, onPress}: CategoryItem) => {
+const CategoryItem = ({ isSelected, label, onPress }: CategoryItem) => {
   return (
     <TouchableOpacity style={isSelected && styles.active} onPress={onPress}>
-      <Text style={[styles.text, isSelected && styles.textActive]}>
-        {label}
-      </Text>
+      <Text style={[styles.text, isSelected && styles.textActive]}>{label}</Text>
     </TouchableOpacity>
   );
 };

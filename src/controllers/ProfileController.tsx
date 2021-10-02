@@ -1,16 +1,14 @@
-import {NavigationProp} from '@react-navigation/core';
-import React, {useState} from 'react';
-import {ProfileModel} from '../models/ProfileModel';
-import {User} from '../models/Objects/User';
-import {TokenModel} from '../models/TokenModel';
-import {showMessage} from 'react-native-flash-message';
+/* eslint-disable @typescript-eslint/no-unused-vars */
+import { NavigationProp } from '@react-navigation/core';
+import { useState } from 'react';
+import { ProfileModel } from '../models/ProfileModel';
+import { User } from '../models/Objects/User';
+import { TokenModel } from '../models/TokenModel';
+import { showMessage } from 'react-native-flash-message';
 
 export const ProfileController = () => {
-  const {ModificarUsuario} = ProfileModel();
-  const {ObtenerAdminToken} = TokenModel();
-
-  const {ModifyUser} = ProfileModel();
-  const {GetAdminToken} = TokenModel();
+  const { ModifyUser } = ProfileModel();
+  const { GetAdminToken } = TokenModel();
 
   const [name, setName] = useState('');
   const [lastname, setLastName] = useState('');
@@ -23,7 +21,7 @@ export const ProfileController = () => {
   const [saveClicked, setsaveClicked] = useState(false);
 
   const ChangePassword = (user: User, navigation: NavigationProp<any, any>) => {
-    navigation.navigate('NewPassword', {user});
+    navigation.navigate('NewPassword', { user });
   };
 
   const Save = async (user: User) => {
@@ -60,8 +58,8 @@ export const ProfileController = () => {
       validations = false;
     } else {
       if (!/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email)) {
-        setEmailError('El correo electrónico es incorrecto.');
         validations = false;
+        setEmailError('El correo electrónico es incorrecto.');
       }
     }
 

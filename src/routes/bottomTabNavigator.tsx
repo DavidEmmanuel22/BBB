@@ -1,5 +1,5 @@
 import React from 'react';
-import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
 import HomeStackNavigator from './HomeStackNavigator';
 import LoginStackNavigator from './LoginStackNavigator';
@@ -7,7 +7,7 @@ import LoginStackNavigator from './LoginStackNavigator';
 import Wishlist from '../screens/Wishlist';
 import Menu from '../screens/Menu';
 import Icon from '../components/Icon';
-import {PRIMARY_BLUE} from '../constants/colors';
+import { PRIMARY_BLUE } from '../constants/colors';
 import Orders from '../screens/Orders';
 
 interface ITabIconProps {
@@ -23,12 +23,8 @@ const isActiveTab = (focused: boolean, color: string) => {
   return focused && color === PRIMARY_BLUE ? '-filled' : '';
 };
 
-const TabIcon: React.FC<ITabIconProps> = ({name, focused, color, size}) => (
-  <Icon
-    name={`${name}${isActiveTab(focused, color)}-icon`}
-    color={color}
-    size={size}
-  />
+const TabIcon: React.FC<ITabIconProps> = ({ name, focused, color, size }) => (
+  <Icon name={`${name}${isActiveTab(focused, color)}-icon`} color={color} size={size} />
 );
 
 const BottomTabNavigation = () => {
@@ -38,15 +34,14 @@ const BottomTabNavigation = () => {
       screenOptions={{
         tabBarActiveTintColor: PRIMARY_BLUE,
         headerShown: false,
-      }}>
+      }}
+    >
       <Tab.Screen
         name="Home"
         component={HomeStackNavigator}
         options={{
           tabBarLabel: '',
-          tabBarIcon: ({color, size, focused}) => (
-            <TabIcon name="home" focused={focused} color={color} size={size} />
-          ),
+          tabBarIcon: ({ color, size, focused }) => <TabIcon name="home" focused={focused} color={color} size={size} />,
         }}
       />
       <Tab.Screen
@@ -54,9 +49,7 @@ const BottomTabNavigation = () => {
         component={Orders}
         options={{
           tabBarLabel: '',
-          tabBarIcon: ({color, size}) => (
-            <Icon name="tag-icon" color={color} size={size} />
-          ),
+          tabBarIcon: ({ color, size }) => <Icon name="tag-icon" color={color} size={size} />,
         }}
       />
       <Tab.Screen
@@ -64,9 +57,7 @@ const BottomTabNavigation = () => {
         component={Wishlist}
         options={{
           tabBarLabel: '',
-          tabBarIcon: ({color, size}) => (
-            <Icon name="heart-icon" color={color} size={size} />
-          ),
+          tabBarIcon: ({ color, size }) => <Icon name="heart-icon" color={color} size={size} />,
         }}
       />
       <Tab.Screen
@@ -74,9 +65,7 @@ const BottomTabNavigation = () => {
         component={LoginStackNavigator}
         options={{
           tabBarLabel: '',
-          tabBarIcon: ({color, size, focused}) => (
-            <TabIcon name="user" focused={focused} color={color} size={size} />
-          ),
+          tabBarIcon: ({ color, size, focused }) => <TabIcon name="user" focused={focused} color={color} size={size} />,
         }}
       />
       <Tab.Screen
@@ -84,9 +73,7 @@ const BottomTabNavigation = () => {
         component={Menu}
         options={{
           tabBarLabel: '',
-          tabBarIcon: ({color, size}) => (
-            <Icon name="hamburguer-icon" color={color} size={size} />
-          ),
+          tabBarIcon: ({ color, size }) => <Icon name="hamburguer-icon" color={color} size={size} />,
         }}
       />
     </Tab.Navigator>

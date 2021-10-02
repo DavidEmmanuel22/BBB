@@ -1,6 +1,6 @@
-import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
+import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import React from 'react';
-import {StyleSheet, Text, View} from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
 
 type SectionHome = {
   children: React.ReactNode;
@@ -9,12 +9,7 @@ type SectionHome = {
   title: string;
 };
 
-const SectionHome = ({
-  children,
-  seeAllRight,
-  seeAllBottom,
-  title,
-}: SectionHome) => {
+const SectionHome = ({ children, seeAllRight, seeAllBottom, title }: SectionHome) => {
   return (
     <View style={styles.container}>
       <View style={styles.containerTitle}>

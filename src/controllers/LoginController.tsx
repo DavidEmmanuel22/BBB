@@ -1,15 +1,15 @@
-import {NavigationProp} from '@react-navigation/core';
-import {useState} from 'react';
-import {showMessage} from 'react-native-flash-message';
-import {LoginModel} from '../models/LoginModel';
-import {User} from '../models/Objects/User';
-import {TokenModel} from '../models/TokenModel';
+import { NavigationProp } from '@react-navigation/core';
+import { useState } from 'react';
+import { showMessage } from 'react-native-flash-message';
+import { LoginModel } from '../models/LoginModel';
+import { User } from '../models/Objects/User';
+import { TokenModel } from '../models/TokenModel';
 
 export const LoginController = () => {
   //Obtaining the methods used in Model
-  const {GetCustomerToken} = TokenModel();
+  const { GetCustomerToken } = TokenModel();
 
-  const {GetUserData} = LoginModel();
+  const { GetUserData } = LoginModel();
 
   //Variables de control
   const [email, setemail] = useState('');
@@ -72,7 +72,7 @@ export const LoginController = () => {
           change_Password('');
           change_ShowPassword();
           setLogInCLicked(false);
-          navigation.navigate('MyAccount', {datos, token});
+          navigation.navigate('MyAccount', { datos, token });
         }
       }
     }

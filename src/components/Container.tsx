@@ -1,14 +1,5 @@
 import React from 'react';
-import {
-  SafeAreaView,
-  StatusBar,
-  ScrollView,
-  View,
-  StyleSheet,
-  useColorScheme,
-} from 'react-native';
-
-import {BLUE, WHITE} from '../constants/colors';
+import { SafeAreaView, StatusBar, ScrollView, View, StyleSheet, useColorScheme } from 'react-native';
 
 export enum StatusBarStyle {
   LIGHT = 'light',
@@ -20,7 +11,7 @@ interface IProps {
   containerStyles?: object;
   contentWrapperStyles?: object;
   statusBarStyle?: StatusBarStyle;
-  children: JSX.Element | JSX.Element[];
+  children: React.ReactNode | React.ReactNode[];
 }
 
 const Container: React.FC<IProps> = ({
@@ -30,11 +21,10 @@ const Container: React.FC<IProps> = ({
   containerStyles = {},
   contentWrapperStyles = {},
 }) => {
-  const isDarkMode =
-    useColorScheme() === 'dark' || statusBarStyle === StatusBarStyle.DARK;
+  const isDarkMode = useColorScheme() === 'dark' || statusBarStyle === StatusBarStyle.DARK;
 
   const content = (
-    <SafeAreaView style={[{flex: 1}, contentWrapperStyles]}>
+    <SafeAreaView style={[{ flex: 1 }, contentWrapperStyles]}>
       <StatusBar barStyle={isDarkMode ? 'dark-content' : 'light-content'} />
       {children}
     </SafeAreaView>
@@ -45,7 +35,8 @@ const Container: React.FC<IProps> = ({
       showsVerticalScrollIndicator={false}
       showsHorizontalScrollIndicator={false}
       contentContainerStyle={[styles.container, containerStyles]}
-      contentInsetAdjustmentBehavior="automatic">
+      contentInsetAdjustmentBehavior="automatic"
+    >
       {content}
     </ScrollView>
   ) : (

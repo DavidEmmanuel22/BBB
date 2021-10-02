@@ -57,3 +57,17 @@ buck-out/
 
 # CocoaPods
 /ios/Pods/
+
+# Eslint
+.eslintcache
+
+# vscode
+.vscode/
+package-lock.json
+
+.env
+.env
+.env.development
+.env.production
+android/app/release/app-release.aab
+.env.local

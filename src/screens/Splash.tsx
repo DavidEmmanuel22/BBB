@@ -1,9 +1,10 @@
-import React, {useRef, useEffect, useState} from 'react';
-import {Modal, View, Animated, Dimensions, StyleSheet} from 'react-native';
-import {useDispatch, useSelector} from 'react-redux';
+/* eslint-disable react-hooks/exhaustive-deps */
+import React, { useRef, useEffect, useState } from 'react';
+import { Modal, View, Animated, Dimensions, StyleSheet } from 'react-native';
+import { useDispatch, useSelector } from 'react-redux';
 
-import {BLUE} from '../constants/colors';
-import {initialize, selectUIInitialized} from '../store/slices/uiSlice';
+import { BLUE } from '../constants/colors';
+import { initialize, selectUIInitialized } from '../store/slices/uiSlice';
 
 const images = [
   require('../assets/images/splash/Pattern1.png'),
@@ -14,12 +15,7 @@ const images = [
   require('../assets/images/splash/Pattern6.png'),
 ];
 
-const opacityStartAnim = (
-  startVal: Animated.Value,
-  endValNumber: number,
-  duration: number,
-  delay: number,
-) => {
+const opacityStartAnim = (startVal: Animated.Value, endValNumber: number, duration: number, delay: number) => {
   Animated.timing(startVal, {
     toValue: endValNumber,
     duration,
@@ -81,12 +77,12 @@ const Splash: React.FC = () => {
             key={`image${index}`}
             source={images[index]}
             resizeMode="cover"
-            style={[styles.image, {opacity: startAnim}]}
+            style={[styles.image, { opacity: startAnim }]}
           />
         ))}
         <Animated.Image
           source={require('../assets/images/splash/BBB.png')}
-          style={[styles.logo, {opacity: logoStartAnim}]}
+          style={[styles.logo, { opacity: logoStartAnim }]}
         />
       </View>
     </Modal>

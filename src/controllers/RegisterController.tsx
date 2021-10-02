@@ -1,6 +1,6 @@
-import {NavigationProp} from '@react-navigation/core';
-import {useState} from 'react';
-import {Convert, Customer} from '../models/Objects/Customer';
+import { NavigationProp } from '@react-navigation/core';
+import { useState } from 'react';
+import { Convert, Customer } from '../models/Objects/Customer';
 
 export const RegisterController = () => {
   const [name, setName] = useState('');
@@ -89,7 +89,7 @@ export const RegisterController = () => {
                     "addresses": []
                 },
                 "password": "${password}"
-            }`,
+            }`
       );
       navigation.navigate('RegisterPolicy', { customer });
     }

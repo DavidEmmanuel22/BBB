@@ -1,7 +1,7 @@
 import React from 'react';
-import {Text, StyleSheet} from 'react-native';
+import { Text } from 'react-native';
 
-import Container, {StatusBarStyle} from '../components/Container';
+import Container, { StatusBarStyle } from '../components/Container';
 
 const Search: React.FC = () => {
   return (
@@ -10,7 +10,5 @@ const Search: React.FC = () => {
     </Container>
   );
 };
-
-const styles = StyleSheet.create({});
 
 export default Search;

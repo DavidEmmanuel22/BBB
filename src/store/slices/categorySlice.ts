@@ -1,7 +1,7 @@
-import {createSlice, PayloadAction} from '@reduxjs/toolkit';
-import {RootState} from '../';
-import {Categories} from '../../models/Objects/Categories';
-import {ProductByCategory} from '../../models/Objects/ProductByCategory';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { RootState } from '../';
+import { Categories } from '../../models/Objects/Categories';
+import { ProductByCategory } from '../../models/Objects/ProductByCategory';
 interface CategoryState {
   categories: Array<Categories>;
   products: Array<ProductByCategory>;
@@ -34,13 +34,12 @@ export const uiSlice = createSlice({
 });
 
 // Actions
-export const {setCategories, setProducts} = uiSlice.actions;
+export const { setCategories, setProducts } = uiSlice.actions;
 
 // Selectors
 export const selectCategory = (state: RootState) => state.category.categories;
 export const selectProducts = (state: RootState) => state.category.products;
-export const selectTotalProducts = (state: RootState) =>
-  state.category.totalProducts;
+export const selectTotalProducts = (state: RootState) => state.category.totalProducts;
 
 // Reducer
 export default uiSlice.reducer;

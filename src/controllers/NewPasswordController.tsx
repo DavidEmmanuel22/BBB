@@ -1,13 +1,13 @@
-import {useState} from 'react';
-import {NewPasswordModel} from '../models/NewPasswordModel';
-import {TokenModel} from '../models/TokenModel';
-import {User} from '../models/Objects/User';
-import {showMessage} from 'react-native-flash-message';
-import {NavigationProp} from '@react-navigation/core';
+import { useState } from 'react';
+import { NewPasswordModel } from '../models/NewPasswordModel';
+import { TokenModel } from '../models/TokenModel';
+import { User } from '../models/Objects/User';
+import { showMessage } from 'react-native-flash-message';
+import { NavigationProp } from '@react-navigation/core';
 
 export const NewPasswordController = () => {
-  const {GetAdminToken} = TokenModel();
-  const {ChangePassword} = NewPasswordModel();
+  const { GetAdminToken } = TokenModel();
+  const { ChangePassword } = NewPasswordModel();
 
   const [actualPassword, setactualPassword] = useState('');
   const [newPassword, setNewPassword] = useState('');
@@ -15,13 +15,11 @@ export const NewPasswordController = () => {
 
   const [errorActualPassword, seterroractualPassword] = useState('');
   const [errorNewPassword, seterrorNewPassword] = useState('');
-  const [errorVerificationPassword, seterrorVerificationPassword] =
-    useState('');
+  const [errorVerificationPassword, seterrorVerificationPassword] = useState('');
 
   const [showactualPassword, setshowactualPassword] = useState(true);
   const [shownewPassword, setshowNewPassword] = useState(true);
-  const [showverificationPassword, setshowVerificationPassword] =
-    useState(true);
+  const [showverificationPassword, setshowVerificationPassword] = useState(true);
 
   const change_ActualPassword = (nuevoPassword: string) => {
     setactualPassword(nuevoPassword);
@@ -80,12 +78,7 @@ export const NewPasswordController = () => {
     if (validations) {
       let token: string = await GetAdminToken();
 
-      let response = await ChangePassword(
-        user,
-        token,
-        actualPassword,
-        newPassword,
-      );
+      let response = await ChangePassword(user, token, actualPassword, newPassword);
 
       if (response.includes("The password doesn't match this account")) {
         showMessage({
@@ -96,8 +89,7 @@ export const NewPasswordController = () => {
         });
       } else if (response.includes('La contraseña debe contener un mínimo')) {
         showMessage({
-          message:
-            'Agrega mayusculas, numeros o caracteres especiales a tu nueva contraseña.',
+          message: 'Agrega mayusculas, numeros o caracteres especiales a tu nueva contraseña.',
           type: 'warning',
           hideOnPress: true,
           duration: 3000,

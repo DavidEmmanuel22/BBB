@@ -1,6 +1,6 @@
-import {URL_MODIFY_DATA_CUSTOMER} from '../constants/URLs';
+import { URL_MODIFY_DATA_CUSTOMER } from '../constants/URLs';
 import axios from 'axios';
-import {User} from './Objects/User';
+import { User } from './Objects/User';
 
 export const ProfileModel = () => {
   const ModifyUser = async (user: User, token: string): Promise<string> => {
@@ -19,10 +19,10 @@ export const ProfileModel = () => {
       data: body,
       url: url,
     })
-      .then(res => {
+      .then((res) => {
         response = JSON.stringify(res.data);
       })
-      .catch(error => {
+      .catch((error) => {
         if (error.response) {
           response = 'Error ' + error.response.data.message;
         }

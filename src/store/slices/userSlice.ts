@@ -1,5 +1,5 @@
-import {createSlice} from '@reduxjs/toolkit';
-import {RootState} from '../';
+import { createSlice } from '@reduxjs/toolkit';
+import { RootState } from '../';
 
 interface UserState {
   data: object;

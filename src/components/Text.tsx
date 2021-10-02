@@ -1,12 +1,12 @@
 import React from 'react';
-import {Text as NativeText, StyleSheet, TextStyle} from 'react-native';
+import { Text as NativeText, StyleSheet, TextStyle } from 'react-native';
 
-import {DARK} from '../constants/colors';
-import {EFFRA} from '../constants/fonts';
-import {getWidth} from '../utils/interfaceDimentions';
+import { DARK } from '../constants/colors';
+import { EFFRA } from '../constants/fonts';
+import { getWidth } from '../utils/interfaceDimentions';
 
 interface IProps {
-  children: JSX.Element | JSX.Element[] | string;
+  children: React.ReactNode | React.ReactNode[] | string;
   onPress?(): void;
   size?: number;
   style?: object;

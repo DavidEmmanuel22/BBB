@@ -1,5 +1,5 @@
 import React from 'react';
-import {Image, StyleSheet, View, Text} from 'react-native';
+import { Image, StyleSheet, View, Text } from 'react-native';
 
 type CategoryProps = {
   uri?: string;
@@ -10,15 +10,8 @@ type CategoryProps = {
   source?: any;
 };
 
-const CategoryCard = ({
-  uri,
-  source,
-  size,
-  label,
-  width,
-  height,
-}: CategoryProps) => {
-  const image: any = uri ? {uri: uri} : undefined;
+const CategoryCard = ({ uri, source, size, label, width, height }: CategoryProps) => {
+  const image: any = uri ? { uri: uri } : undefined;
   const media = image || source;
 
   return (
@@ -26,7 +19,8 @@ const CategoryCard = ({
       style={{
         width: width || size,
         height: height || size,
-      }}>
+      }}
+    >
       <View style={styles.containerImage}>
         <Image style={styles.image} source={media} />
       </View>

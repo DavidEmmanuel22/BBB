@@ -1,24 +1,16 @@
-import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
-import React, {useEffect, useRef, useState} from 'react';
-import {
-  View,
-  FlatList,
-  StyleSheet,
-  Dimensions,
-  TouchableOpacity,
-  SafeAreaView,
-  ScrollView,
-} from 'react-native';
+import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
+import React, { useEffect, useRef, useState } from 'react';
+import { View, StyleSheet, Dimensions, TouchableOpacity, SafeAreaView, ScrollView } from 'react-native';
 import CarouselItem from './CarouselItem';
 
-const {width} = Dimensions.get('window');
+const { width } = Dimensions.get('window');
 
 type CarouselProps = {
   data: any[];
   autoScroll?: boolean;
 };
 
-const Carousel = ({data = []}: CarouselProps) => {
+const Carousel = ({ data = [] }: CarouselProps) => {
   const [scrollValue, setScrollValue] = useState(0);
   const [scrolled, setScrolled] = useState(0);
 
@@ -28,18 +20,18 @@ const Carousel = ({data = []}: CarouselProps) => {
   const scrollRef = useRef<any>(null);
 
   const nextItem = () => {
-    setScrollValue(prevState => prevState + (width - 124));
-    setScrolled(prevState => prevState + 1);
+    setScrollValue((prevState) => prevState + (width - 124));
+    setScrolled((prevState) => prevState + 1);
   };
 
   const prevItem = () => {
-    setScrollValue(prevState => prevState - (width - 124));
-    setScrolled(prevState => prevState - 1);
+    setScrollValue((prevState) => prevState - (width - 124));
+    setScrolled((prevState) => prevState - 1);
   };
 
   useEffect(() => {
     if (scrollRef !== null) {
-      scrollRef.current.scrollTo({animated: true, x: scrollValue});
+      scrollRef.current.scrollTo({ animated: true, x: scrollValue });
     }
   }, [scrollValue]);
 
@@ -50,13 +42,14 @@ const Carousel = ({data = []}: CarouselProps) => {
           <FontAwesomeIcon style={styles.icon} size={30} icon="chevron-left" />
         </TouchableOpacity>
 
-        <SafeAreaView style={{flex: 1}}>
+        <SafeAreaView style={{ flex: 1 }}>
           <ScrollView
-            style={{flex: 1}}
+            style={{ flex: 1 }}
             ref={scrollRef}
             horizontal={true}
             scrollEventThrottle={16}
-            pagingEnabled={true}>
+            pagingEnabled={true}
+          >
             {data?.map((item: any) => (
               <View key={item?.id}>
                 <CarouselItem item={item} />

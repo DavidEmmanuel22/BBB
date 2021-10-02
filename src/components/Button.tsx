@@ -1,13 +1,8 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import React from 'react';
-import {
-  TouchableOpacity,
-  View,
-  Text,
-  ButtonProps,
-  StyleSheet,
-} from 'react-native';
+import { TouchableOpacity, View, Text, ButtonProps, StyleSheet } from 'react-native';
 
-import {PRIMARY_BLUE, LIGHTER_GRAY, DARK, WHITE} from '../constants/colors';
+import { PRIMARY_BLUE, LIGHTER_GRAY, DARK, WHITE } from '../constants/colors';
 
 export enum BUTTONTYPE {
   PRIMARY = 'PRIMARY',
@@ -24,7 +19,7 @@ interface IProps extends ButtonProps {
   iconPosition?: ICON_POSITION;
   containerStyle?: Object;
   textStyle?: Object;
-  icon?(): JSX.Element;
+  icon?(): React.ReactNode;
   iconStyle?: Object;
 }
 
@@ -55,16 +50,16 @@ const Button: React.FC<IProps> = ({
           ...styles.btn,
           ...buttonTypeStyles()[0],
           ...containerStyle,
-        }}>
-        {icon !== null ? (
-          <View style={{...styles.iconContainer, ...iconStyle}}>{icon()}</View>
-        ) : null}
+        }}
+      >
+        {icon !== null ? <View style={{ ...styles.iconContainer, ...iconStyle }}>{icon()}</View> : null}
         <Text
           style={{
             ...styles.btnText,
             ...buttonTypeStyles()[1],
             ...textStyle,
-          }}>
+          }}
+        >
           {title}
         </Text>
       </View>

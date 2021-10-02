@@ -1,11 +1,11 @@
-import React, {useRef, useEffect, useState} from 'react';
-import {View, TextInput, TouchableOpacity, Image, FlatList} from 'react-native';
-import {StackHeaderProps} from '@react-navigation/stack';
-import {BLUE, LIGHTER_GRAY2} from '../constants/colors';
-import {changeSelect, selectUIISelected} from '../store/slices/uiSlice';
-import {useDispatch, useSelector} from 'react-redux';
+import React, { useRef, useEffect, useState } from 'react';
+import { View, TextInput, TouchableOpacity, Image, FlatList } from 'react-native';
+import { StackHeaderProps } from '@react-navigation/stack';
+import { BLUE, LIGHTER_GRAY2 } from '../constants/colors';
+import { changeSelect, selectUIISelected } from '../store/slices/uiSlice';
+import { useDispatch, useSelector } from 'react-redux';
 import CategoryItem from './home/CategoryItem';
-import {getHeight} from '../utils/interfaceDimentions';
+import { getHeight } from '../utils/interfaceDimentions';
 
 interface itemNav {
   id: Number;
@@ -13,16 +13,16 @@ interface itemNav {
   nameNav: string;
 }
 const categories: Array<itemNav> = [
-  {id: 0, text: 'Destacados', nameNav: 'Index'},
-  {id: 1, text: 'Categorías', nameNav: 'Categories'},
-  {id: 2, text: 'Zona oulet', nameNav: ''},
-  {id: 4, text: 'Mesa', nameNav: ''},
+  { id: 0, text: 'Destacados', nameNav: 'Index' },
+  { id: 1, text: 'Categorías', nameNav: 'Categories' },
+  { id: 2, text: 'Zona oulet', nameNav: '' },
+  { id: 4, text: 'Mesa', nameNav: '' },
 ];
 interface IProps extends StackHeaderProps {
   close?: boolean;
 }
 
-const SearchHeader: React.FC<IProps> = ({close = false, ...props}) => {
+const SearchHeader: React.FC<IProps> = ({ ...props }) => {
   const dispatch = useDispatch();
   const categorySelect = useSelector(selectUIISelected);
   const [showTab, setShowTab] = useState(false);
@@ -31,10 +31,7 @@ const SearchHeader: React.FC<IProps> = ({close = false, ...props}) => {
     if (typeof props.route.name === 'string' && props.route.name === 'Search') {
       searchInputRef.current.focus();
     }
-    if (
-      typeof props.route.name === 'string' &&
-      props.route.name === 'ProductsByCategory'
-    ) {
+    if (typeof props.route.name === 'string' && props.route.name === 'ProductsByCategory') {
       setShowTab(false);
     } else {
       setShowTab(true);
@@ -60,9 +57,10 @@ const SearchHeader: React.FC<IProps> = ({close = false, ...props}) => {
           justifyContent: 'center',
           alignItems: 'center',
           paddingTop: getHeight(15),
-        }}>
-        <View style={{flexDirection: 'row'}}>
-          <View style={{width: '75%'}}>
+        }}
+      >
+        <View style={{ flexDirection: 'row' }}>
+          <View style={{ width: '75%' }}>
             <TextInput
               placeholder="Busca tu producto"
               placeholderTextColor={LIGHTER_GRAY2}
@@ -75,15 +73,17 @@ const SearchHeader: React.FC<IProps> = ({close = false, ...props}) => {
                 paddingLeft: 36,
                 fontSize: 16,
                 height: 40,
-              }}></TextInput>
+              }}
+            />
             <TouchableOpacity
               style={{
                 position: 'absolute',
                 right: 1,
                 marginTop: 12,
                 marginRight: 20,
-              }}>
-              <Image source={require('../assets/QRIcon.png')}></Image>
+              }}
+            >
+              <Image source={require('../assets/QRIcon.png')} />
             </TouchableOpacity>
 
             <Image
@@ -93,21 +93,22 @@ const SearchHeader: React.FC<IProps> = ({close = false, ...props}) => {
                 marginTop: 10,
                 marginLeft: 12,
               }}
-              source={require('../assets/SearchIcon.png')}></Image>
+              source={require('../assets/SearchIcon.png')}
+            />
           </View>
-          <TouchableOpacity style={{alignSelf: 'center', marginLeft: 20}}>
-            <Image source={require('../assets/CarIcon.png')}></Image>
+          <TouchableOpacity style={{ alignSelf: 'center', marginLeft: 20 }}>
+            <Image source={require('../assets/CarIcon.png')} />
           </TouchableOpacity>
         </View>
       </View>
       {showTab && (
-        <View style={{flexDirection: 'row'}}>
+        <View style={{ flexDirection: 'row' }}>
           <FlatList
             horizontal
             showsHorizontalScrollIndicator={false}
             data={categories}
-            renderItem={({item}: any) => (
-              <View key={item.id} style={{marginRight: 28}}>
+            renderItem={({ item }: any) => (
+              <View key={item.id} style={{ marginRight: 28 }}>
                 <CategoryItem
                   isSelected={item.id === categorySelect}
                   label={item.text}
@@ -117,7 +118,7 @@ const SearchHeader: React.FC<IProps> = ({close = false, ...props}) => {
                 />
               </View>
             )}
-            keyExtractor={item => 'key' + item.id}
+            keyExtractor={(item) => 'key' + item.id}
           />
         </View>
       )}

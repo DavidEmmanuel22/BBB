@@ -1,6 +1,6 @@
 import React from 'react';
-import {Image, StyleSheet, Text, View} from 'react-native';
-import {LIGHTER_GRAY} from '../../constants/colors';
+import { Image, StyleSheet, Text, View } from 'react-native';
+import { LIGHTER_GRAY } from '../../constants/colors';
 
 const ProductCard = () => {
   return (
