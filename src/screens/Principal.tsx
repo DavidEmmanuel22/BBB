@@ -12,9 +12,7 @@ import ProductCard from '../components/home/ProductCard';
 import SquareImage from '../components/home/SquareImage';
 import SectionHome from '../components/SectionHome';
 import { NavigationProp } from '@react-navigation/core';
-import { getSlider1 } from '../models/HomeModel';
-import { useQuery } from 'react-query';
-import { sortNumberByKey } from '../utils/genericFunctions';
+import BannerPromotion from './outstanding/BannerPromotion';
 
 const dummyList: any[] = [
   { id: 0 },
@@ -42,22 +40,10 @@ const Principal: React.FC<IProps> = () => {
   const mosaicDimensions = calcTileDimensions(width - 64, 3);
   const { size: sizeCategoty, margin: marginCategory } = calcTileDimensions(width - 64, 2);
 
-  const { data: slider1 = [] } = useQuery('slider1', getSlider1);
-
   return (
     <Container>
       <ScrollView showsVerticalScrollIndicator={false} style={{ flex: 1, marginTop: 24 }}>
-        <FlatList
-          horizontal
-          showsHorizontalScrollIndicator={false}
-          data={sortNumberByKey(slider1, 'position')}
-          renderItem={({ item, index }) => (
-            <View key={index} style={{ marginRight: 12 }}>
-              <OfferCard height={width / 2.5} source={{ uri: item?.Imagen }} />
-            </View>
-          )}
-          keyExtractor={(item) => item.id}
-        />
+        <BannerPromotion />
         <View
           style={{
             marginTop: 10,

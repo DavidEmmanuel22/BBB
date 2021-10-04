@@ -5,7 +5,7 @@ import { useQuery } from 'react-query';
 import Container from '../components/Container';
 import Indicator from '../components/Indicator';
 import EmptyList from '../components/orders/EmptyList';
-import OrderCard from '../components/orders/OrderCard';
+import ReviewCard from '../components/reviews/ReviewCard';
 import { BLUE } from '../constants/colors';
 import { LoginModel } from '../models/LoginModel';
 import { getUserOrders } from '../models/OrdersModel';
@@ -25,14 +25,14 @@ const Header = ({ onPress }: HeaderProps) => {
       <TouchableOpacity onPress={onPress} style={styles.iconLeft}>
         <FontAwesomeIcon style={styles.icon} icon="arrow-left" />
       </TouchableOpacity>
-      <Text style={styles.headerTitle}>Mis Pedidos</Text>
+      <Text style={styles.headerTitle}>Mis Reseñas</Text>
     </View>
   );
 };
 
-type OrdersProps = { navigation: any };
+type ReviewProps = { navigation: any };
 
-const Orders = ({ navigation }: OrdersProps) => {
+const Reviews = ({ navigation }: ReviewProps) => {
   const [userId, setUserId] = useState<any>();
   const [adminToken, setAdminToken] = useState<any>();
 
@@ -43,7 +43,7 @@ const Orders = ({ navigation }: OrdersProps) => {
     GetAdminToken().then((token) => setAdminToken(token));
   }, []);
 
-  const { data, isLoading, status, refetch } = useQuery<any>('myOrders', () => getUserOrders(userId, adminToken), {
+  const { data, isLoading, status, refetch } = useQuery<any>('orders', () => getUserOrders(userId, adminToken), {
     enabled: !!userId && !!adminToken,
   });
   if (status === 'idle' || status === 'loading') {
@@ -57,9 +57,7 @@ const Orders = ({ navigation }: OrdersProps) => {
         ListHeaderComponent={<Header onPress={() => navigation?.goBack()} />}
         onRefresh={() => refetch()}
         refreshing={isLoading}
-        renderItem={({ item }) => (
-          <OrderCard key={item?.id} id={item?.increment_id} createdAt={item?.created_at} status={item?.status} />
-        )}
+        renderItem={({ item }) => <ReviewCard key={item?.id} />}
         ListEmptyComponent={<EmptyList />}
         keyExtractor={(item: any) => item?.id}
       />
@@ -67,7 +65,7 @@ const Orders = ({ navigation }: OrdersProps) => {
   );
 };
 
-export default Orders;
+export default Reviews;
 const styles = StyleSheet.create({
   containetStyle: {
     paddingLeft: 0,

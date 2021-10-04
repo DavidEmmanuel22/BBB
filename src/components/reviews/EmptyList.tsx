@@ -1,6 +1,6 @@
 import React from 'react';
 import { Dimensions, StyleSheet, Text, View } from 'react-native';
-import Star from '../../assets/icons/Star';
+import Review from '../../assets/icons/Review';
 import { getWidth } from '../../utils/interfaceDimentions';
 import Button from '../Button';
 
@@ -10,11 +10,11 @@ const EmptyList = () => {
   return (
     <View style={[styles.containerMessage, { height: height / 2 }]}>
       <View style={styles.icon}>
-        <Star />
+        <Review />
       </View>
-      <Text style={styles.message1}>No cuentas con reseñas</Text>
-      <Text style={styles.message2}>Comparte tu calificación y opinión de los productos que has comprado.</Text>
-      <Button containerStyle={styles.buttonStyle} title="Ver mis productos" onPress={() => {}} />
+      <Text style={styles.message1}>No cuentas con pedidos</Text>
+      <Text style={styles.message2}>Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint.</Text>
+      <Button containerStyle={styles.buttonStyle} title="Explorar productos" onPress={() => {}} />
     </View>
   );
 };

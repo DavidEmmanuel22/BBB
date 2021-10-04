@@ -83,7 +83,7 @@ export const MyAccount: React.FC<IProps> = ({ route, navigation }) => {
             justifyContent: 'flex-start',
             alignItems: 'center',
           }}
-          onPress={() => navigation.navigate('MyOrders', { User, token })}
+          onPress={() => navigation.navigate('orders', { User, token })}
         >
           <Image source={require('../assets/MyAccount/MisPedidosIcon.png')} />
           <Text
@@ -308,6 +308,7 @@ export const MyAccount: React.FC<IProps> = ({ route, navigation }) => {
 
         {/* My reviews */}
         <TouchableOpacity
+          onPress={() => navigation.navigate('reviews')}
           style={{
             flexDirection: 'row',
             marginHorizontal: 33,
