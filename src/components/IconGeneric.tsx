@@ -3,7 +3,6 @@ import { TouchableOpacity } from 'react-native';
 import SvgIcon from 'react-native-svg-icon';
 
 import icons from '../utils/iconList';
-import { getWidth } from '../utils/interfaceDimentions';
 
 const IconGeneric = ({ iconColor = '', onPress = () => {}, ...rest }) =>
   onPress ? (
