@@ -1,11 +1,17 @@
 import React, { useRef, useEffect, useState } from 'react';
 import { View, TextInput, TouchableOpacity, Image, FlatList } from 'react-native';
 import { StackHeaderProps } from '@react-navigation/stack';
-import { BLUE, LIGHTER_GRAY2 } from '../constants/colors';
+import { BLUE, LIGHTER_GRAY2, WHITE } from '../constants/colors';
 import { changeSelect, selectUIISelected } from '../store/slices/uiSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import CategoryItem from './home/CategoryItem';
-import { getHeight } from '../utils/interfaceDimentions';
+import { getHeight, getWidth } from '../utils/interfaceDimentions';
+import { StyleSheet } from 'react-native';
+import { RowContent } from '../utils/stylesGenetic';
+import Text from '../components/Text';
+import IconGeneric from './IconGeneric';
+import { useNavigation } from '@react-navigation/native';
+import { selectUISubTitleHeader, selectUITitleHeader } from '../store/slices/uiSlice';
 
 interface itemNav {
   id: Number;
@@ -24,12 +30,15 @@ interface IProps extends StackHeaderProps {
 
 const SearchHeader: React.FC<IProps> = ({ ...props }) => {
   const dispatch = useDispatch();
+  const navigation = useNavigation();
   const categorySelect = useSelector(selectUIISelected);
   const [showTab, setShowTab] = useState(false);
-  const searchInputRef = useRef<any>(null);
+  const title = useSelector(selectUITitleHeader);
+  const subTitle = useSelector(selectUISubTitleHeader);
+  const searchInputRef = useRef<TextInput>(null);
   useEffect(() => {
     if (typeof props.route.name === 'string' && props.route.name === 'Search') {
-      searchInputRef.current.focus();
+      searchInputRef?.current?.focus();
     }
     if (typeof props.route.name === 'string' && props.route.name === 'ProductsByCategory') {
       setShowTab(false);
@@ -49,58 +58,50 @@ const SearchHeader: React.FC<IProps> = ({ ...props }) => {
 
   return (
     <>
-      <View
-        style={{
-          width: '100%',
-          height: getHeight(100),
-          backgroundColor: BLUE,
-          justifyContent: 'center',
-          alignItems: 'center',
-          paddingTop: getHeight(15),
-        }}
-      >
-        <View style={{ flexDirection: 'row' }}>
-          <View style={{ width: '75%' }}>
-            <TextInput
-              placeholder="Busca tu producto"
-              placeholderTextColor={LIGHTER_GRAY2}
-              onFocus={handleFocus}
-              ref={searchInputRef}
-              style={{
-                borderRadius: 200,
-                backgroundColor: 'white',
-                color: 'black',
-                paddingLeft: 36,
-                fontSize: 16,
-                height: 40,
-              }}
-            />
-            <TouchableOpacity
-              style={{
-                position: 'absolute',
-                right: 1,
-                marginTop: 12,
-                marginRight: 20,
-              }}
-            >
-              <Image source={require('../assets/QRIcon.png')} />
-            </TouchableOpacity>
+      <View style={Styles.contentHeader}>
+        <View style={RowContent}>
+          {showTab ? (
+            <View style={{ width: '75%' }}>
+              <TextInput
+                placeholder="Busca tu producto"
+                placeholderTextColor={LIGHTER_GRAY2}
+                onFocus={handleFocus}
+                ref={searchInputRef}
+                style={Styles.input}
+              />
+              <TouchableOpacity style={Styles.qrButton}>
+                <Image source={require('../assets/QRIcon.png')} />
+              </TouchableOpacity>
 
-            <Image
-              style={{
-                position: 'absolute',
-                left: 1,
-                marginTop: 10,
-                marginLeft: 12,
-              }}
-              source={require('../assets/SearchIcon.png')}
-            />
-          </View>
+              <Image style={Styles.searchImage} source={require('../assets/SearchIcon.png')} />
+            </View>
+          ) : (
+            <View style={{ width: '75%', flexDirection: 'row', alignItems: 'center' }}>
+              <IconGeneric
+                onPress={() => {
+                  navigation.goBack();
+                }}
+                name={'backButton'}
+                iconColor={WHITE}
+                width={getWidth(25)}
+                height={getWidth(25)}
+              />
+              <View style={{ marginLeft: getWidth(10) }}>
+                <Text color={WHITE} size={getWidth(14)}>
+                  {title}
+                </Text>
+                <Text medium color={WHITE} size={getWidth(18)}>
+                  {subTitle}
+                </Text>
+              </View>
+            </View>
+          )}
           <TouchableOpacity style={{ alignSelf: 'center', marginLeft: 20 }}>
             <Image source={require('../assets/CarIcon.png')} />
           </TouchableOpacity>
         </View>
       </View>
+
       {showTab && (
         <View style={{ flexDirection: 'row' }}>
           <FlatList
@@ -125,5 +126,35 @@ const SearchHeader: React.FC<IProps> = ({ ...props }) => {
     </>
   );
 };
+const Styles = StyleSheet.create({
+  contentHeader: {
+    width: '100%',
+    height: getHeight(100),
+    backgroundColor: BLUE,
+    justifyContent: 'center',
+    alignItems: 'center',
+    paddingTop: getHeight(15),
+  },
+  input: {
+    borderRadius: 200,
+    backgroundColor: 'white',
+    color: 'black',
+    paddingLeft: 36,
+    fontSize: 16,
+    height: 40,
+  },
+  qrButton: {
+    position: 'absolute',
+    right: 1,
+    marginTop: 12,
+    marginRight: 20,
+  },
+  searchImage: {
+    position: 'absolute',
+    left: 1,
+    marginTop: 10,
+    marginLeft: 12,
+  },
+});
 
 export default SearchHeader;

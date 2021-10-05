@@ -9,7 +9,7 @@ import { useEffect } from 'react';
 import ProductItem from '../components/Products/ProductItem';
 import Text from '../components/Text';
 import Filter from '../assets/icons/Filter';
-import { PRIMARY_BLUE, WHITE } from '../constants/colors';
+import { BLUE, PRIMARY_BLUE, WHITE } from '../constants/colors';
 import { ProductsByCategoryController } from '../controllers/ProductByCategoryController';
 import { Categories } from '../models/Objects/Categories';
 
@@ -30,14 +30,14 @@ const contentChip = (isSelected: any): any => ({
 });
 
 const ProductsByCategory: React.FC<IProps> = ({ route }) => {
+  const parentCategory: string = route.params?.parentCategory;
   const category: Categories = route.params?.category;
   const subCategories: Array<Categories> = route.params?.subCategories;
 
   const [categorySelect, setCategorySelect] = useState(category);
-  const { products, initializeProducts, totalProducts, isLoading } = ProductsByCategoryController();
-
+  const { products, initializeProducts, totalProducts, isLoading, changePage } = ProductsByCategoryController();
   useEffect(() => {
-    initializeProducts(categorySelect.id || 0);
+    initializeProducts(categorySelect, parentCategory);
     return () => {};
   }, []);
 
@@ -46,7 +46,7 @@ const ProductsByCategory: React.FC<IProps> = ({ route }) => {
     return (
       <TouchableOpacity
         onPress={() => {
-          initializeProducts(chipItem.id);
+          initializeProducts(chipItem, parentCategory);
           setCategorySelect(chipItem);
         }}
         style={{ ...contentChip(isSelected) }}
@@ -58,18 +58,6 @@ const ProductsByCategory: React.FC<IProps> = ({ route }) => {
     );
   };
 
-  const ChipScroll = () => {
-    return (
-      <View style={styles.chipView}>
-        <FlatList
-          renderItem={({ item }) => <Chip chipItem={item} />}
-          keyExtractor={(item, index) => 'key' + index}
-          horizontal={true}
-          data={subCategories}
-        />
-      </View>
-    );
-  };
   const totalProductos = `${totalProducts} Productos `;
 
   const Header = () => {
@@ -85,14 +73,24 @@ const ProductsByCategory: React.FC<IProps> = ({ route }) => {
       </View>
     );
   };
-
+  const loadMore = () => {
+    changePage();
+  };
   return (
     <Container containerStyles={styles.container} statusBarStyle={StatusBarStyle.DARK}>
+      <View style={styles.chipView}>
+        <FlatList
+          renderItem={({ item }) => <Chip chipItem={item} />}
+          keyExtractor={(item, index) => 'key' + index}
+          horizontal={true}
+          data={subCategories}
+          showsHorizontalScrollIndicator={false}
+        />
+      </View>
       {isLoading ? (
-        <ActivityIndicator style={styles.chipView} />
+        <ActivityIndicator color={BLUE} size="large" style={styles.indicator} />
       ) : (
         <>
-          <ChipScroll />
           <Header />
           <FlatList
             numColumns={2}
@@ -100,6 +98,7 @@ const ProductsByCategory: React.FC<IProps> = ({ route }) => {
             renderItem={({ item }) => <ProductItem item={item} />}
             data={products}
             columnWrapperStyle={styles.wrapperColumn}
+            onEndReached={loadMore}
           />
         </>
       )}
@@ -124,6 +123,9 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
   },
   chipView: { marginTop: getHeight(20) },
+  indicator: {
+    marginTop: getHeight(300),
+  },
 });
 
 export default ProductsByCategory;

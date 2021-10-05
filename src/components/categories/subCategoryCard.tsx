@@ -27,6 +27,7 @@ const AnimateBox: React.FC<IProps> = ({ item }) => {
       <TouchableOpacity
         onPress={() =>
           navigation.navigate('ProductsByCategory', {
+            parentCategory: item.name,
             category: itemInner,
             subCategories: innerCategories,
           })

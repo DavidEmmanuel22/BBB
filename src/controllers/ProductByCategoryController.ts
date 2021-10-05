@@ -1,7 +1,9 @@
 import { useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { Categories } from '../models/Objects/Categories';
 import { ProductByCategoryModel } from '../models/ProductByCategoryModel';
 import { selectProducts, selectTotalProducts } from '../store/slices/categorySlice';
+import { changeSubTitleHeader, changeTitleHeader } from '../store/slices/uiSlice';
 
 export const ProductsByCategoryController = () => {
   const { GetProductsByCategory } = ProductByCategoryModel();
@@ -11,14 +13,22 @@ export const ProductsByCategoryController = () => {
   const totalPages = totalProducts / 50;
   const [idCategory, setIdCategory] = useState(0);
   const [isLoading, setIsLoading] = useState(true);
-  const initializeProducts = async (id: number) => {
-    setIdCategory(id);
+  const [page, setPage] = useState(0);
+  const dispatch = useDispatch();
+  const initializeProducts = async (category: Categories, parentCategory: string) => {
+    setIdCategory(category.id || 0);
     setIsLoading(true);
-    await GetProductsByCategory({ id, page: 1 });
+    setPage(1);
+    await GetProductsByCategory({ id: category.id, page: 1 });
     setIsLoading(false);
+    dispatch(changeTitleHeader(parentCategory));
+    dispatch(changeSubTitleHeader(category.name || ''));
   };
-  const changePage = async (page: number) => {
-    await GetProductsByCategory({ id: idCategory, page });
+  const changePage = async () => {
+    if (page < totalPages) {
+      await GetProductsByCategory({ id: idCategory, page: page + 1 });
+      setPage(page + 1);
+    }
   };
   const changeOrder = async (order: string) => {
     await GetProductsByCategory({ id: idCategory, order });

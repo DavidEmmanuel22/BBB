@@ -7,7 +7,6 @@ interface IProps {
   data: Array<Categories>;
 }
 const CategoryList: React.FC<IProps> = ({ data }) => {
-  console.log('list', data);
   return (
     <FlatList
       keyExtractor={(item, index) => 'key' + index}

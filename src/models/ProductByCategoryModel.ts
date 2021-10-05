@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { useDispatch } from 'react-redux';
 import { URL_PRODUCT_BY_CATEGORY } from '../constants/URLs';
-import { setProducts } from '../store/slices/categorySlice';
+import { setProducts, loadMore } from '../store/slices/categorySlice';
 import { ProductByCategory } from './Objects/ProductByCategory';
 export const ProductByCategoryModel = () => {
   const dispatch = useDispatch();
@@ -19,7 +19,11 @@ export const ProductByCategoryModel = () => {
           items: data.items,
           total: data.total_count,
         };
-        dispatch(setProducts(Payload));
+        if (page === 1) {
+          dispatch(setProducts(Payload));
+        } else {
+          dispatch(loadMore(Payload));
+        }
       })
       .catch((error) => {
         console.log('error', error);

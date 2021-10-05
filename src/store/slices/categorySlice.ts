@@ -30,11 +30,14 @@ export const uiSlice = createSlice({
       state.products = action.payload.items;
       state.totalProducts = action.payload.total;
     },
+    loadMore(state, action: PayloadAction<PayloadProducts>) {
+      state.products = state.products.concat(action.payload.items);
+    },
   },
 });
 
 // Actions
-export const { setCategories, setProducts } = uiSlice.actions;
+export const { setCategories, setProducts, loadMore } = uiSlice.actions;
 
 // Selectors
 export const selectCategory = (state: RootState) => state.category.categories;
