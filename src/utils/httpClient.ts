@@ -5,5 +5,6 @@ export const httpClient = axios.create({
   baseURL: BASE_URL,
   headers: {
     Accept: 'application/json',
+    'content-type': 'application/json',
   },
 });

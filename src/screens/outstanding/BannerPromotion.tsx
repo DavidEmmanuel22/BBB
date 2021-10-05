@@ -15,7 +15,7 @@ const BannerPromotion = () => {
       <FlatList
         horizontal
         showsHorizontalScrollIndicator={false}
-        snapToInterval={width - 64}
+        snapToInterval={width - 50}
         data={sortNumberByKey(slider1, 'Posicion')}
         renderItem={({ item, index }) => (
           <View key={index} style={{ marginRight: 12 }}>

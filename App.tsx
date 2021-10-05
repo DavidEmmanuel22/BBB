@@ -1,14 +1,13 @@
 import 'react-native-gesture-handler';
 import React from 'react';
 import { Provider } from 'react-redux';
-import { NavigationContainer } from '@react-navigation/native';
-
-import BottomTabNavigation from './src/routes/bottomTabNavigator';
 import Splash from './src/screens/Splash';
 
 import { store } from './src/store';
 import FlashMessage from 'react-native-flash-message';
 import { QueryClient, QueryClientProvider } from 'react-query';
+import { AuthContextProvider } from './src/context/AuthContext';
+import AppStackNavigator from './src/routes/AppStackNavigator';
 
 const queryClient = new QueryClient();
 
@@ -16,12 +15,11 @@ const App = () => {
   return (
     <QueryClientProvider client={queryClient}>
       <Provider store={store}>
-        <NavigationContainer>
+        <AuthContextProvider>
           <Splash />
-          <BottomTabNavigation />
-
+          <AppStackNavigator />
           <FlashMessage position="top" />
-        </NavigationContainer>
+        </AuthContextProvider>
       </Provider>
     </QueryClientProvider>
   );

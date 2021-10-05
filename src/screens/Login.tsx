@@ -1,3 +1,4 @@
+/* eslint-disable react-native/no-inline-styles */
 import React, { useRef } from 'react';
 import { View, Text, TextInput, TouchableOpacity, Image, StatusBar } from 'react-native';
 import { NavigationProp } from '@react-navigation/core';
@@ -18,7 +19,7 @@ const Login: React.FC<IProps> = ({ navigation }) => {
     LoginController();
 
   //References
-  const ref_textinput_password = useRef();
+  const ref_textinput_password = useRef<any>();
 
   return (
     <ScrollView>
@@ -57,7 +58,7 @@ const Login: React.FC<IProps> = ({ navigation }) => {
           placeholderTextColor={GRAY}
           value={email}
           onChangeText={(email) => change_Email(email)}
-          onSubmitEditing={() => ref_textinput_password.current.focus()}
+          onSubmitEditing={() => ref_textinput_password?.current?.focus()}
           blurOnSubmit={false}
           style={{
             borderRadius: 200,
