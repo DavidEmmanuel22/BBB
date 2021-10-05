@@ -4,7 +4,7 @@ export const BASE_INDEX_V1 = '/index.php/rest/default/V1/';
 export const URL_LOGIN_ADMIN = `${BASE_INDEX_V1}integration/admin/token`;
 export const URL_LOGIN_CUSTOMER = `${BASE_INDEX_V1}integration/customer/token`;
 export const URL_Obtain_Data_User_ADMIN = `${BASE_URL}/rest/default/V1/customers/:custoerId`;
-export const URL_Obtain_Data_User_CUSTOMER = `${BASE_URL}/rest/default/V1/customers/me`;
+export const URL_Obtain_Data_User_CUSTOMER = '/rest/default/V1/customers/me';
 export const URL_REGISTRAR = `${BASE_URL}/rest/default/V1/customers`;
 export const URL_ORDERS = '/rest/default/V1/orders';
 export const URL_CATEGORIES = `${BASE_URL}${BASE_INDEX_V1}categories?storeId=1`;

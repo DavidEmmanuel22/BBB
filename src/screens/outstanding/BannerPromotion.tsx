@@ -18,11 +18,14 @@ const BannerPromotion = () => {
         snapToInterval={width - 50}
         data={sortNumberByKey(slider1, 'Posicion')}
         renderItem={({ item, index }) => (
-          <View key={index} style={{ marginRight: 12 }}>
-            <OfferCard height={width / 2.5} source={{ uri: item?.Imagen }} />
-          </View>
+          <Fragment key={index}>
+            {console.log(item)}
+            <View key={index} style={{ marginRight: 12 }}>
+              <OfferCard height={width / 2.5} source={{ uri: item?.Imagen }} />
+            </View>
+          </Fragment>
         )}
-        keyExtractor={(item) => item.id}
+        keyExtractor={(item) => item?.Position}
       />
     </Fragment>
   );

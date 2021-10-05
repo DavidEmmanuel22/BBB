@@ -103,7 +103,7 @@ const SearchHeader: React.FC<IProps> = ({ ...props }) => {
       </View>
 
       {showTab && (
-        <View style={{ flexDirection: 'row' }}>
+        <View style={Styles.tabContainer}>
           <FlatList
             horizontal
             showsHorizontalScrollIndicator={false}
@@ -127,6 +127,11 @@ const SearchHeader: React.FC<IProps> = ({ ...props }) => {
   );
 };
 const Styles = StyleSheet.create({
+  tabContainer: {
+    marginLeft: 32,
+    marginRight: 32,
+    flexDirection: 'row',
+  },
   contentHeader: {
     width: '100%',
     height: getHeight(100),

@@ -14,7 +14,7 @@ interface IProps {
 }
 
 export const MyAccount: React.FC<IProps> = ({ navigation }) => {
-  const { signOut, accessToken, user }: any = useAuthContext();
+  const { signOut, accessToken, user, isLoadingGetUserData }: any = useAuthContext();
 
   return (
     <View style={styles.container}>
@@ -23,9 +23,11 @@ export const MyAccount: React.FC<IProps> = ({ navigation }) => {
 
       {/* Title */}
       <Text style={styles.txthola}>hola,</Text>
-      <Text numberOfLines={1} adjustsFontSizeToFit style={styles.txtName}>
-        {user?.firstname + ' ' + user?.lastname}
-      </Text>
+      {!isLoadingGetUserData && (
+        <Text numberOfLines={1} adjustsFontSizeToFit style={styles.txtName}>
+          {user?.firstname + ' ' + user?.lastname}
+        </Text>
+      )}
 
       {/* TopRight Icons */}
       <View

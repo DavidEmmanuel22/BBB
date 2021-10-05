@@ -17,7 +17,7 @@ const SubCategoryList: React.FC<IProps> = ({ data }) => {
         paddingVertical: getWidth(1),
       }}
       keyExtractor={(item, index) => 'key' + index}
-      renderItem={({ item }) => <SubCategoryCard item={item} />}
+      renderItem={({ item, index }) => <SubCategoryCard key={index} item={item} />}
       data={data}
     />
   );

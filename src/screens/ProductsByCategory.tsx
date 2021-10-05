@@ -80,7 +80,7 @@ const ProductsByCategory: React.FC<IProps> = ({ route }) => {
     <Container containerStyles={styles.container} statusBarStyle={StatusBarStyle.DARK}>
       <View style={styles.chipView}>
         <FlatList
-          renderItem={({ item }) => <Chip chipItem={item} />}
+          renderItem={({ item, index }) => <Chip key={index} chipItem={item} />}
           keyExtractor={(item, index) => 'key' + index}
           horizontal={true}
           data={subCategories}
@@ -95,7 +95,7 @@ const ProductsByCategory: React.FC<IProps> = ({ route }) => {
           <FlatList
             numColumns={2}
             keyExtractor={(item, index) => 'key' + index}
-            renderItem={({ item }) => <ProductItem item={item} />}
+            renderItem={({ item, index }) => <ProductItem key={index} item={item} />}
             data={products}
             columnWrapperStyle={styles.wrapperColumn}
             onEndReached={loadMore}
