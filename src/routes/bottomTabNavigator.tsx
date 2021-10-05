@@ -2,12 +2,14 @@ import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
 import HomeStackNavigator from './HomeStackNavigator';
-import LoginStackNavigator from './LoginStackNavigator';
 import Discounts from '../screens/Discounts';
 import Wishlist from '../screens/Wishlist';
 import Menu from '../screens/Menu';
 import Icon from '../components/Icon';
 import { PRIMARY_BLUE } from '../constants/colors';
+import AuthStackNavigator from './AuthStackNavigator';
+import useAuthContext from '../context/AuthContext';
+import { MyAccount } from '../screens/MyAccount';
 
 interface ITabIconProps {
   name: string;
@@ -27,6 +29,7 @@ const TabIcon: React.FC<ITabIconProps> = ({ name, focused, color, size }) => (
 );
 
 const BottomTabNavigation = () => {
+  const { isAuthenticated }: any = useAuthContext();
   return (
     <Tab.Navigator
       initialRouteName="Home"
@@ -61,7 +64,7 @@ const BottomTabNavigation = () => {
       />
       <Tab.Screen
         name="Login"
-        component={LoginStackNavigator}
+        component={isAuthenticated ? MyAccount : AuthStackNavigator}
         options={{
           tabBarLabel: '',
           tabBarIcon: ({ color, size, focused }) => <TabIcon name="user" focused={focused} color={color} size={size} />,

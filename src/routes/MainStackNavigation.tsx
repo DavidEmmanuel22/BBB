@@ -1,34 +1,28 @@
 import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 
-import Login from '../screens/Login';
 import Welcome from '../screens/Welcome';
-import Register from '../screens/Register';
 import { WHITE } from '../constants/colors';
-import { MyAccount } from '../screens/MyAccount';
 import { Profile } from '../screens/Profile';
 import { NewPassword } from '../screens/NewPassword';
-import { RegisterPolicy } from '../screens/RegisterPolicy';
 import Orders from '../screens/Orders';
 import Reviews from '../screens/Reviews';
+import BottomTabNavigation from './bottomTabNavigator';
 
 const Stack = createStackNavigator();
 
-const LoginStackNavigator = () => {
+const MainStackNavigation = () => {
   return (
     <Stack.Navigator
-      initialRouteName="Index"
+      initialRouteName="TabBottomNavigation"
       screenOptions={{
         headerShown: false,
         headerMode: 'screen',
         cardStyle: { backgroundColor: WHITE },
       }}
     >
-      <Stack.Screen name="Index" component={Login} />
-      <Stack.Screen name="Register" component={Register} />
-      <Stack.Screen name="RegisterPolicy" component={RegisterPolicy} />
+      <Stack.Screen name="TabBottomNavigation" component={BottomTabNavigation} />
       <Stack.Screen name="Welcome" component={Welcome} />
-      <Stack.Screen name="MyAccount" component={MyAccount} />
       <Stack.Screen name="Profile" component={Profile} />
       <Stack.Screen name="orders" component={Orders} />
       <Stack.Screen name="reviews" component={Reviews} />
@@ -37,4 +31,4 @@ const LoginStackNavigator = () => {
   );
 };
 
-export default LoginStackNavigator;
+export default MainStackNavigation;

@@ -7,13 +7,12 @@ import Indicator from '../components/Indicator';
 import EmptyList from '../components/orders/EmptyList';
 import OrderCard from '../components/orders/OrderCard';
 import { BLUE } from '../constants/colors';
-import { LoginModel } from '../models/LoginModel';
+import useAuthContext from '../context/AuthContext';
 import { getUserOrders } from '../models/OrdersModel';
 import { TokenModel } from '../models/TokenModel';
 import { getHeight } from '../utils/interfaceDimentions';
 
-const { GetUserData } = LoginModel();
-const { GetCustomerToken, GetAdminToken } = TokenModel();
+const { GetAdminToken } = TokenModel();
 
 type HeaderProps = {
   onPress?: () => void;
@@ -33,18 +32,15 @@ const Header = ({ onPress }: HeaderProps) => {
 type OrdersProps = { navigation: any };
 
 const Orders = ({ navigation }: OrdersProps) => {
-  const [userId, setUserId] = useState<any>();
   const [adminToken, setAdminToken] = useState<any>();
+  const { user }: any = useAuthContext();
 
   useEffect(() => {
-    GetCustomerToken('ricardo@dgk.com.mx', 'MiRich.2015').then((token) =>
-      GetUserData(token).then((data) => setUserId(data?.id))
-    );
     GetAdminToken().then((token) => setAdminToken(token));
   }, []);
 
-  const { data, isLoading, status, refetch } = useQuery<any>('myOrders', () => getUserOrders(userId, adminToken), {
-    enabled: !!userId && !!adminToken,
+  const { data, isLoading, status, refetch } = useQuery<any>('myOrders', () => getUserOrders(user?.id, adminToken), {
+    enabled: !!user?.id && !!adminToken,
   });
   if (status === 'idle' || status === 'loading') {
     return <Indicator />;

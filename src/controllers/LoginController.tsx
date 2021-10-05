@@ -1,19 +1,16 @@
 import { NavigationProp } from '@react-navigation/core';
 import { useState } from 'react';
 import { showMessage } from 'react-native-flash-message';
-import { LoginModel } from '../models/LoginModel';
-import { User } from '../models/Objects/User';
-import { TokenModel } from '../models/TokenModel';
+import useAuthContext from '../context/AuthContext';
 
 export const LoginController = () => {
   //Obtaining the methods used in Model
-  const { GetCustomerToken } = TokenModel();
 
-  const { GetUserData } = LoginModel();
+  const { signIn, accessToken, user }: any = useAuthContext();
 
   //Variables de control
-  const [email, setemail] = useState('');
-  const [password, setpassword] = useState('');
+  const [email, setemail] = useState('ricardo@dgk.com.mx');
+  const [password, setpassword] = useState('MiRich.2015');
   const [showPassword, setShowPassword] = useState(true);
   const [LogInCLicked, setLogInCLicked] = useState(false);
 
@@ -48,8 +45,8 @@ export const LoginController = () => {
         duration: 3000,
       });
     } else {
-      const token: string = await GetCustomerToken(email, password);
-      if (token.includes('Error')) {
+      await signIn({ email, password });
+      if (accessToken.includes('Error')) {
         setLogInCLicked(false);
         showMessage({
           message: 'El usuario o contraseña ingresados son incorrectos.',
@@ -58,8 +55,7 @@ export const LoginController = () => {
           duration: 3000,
         });
       } else {
-        const datos: User = await GetUserData(token);
-        if (datos.firstname === '' || datos.lastname === '') {
+        if (user === null) {
           showMessage({
             message: 'A ocurrido error. Intente de nuevo.',
             type: 'info',
@@ -72,7 +68,7 @@ export const LoginController = () => {
           change_Password('');
           change_ShowPassword();
           setLogInCLicked(false);
-          navigation.navigate('MyAccount', { datos, token });
+          navigation.navigate('MyAccount', { accessToken });
         }
       }
     }

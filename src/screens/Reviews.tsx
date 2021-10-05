@@ -37,7 +37,7 @@ const Reviews = ({ navigation }: ReviewProps) => {
   const [adminToken, setAdminToken] = useState<any>();
 
   useEffect(() => {
-    GetCustomerToken('ricardo@dgk.com.mx', 'MiRich.2015').then((token) =>
+    GetCustomerToken({ username: 'ricardo@dgk.com.mx', password: 'MiRich.2015' }).then((token) =>
       GetUserData(token).then((data) => setUserId(data?.id))
     );
     GetAdminToken().then((token) => setAdminToken(token));

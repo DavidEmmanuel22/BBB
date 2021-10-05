@@ -1,9 +1,11 @@
+/* eslint-disable react-native/no-inline-styles */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { NavigationProp, RouteProp } from '@react-navigation/core';
 import React from 'react';
 import { View, StyleSheet, Image, TouchableOpacity, ScrollView, StatusBar, Text } from 'react-native';
 import { PRIMARY_BLUE, LIGHTER_GRAY, DARKER_BLUE, DARK } from '../constants/colors';
 import { TERMINABOLD } from '../constants/fonts';
+import useAuthContext from '../context/AuthContext';
 import { User } from '../models/Objects/User';
 
 interface IProps {
@@ -11,9 +13,8 @@ interface IProps {
   navigation: NavigationProp<any, any>;
 }
 
-export const MyAccount: React.FC<IProps> = ({ route, navigation }) => {
-  const User: User = route?.params?.datos;
-  const token: string = route?.params?.token;
+export const MyAccount: React.FC<IProps> = ({ navigation }) => {
+  const { signOut, accessToken, user }: any = useAuthContext();
 
   return (
     <View style={styles.container}>
@@ -23,7 +24,7 @@ export const MyAccount: React.FC<IProps> = ({ route, navigation }) => {
       {/* Title */}
       <Text style={styles.txthola}>hola,</Text>
       <Text numberOfLines={1} adjustsFontSizeToFit style={styles.txtName}>
-        {User.firstname + ' ' + User.lastname}
+        {user?.firstname + ' ' + user?.lastname}
       </Text>
 
       {/* TopRight Icons */}
@@ -53,7 +54,7 @@ export const MyAccount: React.FC<IProps> = ({ route, navigation }) => {
         <TouchableOpacity
           style={{ flexDirection: 'row' }}
           onPress={() => {
-            navigation.navigate('Profile', { User, token });
+            navigation.navigate('Profile', { user, accessToken });
           }}
         >
           <Image source={require('../assets/MyAccount/EditIcon.png')} style={{ marginRight: 8, alignSelf: 'center' }} />
@@ -62,7 +63,7 @@ export const MyAccount: React.FC<IProps> = ({ route, navigation }) => {
         </TouchableOpacity>
 
         {/* Cerrar sesion */}
-        <TouchableOpacity style={{ flexDirection: 'row' }}>
+        <TouchableOpacity style={{ flexDirection: 'row' }} onPress={() => signOut()}>
           <Image
             source={require('../assets/MyAccount/LogOutIcon.png')}
             style={{ marginRight: 8, marginLeft: 24, alignSelf: 'center' }}
@@ -83,7 +84,7 @@ export const MyAccount: React.FC<IProps> = ({ route, navigation }) => {
             justifyContent: 'flex-start',
             alignItems: 'center',
           }}
-          onPress={() => navigation.navigate('orders', { User, token })}
+          onPress={() => navigation.navigate('orders', { user, accessToken })}
         >
           <Image source={require('../assets/MyAccount/MisPedidosIcon.png')} />
           <Text
