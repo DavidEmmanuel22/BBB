@@ -1,7 +1,6 @@
 /* eslint-disable react-native/no-inline-styles */
 import React from 'react';
-import { Dimensions, ScrollView, View } from 'react-native';
-import { FlatList } from 'react-native-gesture-handler';
+import { Dimensions, ScrollView, View, FlatList } from 'react-native';
 
 import Container from '../components/Container';
 import OfferCard from '../components/home/OfferCard';
@@ -105,8 +104,8 @@ const Principal: React.FC<IProps> = () => {
             horizontal
             showsHorizontalScrollIndicator={false}
             data={dummyList}
-            renderItem={() => (
-              <View style={{ marginRight: 12 }}>
+            renderItem={({ index }) => (
+              <View key={index} style={{ marginRight: 12 }}>
                 <TopProductCard
                   source={require('../assets/images/dummy/bed2.png')}
                   description="Set de colcha matrimonial/queen…"
@@ -145,8 +144,8 @@ const Principal: React.FC<IProps> = () => {
             horizontal
             showsHorizontalScrollIndicator={false}
             data={dummyList}
-            renderItem={() => (
-              <View style={{ marginRight: 12 }}>
+            renderItem={({ index }) => (
+              <View key={index} style={{ marginRight: 12 }}>
                 <OfferCard height={100} source={require('../assets/images/dummy/banner3.png')} />
               </View>
             )}
@@ -162,8 +161,8 @@ const Principal: React.FC<IProps> = () => {
             horizontal
             showsHorizontalScrollIndicator={false}
             data={dummyList}
-            renderItem={() => (
-              <View style={{ marginRight: 12 }}>
+            renderItem={({ index }) => (
+              <View key={index} style={{ marginRight: 12 }}>
                 <TopProductCard
                   source={require('../assets/images/dummy/bed2.png')}
                   description="Escurridor para trastes de acero…"
@@ -197,8 +196,8 @@ const Principal: React.FC<IProps> = () => {
             horizontal
             showsHorizontalScrollIndicator={false}
             data={dummyList}
-            renderItem={() => (
-              <View style={{ marginRight: 12 }}>
+            renderItem={({ index }) => (
+              <View key={index} style={{ marginRight: 12 }}>
                 <OfferCard height={120} source={require('../assets/images/dummy/banner5.png')} />
               </View>
             )}

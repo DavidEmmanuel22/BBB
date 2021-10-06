@@ -67,7 +67,7 @@ const AnimateBox: React.FC<IProps> = ({ item }) => {
         <CollapseBody>
           <FlatList
             keyExtractor={(item, index) => 'key' + index}
-            renderItem={({ item }) => <InnerCategory itemInner={item} />}
+            renderItem={({ item, index }) => <InnerCategory key={index} itemInner={item} />}
             data={innerCategories}
           />
         </CollapseBody>

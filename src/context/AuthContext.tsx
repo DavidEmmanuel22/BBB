@@ -3,12 +3,15 @@ import React, { createContext, ReactNode, useContext, useEffect, useMemo, useSta
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { TokenModel } from '../models/TokenModel';
 import { LoginModel } from '../models/LoginModel';
+import { useMutation } from 'react-query';
 
 export type AuthContextProps = {
   signIn: (authType: any, params?: any) => Promise<void>;
   signOut: () => void;
   user: any | null;
   accessToken?: string;
+  isLoadingGetCustomerToken: boolean;
+  isLoadingGetUserData: boolean;
   isAuthenticated?: boolean;
 };
 
@@ -22,15 +25,52 @@ type AuthContextProviderProps = {
 const { GetCustomerToken } = TokenModel();
 const { GetUserData } = LoginModel();
 
+const USER = 'user';
+const CUSTOMER_ACCESS_TOKEN = 'customerAccessToken';
+
 //Provider
 export const AuthContextProvider: React.FC<AuthContextProviderProps> = ({ children }) => {
   const [user, setUser] = useState<any | null>(null);
   const [accessToken, setAccessToken] = useState<string | null>(null);
 
+  const { mutate: getUserData, isLoading: isLoadingGetUserData } = useMutation('userData', GetUserData, {
+    onSuccess: async (data: any) => {
+      if (data?.firstname || data?.lastname) {
+        await AsyncStorage.setItem(USER, JSON.stringify(data));
+        setUser(data);
+      }
+    },
+    onError: () => {
+      setUser(null);
+    },
+  });
+
+  const { mutate: getCustomerToken, isLoading: isLoadingGetCustomerToken } = useMutation(
+    'customerToken',
+    GetCustomerToken,
+    {
+      onSuccess: async (token) => {
+        await AsyncStorage.setItem(CUSTOMER_ACCESS_TOKEN, token);
+        setAccessToken(token);
+      },
+      onError: async () => {
+        await AsyncStorage.clear();
+        setAccessToken(null);
+        setUser(null);
+      },
+    }
+  );
+
+  useEffect(() => {
+    if (accessToken && accessToken != null) {
+      getUserData(accessToken);
+    }
+  }, [accessToken, getUserData]);
+
   useEffect(() => {
     const bootstrapAsync = async () => {
-      const token = await AsyncStorage.getItem('accessToken');
-      const userRaw = await AsyncStorage.getItem('user');
+      const token = await AsyncStorage.getItem(CUSTOMER_ACCESS_TOKEN);
+      const userRaw = await AsyncStorage.getItem(USER);
 
       try {
         if (userRaw !== null) {
@@ -50,22 +90,7 @@ export const AuthContextProvider: React.FC<AuthContextProviderProps> = ({ childr
   const authContext: any = useMemo(
     () => ({
       signIn: async (params?: any) => {
-        const token = await GetCustomerToken({ username: params?.email, password: params?.password });
-        if (token) {
-          await AsyncStorage.setItem('accessToken', token);
-          const userData = await GetUserData(token);
-          console.log(userData);
-          if (userData?.firstname || userData?.lastname) {
-            await AsyncStorage.setItem('user', JSON.stringify(userData));
-            setUser(userData);
-          }
-          setAccessToken(token);
-        }
-        if (token.includes('Error')) {
-          await AsyncStorage.clear();
-          setAccessToken(null);
-          setUser(null);
-        }
+        getCustomerToken({ username: params?.email, password: params?.password });
       },
       signOut: async () => {
         await AsyncStorage.clear();
@@ -75,8 +100,10 @@ export const AuthContextProvider: React.FC<AuthContextProviderProps> = ({ childr
       isAuthenticated: accessToken !== null,
       accessToken,
       user,
+      isLoadingGetCustomerToken,
+      isLoadingGetUserData,
     }),
-    [accessToken, user]
+    [accessToken, user, getCustomerToken, isLoadingGetCustomerToken, isLoadingGetUserData]
   );
 
   return <AuthContext.Provider value={authContext}>{children}</AuthContext.Provider>;

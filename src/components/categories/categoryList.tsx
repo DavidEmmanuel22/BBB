@@ -9,9 +9,9 @@ interface IProps {
 const CategoryList: React.FC<IProps> = ({ data }) => {
   return (
     <FlatList
-      keyExtractor={(item, index) => 'key' + index}
-      renderItem={({ item }) => <CategoryCard data={item} />}
-      data={data.filter((item) => item?.product_count > 0)}
+      keyExtractor={(item: any, index: any) => 'key' + index}
+      renderItem={({ item, index }: any) => <CategoryCard key={index} data={item} />}
+      data={data.filter((item: any) => item?.product_count > 0)}
     />
   );
 };
