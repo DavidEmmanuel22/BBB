@@ -1,6 +1,6 @@
 /* eslint-disable react-native/no-inline-styles */
 import React, { useRef } from 'react';
-import { View, Text, TextInput, TouchableOpacity, Image, StatusBar } from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, Image, StatusBar, StyleSheet } from 'react-native';
 import { NavigationProp } from '@react-navigation/core';
 
 import SocialButtons from '../components/SocialButtons';
@@ -29,13 +29,7 @@ const Login: React.FC<IProps> = ({ navigation }) => {
       {/* Title */}
       <Text
         style={[
-          {
-            fontFamily: 'TerminaW05-Bold',
-            color: DARKER_BLUE,
-            fontSize: 24,
-            marginTop: 24,
-            marginHorizontal: 30,
-          },
+          styles.title,
           LogInCLicked ? { opacity: 0.2 } : { opacity: 1 },
         ]}
       >
@@ -45,9 +39,7 @@ const Login: React.FC<IProps> = ({ navigation }) => {
       {/* Text input Email */}
       <View
         style={[
-          {
-            marginTop: 26,
-          },
+          styles.containerInputEmail,
           LogInCLicked ? { opacity: 0.2 } : { opacity: 1 },
         ]}
         pointerEvents={LogInCLicked ? 'none' : 'auto'}
@@ -60,35 +52,18 @@ const Login: React.FC<IProps> = ({ navigation }) => {
           onChangeText={(email) => change_Email(email)}
           onSubmitEditing={() => ref_textinput_password?.current?.focus()}
           blurOnSubmit={false}
-          style={{
-            borderRadius: 200,
-            backgroundColor: 'white',
-            color: 'black',
-            marginLeft: 50,
-            marginRight: 30,
-            fontSize: 16,
-            height: 40,
-          }}
+          style={styles.inputEmail}
         />
 
         <View
           style={[
-            {
-              backgroundColor: LIGHTER_GRAY4,
-              height: 1,
-              marginHorizontal: 30,
-            },
+            styles.inputEmailSeparator,
             email ? { backgroundColor: PRIMARY_BLUE } : { backgroundColor: LIGHTER_GRAY4 },
           ]}
         />
 
         <Image
-          style={{
-            position: 'absolute',
-            left: 1,
-            marginTop: 10,
-            marginLeft: 30,
-          }}
+          style={styles.inputEmailIcon}
           source={email ? require('../assets/Login/UserBLACKIcon.png') : require('../assets/Login/UserIcon.png')}
         />
       </View>
@@ -96,9 +71,7 @@ const Login: React.FC<IProps> = ({ navigation }) => {
       {/* Text entry Password */}
       <View
         style={[
-          {
-            marginTop: 26,
-          },
+          styles.containerInputPassword,
           LogInCLicked ? { opacity: 0.2 } : { opacity: 1 },
         ]}
         pointerEvents={LogInCLicked ? 'none' : 'auto'}
@@ -110,48 +83,24 @@ const Login: React.FC<IProps> = ({ navigation }) => {
           onChangeText={(password) => change_Password(password)}
           secureTextEntry={showPassword}
           ref={ref_textinput_password}
-          style={{
-            borderRadius: 200,
-            backgroundColor: 'white',
-            color: 'black',
-            marginLeft: 52,
-            marginRight: 65,
-            fontSize: 16,
-            height: 40,
-          }}
+          style={styles.inputPassword}
         />
 
         <View
           style={[
-            {
-              backgroundColor: LIGHTER_GRAY4,
-              height: 1,
-              marginHorizontal: 30,
-            },
+            styles.inputPasswordSeparator,
             password ? { backgroundColor: PRIMARY_BLUE } : { backgroundColor: LIGHTER_GRAY4 },
           ]}
         />
 
         <Image
-          style={{
-            position: 'absolute',
-            left: 1,
-            marginTop: 10,
-            marginLeft: 30,
-          }}
+          style={styles.inputPasswordLeftIcon}
           source={password ? require('../assets/Login/KeyBLACKIcon.png') : require('../assets/Login/KeyIcon.png')}
         />
 
         <TouchableOpacity
           onPress={change_ShowPassword}
-          style={{
-            position: 'absolute',
-            right: 1,
-            marginTop: 10,
-            marginRight: 30,
-            height: 30,
-            width: 30,
-          }}
+          style={styles.inputPasswordRightIcon}
         >
           <Image
             source={showPassword ? require('../assets/Login/EyeOpenIcon.png') : require('../assets/Login/EyeIcon.png')}
@@ -161,19 +110,12 @@ const Login: React.FC<IProps> = ({ navigation }) => {
 
       {/* Boton de recuperar contraseña */}
       <TouchableOpacity
-        style={{
-          alignSelf: 'flex-end',
-          marginRight: 30,
-          marginTop: 8,
-        }}
+        style={styles.btnRecoverPassword}
         disabled={LogInCLicked}
       >
         <Text
           style={[
-            {
-              fontFamily: 'Effra_Rg',
-              fontSize: 16,
-            },
+            styles.btnTextRecoverPassword,
             LogInCLicked ? { opacity: 0.2 } : { opacity: 1 },
           ]}
         >
@@ -182,28 +124,16 @@ const Login: React.FC<IProps> = ({ navigation }) => {
       </TouchableOpacity>
 
       <View
-        style={{
-          marginHorizontal: 30,
-          marginTop: 18,
-          alignItems: 'center',
-        }}
+        style={styles.btnsContainer}
         pointerEvents={LogInCLicked ? 'none' : 'auto'}
       >
         {/* Boton de iniciar sesion */}
         <TouchableOpacity
           onPress={() => LogIn(navigation)}
-          style={{
-            backgroundColor: PRIMARY_BLUE,
-            width: '100%',
-            height: 50,
-            justifyContent: 'center',
-          }}
+          style={styles.btnLogIn}
         >
           <Text
-            style={{
-              textAlign: 'center',
-              color: 'white',
-            }}
+            style={styles.btnTextLogIn}
           >
             {LogInCLicked ? 'Ingresando...' : 'Iniciar sesión'}
           </Text>
@@ -212,22 +142,13 @@ const Login: React.FC<IProps> = ({ navigation }) => {
         <TouchableOpacity
           onPress={() => navigation.navigate('Register')}
           style={[
-            {
-              backgroundColor: 'white',
-              borderWidth: 1,
-              width: '100%',
-              height: 50,
-              justifyContent: 'center',
-              marginTop: 10,
-            },
+            styles.btnCreateAccount,
             LogInCLicked ? { borderColor: LIGHTER_GRAY4 } : { borderColor: LIGHTER_GRAY2 },
           ]}
         >
           <Text
             style={[
-              {
-                textAlign: 'center',
-              },
+              styles.btnTextCreateAccount,
               LogInCLicked ? { color: LIGHTER_GRAY2 } : { color: PRIMARY_BLUE },
             ]}
           >
@@ -239,9 +160,7 @@ const Login: React.FC<IProps> = ({ navigation }) => {
       {/* Facebook/AppleID/Google Buttons*/}
       <View
         style={[
-          {
-            marginHorizontal: 30,
-          },
+          styles.btnSocials,
           LogInCLicked ? { opacity: 0.2 } : { opacity: 1 },
         ]}
         pointerEvents={LogInCLicked ? 'none' : 'auto'}
@@ -257,4 +176,105 @@ const Login: React.FC<IProps> = ({ navigation }) => {
   );
 };
 
+const styles = StyleSheet.create({
+  title: {
+    fontFamily: 'TerminaW05-Bold',
+    color: DARKER_BLUE,
+    fontSize: 24,
+    marginTop: 24,
+    marginHorizontal: 30
+  },
+  containerInputEmail: {
+    marginTop: 26
+  },
+  inputEmail: {
+    borderRadius: 200,
+    backgroundColor: 'white',
+    color: 'black',
+    marginLeft: 50,
+    marginRight: 30,
+    fontSize: 16,
+    height: 40,
+  },
+  inputEmailSeparator: {
+    backgroundColor: LIGHTER_GRAY4,
+    height: 1,
+    marginHorizontal: 30,
+  },
+  inputEmailIcon: {
+    position: 'absolute',
+    left: 1,
+    marginTop: 10,
+    marginLeft: 30,
+  },
+  containerInputPassword: {
+    marginTop: 26
+  },
+  inputPassword: {
+    borderRadius: 200,
+    backgroundColor: 'white',
+    color: 'black',
+    marginLeft: 50,
+    marginRight: 30,
+    fontSize: 16,
+    height: 40,
+  },
+  inputPasswordSeparator: {
+    backgroundColor: LIGHTER_GRAY4,
+    height: 1,
+    marginHorizontal: 30,
+  },
+  inputPasswordLeftIcon: {
+    position: 'absolute',
+    left: 1,
+    marginTop: 10,
+    marginLeft: 30,
+  },
+  inputPasswordRightIcon: {
+    position: 'absolute',
+    right: 1,
+    marginTop: 10,
+    marginRight: 30,
+    height: 30,
+    width: 30,
+  },
+  btnRecoverPassword: {
+    alignSelf: 'flex-end',
+    marginRight: 30,
+    marginTop: 8,
+  },
+  btnTextRecoverPassword: {
+    fontFamily: 'Effra_Rg',
+    fontSize: 16,
+  },
+  btnsContainer: {
+    marginHorizontal: 30,
+    marginTop: 18,
+    alignItems: 'center',
+  },
+  btnLogIn: {
+    backgroundColor: PRIMARY_BLUE,
+    width: '100%',
+    height: 50,
+    justifyContent: 'center',
+  },
+  btnTextLogIn: {
+    textAlign: 'center',
+    color: 'white',
+  },
+  btnCreateAccount: {
+    backgroundColor: 'white',
+    borderWidth: 1,
+    width: '100%',
+    height: 50,
+    justifyContent: 'center',
+    marginTop: 10,
+  },
+  btnTextCreateAccount: {
+    textAlign: 'center',
+  },
+  btnSocials:{
+    marginHorizontal: 30,
+  }
+});
 export default Login;

@@ -1,6 +1,6 @@
 import { NavigationProp, RouteProp } from '@react-navigation/core';
 import React from 'react';
-import { Image, StatusBar, Switch, Text, TouchableOpacity, View } from 'react-native';
+import { Image, StatusBar, StyleSheet, Switch, Text, TouchableOpacity, View } from 'react-native';
 
 import { DARK, DARKER_BLUE, GREEN, PRIMARY_BLUE, RED } from '../constants/colors';
 import { Customer } from '../models/Objects/Customer';
@@ -24,14 +24,7 @@ export const RegisterPolicy: React.FC<IProps> = ({ route, navigation }) => {
 
       {/* Title "crear cuenta" */}
       <Text
-        style={{
-          position: 'absolute',
-          alignSelf: 'center',
-          fontFamily: 'TerminaW05-Bold',
-          color: DARKER_BLUE,
-          fontSize: 22,
-          marginTop: 19,
-        }}
+        style={ styles.title }
       >
         crear cuenta
       </Text>
@@ -39,25 +32,14 @@ export const RegisterPolicy: React.FC<IProps> = ({ route, navigation }) => {
       {/* Arrow icon */}
       <TouchableOpacity
         onPress={() => navigation.goBack()}
-        style={{
-          position: 'absolute',
-          marginTop: 26,
-          marginLeft: 24,
-          width: '20%',
-          height: 25,
-        }}
+        style={ styles.arrowIcon }
       >
         <Image source={require('../assets/Profile/ArrowIcon.png')} />
       </TouchableOpacity>
 
       {/* X icon */}
       <TouchableOpacity
-        style={{
-          marginTop: 26,
-          marginRight: 24,
-          position: 'absolute',
-          right: 1,
-        }}
+        style={ styles.xIcon }
         onPress={() => navigation.goBack()}
       >
         <Image source={require('../assets/NewPassword/XIcon.png')} />
@@ -65,37 +47,21 @@ export const RegisterPolicy: React.FC<IProps> = ({ route, navigation }) => {
 
       {/* Page content */}
       <View
-        style={{
-          marginHorizontal: 23,
-          justifyContent: 'center',
-          height: '100%',
-        }}
+        style={ styles.container }
       >
         {/* Upper text */}
         <Text
-          style={{
-            fontFamily: 'Effra_Rg',
-            fontSize: 16,
-            color: DARK,
-          }}
+          style={ styles.upperText }
         >
           Para continuar es necesario aceptar las políticas de privacidad.
         </Text>
 
         {/* Privacy policies */}
         <View
-          style={{
-            marginVertical: 30,
-            flexDirection: 'row',
-          }}
+          style={ styles.switchPrivacyContainer }
         >
           <Text
-            style={{
-              fontFamily: 'Effra_Rg',
-              fontSize: 16,
-              textDecorationLine: 'underline',
-              color: DARK,
-            }}
+            style={ styles.switchPrivacyText }
           >
             Políticas de Privacidad
           </Text>
@@ -105,26 +71,16 @@ export const RegisterPolicy: React.FC<IProps> = ({ route, navigation }) => {
             onValueChange={() => setPoliticasSwitch(!politicasSwitch)}
             trackColor={{ false: RED, true: GREEN }}
             thumbColor="white"
-            style={{
-              position: 'absolute',
-              right: 1,
-              marginRight: 10,
-            }}
+            style={ styles.switchPrivacy }
           />
         </View>
 
         {/* Receive promotions */}
         <View
-          style={{
-            flexDirection: 'row',
-          }}
+          style={ styles.switchPromotionsContainer }
         >
           <Text
-            style={{
-              fontFamily: 'Effra_Rg',
-              fontSize: 16,
-              color: DARK,
-            }}
+            style={styles.switchPromotionsText}
           >
             Recibir promociones
           </Text>
@@ -134,21 +90,14 @@ export const RegisterPolicy: React.FC<IProps> = ({ route, navigation }) => {
             onValueChange={() => setPromocionesSwitch(!promocionesSwitch)}
             trackColor={{ false: RED, true: GREEN }}
             thumbColor="white"
-            style={{
-              position: 'absolute',
-              right: 1,
-              marginRight: 10,
-            }}
+            style={styles.switchPromotions}
           />
         </View>
 
         {/* Continue button */}
         <View
           style={[
-            {
-              marginTop: 30,
-              alignItems: 'center',
-            },
+            styles.btnContinueContainer,
             politicasSwitch ? { opacity: 1 } : { opacity: 0.3 },
           ]}
         >
@@ -157,18 +106,10 @@ export const RegisterPolicy: React.FC<IProps> = ({ route, navigation }) => {
               Continue(customer, navigation);
             }}
             disabled={!politicasSwitch}
-            style={{
-              backgroundColor: PRIMARY_BLUE,
-              width: '100%',
-              height: 50,
-              justifyContent: 'center',
-            }}
+            style={ styles.btnContinue }
           >
             <Text
-              style={{
-                textAlign: 'center',
-                color: 'white',
-              }}
+              style={ styles.btnContinueText }
             >
               Continuar
             </Text>
@@ -177,4 +118,81 @@ export const RegisterPolicy: React.FC<IProps> = ({ route, navigation }) => {
       </View>
     </View>
   );
+
 };
+
+const styles = StyleSheet.create({
+  title: {
+    position: 'absolute',
+    alignSelf: 'center',
+    fontFamily: 'TerminaW05-Bold',
+    color: DARKER_BLUE,
+    fontSize: 22,
+    marginTop: 19,
+  },
+  arrowIcon:{
+    position: 'absolute',
+    marginTop: 26,
+    marginLeft: 24,
+    width: '20%',
+    height: 25,
+  },
+  xIcon:{
+    marginTop: 26,
+    marginRight: 24,
+    position: 'absolute',
+    right: 1,
+  },
+  container:{
+    marginHorizontal: 23,
+    justifyContent: 'center',
+    height: '100%',
+  },
+  upperText:{
+    fontFamily: 'Effra_Rg',
+    fontSize: 16,
+    color: DARK,
+  },
+  switchPrivacyContainer:{
+    marginVertical: 30,
+    flexDirection: 'row',
+  },
+  switchPrivacyText:{
+    fontFamily: 'Effra_Rg',
+    fontSize: 16,
+    textDecorationLine: 'underline',
+    color: DARK,
+  },
+  switchPrivacy:{
+    position: 'absolute',
+    right: 1,
+    marginRight: 10,
+  },
+  switchPromotionsContainer:{
+    flexDirection: 'row',
+  },
+  switchPromotionsText:{
+    fontFamily: 'Effra_Rg',
+    fontSize: 16,
+    color: DARK,
+  },
+  switchPromotions:{
+    position: 'absolute',
+    right: 1,
+    marginRight: 10,
+  },
+  btnContinueContainer:{
+    marginTop: 30,
+    alignItems: 'center',
+  },
+  btnContinueText:{
+    textAlign: 'center',
+    color: 'white',
+  },
+  btnContinue:{
+    backgroundColor: PRIMARY_BLUE,
+    width: '100%',
+    height: 50,
+    justifyContent: 'center',
+  }
+});

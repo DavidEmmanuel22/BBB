@@ -5,8 +5,12 @@ import { ProfileModel } from '../models/ProfileModel';
 import { User } from '../models/Objects/User';
 import { TokenModel } from '../models/TokenModel';
 import { showMessage } from 'react-native-flash-message';
+import useAuthContext from '../context/AuthContext';
 
 export const ProfileController = () => {
+
+  const { changeDataUser }: any = useAuthContext();
+
   const { ModifyUser } = ProfileModel();
   const { GetAdminToken } = TokenModel();
 
@@ -21,7 +25,7 @@ export const ProfileController = () => {
   const [saveClicked, setsaveClicked] = useState(false);
 
   const ChangePassword = (user: User, navigation: NavigationProp<any, any>) => {
-    navigation.navigate('NewPassword', { user });
+    navigation.navigate('NewPassword');
   };
 
   const Save = async (user: User) => {
@@ -80,6 +84,7 @@ export const ProfileController = () => {
       });
       setsaveClicked(false);
     } else {
+      changeDataUser(user);
       showMessage({
         message: 'Tus datos se han modificado.',
         type: 'success',

@@ -2,10 +2,15 @@ import { NavigationProp } from '@react-navigation/core';
 import { useState } from 'react';
 import { showMessage } from 'react-native-flash-message';
 import useAuthContext from '../context/AuthContext';
+import { LoginModel } from '../models/LoginModel';
+import { User } from '../models/Objects/User';
+import { TokenModel } from '../models/TokenModel';
 
 export const LoginController = () => {
   //Obtaining the methods used in Model
 
+  const { GetCustomerToken } = TokenModel();
+  const { GetUserData } = LoginModel();
   const { signIn, accessToken, user }: any = useAuthContext();
 
   //Variables de control
@@ -45,8 +50,9 @@ export const LoginController = () => {
         duration: 3000,
       });
     } else {
-      await signIn({ email, password });
-      if (accessToken.includes('Error')) {
+      //await signIn({ email, password });
+      const token = await GetCustomerToken({ username: email, password: password });
+      if (token.includes('Error') || !token) {
         setLogInCLicked(false);
         showMessage({
           message: 'El usuario o contraseña ingresados son incorrectos.',
@@ -55,7 +61,8 @@ export const LoginController = () => {
           duration: 3000,
         });
       } else {
-        if (user === null) {
+        const userData: User | null= await GetUserData(token);
+        if (!userData) {
           showMessage({
             message: 'A ocurrido error. Intente de nuevo.',
             type: 'info',
@@ -64,11 +71,12 @@ export const LoginController = () => {
           });
           setLogInCLicked(false);
         } else {
+          await signIn(userData, token);
           change_Email('');
           change_Password('');
           change_ShowPassword();
           setLogInCLicked(false);
-          navigation.navigate('MyAccount', { accessToken });
+          //navigation.navigate('MyAccount');
         }
       }
     }

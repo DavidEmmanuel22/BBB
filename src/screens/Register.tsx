@@ -46,13 +46,7 @@ const Register: React.FC<IProps> = ({ navigation }) => {
 
         {/* Title "crear cuenta" */}
         <Text
-          style={{
-            alignSelf: 'center',
-            fontFamily: 'TerminaW05-Bold',
-            color: DARKER_BLUE,
-            fontSize: 22,
-            marginTop: 10,
-          }}
+          style={styles.Title}
         >
           crear cuenta
         </Text>
@@ -107,13 +101,7 @@ const Register: React.FC<IProps> = ({ navigation }) => {
             />
             <TouchableOpacity
               onPress={change_ShowPassword}
-              style={{
-                position: 'absolute',
-                height: 30,
-                width: 40,
-                right: 1,
-                marginTop: 34,
-              }}
+              style={styles.passwordIcon}
             >
               <Image
                 source={
@@ -126,24 +114,14 @@ const Register: React.FC<IProps> = ({ navigation }) => {
 
         {/* Button Continuar */}
         <View
-          style={{
-            alignItems: 'center',
-          }}
+          style={styles.btnContinueContainer}
         >
           <TouchableOpacity
             onPress={() => Continue(navigation)}
-            style={{
-              backgroundColor: PRIMARY_BLUE,
-              width: '100%',
-              height: 50,
-              justifyContent: 'center',
-            }}
+            style={styles.btnContinue}
           >
             <Text
-              style={{
-                textAlign: 'center',
-                color: 'white',
-              }}
+              style={styles.btnTextContinue}
             >
               Continuar
             </Text>
@@ -164,11 +142,37 @@ const styles = StyleSheet.create({
   container: {
     minHeight: '100%',
   },
+  Title:{
+    alignSelf: 'center',
+    fontFamily: 'TerminaW05-Bold',
+    color: DARKER_BLUE,
+    fontSize: 22,
+    marginTop: 10,
+  },
   inputsContainer: {
     marginTop: 12,
     marginBottom: 24,
   },
-  buttonsContainer: {},
+  passwordIcon:{
+    position: 'absolute',
+    height: 30,
+    width: 40,
+    right: 1,
+    marginTop: 34,
+  },
+  btnContinueContainer:{
+    alignItems: 'center',
+  },
+  btnContinue:{
+    backgroundColor: PRIMARY_BLUE,
+    width: '100%',
+    height: 50,
+    justifyContent: 'center',
+  },
+  btnTextContinue:{
+    textAlign: 'center',
+    color: 'white',
+  }
 });
 
 export default Register;

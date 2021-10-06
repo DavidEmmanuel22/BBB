@@ -9,14 +9,15 @@ import BouncyCheckbox from 'react-native-bouncy-checkbox';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { User } from '../models/Objects/User';
 import { ProfileController } from '../controllers/ProfileController';
+import useAuthContext from '../context/AuthContext';
 
 interface IProps {
-  route: RouteProp<any, any>;
   navigation: NavigationProp<any, any>;
 }
 
-export const Profile: React.FC<IProps> = ({ route, navigation }) => {
-  const User: User = route?.params?.User;
+export const Profile: React.FC<IProps> = ({ navigation }) => {
+  
+  const { user }: any = useAuthContext();
 
   const {
     name,
@@ -34,10 +35,10 @@ export const Profile: React.FC<IProps> = ({ route, navigation }) => {
   } = ProfileController();
 
   useEffect(() => {
-    setName(User.firstname);
-    setLastName(User.lastname);
-    setEmail(User.email);
-  }, []);
+    setName(user?.firstname);
+    setLastName(user?.lastname);
+    setEmail(user?.email);
+  }, [])
 
   return (
     <View pointerEvents={saveClicked ? 'none' : 'auto'} style={[{}, saveClicked ? { opacity: 0.3 } : { opacity: 1 }]}>
@@ -196,7 +197,7 @@ export const Profile: React.FC<IProps> = ({ route, navigation }) => {
         {/* Change password button */}
         <TouchableOpacity
           style={{ flexDirection: 'row', alignSelf: 'center', marginTop: 30 }}
-          onPress={() => ChangePassword(User, navigation)}
+          onPress={() => ChangePassword(user, navigation)}
         >
           <Image source={require('../assets/Profile/LockIcon.png')} />
           <Text style={{ marginLeft: 10 }}>Cambiar contraseña</Text>
@@ -205,7 +206,7 @@ export const Profile: React.FC<IProps> = ({ route, navigation }) => {
         {/* Save button */}
         <TouchableOpacity
           onPress={() => {
-            Save(User);
+            Save(user);
           }}
           style={{
             backgroundColor: PRIMARY_BLUE,

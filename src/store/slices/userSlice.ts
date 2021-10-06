@@ -1,8 +1,9 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { RootState } from '../';
+import { User } from '../../models/Objects/User';
 
 interface UserState {
-  data: object;
+  data: User;
   status: 'idle' | 'loading' | 'success' | 'failed';
 }
 
@@ -14,7 +15,11 @@ const initialState: UserState = {
 export const userSlice = createSlice({
   name: 'user',
   initialState,
-  reducers: {},
+  reducers: {
+    changeUser: (state, action) => {
+      state.data = action.payload;
+    }
+  },
 });
 
 // Actions
