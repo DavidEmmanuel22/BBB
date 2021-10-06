@@ -27,6 +27,7 @@ const categories: Array<itemNav> = [
 interface IProps extends StackHeaderProps {
   close?: boolean;
 }
+const ScreensWithoutTabs = ['ProductsByCategory', 'ProductDetail'];
 
 const SearchHeader: React.FC<IProps> = ({ ...props }) => {
   const dispatch = useDispatch();
@@ -40,7 +41,7 @@ const SearchHeader: React.FC<IProps> = ({ ...props }) => {
     if (typeof props.route.name === 'string' && props.route.name === 'Search') {
       searchInputRef?.current?.focus();
     }
-    if (typeof props.route.name === 'string' && props.route.name === 'ProductsByCategory') {
+    if (typeof props.route.name === 'string' && ScreensWithoutTabs.includes(props.route.name)) {
       setShowTab(false);
     } else {
       setShowTab(true);
@@ -83,8 +84,8 @@ const SearchHeader: React.FC<IProps> = ({ ...props }) => {
                 }}
                 name={'backButton'}
                 iconColor={WHITE}
-                width={getWidth(25)}
-                height={getWidth(25)}
+                width={getWidth(20)}
+                height={getWidth(20)}
               />
               <View style={{ marginLeft: getWidth(10) }}>
                 <Text color={WHITE} size={getWidth(14)}>

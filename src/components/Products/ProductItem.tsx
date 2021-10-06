@@ -1,3 +1,4 @@
+import { useNavigation } from '@react-navigation/native';
 import React from 'react';
 import { StyleSheet, Image, View, TouchableOpacity } from 'react-native';
 import { BLUE, GRAY, LIGHTER_GRAY, PRIMARY_BLUE } from '../../constants/colors';
@@ -16,16 +17,22 @@ const ProductItem: React.FC<IProps> = ({ item }) => {
   const imageProduct = GetAttribute(item.custom_attributes, 'scene7_urls');
   const priceSpecial = GetAttribute(item.custom_attributes, 'special_price');
   const priceDeal = separateDecimals(parseFloat(priceSpecial || '0') || 0);
-
+  const navigation = useNavigation();
   return (
     <View style={styles.contain}>
       {imageProduct && (
-        <Image
-          style={styles.image}
-          source={{
-            uri: imageProduct.replace('http://', 'https://').split(';')[0],
+        <TouchableOpacity
+          onPress={() => {
+            navigation.navigate('ProductDetail');
           }}
-        />
+        >
+          <Image
+            style={styles.image}
+            source={{
+              uri: imageProduct.replace('http://', 'https://').split(';')[0],
+            }}
+          />
+        </TouchableOpacity>
       )}
       <Text size={getWidth(14)} style={styles.description}>
         {item.name || ''}
