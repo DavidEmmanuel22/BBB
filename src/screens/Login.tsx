@@ -27,21 +27,11 @@ const Login: React.FC<IProps> = ({ navigation }) => {
       <StatusBar animated={true} backgroundColor="white" />
 
       {/* Title */}
-      <Text
-        style={[
-          styles.title,
-          LogInCLicked ? { opacity: 0.2 } : { opacity: 1 },
-        ]}
-      >
-        inicia sesión
-      </Text>
+      <Text style={[styles.title, LogInCLicked ? { opacity: 0.2 } : { opacity: 1 }]}>inicia sesión</Text>
 
       {/* Text input Email */}
       <View
-        style={[
-          styles.containerInputEmail,
-          LogInCLicked ? { opacity: 0.2 } : { opacity: 1 },
-        ]}
+        style={[styles.containerInputEmail, LogInCLicked ? { opacity: 0.2 } : { opacity: 1 }]}
         pointerEvents={LogInCLicked ? 'none' : 'auto'}
       >
         <TextInput
@@ -70,10 +60,7 @@ const Login: React.FC<IProps> = ({ navigation }) => {
 
       {/* Text entry Password */}
       <View
-        style={[
-          styles.containerInputPassword,
-          LogInCLicked ? { opacity: 0.2 } : { opacity: 1 },
-        ]}
+        style={[styles.containerInputPassword, LogInCLicked ? { opacity: 0.2 } : { opacity: 1 }]}
         pointerEvents={LogInCLicked ? 'none' : 'auto'}
       >
         <TextInput
@@ -98,10 +85,7 @@ const Login: React.FC<IProps> = ({ navigation }) => {
           source={password ? require('../assets/Login/KeyBLACKIcon.png') : require('../assets/Login/KeyIcon.png')}
         />
 
-        <TouchableOpacity
-          onPress={change_ShowPassword}
-          style={styles.inputPasswordRightIcon}
-        >
+        <TouchableOpacity onPress={change_ShowPassword} style={styles.inputPasswordRightIcon}>
           <Image
             source={showPassword ? require('../assets/Login/EyeOpenIcon.png') : require('../assets/Login/EyeIcon.png')}
           />
@@ -109,34 +93,16 @@ const Login: React.FC<IProps> = ({ navigation }) => {
       </View>
 
       {/* Boton de recuperar contraseña */}
-      <TouchableOpacity
-        style={styles.btnRecoverPassword}
-        disabled={LogInCLicked}
-      >
-        <Text
-          style={[
-            styles.btnTextRecoverPassword,
-            LogInCLicked ? { opacity: 0.2 } : { opacity: 1 },
-          ]}
-        >
+      <TouchableOpacity style={styles.btnRecoverPassword} disabled={LogInCLicked}>
+        <Text style={[styles.btnTextRecoverPassword, LogInCLicked ? { opacity: 0.2 } : { opacity: 1 }]}>
           Recuperar contraseña
         </Text>
       </TouchableOpacity>
 
-      <View
-        style={styles.btnsContainer}
-        pointerEvents={LogInCLicked ? 'none' : 'auto'}
-      >
+      <View style={styles.btnsContainer} pointerEvents={LogInCLicked ? 'none' : 'auto'}>
         {/* Boton de iniciar sesion */}
-        <TouchableOpacity
-          onPress={() => LogIn(navigation)}
-          style={styles.btnLogIn}
-        >
-          <Text
-            style={styles.btnTextLogIn}
-          >
-            {LogInCLicked ? 'Ingresando...' : 'Iniciar sesión'}
-          </Text>
+        <TouchableOpacity onPress={() => LogIn(navigation)} style={styles.btnLogIn}>
+          <Text style={styles.btnTextLogIn}>{LogInCLicked ? 'Ingresando...' : 'Iniciar sesión'}</Text>
         </TouchableOpacity>
         {/* Boton de crear cuenta */}
         <TouchableOpacity
@@ -147,10 +113,7 @@ const Login: React.FC<IProps> = ({ navigation }) => {
           ]}
         >
           <Text
-            style={[
-              styles.btnTextCreateAccount,
-              LogInCLicked ? { color: LIGHTER_GRAY2 } : { color: PRIMARY_BLUE },
-            ]}
+            style={[styles.btnTextCreateAccount, LogInCLicked ? { color: LIGHTER_GRAY2 } : { color: PRIMARY_BLUE }]}
           >
             Crear cuenta
           </Text>
@@ -159,10 +122,7 @@ const Login: React.FC<IProps> = ({ navigation }) => {
 
       {/* Facebook/AppleID/Google Buttons*/}
       <View
-        style={[
-          styles.btnSocials,
-          LogInCLicked ? { opacity: 0.2 } : { opacity: 1 },
-        ]}
+        style={[styles.btnSocials, LogInCLicked ? { opacity: 0.2 } : { opacity: 1 }]}
         pointerEvents={LogInCLicked ? 'none' : 'auto'}
       >
         <SocialButtons />
@@ -182,10 +142,10 @@ const styles = StyleSheet.create({
     color: DARKER_BLUE,
     fontSize: 24,
     marginTop: 24,
-    marginHorizontal: 30
+    marginHorizontal: 30,
   },
   containerInputEmail: {
-    marginTop: 26
+    marginTop: 26,
   },
   inputEmail: {
     borderRadius: 200,
@@ -208,7 +168,7 @@ const styles = StyleSheet.create({
     marginLeft: 30,
   },
   containerInputPassword: {
-    marginTop: 26
+    marginTop: 26,
   },
   inputPassword: {
     borderRadius: 200,
@@ -273,8 +233,8 @@ const styles = StyleSheet.create({
   btnTextCreateAccount: {
     textAlign: 'center',
   },
-  btnSocials:{
+  btnSocials: {
     marginHorizontal: 30,
-  }
+  },
 });
 export default Login;

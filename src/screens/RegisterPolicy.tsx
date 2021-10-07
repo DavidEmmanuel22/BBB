@@ -23,67 +23,39 @@ export const RegisterPolicy: React.FC<IProps> = ({ route, navigation }) => {
       <StatusBar animated={true} backgroundColor="white" />
 
       {/* Title "crear cuenta" */}
-      <Text
-        style={ styles.title }
-      >
-        crear cuenta
-      </Text>
+      <Text style={styles.title}>crear cuenta</Text>
 
       {/* Arrow icon */}
-      <TouchableOpacity
-        onPress={() => navigation.goBack()}
-        style={ styles.arrowIcon }
-      >
+      <TouchableOpacity onPress={() => navigation.goBack()} style={styles.arrowIcon}>
         <Image source={require('../assets/Profile/ArrowIcon.png')} />
       </TouchableOpacity>
 
       {/* X icon */}
-      <TouchableOpacity
-        style={ styles.xIcon }
-        onPress={() => navigation.goBack()}
-      >
+      <TouchableOpacity style={styles.xIcon} onPress={() => navigation.goBack()}>
         <Image source={require('../assets/NewPassword/XIcon.png')} />
       </TouchableOpacity>
 
       {/* Page content */}
-      <View
-        style={ styles.container }
-      >
+      <View style={styles.container}>
         {/* Upper text */}
-        <Text
-          style={ styles.upperText }
-        >
-          Para continuar es necesario aceptar las políticas de privacidad.
-        </Text>
+        <Text style={styles.upperText}>Para continuar es necesario aceptar las políticas de privacidad.</Text>
 
         {/* Privacy policies */}
-        <View
-          style={ styles.switchPrivacyContainer }
-        >
-          <Text
-            style={ styles.switchPrivacyText }
-          >
-            Políticas de Privacidad
-          </Text>
+        <View style={styles.switchPrivacyContainer}>
+          <Text style={styles.switchPrivacyText}>Políticas de Privacidad</Text>
 
           <Switch
             value={politicasSwitch}
             onValueChange={() => setPoliticasSwitch(!politicasSwitch)}
             trackColor={{ false: RED, true: GREEN }}
             thumbColor="white"
-            style={ styles.switchPrivacy }
+            style={styles.switchPrivacy}
           />
         </View>
 
         {/* Receive promotions */}
-        <View
-          style={ styles.switchPromotionsContainer }
-        >
-          <Text
-            style={styles.switchPromotionsText}
-          >
-            Recibir promociones
-          </Text>
+        <View style={styles.switchPromotionsContainer}>
+          <Text style={styles.switchPromotionsText}>Recibir promociones</Text>
 
           <Switch
             value={promocionesSwitch}
@@ -95,30 +67,20 @@ export const RegisterPolicy: React.FC<IProps> = ({ route, navigation }) => {
         </View>
 
         {/* Continue button */}
-        <View
-          style={[
-            styles.btnContinueContainer,
-            politicasSwitch ? { opacity: 1 } : { opacity: 0.3 },
-          ]}
-        >
+        <View style={[styles.btnContinueContainer, politicasSwitch ? { opacity: 1 } : { opacity: 0.3 }]}>
           <TouchableOpacity
             onPress={() => {
               Continue(customer, navigation);
             }}
             disabled={!politicasSwitch}
-            style={ styles.btnContinue }
+            style={styles.btnContinue}
           >
-            <Text
-              style={ styles.btnContinueText }
-            >
-              Continuar
-            </Text>
+            <Text style={styles.btnContinueText}>Continuar</Text>
           </TouchableOpacity>
         </View>
       </View>
     </View>
   );
-
 };
 
 const styles = StyleSheet.create({
@@ -130,69 +92,69 @@ const styles = StyleSheet.create({
     fontSize: 22,
     marginTop: 19,
   },
-  arrowIcon:{
+  arrowIcon: {
     position: 'absolute',
     marginTop: 26,
     marginLeft: 24,
     width: '20%',
     height: 25,
   },
-  xIcon:{
+  xIcon: {
     marginTop: 26,
     marginRight: 24,
     position: 'absolute',
     right: 1,
   },
-  container:{
+  container: {
     marginHorizontal: 23,
     justifyContent: 'center',
     height: '100%',
   },
-  upperText:{
+  upperText: {
     fontFamily: 'Effra_Rg',
     fontSize: 16,
     color: DARK,
   },
-  switchPrivacyContainer:{
+  switchPrivacyContainer: {
     marginVertical: 30,
     flexDirection: 'row',
   },
-  switchPrivacyText:{
+  switchPrivacyText: {
     fontFamily: 'Effra_Rg',
     fontSize: 16,
     textDecorationLine: 'underline',
     color: DARK,
   },
-  switchPrivacy:{
+  switchPrivacy: {
     position: 'absolute',
     right: 1,
     marginRight: 10,
   },
-  switchPromotionsContainer:{
+  switchPromotionsContainer: {
     flexDirection: 'row',
   },
-  switchPromotionsText:{
+  switchPromotionsText: {
     fontFamily: 'Effra_Rg',
     fontSize: 16,
     color: DARK,
   },
-  switchPromotions:{
+  switchPromotions: {
     position: 'absolute',
     right: 1,
     marginRight: 10,
   },
-  btnContinueContainer:{
+  btnContinueContainer: {
     marginTop: 30,
     alignItems: 'center',
   },
-  btnContinueText:{
+  btnContinueText: {
     textAlign: 'center',
     color: 'white',
   },
-  btnContinue:{
+  btnContinue: {
     backgroundColor: PRIMARY_BLUE,
     width: '100%',
     height: 50,
     justifyContent: 'center',
-  }
+  },
 });

@@ -16,7 +16,6 @@ interface IProps {
 }
 
 export const Profile: React.FC<IProps> = ({ navigation }) => {
-  
   const { user }: any = useAuthContext();
 
   const {
@@ -38,7 +37,7 @@ export const Profile: React.FC<IProps> = ({ navigation }) => {
     setName(user?.firstname);
     setLastName(user?.lastname);
     setEmail(user?.email);
-  }, [])
+  }, []);
 
   return (
     <View pointerEvents={saveClicked ? 'none' : 'auto'} style={[{}, saveClicked ? { opacity: 0.3 } : { opacity: 1 }]}>

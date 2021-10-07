@@ -12,8 +12,7 @@ interface IProps {
 }
 
 export const NewPassword: React.FC<IProps> = ({ navigation }) => {
-
- const { user } = useAuthContext();
+  const { user } = useAuthContext();
 
   const {
     actualPassword,
@@ -44,7 +43,10 @@ export const NewPassword: React.FC<IProps> = ({ navigation }) => {
   const ref_textinput_VerificationPassword = useRef<any>();
 
   return (
-    <View pointerEvents={btnContinueClicked ? 'none' : 'auto'} style={[{}, btnContinueClicked ? { opacity: 0.3 } : { opacity: 1 }]}>
+    <View
+      pointerEvents={btnContinueClicked ? 'none' : 'auto'}
+      style={[{}, btnContinueClicked ? { opacity: 0.3 } : { opacity: 1 }]}
+    >
       {/* Status bar color change */}
       <StatusBar animated={true} backgroundColor="white" />
 
