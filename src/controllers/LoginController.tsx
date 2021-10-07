@@ -61,7 +61,7 @@ export const LoginController = () => {
           duration: 3000,
         });
       } else {
-        const userData: User | null= await GetUserData(token);
+        const userData: User | null = await GetUserData(token);
         if (!userData) {
           showMessage({
             message: 'A ocurrido error. Intente de nuevo.',
