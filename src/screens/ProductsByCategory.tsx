@@ -29,7 +29,7 @@ const contentChip = (isSelected: any): any => ({
   alignItems: 'center',
 });
 
-const ProductsByCategory: React.FC<IProps> = ({ route }) => {
+const ProductsByCategory: React.FC<IProps> = ({ navigation, route }) => {
   const parentCategory: string = route.params?.parentCategory;
   const category: Categories = route.params?.category;
   const subCategories: Array<Categories> = route.params?.subCategories;
@@ -64,7 +64,7 @@ const ProductsByCategory: React.FC<IProps> = ({ route }) => {
     return (
       <View style={styles.contentHeader}>
         <Text>{totalProductos}</Text>
-        <TouchableOpacity style={styles.contentFilter}>
+        <TouchableOpacity style={styles.contentFilter} onPress={() => navigation.navigate('Filter')}>
           <Text style={styles.filterText} color={PRIMARY_BLUE}>
             Filtrar
           </Text>
