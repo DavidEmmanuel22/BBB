@@ -4,18 +4,20 @@ import { StyleSheet } from 'react-native';
 import { NavigationProp, RouteProp } from '@react-navigation/core';
 
 import Container, { StatusBarStyle } from '../components/Container';
-import { getHeight, getWidth } from '../utils/interfaceDimentions';
+import { getWidth } from '../utils/interfaceDimentions';
 import ImageSelector from '../components/ProductDetail/ImageSelector';
+import ProductDescription from '../components/ProductDetail/ProductDescription';
 
 interface IProps {
   navigation: NavigationProp<any, any>;
   route: RouteProp<any, any>;
 }
 
-const ProductDetail: React.FC<IProps> = ({ route }) => {
+const ProductDetail: React.FC<IProps> = ({}) => {
   return (
-    <Container containerStyles={styles.container} statusBarStyle={StatusBarStyle.DARK}>
+    <Container scroll={true} containerStyles={styles.container} statusBarStyle={StatusBarStyle.DARK}>
       <ImageSelector />
+      <ProductDescription />
     </Container>
   );
 };
