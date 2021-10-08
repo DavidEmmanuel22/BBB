@@ -157,9 +157,7 @@ const Principal: React.FC<IProps> = () => {
           <CardSlide />
         </SectionHome>
 
-        <SectionHome title="te recomendamos" seeAllRight>
-          <Recomendations />
-        </SectionHome>
+        <Recomendations />
 
         <View style={{ marginTop: 24 }}>
           <OfferCard height={150} source={require('../assets/images/dummy/banner4.png')} />

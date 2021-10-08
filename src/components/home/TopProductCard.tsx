@@ -10,10 +10,14 @@ type TopProduct = {
   source: any;
   description: string;
   price: any;
+  specialPrice?: any;
   onPress: () => void;
 };
 
-const TopProductCard = ({ source, description, price, onPress }: TopProduct) => {
+const TopProductCard = ({ source, description, price, specialPrice, onPress }: TopProduct) => {
+  const pricePrimary = specialPrice || price;
+  const priceSecondary = specialPrice && price;
+
   return (
     <View style={styles.container}>
       <ImageBackground source={source} style={[styles.imgProduct, styles.positionIconFavorite]}>
@@ -24,8 +28,15 @@ const TopProductCard = ({ source, description, price, onPress }: TopProduct) => 
           {description}
         </Text>
         <View style={styles.containerPrice}>
-          <PriceGeneric style={styles.spaceRight} size={getWidth(20)} sizeDecimals={getWidth(12)} price={price} />
-          {/*<PriceGeneric isDeal size={getWidth(20)} sizeDecimals={getWidth(12)} price={3912.21} /> */}
+          <PriceGeneric
+            style={styles.spaceRight}
+            size={getWidth(20)}
+            sizeDecimals={getWidth(12)}
+            price={pricePrimary}
+          />
+          {priceSecondary && (
+            <PriceGeneric isDeal size={getWidth(20)} sizeDecimals={getWidth(12)} price={priceSecondary} />
+          )}
         </View>
       </View>
       <View>
