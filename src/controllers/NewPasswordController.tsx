@@ -21,6 +21,8 @@ export const NewPasswordController = () => {
   const [shownewPassword, setshowNewPassword] = useState(true);
   const [showverificationPassword, setshowVerificationPassword] = useState(true);
 
+  const [btnContinueClicked, setBtnContinueClicked] = useState(false);
+
   const change_ActualPassword = (nuevoPassword: string) => {
     setactualPassword(nuevoPassword);
 
@@ -54,25 +56,32 @@ export const NewPasswordController = () => {
     }
   };
 
-  const Confirm = async (user: User, navigation: NavigationProp<any, any>) => {
+  const Confirm = async (user: User | null, navigation: NavigationProp<any, any>) => {
+
+    setBtnContinueClicked(true);
+
     let validations: boolean = true;
 
     if (actualPassword === '') {
       seterroractualPassword('Este campo es requerido.');
       validations = false;
+      setBtnContinueClicked(false);
     }
     if (newPassword === '') {
       seterrorNewPassword('Este campo es requerido.');
       validations = false;
+      setBtnContinueClicked(false);
     }
     if (verificationPassword === '') {
       seterrorVerificationPassword('Este campo es requerido.');
       validations = false;
+      setBtnContinueClicked(false);
     }
 
     if (newPassword != verificationPassword) {
       seterrorVerificationPassword('Las contraseñas no coinciden.');
       validations = false;
+      setBtnContinueClicked(false);
     }
 
     if (validations) {
@@ -81,6 +90,7 @@ export const NewPasswordController = () => {
       let response = await ChangePassword(user, token, actualPassword, newPassword);
 
       if (response.includes("The password doesn't match this account")) {
+        setBtnContinueClicked(false);
         showMessage({
           message: 'La contraseña actual es incorrecta.',
           type: 'warning',
@@ -88,6 +98,7 @@ export const NewPasswordController = () => {
           duration: 3000,
         });
       } else if (response.includes('La contraseña debe contener un mínimo')) {
+        setBtnContinueClicked(false);
         showMessage({
           message: 'Agrega mayusculas, numeros o caracteres especiales a tu nueva contraseña.',
           type: 'warning',
@@ -95,6 +106,7 @@ export const NewPasswordController = () => {
           duration: 3000,
         });
       } else {
+        setBtnContinueClicked(false);
         showMessage({
           message: 'Contraseña actualizada.',
           type: 'success',
@@ -124,6 +136,8 @@ export const NewPasswordController = () => {
     setshowNewPassword,
     showverificationPassword,
     setshowVerificationPassword,
+
+    btnContinueClicked,
 
     Confirm,
   };

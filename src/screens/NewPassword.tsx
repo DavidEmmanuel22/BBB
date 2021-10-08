@@ -5,15 +5,14 @@ import { DARKER_BLUE, DARK, PRIMARY_BLUE } from '../constants/colors';
 import { Image, StatusBar, Text, TouchableOpacity, View } from 'react-native';
 import { TextField } from 'rn-material-ui-textfield';
 import { NewPasswordController } from '../controllers/NewPasswordController';
-import { User } from '../models/Objects/User';
+import useAuthContext from '../context/AuthContext';
 
 interface IProps {
-  route: RouteProp<any, any>;
   navigation: NavigationProp<any, any>;
 }
 
-export const NewPassword: React.FC<IProps> = ({ route, navigation }) => {
-  const user: User = route.params.user;
+export const NewPassword: React.FC<IProps> = ({ navigation }) => {
+  const { user } = useAuthContext();
 
   const {
     actualPassword,
@@ -34,15 +33,20 @@ export const NewPassword: React.FC<IProps> = ({ route, navigation }) => {
     showverificationPassword,
     setshowVerificationPassword,
 
+    btnContinueClicked,
+
     Confirm,
   } = NewPasswordController();
 
   //Referencias
-  const ref_textinput_NewPassword = useRef();
-  const ref_textinput_VerificationPassword = useRef();
+  const ref_textinput_NewPassword = useRef<any>();
+  const ref_textinput_VerificationPassword = useRef<any>();
 
   return (
-    <View>
+    <View
+      pointerEvents={btnContinueClicked ? 'none' : 'auto'}
+      style={[{}, btnContinueClicked ? { opacity: 0.3 } : { opacity: 1 }]}
+    >
       {/* Status bar color change */}
       <StatusBar animated={true} backgroundColor="white" />
 
@@ -61,7 +65,7 @@ export const NewPassword: React.FC<IProps> = ({ route, navigation }) => {
             secureTextEntry={showactualPassword}
             value={actualPassword}
             onChangeText={(actualPassword) => change_ActualPassword(actualPassword)}
-            onSubmitEditing={() => ref_textinput_NewPassword.current.focus()}
+            onSubmitEditing={() => ref_textinput_NewPassword?.current?.focus()}
             blurOnSubmit={false}
           />
           <TouchableOpacity
@@ -94,7 +98,7 @@ export const NewPassword: React.FC<IProps> = ({ route, navigation }) => {
             value={newPassword}
             onChangeText={(newPassword) => change_NewPassword(newPassword)}
             ref={ref_textinput_NewPassword}
-            onSubmitEditing={() => ref_textinput_VerificationPassword.current.focus()}
+            onSubmitEditing={() => ref_textinput_VerificationPassword?.current?.focus()}
             blurOnSubmit={false}
           />
           <TouchableOpacity

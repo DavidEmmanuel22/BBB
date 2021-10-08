@@ -4,11 +4,13 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { TokenModel } from '../models/TokenModel';
 import { LoginModel } from '../models/LoginModel';
 import { useMutation } from 'react-query';
+import { User } from '../models/Objects/User';
 
 export type AuthContextProps = {
   signIn: (authType: any, params?: any) => Promise<void>;
   signOut: () => void;
-  user: any | null;
+  changeDataUser: () => void;
+  user: User | null;
   accessToken?: string;
   isLoadingGetCustomerToken: boolean;
   isLoadingGetUserData: boolean;
@@ -30,7 +32,7 @@ const CUSTOMER_ACCESS_TOKEN = 'customerAccessToken';
 
 //Provider
 export const AuthContextProvider: React.FC<AuthContextProviderProps> = ({ children }) => {
-  const [user, setUser] = useState<any | null>(null);
+  const [user, setUser] = useState<User | null>(null);
   const [accessToken, setAccessToken] = useState<string | null>(null);
 
   const { mutate: getUserData, isLoading: isLoadingGetUserData } = useMutation('userData', GetUserData, {
@@ -85,12 +87,18 @@ export const AuthContextProvider: React.FC<AuthContextProviderProps> = ({ childr
       setAccessToken(token);
     };
     bootstrapAsync();
-  }, []);
+  }, [user]);
 
   const authContext: any = useMemo(
     () => ({
-      signIn: async (params?: any) => {
-        getCustomerToken({ username: params?.email, password: params?.password });
+      signIn: async (userData: User, token: string) => {
+        await AsyncStorage.setItem('accessToken', token);
+        await AsyncStorage.setItem('user', JSON.stringify(userData));
+        setUser(userData);
+        setAccessToken(token);
+      },
+      changeDataUser: async (UserModified: User) => {
+        await AsyncStorage.setItem('user', JSON.stringify(UserModified));
       },
       signOut: async () => {
         await AsyncStorage.clear();
