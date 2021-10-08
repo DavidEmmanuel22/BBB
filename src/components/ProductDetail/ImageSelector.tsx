@@ -1,26 +1,33 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React from 'react';
-import { StyleSheet, View, Image, Text, ImageStyle } from 'react-native';
+import React, { useState } from 'react';
+import { StyleSheet, View, Image, ImageStyle, TouchableOpacity } from 'react-native';
 import { getHeight, getWidth } from '../../utils/interfaceDimentions';
 import ImageModal from 'react-native-image-modal';
 import { PRIMARY_BLUE, WHITE } from '../../constants/colors';
 import IconGeneric from '../IconGeneric';
 interface IProps {}
-
+const image1 = 'https://64.media.tumblr.com/efaa470a462601bee5a49f46115eb755/tumblr_inline_olu4x55Kjg1u0e4qb_400.jpg';
+const image2 = 'https://i1.adis.ws/i/hmk/131818_QUEENDARKGRAY?h=500&w=598&sm=CM&h=500&w=598&sm=CM';
 const ImageSelector: React.FC<IProps> = ({}) => {
+  const [imageSelect, setImageSelect] = useState(image1);
   const ImageSelection = ({ uri = '', isSelection = false }) => {
     return (
-      <View style={selectionImage(isSelection)}>
+      <TouchableOpacity
+        onPress={() => {
+          setImageSelect(uri);
+        }}
+        style={selectionImage(isSelection)}
+      >
         <View style={styles.imageContent}>
           <Image
             source={{
-              uri: 'https://64.media.tumblr.com/efaa470a462601bee5a49f46115eb755/tumblr_inline_olu4x55Kjg1u0e4qb_400.jpg',
+              uri: uri,
             }}
             style={styles.imageSelection}
             resizeMode="contain"
           />
         </View>
-      </View>
+      </TouchableOpacity>
     );
   };
 
@@ -50,7 +57,7 @@ const ImageSelector: React.FC<IProps> = ({}) => {
       <View>
         <ImageModal
           source={{
-            uri: 'https://64.media.tumblr.com/efaa470a462601bee5a49f46115eb755/tumblr_inline_olu4x55Kjg1u0e4qb_400.jpg',
+            uri: imageSelect,
           }}
           style={styles.image}
           resizeMode="contain"
@@ -58,8 +65,8 @@ const ImageSelector: React.FC<IProps> = ({}) => {
       </View>
 
       <View style={styles.contentImages}>
-        <ImageSelection isSelection={true} />
-        <ImageSelection />
+        <ImageSelection uri={image1} isSelection={imageSelect == image1} />
+        <ImageSelection uri={image2} isSelection={imageSelect == image2} />
       </View>
     </View>
   );

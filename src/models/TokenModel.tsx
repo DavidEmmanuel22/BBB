@@ -19,13 +19,16 @@ export const TokenModel = () => {
 
   const GetCustomerToken = async (params: CustomerTokenProps): Promise<any> => {
     const url = URL_LOGIN_CUSTOMER;
-    let response = "";
-    await httpClient.post<any>(url, params).then(res => {
-      response = res.data;
-    }).catch(err => {
-      response = 'Error';
-    })
-        
+    let response = '';
+    await httpClient
+      .post<any>(url, params)
+      .then((res) => {
+        response = res.data;
+      })
+      .catch(() => {
+        response = 'Error';
+      });
+
     return response;
   };
 

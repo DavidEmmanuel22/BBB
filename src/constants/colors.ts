@@ -13,3 +13,5 @@ export const WHITE = 'rgb(255,255,255)';
 export const DARK = 'rgb(33,37,41)';
 export const RED = 'rgb(249,106,106)';
 export const GREEN = 'rgb(83 ,221 ,155)';
+export const SUCCESS = 'rgb(64, 202, 136)';
+export const GREEN_FILTERS = 'rgb(64 ,202 ,136)';

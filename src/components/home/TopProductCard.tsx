@@ -3,15 +3,21 @@ import { ImageBackground, StyleSheet, Text, View } from 'react-native';
 import Button from '../Button';
 import Favorite from '../../assets/icons/Favorit';
 import { LIGHTER_GRAY } from '../../constants/colors';
+import PriceGeneric from '../PriceGeneric';
+import { getWidth } from '../../utils/interfaceDimentions';
 
 type TopProduct = {
   source: any;
   description: string;
-  price: string;
+  price: any;
+  specialPrice?: any;
   onPress: () => void;
 };
 
-const TopProductCard = ({ source, description, price, onPress }: TopProduct) => {
+const TopProductCard = ({ source, description, price, specialPrice, onPress }: TopProduct) => {
+  const pricePrimary = specialPrice || price;
+  const priceSecondary = specialPrice && price;
+
   return (
     <View style={styles.container}>
       <ImageBackground source={source} style={[styles.imgProduct, styles.positionIconFavorite]}>
@@ -21,7 +27,17 @@ const TopProductCard = ({ source, description, price, onPress }: TopProduct) => 
         <Text numberOfLines={2} style={styles.description}>
           {description}
         </Text>
-        <Text style={styles.price}>{price}</Text>
+        <View style={styles.containerPrice}>
+          <PriceGeneric
+            style={styles.spaceRight}
+            size={getWidth(20)}
+            sizeDecimals={getWidth(12)}
+            price={pricePrimary}
+          />
+          {priceSecondary && (
+            <PriceGeneric isDeal size={getWidth(20)} sizeDecimals={getWidth(12)} price={priceSecondary} />
+          )}
+        </View>
       </View>
       <View>
         <Button title="Agregar" type="SECONDARY" onPress={onPress} />
@@ -36,6 +52,9 @@ const styles = StyleSheet.create({
   containerDescription: {
     alignItems: 'center',
   },
+  containerPrice: {
+    flexDirection: 'row',
+  },
   description: {
     textAlign: 'center',
     color: '#212529',
@@ -45,11 +64,15 @@ const styles = StyleSheet.create({
     marginTop: 12,
     marginBottom: 12,
   },
+  spaceRight: {
+    marginRight: getWidth(10),
+  },
   price: {
     fontSize: 14,
     fontWeight: 'bold',
     fontFamily: 'Effra',
     color: '#1a4e8a',
+    marginRight: 12,
   },
   container: {
     flexDirection: 'column',

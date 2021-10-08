@@ -9,7 +9,6 @@ export const LoginModel = () => {
       headers: { Authorization: `Bearer ${token}` },
     });
     return data;
-     
   };
 
   return {
