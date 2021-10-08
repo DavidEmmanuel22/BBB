@@ -8,6 +8,7 @@ import { NewPassword } from '../screens/NewPassword';
 import Orders from '../screens/Orders';
 import Reviews from '../screens/Reviews';
 import BottomTabNavigation from './bottomTabNavigator';
+import Filter from '../screens/Filter';
 
 const Stack = createStackNavigator();
 
@@ -27,6 +28,7 @@ const MainStackNavigation = () => {
       <Stack.Screen name="orders" component={Orders} />
       <Stack.Screen name="reviews" component={Reviews} />
       <Stack.Screen name="NewPassword" component={NewPassword} />
+      <Stack.Screen name="Filter" component={Filter} />
     </Stack.Navigator>
   );
 };
