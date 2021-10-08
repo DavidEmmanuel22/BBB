@@ -7,9 +7,9 @@ export interface User {
   updated_at?: Date;
   created_in?: string;
   dob?: Date;
-  email: string;
-  firstname: string;
-  lastname: string;
+  email?: string;
+  firstname?: string;
+  lastname?: string;
   gender?: number;
   store_id?: number;
   website_id?: number;

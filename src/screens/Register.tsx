@@ -45,17 +45,7 @@ const Register: React.FC<IProps> = ({ navigation }) => {
         <StatusBar backgroundColor="white" />
 
         {/* Title "crear cuenta" */}
-        <Text
-          style={{
-            alignSelf: 'center',
-            fontFamily: 'TerminaW05-Bold',
-            color: DARKER_BLUE,
-            fontSize: 22,
-            marginTop: 10,
-          }}
-        >
-          crear cuenta
-        </Text>
+        <Text style={styles.Title}>crear cuenta</Text>
 
         {/* Text inputs */}
         <View style={styles.inputsContainer}>
@@ -105,16 +95,7 @@ const Register: React.FC<IProps> = ({ navigation }) => {
                 marginRight: 48,
               }}
             />
-            <TouchableOpacity
-              onPress={change_ShowPassword}
-              style={{
-                position: 'absolute',
-                height: 30,
-                width: 40,
-                right: 1,
-                marginTop: 34,
-              }}
-            >
+            <TouchableOpacity onPress={change_ShowPassword} style={styles.passwordIcon}>
               <Image
                 source={
                   showPassword ? require('../assets/Login/EyeOpenIcon.png') : require('../assets/Login/EyeIcon.png')
@@ -125,28 +106,9 @@ const Register: React.FC<IProps> = ({ navigation }) => {
         </View>
 
         {/* Button Continuar */}
-        <View
-          style={{
-            alignItems: 'center',
-          }}
-        >
-          <TouchableOpacity
-            onPress={() => Continue(navigation)}
-            style={{
-              backgroundColor: PRIMARY_BLUE,
-              width: '100%',
-              height: 50,
-              justifyContent: 'center',
-            }}
-          >
-            <Text
-              style={{
-                textAlign: 'center',
-                color: 'white',
-              }}
-            >
-              Continuar
-            </Text>
+        <View style={styles.btnContinueContainer}>
+          <TouchableOpacity onPress={() => Continue(navigation)} style={styles.btnContinue}>
+            <Text style={styles.btnTextContinue}>Continuar</Text>
           </TouchableOpacity>
         </View>
 
@@ -164,11 +126,37 @@ const styles = StyleSheet.create({
   container: {
     minHeight: '100%',
   },
+  Title: {
+    alignSelf: 'center',
+    fontFamily: 'TerminaW05-Bold',
+    color: DARKER_BLUE,
+    fontSize: 22,
+    marginTop: 10,
+  },
   inputsContainer: {
     marginTop: 12,
     marginBottom: 24,
   },
-  buttonsContainer: {},
+  passwordIcon: {
+    position: 'absolute',
+    height: 30,
+    width: 40,
+    right: 1,
+    marginTop: 34,
+  },
+  btnContinueContainer: {
+    alignItems: 'center',
+  },
+  btnContinue: {
+    backgroundColor: PRIMARY_BLUE,
+    width: '100%',
+    height: 50,
+    justifyContent: 'center',
+  },
+  btnTextContinue: {
+    textAlign: 'center',
+    color: 'white',
+  },
 });
 
 export default Register;

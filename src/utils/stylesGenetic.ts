@@ -5,4 +5,5 @@ export const flexGeneric: ViewStyle = {
 };
 export const RowContent: ViewStyle = {
   flexDirection: 'row',
+  alignItems: 'center',
 };

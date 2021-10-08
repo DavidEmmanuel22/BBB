@@ -3,7 +3,7 @@ import { User } from './Objects/User';
 import { URL_MODIFY_PASSWORD_CUSTOMER } from '../constants/URLs';
 
 export const NewPasswordModel = () => {
-  const ChangePassword = async (user: User, token: string, oldPassword: string, newPassword: string) => {
+  const ChangePassword = async (user: User | null, token: string, oldPassword: string, newPassword: string) => {
     let response: string = '';
 
     let body = `{
@@ -11,7 +11,7 @@ export const NewPasswordModel = () => {
                 "newPassword": "${newPassword}"
             }`;
 
-    let url = URL_MODIFY_PASSWORD_CUSTOMER + user.id;
+    let url = URL_MODIFY_PASSWORD_CUSTOMER + user?.id;
 
     await axios({
       method: 'PUT',

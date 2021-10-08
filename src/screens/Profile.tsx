@@ -1,5 +1,6 @@
+/* eslint-disable react-native/no-inline-styles */
 /* eslint-disable react-hooks/exhaustive-deps */
-import { NavigationProp, RouteProp } from '@react-navigation/core';
+import { NavigationProp } from '@react-navigation/core';
 import React, { useEffect } from 'react';
 import { Image, View, ScrollView, StatusBar } from 'react-native';
 import Text from '../components/Text';
@@ -7,16 +8,15 @@ import { DARKER_BLUE, PRIMARY_BLUE } from '../constants/colors';
 import { TextField } from 'rn-material-ui-textfield';
 import BouncyCheckbox from 'react-native-bouncy-checkbox';
 import { TouchableOpacity } from 'react-native-gesture-handler';
-import { User } from '../models/Objects/User';
 import { ProfileController } from '../controllers/ProfileController';
+import useAuthContext from '../context/AuthContext';
 
 interface IProps {
-  route: RouteProp<any, any>;
   navigation: NavigationProp<any, any>;
 }
 
-export const Profile: React.FC<IProps> = ({ route, navigation }) => {
-  const User: User = route?.params?.User;
+export const Profile: React.FC<IProps> = ({ navigation }) => {
+  const { user }: any = useAuthContext();
 
   const {
     name,
@@ -34,9 +34,9 @@ export const Profile: React.FC<IProps> = ({ route, navigation }) => {
   } = ProfileController();
 
   useEffect(() => {
-    setName(User.firstname);
-    setLastName(User.lastname);
-    setEmail(User.email);
+    setName(user?.firstname);
+    setLastName(user?.lastname);
+    setEmail(user?.email);
   }, []);
 
   return (
@@ -196,7 +196,7 @@ export const Profile: React.FC<IProps> = ({ route, navigation }) => {
         {/* Change password button */}
         <TouchableOpacity
           style={{ flexDirection: 'row', alignSelf: 'center', marginTop: 30 }}
-          onPress={() => ChangePassword(User, navigation)}
+          onPress={() => ChangePassword(user, navigation)}
         >
           <Image source={require('../assets/Profile/LockIcon.png')} />
           <Text style={{ marginLeft: 10 }}>Cambiar contraseña</Text>
@@ -205,7 +205,7 @@ export const Profile: React.FC<IProps> = ({ route, navigation }) => {
         {/* Save button */}
         <TouchableOpacity
           onPress={() => {
-            Save(User);
+            Save(user);
           }}
           style={{
             backgroundColor: PRIMARY_BLUE,

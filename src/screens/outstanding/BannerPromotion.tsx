@@ -19,7 +19,6 @@ const BannerPromotion = () => {
         data={sortNumberByKey(slider1, 'Posicion')}
         renderItem={({ item, index }) => (
           <Fragment key={index}>
-            {console.log(item)}
             <View key={index} style={{ marginRight: 12 }}>
               <OfferCard height={width / 2.5} source={{ uri: item?.Imagen }} />
             </View>

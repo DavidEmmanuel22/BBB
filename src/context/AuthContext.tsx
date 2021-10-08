@@ -1,14 +1,15 @@
 import React, { createContext, ReactNode, useContext, useEffect, useMemo, useState } from 'react';
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { TokenModel } from '../models/TokenModel';
 import { LoginModel } from '../models/LoginModel';
 import { useMutation } from 'react-query';
+import { User } from '../models/Objects/User';
 
 export type AuthContextProps = {
   signIn: (authType: any, params?: any) => Promise<void>;
   signOut: () => void;
-  user: any | null;
+  changeDataUser: () => void;
+  user: User | null;
   accessToken?: string;
   isLoadingGetCustomerToken: boolean;
   isLoadingGetUserData: boolean;
@@ -22,7 +23,6 @@ type AuthContextProviderProps = {
   children: ReactNode;
 };
 
-const { GetCustomerToken } = TokenModel();
 const { GetUserData } = LoginModel();
 
 const USER = 'user';
@@ -30,7 +30,7 @@ const CUSTOMER_ACCESS_TOKEN = 'customerAccessToken';
 
 //Provider
 export const AuthContextProvider: React.FC<AuthContextProviderProps> = ({ children }) => {
-  const [user, setUser] = useState<any | null>(null);
+  const [user, setUser] = useState<User | null>(null);
   const [accessToken, setAccessToken] = useState<string | null>(null);
 
   const { mutate: getUserData, isLoading: isLoadingGetUserData } = useMutation('userData', GetUserData, {
@@ -44,22 +44,6 @@ export const AuthContextProvider: React.FC<AuthContextProviderProps> = ({ childr
       setUser(null);
     },
   });
-
-  const { mutate: getCustomerToken, isLoading: isLoadingGetCustomerToken } = useMutation(
-    'customerToken',
-    GetCustomerToken,
-    {
-      onSuccess: async (token) => {
-        await AsyncStorage.setItem(CUSTOMER_ACCESS_TOKEN, token);
-        setAccessToken(token);
-      },
-      onError: async () => {
-        await AsyncStorage.clear();
-        setAccessToken(null);
-        setUser(null);
-      },
-    }
-  );
 
   useEffect(() => {
     if (accessToken && accessToken != null) {
@@ -89,8 +73,14 @@ export const AuthContextProvider: React.FC<AuthContextProviderProps> = ({ childr
 
   const authContext: any = useMemo(
     () => ({
-      signIn: async (params?: any) => {
-        getCustomerToken({ username: params?.email, password: params?.password });
+      signIn: async (userData: User, token: string) => {
+        await AsyncStorage.setItem('customerAccessToken', token);
+        await AsyncStorage.setItem('user', JSON.stringify(userData));
+        setUser(userData);
+        setAccessToken(token);
+      },
+      changeDataUser: async (UserModified: User) => {
+        await AsyncStorage.setItem('user', JSON.stringify(UserModified));
       },
       signOut: async () => {
         await AsyncStorage.clear();
@@ -100,10 +90,9 @@ export const AuthContextProvider: React.FC<AuthContextProviderProps> = ({ childr
       isAuthenticated: accessToken !== null,
       accessToken,
       user,
-      isLoadingGetCustomerToken,
       isLoadingGetUserData,
     }),
-    [accessToken, user, getCustomerToken, isLoadingGetCustomerToken, isLoadingGetUserData]
+    [accessToken, user, isLoadingGetUserData]
   );
 
   return <AuthContext.Provider value={authContext}>{children}</AuthContext.Provider>;

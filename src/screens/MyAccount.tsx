@@ -6,7 +6,6 @@ import { View, StyleSheet, Image, TouchableOpacity, ScrollView, StatusBar, Text 
 import { PRIMARY_BLUE, LIGHTER_GRAY, DARKER_BLUE, DARK } from '../constants/colors';
 import { TERMINABOLD } from '../constants/fonts';
 import useAuthContext from '../context/AuthContext';
-import { User } from '../models/Objects/User';
 
 interface IProps {
   route: RouteProp<any, any>;
@@ -56,7 +55,7 @@ export const MyAccount: React.FC<IProps> = ({ navigation }) => {
         <TouchableOpacity
           style={{ flexDirection: 'row' }}
           onPress={() => {
-            navigation.navigate('Profile', { user, accessToken });
+            navigation.navigate('Profile');
           }}
         >
           <Image source={require('../assets/MyAccount/EditIcon.png')} style={{ marginRight: 8, alignSelf: 'center' }} />
@@ -341,6 +340,7 @@ export const MyAccount: React.FC<IProps> = ({ navigation }) => {
 const styles = StyleSheet.create({
   container: {
     height: '100%',
+    backgroundColor: 'white',
   },
   txthola: {
     marginLeft: 36,

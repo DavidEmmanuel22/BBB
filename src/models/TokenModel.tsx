@@ -19,8 +19,17 @@ export const TokenModel = () => {
 
   const GetCustomerToken = async (params: CustomerTokenProps): Promise<any> => {
     const url = URL_LOGIN_CUSTOMER;
-    const { data }: any = await httpClient.post<any>(url, params);
-    return data;
+    let response = '';
+    await httpClient
+      .post<any>(url, params)
+      .then((res) => {
+        response = res.data;
+      })
+      .catch(() => {
+        response = 'Error';
+      });
+
+    return response;
   };
 
   return {
