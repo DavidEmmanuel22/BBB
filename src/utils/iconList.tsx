@@ -44,6 +44,7 @@ const iconList = {
       />
     ),
     viewBox: '0 0 18 16',
+  },
   rdbChecked: {
     svg: (
       <Path
