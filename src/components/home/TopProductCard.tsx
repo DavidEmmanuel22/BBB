@@ -3,11 +3,13 @@ import { ImageBackground, StyleSheet, Text, View } from 'react-native';
 import Button from '../Button';
 import Favorite from '../../assets/icons/Favorit';
 import { LIGHTER_GRAY } from '../../constants/colors';
+import PriceGeneric from '../PriceGeneric';
+import { getWidth } from '../../utils/interfaceDimentions';
 
 type TopProduct = {
   source: any;
   description: string;
-  price: string;
+  price: any;
   onPress: () => void;
 };
 
@@ -22,7 +24,8 @@ const TopProductCard = ({ source, description, price, onPress }: TopProduct) => 
           {description}
         </Text>
         <View style={styles.containerPrice}>
-          <Text style={styles.price}>{price}</Text>
+          <PriceGeneric style={styles.spaceRight} size={getWidth(20)} sizeDecimals={getWidth(12)} price={price} />
+          {/*<PriceGeneric isDeal size={getWidth(20)} sizeDecimals={getWidth(12)} price={3912.21} /> */}
         </View>
       </View>
       <View>
@@ -49,6 +52,9 @@ const styles = StyleSheet.create({
     fontSize: 15,
     marginTop: 12,
     marginBottom: 12,
+  },
+  spaceRight: {
+    marginRight: getWidth(10),
   },
   price: {
     fontSize: 14,

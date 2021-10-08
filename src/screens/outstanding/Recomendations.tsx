@@ -3,7 +3,6 @@ import { FlatList, View } from 'react-native';
 import { useQuery } from 'react-query';
 import TopProductCard from '../../components/home/TopProductCard';
 import { getSKURecomendations } from '../../models/Recomendations';
-import { formatMoney } from '../../utils/genericFunctions';
 
 const getAttribute = (items: any[]) => items.find((item: any) => item?.attribute_code === 'scene7_urls');
 
@@ -24,7 +23,7 @@ const Recomendations = () => {
             <TopProductCard
               source={{ uri: getAttribute(item?.custom_attributes ?? [])?.value }}
               description={item?.name}
-              price={formatMoney(item?.price || 0, false)}
+              price={item?.price}
               onPress={() => {}}
             />
           </View>
