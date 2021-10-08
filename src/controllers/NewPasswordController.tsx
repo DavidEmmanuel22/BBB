@@ -57,7 +57,6 @@ export const NewPasswordController = () => {
   };
 
   const Confirm = async (user: User | null, navigation: NavigationProp<any, any>) => {
-
     setBtnContinueClicked(true);
 
     let validations: boolean = true;

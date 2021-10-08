@@ -8,7 +8,6 @@ import { showMessage } from 'react-native-flash-message';
 import useAuthContext from '../context/AuthContext';
 
 export const ProfileController = () => {
-
   const { changeDataUser }: any = useAuthContext();
 
   const { ModifyUser } = ProfileModel();

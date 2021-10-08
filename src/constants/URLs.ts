@@ -1,5 +1,6 @@
 export const BASE_URL = 'https://mcstaging.bedbathandbeyond.com.mx';
 export const BASE_INDEX_V1 = '/index.php/rest/default/V1/';
+export const BASE_URL_BARILLIANCE = 'https://api.barilliance.net/api/recommendations';
 
 export const URL_LOGIN_ADMIN = `${BASE_INDEX_V1}integration/admin/token`;
 export const URL_LOGIN_CUSTOMER = `${BASE_INDEX_V1}integration/customer/token`;

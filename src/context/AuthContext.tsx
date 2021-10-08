@@ -1,7 +1,6 @@
 import React, { createContext, ReactNode, useContext, useEffect, useMemo, useState } from 'react';
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { TokenModel } from '../models/TokenModel';
 import { LoginModel } from '../models/LoginModel';
 import { useMutation } from 'react-query';
 import { User } from '../models/Objects/User';
@@ -24,7 +23,6 @@ type AuthContextProviderProps = {
   children: ReactNode;
 };
 
-const { GetCustomerToken } = TokenModel();
 const { GetUserData } = LoginModel();
 
 const USER = 'user';
@@ -46,22 +44,6 @@ export const AuthContextProvider: React.FC<AuthContextProviderProps> = ({ childr
       setUser(null);
     },
   });
-
-  const { mutate: getCustomerToken, isLoading: isLoadingGetCustomerToken } = useMutation(
-    'customerToken',
-    GetCustomerToken,
-    {
-      onSuccess: async (token) => {
-        await AsyncStorage.setItem(CUSTOMER_ACCESS_TOKEN, token);
-        setAccessToken(token);
-      },
-      onError: async () => {
-        await AsyncStorage.clear();
-        setAccessToken(null);
-        setUser(null);
-      },
-    }
-  );
 
   useEffect(() => {
     if (accessToken && accessToken != null) {
@@ -87,12 +69,12 @@ export const AuthContextProvider: React.FC<AuthContextProviderProps> = ({ childr
       setAccessToken(token);
     };
     bootstrapAsync();
-  }, [user]);
+  }, []);
 
   const authContext: any = useMemo(
     () => ({
       signIn: async (userData: User, token: string) => {
-        await AsyncStorage.setItem('accessToken', token);
+        await AsyncStorage.setItem('customerAccessToken', token);
         await AsyncStorage.setItem('user', JSON.stringify(userData));
         setUser(userData);
         setAccessToken(token);
@@ -108,10 +90,9 @@ export const AuthContextProvider: React.FC<AuthContextProviderProps> = ({ childr
       isAuthenticated: accessToken !== null,
       accessToken,
       user,
-      isLoadingGetCustomerToken,
       isLoadingGetUserData,
     }),
-    [accessToken, user, getCustomerToken, isLoadingGetCustomerToken, isLoadingGetUserData]
+    [accessToken, user, isLoadingGetUserData]
   );
 
   return <AuthContext.Provider value={authContext}>{children}</AuthContext.Provider>;

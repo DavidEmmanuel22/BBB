@@ -21,7 +21,9 @@ const TopProductCard = ({ source, description, price, onPress }: TopProduct) => 
         <Text numberOfLines={2} style={styles.description}>
           {description}
         </Text>
-        <Text style={styles.price}>{price}</Text>
+        <View style={styles.containerPrice}>
+          <Text style={styles.price}>{price}</Text>
+        </View>
       </View>
       <View>
         <Button title="Agregar" type="SECONDARY" onPress={onPress} />
@@ -35,6 +37,9 @@ export default TopProductCard;
 const styles = StyleSheet.create({
   containerDescription: {
     alignItems: 'center',
+  },
+  containerPrice: {
+    flexDirection: 'row',
   },
   description: {
     textAlign: 'center',
@@ -50,6 +55,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     fontFamily: 'Effra',
     color: '#1a4e8a',
+    marginRight: 12,
   },
   container: {
     flexDirection: 'column',

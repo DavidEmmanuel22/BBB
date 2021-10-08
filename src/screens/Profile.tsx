@@ -1,5 +1,6 @@
+/* eslint-disable react-native/no-inline-styles */
 /* eslint-disable react-hooks/exhaustive-deps */
-import { NavigationProp, RouteProp } from '@react-navigation/core';
+import { NavigationProp } from '@react-navigation/core';
 import React, { useEffect } from 'react';
 import { Image, View, ScrollView, StatusBar } from 'react-native';
 import Text from '../components/Text';
@@ -7,7 +8,6 @@ import { DARKER_BLUE, PRIMARY_BLUE } from '../constants/colors';
 import { TextField } from 'rn-material-ui-textfield';
 import BouncyCheckbox from 'react-native-bouncy-checkbox';
 import { TouchableOpacity } from 'react-native-gesture-handler';
-import { User } from '../models/Objects/User';
 import { ProfileController } from '../controllers/ProfileController';
 import useAuthContext from '../context/AuthContext';
 

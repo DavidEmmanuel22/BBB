@@ -1,4 +1,3 @@
-import { NavigationProp } from '@react-navigation/core';
 import { useState } from 'react';
 import { showMessage } from 'react-native-flash-message';
 import useAuthContext from '../context/AuthContext';
@@ -11,7 +10,7 @@ export const LoginController = () => {
 
   const { GetCustomerToken } = TokenModel();
   const { GetUserData } = LoginModel();
-  const { signIn, accessToken, user }: any = useAuthContext();
+  const { signIn }: any = useAuthContext();
 
   //Variables de control
   const [email, setemail] = useState('ricardo@dgk.com.mx');
@@ -30,7 +29,7 @@ export const LoginController = () => {
     setShowPassword(!showPassword);
   };
 
-  const LogIn = async (navigation: NavigationProp<any, any>) => {
+  const LogIn = async () => {
     setLogInCLicked(true);
 
     if (email === '') {
@@ -61,7 +60,7 @@ export const LoginController = () => {
           duration: 3000,
         });
       } else {
-        const userData: User | null= await GetUserData(token);
+        const userData: User | null = await GetUserData(token);
         if (!userData) {
           showMessage({
             message: 'A ocurrido error. Intente de nuevo.',
@@ -76,7 +75,6 @@ export const LoginController = () => {
           change_Password('');
           change_ShowPassword();
           setLogInCLicked(false);
-          //navigation.navigate('MyAccount');
         }
       }
     }

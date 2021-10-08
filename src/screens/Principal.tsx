@@ -12,6 +12,7 @@ import SquareImage from '../components/home/SquareImage';
 import SectionHome from '../components/SectionHome';
 import { NavigationProp } from '@react-navigation/core';
 import BannerPromotion from './outstanding/BannerPromotion';
+import Recomendations from './outstanding/Recomendations';
 
 const dummyList: any[] = [
   { id: 0 },
@@ -157,22 +158,7 @@ const Principal: React.FC<IProps> = () => {
         </SectionHome>
 
         <SectionHome title="te recomendamos" seeAllRight>
-          <FlatList
-            horizontal
-            showsHorizontalScrollIndicator={false}
-            data={dummyList}
-            renderItem={({ index }) => (
-              <View key={index} style={{ marginRight: 12 }}>
-                <TopProductCard
-                  source={require('../assets/images/dummy/bed2.png')}
-                  description="Escurridor para trastes de acero…"
-                  price="3,679.00"
-                  onPress={() => {}}
-                />
-              </View>
-            )}
-            keyExtractor={(item) => item.id}
-          />
+          <Recomendations />
         </SectionHome>
 
         <View style={{ marginTop: 24 }}>

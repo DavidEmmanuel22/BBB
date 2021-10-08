@@ -13,7 +13,7 @@ interface IProps {
   route: RouteProp<any, any>;
 }
 
-const ProductDetail: React.FC<IProps> = ({}) => {
+const ProductDetail: React.FC<IProps> = () => {
   return (
     <Container scroll={true} containerStyles={styles.container} statusBarStyle={StatusBarStyle.DARK}>
       <ImageSelector />

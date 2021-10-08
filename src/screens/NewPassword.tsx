@@ -1,4 +1,5 @@
-import { NavigationProp, RouteProp } from '@react-navigation/core';
+/* eslint-disable react-native/no-inline-styles */
+import { NavigationProp } from '@react-navigation/core';
 import React, { useRef } from 'react';
 
 import { DARKER_BLUE, DARK, PRIMARY_BLUE } from '../constants/colors';

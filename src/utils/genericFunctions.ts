@@ -10,3 +10,9 @@ export const GetAttribute = (attributes: Array<ExtraAttributes>, name: string) =
 };
 
 export const sortNumberByKey = (list: any[], key: string) => list.sort((a, b) => (a[key] > b[key] ? 1 : -1));
+
+export const formatMoney = (value = 0, hasCurrency = true, currency = 'MXN') =>
+  `$${Number(value)
+    .toFixed(2)
+    .toString()
+    .replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')}${hasCurrency ? ' ' + currency : ''}`;
