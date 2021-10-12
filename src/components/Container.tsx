@@ -32,6 +32,7 @@ const Container: React.FC<IProps> = ({
 
   return scroll ? (
     <ScrollView
+      keyboardShouldPersistTaps="always"
       showsVerticalScrollIndicator={false}
       showsHorizontalScrollIndicator={false}
       contentContainerStyle={[styles.container, containerStyles]}

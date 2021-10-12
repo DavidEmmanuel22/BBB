@@ -1,12 +1,13 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React from 'react';
-import { StyleSheet } from 'react-native';
+import { StyleSheet, KeyboardAvoidingView } from 'react-native';
 import { NavigationProp, RouteProp } from '@react-navigation/core';
 
-import Container, { StatusBarStyle } from '../components/Container';
-import { getWidth } from '../utils/interfaceDimentions';
+import Container from '../components/Container';
+import { getHeight, getWidth } from '../utils/interfaceDimentions';
 import ImageSelector from '../components/ProductDetail/ImageSelector';
 import ProductDescription from '../components/ProductDetail/ProductDescription';
+import DeliverySection from '../components/ProductDetail/DeliverySection';
 
 interface IProps {
   navigation: NavigationProp<any, any>;
@@ -15,9 +16,12 @@ interface IProps {
 
 const ProductDetail: React.FC<IProps> = () => {
   return (
-    <Container scroll={true} containerStyles={styles.container} statusBarStyle={StatusBarStyle.DARK}>
-      <ImageSelector />
-      <ProductDescription />
+    <Container scroll={true} containerStyles={styles.container}>
+      <KeyboardAvoidingView keyboardVerticalOffset={80} behavior={'position'}>
+        <ImageSelector />
+        <ProductDescription />
+        <DeliverySection />
+      </KeyboardAvoidingView>
     </Container>
   );
 };
@@ -26,7 +30,8 @@ const styles = StyleSheet.create({
   container: {
     paddingLeft: getWidth(24),
     paddingRight: getWidth(24),
-    flex: 1,
+    flex: 0,
+    paddingBottom: getHeight(50),
   },
 });
 
