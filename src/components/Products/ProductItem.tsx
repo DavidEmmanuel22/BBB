@@ -1,3 +1,5 @@
+/* eslint-disable react-native/no-inline-styles */
+
 import { useNavigation } from '@react-navigation/native';
 import React from 'react';
 import { StyleSheet, Image, View, TouchableOpacity } from 'react-native';
@@ -6,6 +8,7 @@ import { ProductByCategory } from '../../models/Objects/ProductByCategory';
 import { GetAttribute } from '../../utils/genericFunctions';
 import { getHeight, getWidth } from '../../utils/interfaceDimentions';
 import { separateDecimals } from '../../utils/separeteDecimals';
+import { RowContent } from '../../utils/stylesGenetic';
 import Text from '../Text';
 
 interface IProps {
@@ -23,7 +26,7 @@ const ProductItem: React.FC<IProps> = ({ item }) => {
       {imageProduct && (
         <TouchableOpacity
           onPress={() => {
-            navigation.navigate('ProductDetail');
+            navigation.navigate('ProductDetail', { sku: item.sku });
           }}
         >
           <Image
@@ -38,7 +41,7 @@ const ProductItem: React.FC<IProps> = ({ item }) => {
         {item.name || ''}
       </Text>
       <View style={styles.contentPrice}>
-        <View style={{ flexDirection: 'row' }}>
+        <View style={RowContent}>
           <Text color={BLUE} size={getWidth(15)} style={styles.normal}>
             {priceSpecial ? priceDeal.price : price.price}
           </Text>
@@ -47,7 +50,7 @@ const ProductItem: React.FC<IProps> = ({ item }) => {
           </Text>
         </View>
         {priceSpecial && (
-          <View style={{ flexDirection: 'row' }}>
+          <View style={RowContent}>
             <Text color={GRAY} size={getWidth(15)} style={styles.discount}>
               {price.price}
             </Text>

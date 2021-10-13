@@ -10,17 +10,22 @@ import PriceGeneric from '../PriceGeneric';
 import IconGeneric from '../IconGeneric';
 import BouncyCheckbox from 'react-native-bouncy-checkbox';
 import { EFFRA } from '../../constants/fonts';
+import { ProductDetail } from '../../models/Objects/Product';
+import { GetAttribute } from '../../utils/genericFunctions';
 
-interface IProps {}
+interface IProps {
+  product: ProductDetail;
+}
+const ProductDescription: React.FC<IProps> = ({ product }) => {
+  const priceSpecial = GetAttribute(product.custom_attributes, 'special_price');
 
-const ProductDescription: React.FC<IProps> = ({}) => {
   return (
     <View style={styles.content}>
       <Text color={GRAY2} size={getWidth(12)}>
-        SKU#: 69580628
+        SKU#: {product?.sku}
       </Text>
       <Text style={styles.description} color={DARK} size={getWidth(16)} medium={true}>
-        Set de colcha matrimonial/queen de algodón UGG® Dawn color azul océano
+        {product?.name}
       </Text>
       <View style={RowContent}>
         <Rating readonly startingValue={4} ratingCount={5} imageSize={getWidth(20)} style={styles.rating} />
@@ -29,8 +34,15 @@ const ProductDescription: React.FC<IProps> = ({}) => {
         </Text>
       </View>
       <View style={[RowContent, styles.contentPrice]}>
-        <PriceGeneric style={styles.spaceRight} size={getWidth(20)} sizeDecimals={getWidth(12)} price={3912.21} />
-        <PriceGeneric isDeal size={getWidth(20)} sizeDecimals={getWidth(12)} price={3912.21} />
+        <PriceGeneric
+          style={styles.spaceRight}
+          size={getWidth(20)}
+          sizeDecimals={getWidth(12)}
+          price={priceSpecial ? parseFloat(priceSpecial || '0') : product.price || 0}
+        />
+        {priceSpecial && (
+          <PriceGeneric isDeal size={getWidth(20)} sizeDecimals={getWidth(12)} price={product.price || 0} />
+        )}
         <View style={styles.compareContain}>
           <IconGeneric
             onPress={() => {}}

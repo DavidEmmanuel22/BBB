@@ -5,11 +5,18 @@ import { getHeight, getWidth } from '../../utils/interfaceDimentions';
 import ImageModal from 'react-native-image-modal';
 import { PRIMARY_BLUE, WHITE } from '../../constants/colors';
 import IconGeneric from '../IconGeneric';
-interface IProps {}
-const image1 = 'https://64.media.tumblr.com/efaa470a462601bee5a49f46115eb755/tumblr_inline_olu4x55Kjg1u0e4qb_400.jpg';
-const image2 = 'https://i1.adis.ws/i/hmk/131818_QUEENDARKGRAY?h=500&w=598&sm=CM&h=500&w=598&sm=CM';
-const ImageSelector: React.FC<IProps> = ({}) => {
-  const [imageSelect, setImageSelect] = useState(image1);
+import { ProductDetail } from '../../models/Objects/Product';
+import { formatImage, GetAttribute } from '../../utils/genericFunctions';
+interface IProps {
+  product: ProductDetail;
+}
+
+const ImageSelector: React.FC<IProps> = ({ product }) => {
+  const imageProduct = GetAttribute(product.custom_attributes, 'scene7_urls');
+  const imagesSeparate = imageProduct?.split(';');
+
+  const [imageSelect, setImageSelect] = useState(imagesSeparate ? formatImage(imagesSeparate[0]) : '');
+
   const ImageSelection = ({ uri = '', isSelection = false }) => {
     return (
       <TouchableOpacity
@@ -65,8 +72,10 @@ const ImageSelector: React.FC<IProps> = ({}) => {
       </View>
 
       <View style={styles.contentImages}>
-        <ImageSelection uri={image1} isSelection={imageSelect == image1} />
-        <ImageSelection uri={image2} isSelection={imageSelect == image2} />
+        {imagesSeparate?.map((uri) => {
+          const uriFormat = formatImage(uri);
+          return <ImageSelection uri={uriFormat} isSelection={imageSelect === uriFormat} />;
+        })}
       </View>
     </View>
   );

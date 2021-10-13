@@ -18,3 +18,4 @@ export const URL_PRODUCT_BY_CATEGORY = (categoryId = 0, order = 'DESC', page = 1
 export const URL_MODIFY_DATA_CUSTOMER = `${BASE_URL}/rest/default/V1/customers/:customerId`;
 export const URL_MODIFY_PASSWORD_CUSTOMER = `${BASE_URL}/rest/default/V1/customers/me/password?customerId=`;
 export const URL_SLIDER1 = `${BASE_URL}/rest/V1/banner/get?seleccion`;
+export const URL_PRODUCT_DETAIL = (sku = '') => `https://mcstaging.bedbathandbeyond.com.mx/rest/V1/products/${sku}`;

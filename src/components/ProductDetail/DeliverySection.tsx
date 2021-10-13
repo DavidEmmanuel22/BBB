@@ -88,7 +88,14 @@ const DeliverySection: React.FC<IProps> = ({}) => {
   };
   return (
     <View style={styles.content}>
-      <ButtonSection onPress={() => setShowDeliveryButton(true)} title="Calcular costos de envió" iconName="delivery" />
+      <ButtonSection
+        onPress={() => {
+          setShowDeliveryPrice(false);
+          setShowDeliveryButton(!showDeliveryButton);
+        }}
+        title="Calcular costos de envió"
+        iconName="delivery"
+      />
       {showDeliveryButton && CalculateDelivery()}
       {showDeliveryPrice && <DeliveryPrice />}
       <ButtonSection title="Agregar a mesa de regalos" iconName="gift" />
