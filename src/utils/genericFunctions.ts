@@ -20,3 +20,11 @@ export const formatMoney = (value = 0, hasCurrency = true, currency = 'MXN') =>
 export const formatImage = (uri = '') => {
   return uri.replace('http://', 'https://');
 };
+
+export const formatDescription = (string = '') => {
+  var regex = /(<([^>]+)>)/gi,
+    result = string.replace(regex, '\n');
+
+  console.log(result);
+  return result;
+};
