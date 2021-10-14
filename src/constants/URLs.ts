@@ -12,6 +12,7 @@ export const URL_CATEGORIES = `${BASE_URL}${BASE_INDEX_V1}categories?storeId=1`;
 export const URL_CATEGORY = (id: number) => `${BASE_URL}${BASE_INDEX_V1}categories/${id}?storeId=1`;
 
 export const SEARCH_CRITERIAL = 'searchCriteria[filter_groups][0][filters][0]';
+export const SEARCH_ITEMS = 'https://staging.richrelevance.com/rrserver/api/find/v1/ff0aca818f66c555?query={query}&log=true&lang=es-MX&sessionId={sessionId}&userId={userId}&rows={rows}&placement=search_page.find&start={start}&ssl=true'
 
 export const URL_PRODUCT_BY_CATEGORY = (categoryId = 0, order = 'DESC', page = 1, pageSize = '30') =>
   `${BASE_URL}${BASE_INDEX_V1}products?${SEARCH_CRITERIAL}[field]=category_id&${SEARCH_CRITERIAL}[value]=${categoryId}&${SEARCH_CRITERIAL}[condition_type]=eq&searchCriteria[currentPage]=${page}&searchCriteria[pageSize]=${pageSize}&searchCriteria[sortOrders][][direction]=${order}`;

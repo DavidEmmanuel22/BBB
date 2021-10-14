@@ -12,6 +12,8 @@ import Text from '../components/Text';
 import IconGeneric from './IconGeneric';
 import { useNavigation } from '@react-navigation/native';
 import { selectUISubTitleHeader, selectUITitleHeader } from '../store/slices/uiSlice';
+import { addSearch, changeData, recoverSearches, selectData } from '../store/slices/searchSlice';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 interface itemNav {
   id: Number;
@@ -30,6 +32,9 @@ interface IProps extends StackHeaderProps {
 const ScreensWithoutTabs = ['ProductsByCategory', 'ProductDetail'];
 
 const SearchHeader: React.FC<IProps> = ({ ...props }) => {
+  const [showQR, setShowQR] = useState(true);
+
+  const searchText = useSelector(selectData);
   const dispatch = useDispatch();
   const navigation = useNavigation();
   const categorySelect = useSelector(selectUIISelected);
@@ -40,6 +45,7 @@ const SearchHeader: React.FC<IProps> = ({ ...props }) => {
   useEffect(() => {
     if (typeof props.route.name === 'string' && props.route.name === 'Search') {
       searchInputRef?.current?.focus();
+      setShowQR(!showQR);
     }
     if (typeof props.route.name === 'string' && ScreensWithoutTabs.includes(props.route.name)) {
       setShowTab(false);
@@ -47,6 +53,16 @@ const SearchHeader: React.FC<IProps> = ({ ...props }) => {
       setShowTab(true);
     }
   }, [props.route]);
+
+  useEffect(()=>{
+    const searches = async () => {
+      let jsonSearches = await AsyncStorage.getItem("searches");
+      if (jsonSearches) {
+        dispatch(recoverSearches(JSON.parse(jsonSearches)))
+      }
+    } 
+    searches();
+  })
 
   const handleFocus = () => {
     if (typeof props.route.name === 'string' && props.route.name !== 'Search') {
@@ -64,15 +80,30 @@ const SearchHeader: React.FC<IProps> = ({ ...props }) => {
           {showTab ? (
             <View style={{ width: '75%' }}>
               <TextInput
+                value={searchText}
                 placeholder="Busca tu producto"
                 placeholderTextColor={LIGHTER_GRAY2}
+                onChangeText={(text) => dispatch(changeData(text))}
                 onFocus={handleFocus}
                 ref={searchInputRef}
+                onSubmitEditing={() => dispatch(addSearch(searchText))}
                 style={Styles.input}
               />
-              <TouchableOpacity style={Styles.qrButton}>
-                <Image source={require('../assets/QRIcon.png')} />
-              </TouchableOpacity>
+
+              {showQR ? (
+                <TouchableOpacity style={Styles.qrButton}>
+                  <Image source={require('../assets/QRIcon.png')} />
+                </TouchableOpacity>
+              ) : (
+                <TouchableOpacity
+                  onPress={() => {
+                    dispatch(changeData(''));
+                  }}
+                  style={Styles.cleanButton}
+                >
+                  <Image source={require('../assets/Search/CleanIcon.png')} />
+                </TouchableOpacity>
+              )}
 
               <Image style={Styles.searchImage} source={require('../assets/SearchIcon.png')} />
             </View>
@@ -97,9 +128,20 @@ const SearchHeader: React.FC<IProps> = ({ ...props }) => {
               </View>
             </View>
           )}
-          <TouchableOpacity style={{ alignSelf: 'center', marginLeft: 20 }}>
-            <Image source={require('../assets/CarIcon.png')} />
-          </TouchableOpacity>
+          {showQR ? (
+            <TouchableOpacity style={{ alignSelf: 'center', marginLeft: 20 }}>
+              <Image source={require('../assets/CarIcon.png')} />
+            </TouchableOpacity>
+          ) : (
+            <TouchableOpacity
+              onPress={() => {
+                navigation.goBack();
+              }}
+              style={{ alignSelf: 'center', marginLeft: 20 }}
+            >
+              <Image source={require('../assets/Search/XIcon.png')} />
+            </TouchableOpacity>
+          )}
         </View>
       </View>
 
@@ -154,6 +196,12 @@ const Styles = StyleSheet.create({
     right: 1,
     marginTop: 12,
     marginRight: 20,
+  },
+  cleanButton: {
+    position: 'absolute',
+    right: 1,
+    marginTop: 9,
+    marginRight: 14,
   },
   searchImage: {
     position: 'absolute',

@@ -3,12 +3,14 @@ import { configureStore, ThunkAction, Action } from '@reduxjs/toolkit';
 import userReducer from './slices/userSlice';
 import uiReducer from './slices/uiSlice';
 import categorySlice from './slices/categorySlice';
+import searchSlice from './slices/searchSlice';
 
 export const store = configureStore({
   reducer: {
     user: userReducer,
     ui: uiReducer,
     category: categorySlice,
+    search: searchSlice
   },
   devTools: true,
 });
