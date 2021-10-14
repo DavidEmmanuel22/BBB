@@ -162,5 +162,6 @@ const iconList = {
     viewBox: '0 0 12 12',
   },
 };
+  
 
 export default iconList;
