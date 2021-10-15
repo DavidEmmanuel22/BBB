@@ -2,15 +2,16 @@
 import React, { useState } from 'react';
 import { View, FlatList, TouchableOpacity, StyleSheet, ViewStyle } from 'react-native';
 
-import { BLUE, GRAY2, PRIMARY_BLUE } from '../../constants/colors';
+import { BLUE, GRAY2, LIGHTER_GRAY, PRIMARY_BLUE } from '../../constants/colors';
 import { getHeight, getWidth } from '../../utils/interfaceDimentions';
 import Text from '../Text';
 import { ProductDetail } from '../../models/Objects/Product';
 import { formatDescription, GetAttribute } from '../../utils/genericFunctions';
 import IconGeneric from '../IconGeneric';
-import { Rating } from 'react-native-ratings';
+import { Rating, AirbnbRating } from 'react-native-ratings';
 import { RowContent } from '../../utils/stylesGenetic';
 import RatingProgress from './ProgressRating';
+import ReviewList from './ReviewList';
 
 interface IProps {
   product: ProductDetail;
@@ -22,6 +23,14 @@ export const ShowMoreButton = ({ showMore = true, onPress = () => {} }) => {
         {showMore ? 'Ver mas características' : 'Ver menos'}
       </Text>
       <IconGeneric name={showMore ? 'chevronDown' : 'chevronUp'} width={getWidth(12)} iconColor={PRIMARY_BLUE} />
+    </TouchableOpacity>
+  );
+};
+export const AddOpinion = ({ onPress = () => {} }) => {
+  return (
+    <TouchableOpacity onPress={onPress} style={styles.showMoreButton}>
+      <IconGeneric style={styles.rightSpace} name={'plus'} width={getWidth(12)} iconColor={PRIMARY_BLUE} />
+      <Text color={PRIMARY_BLUE}>{'Agregar opinión'}</Text>
     </TouchableOpacity>
   );
 };
@@ -56,7 +65,23 @@ const TabOptionsProduct: React.FC<IProps> = ({ product }) => {
       </View>
     );
   };
-
+  const OtherAspects = ({ titleOther = 'Prueba', ratingOther = 4 }) => {
+    return (
+      <View style={styles.otherAspects}>
+        <Text size={getWidth(14)}>{titleOther}</Text>
+        <AirbnbRating
+          selectedColor={PRIMARY_BLUE}
+          showRating={false}
+          count={5}
+          defaultRating={ratingOther}
+          size={getWidth(13)}
+        />
+      </View>
+    );
+  };
+  const Separation = () => {
+    return <View style={styles.separation} />;
+  };
   const Reviews = ({ rating = 0 }) => {
     const ratingsList = [0, 0, 0];
     return (
@@ -74,6 +99,16 @@ const TabOptionsProduct: React.FC<IProps> = ({ product }) => {
         {ratingsList.map(() => (
           <RatingProgress />
         ))}
+        <AddOpinion />
+        <Separation />
+        <Text style={styles.spaceUp} size={getWidth(18)} color={BLUE}>
+          Otros aspectos evaluados
+        </Text>
+        {ratingsList.map(() => (
+          <OtherAspects />
+        ))}
+        <ReviewList data={[0, 0, 0]} />
+        <Separation />
       </View>
     );
   };
@@ -130,6 +165,18 @@ const styles = StyleSheet.create({
   },
   ratingProgress: {
     justifyContent: 'space-between',
+  },
+  otherAspects: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginTop: getHeight(10),
+  },
+  separation: {
+    height: getHeight(1),
+    backgroundColor: LIGHTER_GRAY,
+    width: '100%',
+    marginVertical: getHeight(10),
   },
 });
 

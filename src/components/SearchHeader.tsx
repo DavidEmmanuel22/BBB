@@ -52,17 +52,18 @@ const SearchHeader: React.FC<IProps> = ({ ...props }) => {
     } else {
       setShowTab(true);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [props.route]);
 
-  useEffect(()=>{
+  useEffect(() => {
     const searches = async () => {
-      let jsonSearches = await AsyncStorage.getItem("searches");
+      let jsonSearches = await AsyncStorage.getItem('searches');
       if (jsonSearches) {
-        dispatch(recoverSearches(JSON.parse(jsonSearches)))
+        dispatch(recoverSearches(JSON.parse(jsonSearches)));
       }
-    } 
+    };
     searches();
-  })
+  });
 
   const handleFocus = () => {
     if (typeof props.route.name === 'string' && props.route.name !== 'Search') {
@@ -135,7 +136,7 @@ const SearchHeader: React.FC<IProps> = ({ ...props }) => {
           ) : (
             <TouchableOpacity
               onPress={() => {
-                dispatch(changeData(""));
+                dispatch(changeData(''));
                 navigation.goBack();
               }}
               style={{ alignSelf: 'center', marginLeft: 20 }}

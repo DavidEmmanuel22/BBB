@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import useAuthContext from '../context/AuthContext';
 import { Convert } from '../models/Objects/Items';
@@ -17,11 +17,11 @@ export const SearchController = () => {
   const findItems = async (text: string) => {
     setBuscando(true);
     if (user) {
-      let response = await findObjects(user.email, text, "150", "0");
+      let response = await findObjects(user.email, text, '150', '0');
       let obj = Convert.toItems(response);
       dispatch(changeItems(obj));
     } else {
-      let response = await findObjects('', text, "150", "0");
+      let response = await findObjects('', text, '150', '0');
       let obj = Convert.toItems(response);
       dispatch(changeItems(obj));
     }
@@ -32,6 +32,6 @@ export const SearchController = () => {
     findItems,
     buscando,
     showModal,
-    setshowModal
+    setshowModal,
   };
 };

@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { Image, Text, View, StyleSheet, TouchableOpacity, ScrollView, Modal } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
-import { BRAND_BLUE, DARK, GRAY, LIGHTER_GRAY, LIGHTER_GRAY2, PRIMARY_BLUE } from '../constants/colors';
+import { BRAND_BLUE, DARK, LIGHTER_GRAY, LIGHTER_GRAY2, PRIMARY_BLUE } from '../constants/colors';
 import {
   changeData,
   selectData,
@@ -24,6 +24,7 @@ const Search: React.FC = () => {
     if (searchText.length >= 3) {
       findItems(searchText);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [searchText]);
 
   return (
@@ -115,35 +116,35 @@ const Search: React.FC = () => {
           </Text>
 
           <Modal transparent={true} animationType="slide" visible={showModal} onRequestClose={() => {}}>
-              <View style={styles.modalView}>
-                <Text style={styles.modalTitle}>Marcas</Text>
+            <View style={styles.modalView}>
+              <Text style={styles.modalTitle}>Marcas</Text>
 
-                <TouchableOpacity style={styles.modalXImage} onPress={() => setshowModal(!showModal)}>
-                  <Image source={require('../assets/NewPassword/XIcon.png')} />
-                </TouchableOpacity>
+              <TouchableOpacity style={styles.modalXImage} onPress={() => setshowModal(!showModal)}>
+                <Image source={require('../assets/NewPassword/XIcon.png')} />
+              </TouchableOpacity>
 
-                <ScrollView>
-                  {items?.placements[0].facets[2].values.map((item) => (
-                    <>
-                      <TouchableOpacity
-                        onPress={() => {
-                          setshowModal(!showModal);
-                          dispatch(changeData(item.value));
-                        }}
-                        style={styles.itemContainer}
-                      >
-                        <Image style={styles.QRImage} source={require('../assets/Search/StarIcon.png')} />
+              <ScrollView>
+                {items?.placements[0].facets[2].values.map((item) => (
+                  <>
+                    <TouchableOpacity
+                      onPress={() => {
+                        setshowModal(!showModal);
+                        dispatch(changeData(item.value));
+                      }}
+                      style={styles.itemContainer}
+                    >
+                      <Image style={styles.QRImage} source={require('../assets/Search/StarIcon.png')} />
 
-                        <Text numberOfLines={1} style={styles.itemText}>
-                          {item.value}
-                        </Text>
-                      </TouchableOpacity>
-                      <View style={styles.itemSeparator} />
-                    </>
-                  ))}
-                </ScrollView>
-              </View>
-            </Modal>
+                      <Text numberOfLines={1} style={styles.itemText}>
+                        {item.value}
+                      </Text>
+                    </TouchableOpacity>
+                    <View style={styles.itemSeparator} />
+                  </>
+                ))}
+              </ScrollView>
+            </View>
+          </Modal>
 
           <TouchableOpacity
             onPress={() => setshowModal(!showModal)}

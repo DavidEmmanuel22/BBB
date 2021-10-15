@@ -24,7 +24,5 @@ export const formatImage = (uri = '') => {
 export const formatDescription = (string = '') => {
   var regex = /(<([^>]+)>)/gi,
     result = string.replace(regex, '\n');
-
-  console.log(result);
   return result;
 };
