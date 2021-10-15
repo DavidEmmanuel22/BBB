@@ -112,6 +112,7 @@ export const MyAccount: React.FC<IProps> = ({ navigation }) => {
 
         {/* My Addresses */}
         <TouchableOpacity
+          onPress={() => navigation.navigate('directions')}
           style={{
             flexDirection: 'row',
             marginHorizontal: 33,
