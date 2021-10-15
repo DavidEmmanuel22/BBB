@@ -2,42 +2,78 @@
 import React, { useState } from 'react';
 import { View, FlatList, TouchableOpacity, StyleSheet, ViewStyle } from 'react-native';
 
-import { PRIMARY_BLUE } from '../../constants/colors';
+import { BLUE, GRAY2, PRIMARY_BLUE } from '../../constants/colors';
 import { getHeight, getWidth } from '../../utils/interfaceDimentions';
 import Text from '../Text';
-import { WebView } from 'react-native-webview';
 import { ProductDetail } from '../../models/Objects/Product';
+import { formatDescription, GetAttribute } from '../../utils/genericFunctions';
+import IconGeneric from '../IconGeneric';
+import { Rating } from 'react-native-ratings';
+import { RowContent } from '../../utils/stylesGenetic';
+import RatingProgress from './ProgressRating';
 
 interface IProps {
   product: ProductDetail;
 }
-const TabOptionsProduct: React.FC<IProps> = ({}) => {
+export const ShowMoreButton = ({ showMore = true, onPress = () => {} }) => {
+  return (
+    <TouchableOpacity onPress={onPress} style={styles.showMoreButton}>
+      <Text style={styles.rightSpace} color={PRIMARY_BLUE}>
+        {showMore ? 'Ver mas características' : 'Ver menos'}
+      </Text>
+      <IconGeneric name={showMore ? 'chevronDown' : 'chevronUp'} width={getWidth(12)} iconColor={PRIMARY_BLUE} />
+    </TouchableOpacity>
+  );
+};
+const TabOptionsProduct: React.FC<IProps> = ({ product }) => {
   const [indexTab, setIndexTab] = useState(0);
-
-  const [routes] = React.useState([
+  const routes = [
     { key: 'details', title: 'Detalles' },
     { key: 'opinions', title: 'Opinions' },
     { key: 'returns', title: 'Política de devoluciones' },
-  ]);
-
-  const Details = ({ text = '' }) => {
+  ];
+  const shortDescription = GetAttribute(product.custom_attributes, 'short_description') || '';
+  const description = GetAttribute(product.custom_attributes, 'description') || '';
+  const ratingProduct = 4;
+  const countReviews = 3;
+  const countRatings = 5;
+  const [showMoreDescription, setShowMoreDescription] = useState(false);
+  const Details = () => {
     return (
       <View>
-        <WebView
-          style={{ height: 200 }}
-          scrollEnabled={true}
-          testID="articles_web_view"
-          allowsBackForwardNavigationGestures={true}
-          javaScriptEnabled={true}
-          source={{ html: text }}
-        />
+        <Text color={GRAY2} size={getWidth(13)}>
+          {formatDescription(shortDescription)}{' '}
+        </Text>
+        {!showMoreDescription && <ShowMoreButton onPress={() => setShowMoreDescription(!showMoreDescription)} />}
+        {showMoreDescription && (
+          <Text color={GRAY2} size={getWidth(13)}>
+            {formatDescription(description)}{' '}
+          </Text>
+        )}
+        {showMoreDescription && (
+          <ShowMoreButton showMore={false} onPress={() => setShowMoreDescription(!showMoreDescription)} />
+        )}
       </View>
     );
   };
-  const Opinions = () => {
+
+  const Reviews = ({ rating = 0 }) => {
+    const ratingsList = [0, 0, 0];
     return (
       <View>
-        <Text>Opiniones</Text>
+        <Text size={getWidth(18)} color={BLUE}>
+          Calificación general
+        </Text>
+        <View style={[RowContent, { marginTop: getHeight(10) }]}>
+          <Rating readonly startingValue={rating} ratingCount={5} imageSize={getWidth(20)} style={styles.rating} />
+          <Text>{`${rating} de 5`} </Text>
+        </View>
+        <Text color={GRAY2} style={styles.spaceUp}>
+          {`${countRatings} calificaciones, ${countReviews} opiniones`}{' '}
+        </Text>
+        {ratingsList.map(() => (
+          <RatingProgress />
+        ))}
       </View>
     );
   };
@@ -50,10 +86,16 @@ const TabOptionsProduct: React.FC<IProps> = ({}) => {
   };
   return (
     <View>
-      <FlatList style={styles.listOptions} horizontal data={routes} renderItem={tabOption} />
+      <FlatList
+        keyExtractor={(item, index) => 'keyContent' + index}
+        style={styles.listOptions}
+        horizontal
+        data={routes}
+        renderItem={tabOption}
+      />
 
-      {indexTab === 0 && <Details text={textDetails} />}
-      {indexTab === 1 && <Opinions />}
+      {indexTab === 0 && <Details />}
+      {indexTab === 1 && <Reviews rating={ratingProduct} />}
       {indexTab === 2 && <Details />}
     </View>
   );
@@ -70,13 +112,25 @@ const styles = StyleSheet.create({
   listOptions: {
     marginVertical: getHeight(18),
   },
-  tabViewStyle: {
-    // flexGrow: 1,
-    // minHeight: getHeight(280),
-    // maxHeight: getHeight(500),
-    // backgroundColor: 'red',
+
+  rightSpace: {
+    marginRight: getWidth(10),
+  },
+  showMoreButton: {
+    justifyContent: 'center',
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  rating: {
+    alignSelf: 'flex-start',
+    marginRight: getWidth(10),
+  },
+  spaceUp: {
+    marginTop: getHeight(10),
+  },
+  ratingProgress: {
+    justifyContent: 'space-between',
   },
 });
-const textDetails =
-  '<div data-content-type="row" data-appearance="contained" data-element="main"><div data-enable-parallax="0" data-parallax-speed="0.5" data-background-images="{}" data-element="inner" data-pb-style="60CA6455035C2"><div data-content-type="html" data-appearance="default" data-element="main" data-pb-style="60CA6455035E2"><ul><li>Lavar a m&aacute;quina</li><li>No usar suavizante de telas</li><li>Medidas: 28 x 10 cm</li><li>C&oacute;digo de repuesto A1</li><li>De importaci&oacute;n</li></ul></div></div></div><style>  #html-body [data-pb-style="60CA6455035C2"]{justify-content: flex-start; display: flex; flex-direction: column; background-position: left top; background-size: cover; background-repeat: no-repeat; background-attachment: scroll; border-style: none; border-width: 1px; border-radius: 0px; margin: 0px 0px 10px; padding: 10px;}#html-body [data-pb-style="60CA6455035E2"]{border-style: none; border-width: 1px; border-radius: 0px; margin: 0px; padding: 0px;} li{font-size:45px;}</style>';
+
 export default TabOptionsProduct;
