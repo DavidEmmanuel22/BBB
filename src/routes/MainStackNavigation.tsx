@@ -9,6 +9,7 @@ import Orders from '../screens/Orders';
 import Reviews from '../screens/Reviews';
 import BottomTabNavigation from './bottomTabNavigator';
 import Filter from '../screens/Filter';
+import MyDirections from '../screens/MyDirections';
 
 const Stack = createStackNavigator();
 
@@ -29,6 +30,7 @@ const MainStackNavigation = () => {
       <Stack.Screen name="reviews" component={Reviews} />
       <Stack.Screen name="NewPassword" component={NewPassword} />
       <Stack.Screen name="Filter" component={Filter} />
+      <Stack.Screen name="directions" component={MyDirections} />
     </Stack.Navigator>
   );
 };
