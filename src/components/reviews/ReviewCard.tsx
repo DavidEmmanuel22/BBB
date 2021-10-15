@@ -1,26 +1,32 @@
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import RightArrow from '../../assets/icons/RightArrow';
 import { DARK, GRAY2, LIGHTER_GRAY, PRIMARY_BLUE } from '../../constants/colors';
 import { EFFRA } from '../../constants/fonts';
 
-const ReviewCard = () => {
+type ReviewCardProps = {
+  onPress: () => void;
+};
+
+const ReviewCard = ({ onPress }: ReviewCardProps) => {
   return (
-    <View style={styles.container}>
-      <View style={styles.constainerDescription}>
-        <Text style={styles.text1}>28/ago/2021</Text>
-        <Text style={styles.text2}>Set de colcha matrimonial/queen de algodón UGG® Dawn color azul océano</Text>
-        <View style={styles.qualification}>
-          <FontAwesomeIcon style={styles.start} icon={['fas', 'star']} />
-          <FontAwesomeIcon style={styles.start} icon={['fas', 'star']} />
-          <FontAwesomeIcon style={styles.start} icon={['fas', 'star']} />
-          <FontAwesomeIcon style={styles.start} icon={['far', 'star']} />
-          <FontAwesomeIcon style={styles.start} icon={['far', 'star']} />
+    <TouchableOpacity onPress={onPress}>
+      <View style={styles.container}>
+        <View style={styles.constainerDescription}>
+          <Text style={styles.text1}>28/ago/2021</Text>
+          <Text style={styles.text2}>Set de colcha matrimonial/queen de algodón UGG® Dawn color azul océano</Text>
+          <View style={styles.qualification}>
+            <FontAwesomeIcon style={styles.start} icon={['fas', 'star']} />
+            <FontAwesomeIcon style={styles.start} icon={['fas', 'star']} />
+            <FontAwesomeIcon style={styles.start} icon={['fas', 'star']} />
+            <FontAwesomeIcon style={styles.start} icon={['far', 'star']} />
+            <FontAwesomeIcon style={styles.start} icon={['far', 'star']} />
+          </View>
         </View>
+        <RightArrow />
       </View>
-      <RightArrow />
-    </View>
+    </TouchableOpacity>
   );
 };
 

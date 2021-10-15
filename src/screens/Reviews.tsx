@@ -33,7 +33,7 @@ type ReviewProps = { navigation: any };
 
 const Reviews = ({ navigation }: ReviewProps) => {
   const [adminToken, setAdminToken] = useState<any>();
-  const { user } = useAuthContext();
+  const { user }: any = useAuthContext();
 
   useEffect(() => {
     GetAdminToken().then((token) => setAdminToken(token));
@@ -45,6 +45,7 @@ const Reviews = ({ navigation }: ReviewProps) => {
   if (status === 'idle' || status === 'loading') {
     return <Indicator />;
   }
+  console.log(adminToken);
 
   return (
     <Container containerStyles={styles.containetStyle}>
@@ -53,7 +54,7 @@ const Reviews = ({ navigation }: ReviewProps) => {
         ListHeaderComponent={<Header onPress={() => navigation?.goBack()} />}
         onRefresh={() => refetch()}
         refreshing={isLoading}
-        renderItem={({ item }) => <ReviewCard key={item?.id} />}
+        renderItem={({ item }) => <ReviewCard key={item?.id} onPress={() => navigation.navigate('reviewDetail')} />}
         ListEmptyComponent={<EmptyList />}
         keyExtractor={(item: any) => item?.id}
       />
