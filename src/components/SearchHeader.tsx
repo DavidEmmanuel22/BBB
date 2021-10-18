@@ -130,7 +130,10 @@ const SearchHeader: React.FC<IProps> = ({ ...props }) => {
           </View>
         )}
         {showQR ? (
-          <TouchableOpacity style={{ alignSelf: 'center', marginLeft: 20 }}>
+          <TouchableOpacity
+            style={{ alignSelf: 'center', marginLeft: 20 }}
+            onPress={() => props.navigation.navigate('Cart')}
+          >
             <Image source={require('../assets/CarIcon.png')} />
           </TouchableOpacity>
         ) : (
