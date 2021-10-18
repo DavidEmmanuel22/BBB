@@ -11,6 +11,7 @@ import BottomTabNavigation from './bottomTabNavigator';
 import Filter from '../screens/Filter';
 import MyDirections from '../screens/MyDirections';
 import ReviewDetail from '../screens/ReviewDetail';
+import Cart from '../screens/Cart';
 
 const Stack = createStackNavigator();
 
@@ -33,6 +34,7 @@ const MainStackNavigation = () => {
       <Stack.Screen name="NewPassword" component={NewPassword} />
       <Stack.Screen name="Filter" component={Filter} />
       <Stack.Screen name="directions" component={MyDirections} />
+      <Stack.Screen name="Cart" component={Cart} />
     </Stack.Navigator>
   );
 };
