@@ -10,7 +10,7 @@ import {
   selectEnterKeyPressed,
 } from '../store/slices/searchSlice';
 import { SearchController } from '../controllers/SearchController';
-import { EFFRA } from '../constants/fonts';
+import { EFFRA, EFFRA_BOLD } from '../constants/fonts';
 
 const Search: React.FC = () => {
   const { findItems, buscando, showModal, setshowModal } = SearchController();
@@ -103,7 +103,7 @@ const Search: React.FC = () => {
                   style={{ alignSelf: 'center', marginTop: '50%', height: 55, width: 70 }}
                   source={require('../assets/Search/NotFinfIcon.png')}
                 />
-                <Text style={{ alignSelf: 'center', marginTop: 12, fontFamily: 'Effra_Bd', fontSize: 16 }}>
+                <Text style={{ alignSelf: 'center', marginTop: 12, fontFamily: EFFRA_BOLD, fontSize: 16 }}>
                   Lo sentimos, no encontramos tu producto.
                 </Text>
               </View>
@@ -268,7 +268,7 @@ const styles = StyleSheet.create({
     alignSelf: 'flex-start',
     marginLeft: 20,
     marginTop: 12,
-    fontFamily: 'Effra_Bd',
+    fontFamily: EFFRA_BOLD,
     fontSize: 16,
     color: DARK,
   },

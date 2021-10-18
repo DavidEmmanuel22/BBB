@@ -33,7 +33,7 @@ const ScreensWithoutTabs = ['ProductsByCategory', 'ProductDetail'];
 
 const SearchHeader: React.FC<IProps> = ({ ...props }) => {
   const [showQR, setShowQR] = useState(true);
-
+  const [isSearch, setIsSearch] = useState(true);
   const searchText = useSelector(selectData);
   const dispatch = useDispatch();
   const navigation = useNavigation();
@@ -43,14 +43,18 @@ const SearchHeader: React.FC<IProps> = ({ ...props }) => {
   const subTitle = useSelector(selectUISubTitleHeader);
   const searchInputRef = useRef<TextInput>(null);
   useEffect(() => {
+    if (typeof props.route.name === 'string' && ScreensWithoutTabs.includes(props.route.name)) {
+      setShowTab(false);
+      setIsSearch(false);
+    } else {
+      setShowTab(true);
+      setIsSearch(false);
+    }
     if (typeof props.route.name === 'string' && props.route.name === 'Search') {
       searchInputRef?.current?.focus();
       setShowQR(!showQR);
-    }
-    if (typeof props.route.name === 'string' && ScreensWithoutTabs.includes(props.route.name)) {
       setShowTab(false);
-    } else {
-      setShowTab(true);
+      setIsSearch(true);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [props.route]);
@@ -78,7 +82,7 @@ const SearchHeader: React.FC<IProps> = ({ ...props }) => {
     <>
       <View style={Styles.contentHeader}>
         <View style={RowContent}>
-          {showTab ? (
+          {showTab || isSearch ? (
             <View style={{ width: '75%' }}>
               <TextInput
                 value={searchText}
@@ -147,7 +151,7 @@ const SearchHeader: React.FC<IProps> = ({ ...props }) => {
         </View>
       </View>
 
-      {showTab && (
+      {showTab && isSearch === false && (
         <View style={Styles.tabContainer}>
           <FlatList
             horizontal
