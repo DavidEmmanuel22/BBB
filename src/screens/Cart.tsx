@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { View, StyleSheet } from 'react-native';
-import { useNavigation } from '@react-navigation/core';
 
 import Header from '../components/Header';
 import Text from '../components/Text';
@@ -13,8 +12,7 @@ import Icon from '../components/Icon';
 import Button from '../components/Button';
 
 const Cart: React.FC = () => {
-  const navigation = useNavigation();
-  const [isEmpty, setIsEmpty] = useState(true);
+  const [isEmpty] = useState(true);
 
   return (
     <>

@@ -1,5 +1,4 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { RootState } from '../';
+import { createSlice } from '@reduxjs/toolkit';
 
 interface UIState {}
 

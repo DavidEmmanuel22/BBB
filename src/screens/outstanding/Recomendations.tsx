@@ -1,3 +1,4 @@
+import { useNavigation } from '@react-navigation/core';
 import React from 'react';
 import { FlatList, View } from 'react-native';
 import { useQuery } from 'react-query';
@@ -9,6 +10,7 @@ const getAttribute = (items: any[], attribute: string) => items.find((item: any)
 const getItemsIds = (items: any[]) => items.map((item) => item?.id);
 
 const Recomendations = () => {
+  const navigation = useNavigation<any>();
   const { data: brRecomendations = {} } = useQuery('barilliancerecomendations', getBarillianceRecomendations);
   const { recommendations = [] } = brRecomendations as any;
   const { items: barillianceItems = [] } = recommendations[0] || {};
@@ -35,7 +37,8 @@ const Recomendations = () => {
                 description={item?.name}
                 price={item?.price}
                 specialPrice={getAttribute(item?.custom_attributes ?? [], 'special_price')?.value}
-                onPress={() => {}}
+                onAddCartPress={() => {}}
+                onCardPress={() => navigation.navigate('ProductDetail', { sku: item.sku })}
               />
             </View>
           )}

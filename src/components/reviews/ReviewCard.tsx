@@ -2,26 +2,48 @@ import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import React from 'react';
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import RightArrow from '../../assets/icons/RightArrow';
-import { DARK, GRAY2, LIGHTER_GRAY, PRIMARY_BLUE } from '../../constants/colors';
+import { DARK, GRAY, GRAY2, LIGHTER_GRAY, PRIMARY_BLUE } from '../../constants/colors';
 import { EFFRA } from '../../constants/fonts';
 
 type ReviewCardProps = {
   onPress: () => void;
+  detail: String;
+  date: String;
+  rating: number;
 };
 
-const ReviewCard = ({ onPress }: ReviewCardProps) => {
+const styleIconStart = (color = GRAY) => ({
+  color,
+  marginLeft: 3,
+  marginRight: 3,
+  marginTop: 12,
+  marginBottom: 12,
+});
+
+const Qualification = ({ limit, actives }: any) => {
+  const list = [...Array(limit).keys()];
+  const active = (index: number) => index <= actives - 1;
+  return (
+    <>
+      {list.map((index) => (
+        <FontAwesomeIcon
+          style={styleIconStart(active(index) ? PRIMARY_BLUE : GRAY)}
+          icon={[active(index) ? 'fas' : 'far', 'star']}
+        />
+      ))}
+    </>
+  );
+};
+
+const ReviewCard = ({ onPress, detail, rating, date }: ReviewCardProps) => {
   return (
     <TouchableOpacity onPress={onPress}>
       <View style={styles.container}>
         <View style={styles.constainerDescription}>
-          <Text style={styles.text1}>28/ago/2021</Text>
-          <Text style={styles.text2}>Set de colcha matrimonial/queen de algodón UGG® Dawn color azul océano</Text>
+          <Text style={styles.text1}>{date}</Text>
+          <Text style={styles.text2}>{detail}</Text>
           <View style={styles.qualification}>
-            <FontAwesomeIcon style={styles.start} icon={['fas', 'star']} />
-            <FontAwesomeIcon style={styles.start} icon={['fas', 'star']} />
-            <FontAwesomeIcon style={styles.start} icon={['fas', 'star']} />
-            <FontAwesomeIcon style={styles.start} icon={['far', 'star']} />
-            <FontAwesomeIcon style={styles.start} icon={['far', 'star']} />
+            <Qualification limit={5} actives={rating} />
           </View>
         </View>
         <RightArrow />

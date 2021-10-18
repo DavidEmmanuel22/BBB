@@ -1,16 +1,17 @@
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
+import dayjs from 'dayjs';
 import React, { useEffect, useState } from 'react';
 import { FlatList, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { useQuery } from 'react-query';
-import Container from '../components/Container';
-import Indicator from '../components/Indicator';
-import EmptyList from '../components/orders/EmptyList';
-import ReviewCard from '../components/reviews/ReviewCard';
-import { BLUE } from '../constants/colors';
-import useAuthContext from '../context/AuthContext';
-import { getUserOrders } from '../models/OrdersModel';
-import { TokenModel } from '../models/TokenModel';
-import { getHeight } from '../utils/interfaceDimentions';
+import Container from '../../components/Container';
+import Indicator from '../../components/Indicator';
+import EmptyList from '../../components/orders/EmptyList';
+import ReviewCard from '../../components/reviews/ReviewCard';
+import { BLUE } from '../../constants/colors';
+import useAuthContext from '../../context/AuthContext';
+import { getReviews } from '../../models/ReviewModel';
+import { TokenModel } from '../../models/TokenModel';
+import { getHeight } from '../../utils/interfaceDimentions';
 
 const { GetAdminToken } = TokenModel();
 
@@ -31,6 +32,8 @@ const Header = ({ onPress }: HeaderProps) => {
 
 type ReviewProps = { navigation: any };
 
+const getRatingByKey: any = (items: any[], key: string, name: string) => items.find((item) => item[key] === name) || {};
+
 const Reviews = ({ navigation }: ReviewProps) => {
   const [adminToken, setAdminToken] = useState<any>();
   const { user }: any = useAuthContext();
@@ -39,7 +42,7 @@ const Reviews = ({ navigation }: ReviewProps) => {
     GetAdminToken().then((token) => setAdminToken(token));
   }, []);
 
-  const { data, isLoading, status, refetch } = useQuery<any>('orders', () => getUserOrders(user?.id, adminToken), {
+  const { data, isLoading, status, refetch } = useQuery<any>('orders', () => getReviews(user?.id, adminToken), {
     enabled: !!user?.id && !!adminToken,
   });
   if (status === 'idle' || status === 'loading') {
@@ -54,7 +57,15 @@ const Reviews = ({ navigation }: ReviewProps) => {
         ListHeaderComponent={<Header onPress={() => navigation?.goBack()} />}
         onRefresh={() => refetch()}
         refreshing={isLoading}
-        renderItem={({ item }) => <ReviewCard key={item?.id} onPress={() => navigation.navigate('reviewDetail')} />}
+        renderItem={({ item }) => (
+          <ReviewCard
+            key={item?.id}
+            rating={getRatingByKey(item?.ratings || [], 'rating_name', 'Rating').value || 0}
+            date={dayjs(item?.createdAt).format('D [de] MMM [del] YYYY')}
+            detail={item?.detail}
+            onPress={() => navigation.navigate('reviewDetail', { review: { ...item } })}
+          />
+        )}
         ListEmptyComponent={<EmptyList />}
         keyExtractor={(item: any) => item?.id}
       />
