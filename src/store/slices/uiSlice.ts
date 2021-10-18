@@ -3,7 +3,7 @@ import { RootState } from '../';
 
 interface UIState {
   initialized: boolean;
-  homeSelect: Number;
+  homeSelect: number;
   titleHeader: string;
   subTitleHeader: string;
 }
@@ -19,7 +19,7 @@ export const uiSlice = createSlice({
   name: 'ui',
   initialState,
   reducers: {
-    changeSelect(state, action: PayloadAction<Number>) {
+    changeSelect(state, action: PayloadAction<number>) {
       state.homeSelect = action.payload;
     },
     changeTitleHeader(state, action: PayloadAction<string>) {
