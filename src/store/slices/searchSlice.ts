@@ -11,10 +11,10 @@ interface SearchState {
 }
 
 const initialState: SearchState = {
-    searchText: "",
-    searches: [],
-    Objects: null,
-    EnterKeyDown: true
+  searchText: '',
+  searches: [],
+  Objects: null,
+  EnterKeyDown: true,
 };
 
 export const searchSlice = createSlice({
@@ -30,17 +30,17 @@ export const searchSlice = createSlice({
       if (action.payload) {
         if (!state.searches.includes(action.payload)) {
           state.searches = state.searches.concat(action.payload);
-          AsyncStorage.setItem("searches", JSON.stringify(state.searches));
+          AsyncStorage.setItem('searches', JSON.stringify(state.searches));
         }
       }
       state.EnterKeyDown = false;
     },
-    changeItems:(state, action) => {
+    changeItems: (state, action) => {
       state.Objects = action.payload;
     },
-    recoverSearches:(state, action) => {
+    recoverSearches: (state, action) => {
       state.searches = action.payload;
-    }
+    },
   },
 });
 

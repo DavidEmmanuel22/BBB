@@ -1,4 +1,3 @@
-
 import { SEARCH_ITEMS } from '../constants/URLs';
 import axios from 'axios';
 
@@ -9,12 +8,11 @@ export const SearchModel = () => {
     let url = SEARCH_ITEMS;
     url = url.replace('{query}', text);
     url = url.replace('{userId}', email);
-    url = url.replace('{sessionId}', "");
+    url = url.replace('{sessionId}', '');
     url = url.replace('{rows}', amount);
     url = url.replace('{start}', start);
 
     console.log(url);
-    
 
     await axios({
       method: 'GET',

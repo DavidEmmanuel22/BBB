@@ -12,7 +12,7 @@ export const store = configureStore({
     ui: uiReducer,
     category: categorySlice,
     product,
-    search: searchSlice
+    search: searchSlice,
   },
   devTools: true,
 });

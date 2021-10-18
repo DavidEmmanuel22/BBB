@@ -2,7 +2,7 @@ import React from 'react';
 import { Text as NativeText, StyleSheet, TextStyle } from 'react-native';
 
 import { DARK } from '../constants/colors';
-import { EFFRA } from '../constants/fonts';
+import { EFFRA, EFFRA_BOLD } from '../constants/fonts';
 import { getWidth } from '../utils/interfaceDimentions';
 
 interface IProps {
@@ -12,6 +12,7 @@ interface IProps {
   style?: object;
   color?: string;
   medium?: boolean;
+  bold?: boolean;
 }
 
 const Text: React.FC<IProps> = ({
@@ -21,12 +22,14 @@ const Text: React.FC<IProps> = ({
   color = DARK,
   onPress = undefined,
   medium = false,
+  bold = false,
 }) => {
   const stylesObj: TextStyle = {
     ...styles.text,
     fontSize: size,
     fontWeight: medium ? '600' : '400',
     color,
+    fontFamily: bold ? EFFRA_BOLD : EFFRA,
     ...style,
   };
 
@@ -39,7 +42,6 @@ const Text: React.FC<IProps> = ({
 
 const styles = StyleSheet.create({
   text: {
-    fontFamily: EFFRA,
     letterSpacing: 0.8,
   },
 });
