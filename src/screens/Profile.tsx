@@ -10,6 +10,7 @@ import BouncyCheckbox from 'react-native-bouncy-checkbox';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { ProfileController } from '../controllers/ProfileController';
 import useAuthContext from '../context/AuthContext';
+import { EFFRA } from '../constants/fonts';
 
 interface IProps {
   navigation: NavigationProp<any, any>;
@@ -87,7 +88,7 @@ export const Profile: React.FC<IProps> = ({ navigation }) => {
           text="Baño"
           unfillColor="white"
           textStyle={{
-            fontFamily: 'Effra_Rg',
+            fontFamily: EFFRA,
             color: 'black',
             textDecorationLine: 'none',
           }}
@@ -101,7 +102,7 @@ export const Profile: React.FC<IProps> = ({ navigation }) => {
           text="Cocina"
           unfillColor="white"
           textStyle={{
-            fontFamily: 'Effra_Rg',
+            fontFamily: EFFRA,
             color: 'black',
             textDecorationLine: 'none',
           }}
@@ -115,7 +116,7 @@ export const Profile: React.FC<IProps> = ({ navigation }) => {
           text="Ciudado personal"
           unfillColor="white"
           textStyle={{
-            fontFamily: 'Effra_Rg',
+            fontFamily: EFFRA,
             color: 'black',
             textDecorationLine: 'none',
           }}
@@ -129,7 +130,7 @@ export const Profile: React.FC<IProps> = ({ navigation }) => {
           text="Decoración"
           unfillColor="white"
           textStyle={{
-            fontFamily: 'Effra_Rg',
+            fontFamily: EFFRA,
             color: 'black',
             textDecorationLine: 'none',
           }}
@@ -143,7 +144,7 @@ export const Profile: React.FC<IProps> = ({ navigation }) => {
           text="Mascotas viajes y más"
           unfillColor="white"
           textStyle={{
-            fontFamily: 'Effra_Rg',
+            fontFamily: EFFRA,
             color: 'black',
             textDecorationLine: 'none',
           }}
@@ -157,7 +158,7 @@ export const Profile: React.FC<IProps> = ({ navigation }) => {
           text="Recámara"
           unfillColor="white"
           textStyle={{
-            fontFamily: 'Effra_Rg',
+            fontFamily: EFFRA,
             color: 'black',
             textDecorationLine: 'none',
           }}
@@ -171,7 +172,7 @@ export const Profile: React.FC<IProps> = ({ navigation }) => {
           text="Organización y limpieza"
           unfillColor="white"
           textStyle={{
-            fontFamily: 'Effra_Rg',
+            fontFamily: EFFRA,
             color: 'black',
             textDecorationLine: 'none',
           }}
@@ -185,7 +186,7 @@ export const Profile: React.FC<IProps> = ({ navigation }) => {
           text="Zona outlet"
           unfillColor="white"
           textStyle={{
-            fontFamily: 'Effra_Rg',
+            fontFamily: EFFRA,
             color: 'black',
             textDecorationLine: 'none',
           }}

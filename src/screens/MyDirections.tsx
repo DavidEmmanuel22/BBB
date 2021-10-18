@@ -5,6 +5,7 @@ import Container from '../components/Container';
 import { ScrollView } from 'react-native-gesture-handler';
 import Button, { BUTTONTYPE } from '../components/Button';
 import IconGeneric from '../components/IconGeneric';
+import { EFFRA } from '../constants/fonts';
 
 const MyDirections: React.FC = () => {
   const styles = StyleSheet.create({
@@ -34,7 +35,7 @@ const MyDirections: React.FC = () => {
       textAlign: 'center',
     },
     textTypeBlue: {
-      fontFamily: 'Effra_Rg',
+      fontFamily: EFFRA,
       color: GRAY2,
       fontSize: 18,
       marginTop: 18,

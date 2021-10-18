@@ -8,6 +8,7 @@ import LoginRegisterDisclaimer from '../components/LoginRegisterDisclaimer';
 import { DARKER_BLUE, LIGHTER_GRAY4, GRAY, PRIMARY_BLUE, LIGHTER_GRAY2 } from '../constants/colors';
 import { LoginController } from '../controllers/LoginController';
 import { ScrollView } from 'react-native-gesture-handler';
+import { EFFRA } from '../constants/fonts';
 
 interface IProps {
   navigation: NavigationProp<any, any>;
@@ -204,7 +205,7 @@ const styles = StyleSheet.create({
     marginTop: 8,
   },
   btnTextRecoverPassword: {
-    fontFamily: 'Effra_Rg',
+    fontFamily: EFFRA,
     fontSize: 16,
   },
   btnsContainer: {

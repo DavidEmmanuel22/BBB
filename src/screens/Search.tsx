@@ -10,6 +10,7 @@ import {
   selectEnterKeyPressed,
 } from '../store/slices/searchSlice';
 import { SearchController } from '../controllers/SearchController';
+import { EFFRA } from '../constants/fonts';
 
 const Search: React.FC = () => {
   const { findItems, buscando, showModal, setshowModal } = SearchController();
@@ -153,7 +154,7 @@ const Search: React.FC = () => {
             <Text
               style={{
                 color: PRIMARY_BLUE,
-                fontFamily: 'Effra_Rg',
+                fontFamily: EFFRA,
                 fontSize: 16,
                 marginRight: 8,
               }}
@@ -202,7 +203,7 @@ const styles = StyleSheet.create({
   modalTitle: {
     marginLeft: 26,
     marginTop: 20,
-    fontFamily: 'Effra_Rg',
+    fontFamily: EFFRA,
     fontSize: 18,
   },
   modalXImage: {
@@ -230,7 +231,7 @@ const styles = StyleSheet.create({
   itemText: {
     alignSelf: 'center',
     marginLeft: 12,
-    fontFamily: 'Effra_Rg',
+    fontFamily: EFFRA,
     fontSize: 16,
     color: DARK,
     marginRight: 20,
@@ -252,7 +253,7 @@ const styles = StyleSheet.create({
   searchText: {
     alignSelf: 'flex-start',
     marginLeft: 12,
-    fontFamily: 'Effra_Rg',
+    fontFamily: EFFRA,
     fontSize: 16,
     color: DARK,
     marginRight: 20,
@@ -291,11 +292,11 @@ const styles = StyleSheet.create({
   showItemText: {
     width: 100,
     alignSelf: 'center',
-    fontFamily: 'Effra_Rg',
+    fontFamily: EFFRA,
     fontSize: 14,
   },
   showItemTextPrice: {
-    fontFamily: 'Effra_Rg',
+    fontFamily: EFFRA,
     fontSize: 14,
     alignSelf: 'center',
     color: BRAND_BLUE,
@@ -308,7 +309,7 @@ const styles = StyleSheet.create({
   showItemButtonText: {
     alignSelf: 'center',
     color: PRIMARY_BLUE,
-    fontFamily: 'Effra_Rg',
+    fontFamily: EFFRA,
     fontSize: 14,
   },
 });

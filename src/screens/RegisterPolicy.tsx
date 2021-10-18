@@ -5,6 +5,7 @@ import { Image, StatusBar, StyleSheet, Switch, Text, TouchableOpacity, View } fr
 import { DARK, DARKER_BLUE, GREEN, PRIMARY_BLUE, RED } from '../constants/colors';
 import { Customer } from '../models/Objects/Customer';
 import { RegisterPolicyController } from '../controllers/RegisterPolicyController';
+import { EFFRA } from '../constants/fonts';
 
 interface IProps {
   route: RouteProp<any, any>;
@@ -111,7 +112,7 @@ const styles = StyleSheet.create({
     height: '100%',
   },
   upperText: {
-    fontFamily: 'Effra_Rg',
+    fontFamily: EFFRA,
     fontSize: 16,
     color: DARK,
   },
@@ -120,7 +121,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
   },
   switchPrivacyText: {
-    fontFamily: 'Effra_Rg',
+    fontFamily: EFFRA,
     fontSize: 16,
     textDecorationLine: 'underline',
     color: DARK,
@@ -134,7 +135,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
   },
   switchPromotionsText: {
-    fontFamily: 'Effra_Rg',
+    fontFamily: EFFRA,
     fontSize: 16,
     color: DARK,
   },

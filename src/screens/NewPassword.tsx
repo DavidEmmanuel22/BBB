@@ -7,6 +7,7 @@ import { Image, StatusBar, Text, TouchableOpacity, View } from 'react-native';
 import { TextField } from 'rn-material-ui-textfield';
 import { NewPasswordController } from '../controllers/NewPasswordController';
 import useAuthContext from '../context/AuthContext';
+import { EFFRA } from '../constants/fonts';
 
 interface IProps {
   navigation: NavigationProp<any, any>;
@@ -54,7 +55,7 @@ export const NewPassword: React.FC<IProps> = ({ navigation }) => {
       {/* Page content */}
       <View style={{ marginHorizontal: 23, justifyContent: 'center', height: '100%' }}>
         {/* Upper text */}
-        <Text style={{ fontFamily: 'Effra_Rg', fontSize: 16, color: DARK }}>
+        <Text style={{ fontFamily: EFFRA, fontSize: 16, color: DARK }}>
           Ingresa tu actual contraseña seguido de la nueva y confírmala.
         </Text>
 

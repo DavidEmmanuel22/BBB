@@ -4,7 +4,7 @@ import { NavigationProp, RouteProp } from '@react-navigation/core';
 import React from 'react';
 import { View, StyleSheet, Image, TouchableOpacity, ScrollView, StatusBar, Text } from 'react-native';
 import { PRIMARY_BLUE, LIGHTER_GRAY, DARKER_BLUE, DARK } from '../constants/colors';
-import { TERMINABOLD } from '../constants/fonts';
+import { EFFRA, TERMINABOLD } from '../constants/fonts';
 import useAuthContext from '../context/AuthContext';
 
 interface IProps {
@@ -91,7 +91,7 @@ export const MyAccount: React.FC<IProps> = ({ navigation }) => {
           <Text
             style={{
               marginLeft: 12,
-              fontFamily: 'Effra_Rg',
+              fontFamily: EFFRA,
               fontSize: 16,
               color: DARK,
             }}
@@ -125,7 +125,7 @@ export const MyAccount: React.FC<IProps> = ({ navigation }) => {
           <Text
             style={{
               marginLeft: 12,
-              fontFamily: 'Effra_Rg',
+              fontFamily: EFFRA,
               fontSize: 16,
               color: DARK,
             }}
@@ -158,7 +158,7 @@ export const MyAccount: React.FC<IProps> = ({ navigation }) => {
           <Text
             style={{
               marginLeft: 12,
-              fontFamily: 'Effra_Rg',
+              fontFamily: EFFRA,
               fontSize: 16,
               color: DARK,
             }}
@@ -191,7 +191,7 @@ export const MyAccount: React.FC<IProps> = ({ navigation }) => {
           <Text
             style={{
               marginLeft: 12,
-              fontFamily: 'Effra_Rg',
+              fontFamily: EFFRA,
               fontSize: 16,
               color: DARK,
             }}
@@ -224,7 +224,7 @@ export const MyAccount: React.FC<IProps> = ({ navigation }) => {
           <Text
             style={{
               marginLeft: 12,
-              fontFamily: 'Effra_Rg',
+              fontFamily: EFFRA,
               fontSize: 16,
               color: DARK,
             }}
@@ -257,7 +257,7 @@ export const MyAccount: React.FC<IProps> = ({ navigation }) => {
           <Text
             style={{
               marginLeft: 12,
-              fontFamily: 'Effra_Rg',
+              fontFamily: EFFRA,
               fontSize: 16,
               color: DARK,
             }}
@@ -290,7 +290,7 @@ export const MyAccount: React.FC<IProps> = ({ navigation }) => {
           <Text
             style={{
               marginLeft: 12,
-              fontFamily: 'Effra_Rg',
+              fontFamily: EFFRA,
               fontSize: 16,
               color: DARK,
             }}
@@ -324,7 +324,7 @@ export const MyAccount: React.FC<IProps> = ({ navigation }) => {
           <Text
             style={{
               marginLeft: 12,
-              fontFamily: 'Effra_Rg',
+              fontFamily: EFFRA,
               fontSize: 16,
               color: DARK,
             }}
@@ -362,12 +362,12 @@ const styles = StyleSheet.create({
   },
   lblEditarPerfil: {
     color: PRIMARY_BLUE,
-    fontFamily: 'Effra_Rg',
+    fontFamily: EFFRA,
     fontSize: 16,
   },
   lblCerrarSesion: {
     color: PRIMARY_BLUE,
-    fontFamily: 'Effra_Rg',
+    fontFamily: EFFRA,
     fontSize: 16,
   },
   MenuContainer: {

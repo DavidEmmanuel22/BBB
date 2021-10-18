@@ -8,6 +8,7 @@ import Button, { BUTTONTYPE } from '../components/Button';
 import Collapsable from '../components/Collapsable';
 import InputRdbFilter from '../components/InputRdbFilter';
 import IconGeneric from '../components/IconGeneric';
+import { EFFRA } from '../constants/fonts';
 
 const Filter: React.FC = () => {
   const styles = StyleSheet.create({
@@ -36,7 +37,7 @@ const Filter: React.FC = () => {
       marginHorizontal: 90,
     },
     textTypeBlue: {
-      fontFamily: 'Effra_Rg',
+      fontFamily: EFFRA,
       color: PRIMARY_BLUE,
       fontSize: 18,
       marginTop: 18,
