@@ -12,8 +12,6 @@ export const SearchModel = () => {
     url = url.replace('{rows}', amount);
     url = url.replace('{start}', start);
 
-    console.log(url);
-
     await axios({
       method: 'GET',
       url: url,

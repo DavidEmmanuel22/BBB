@@ -45,7 +45,6 @@ const Reviews = ({ navigation }: ReviewProps) => {
   if (status === 'idle' || status === 'loading') {
     return <Indicator />;
   }
-  console.log(adminToken);
 
   return (
     <Container containerStyles={styles.containetStyle}>
