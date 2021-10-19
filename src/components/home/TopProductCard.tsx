@@ -1,5 +1,5 @@
 import React from 'react';
-import { ImageBackground, StyleSheet, Text, View } from 'react-native';
+import { ImageBackground, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import Button from '../Button';
 import Favorite from '../../assets/icons/Favorit';
 import { LIGHTER_GRAY } from '../../constants/colors';
@@ -11,38 +11,41 @@ type TopProduct = {
   description: string;
   price: any;
   specialPrice?: any;
-  onPress: () => void;
+  onAddCartPress: () => void;
+  onCardPress: () => void;
 };
 
-const TopProductCard = ({ source, description, price, specialPrice, onPress }: TopProduct) => {
+const TopProductCard = ({ source, description, price, specialPrice, onAddCartPress, onCardPress }: TopProduct) => {
   const pricePrimary = specialPrice || price;
   const priceSecondary = specialPrice && price;
 
   return (
-    <View style={styles.container}>
-      <ImageBackground source={source} style={[styles.imgProduct, styles.positionIconFavorite]}>
-        <Favorite />
-      </ImageBackground>
-      <View style={styles.containerDescription}>
-        <Text numberOfLines={2} style={styles.description}>
-          {description}
-        </Text>
-        <View style={styles.containerPrice}>
-          <PriceGeneric
-            style={styles.spaceRight}
-            size={getWidth(20)}
-            sizeDecimals={getWidth(12)}
-            price={pricePrimary}
-          />
-          {priceSecondary && (
-            <PriceGeneric isDeal size={getWidth(20)} sizeDecimals={getWidth(12)} price={priceSecondary} />
-          )}
+    <TouchableOpacity onPress={onCardPress}>
+      <View style={styles.container}>
+        <ImageBackground source={source} style={[styles.imgProduct, styles.positionIconFavorite]}>
+          <Favorite />
+        </ImageBackground>
+        <View style={styles.containerDescription}>
+          <Text numberOfLines={2} style={styles.description}>
+            {description}
+          </Text>
+          <View style={styles.containerPrice}>
+            <PriceGeneric
+              style={styles.spaceRight}
+              size={getWidth(20)}
+              sizeDecimals={getWidth(12)}
+              price={pricePrimary}
+            />
+            {priceSecondary && (
+              <PriceGeneric isDeal size={getWidth(20)} sizeDecimals={getWidth(12)} price={priceSecondary} />
+            )}
+          </View>
+        </View>
+        <View>
+          <Button title="Agregar" type="SECONDARY" onPress={onAddCartPress} />
         </View>
       </View>
-      <View>
-        <Button title="Agregar" type="SECONDARY" onPress={onPress} />
-      </View>
-    </View>
+    </TouchableOpacity>
   );
 };
 

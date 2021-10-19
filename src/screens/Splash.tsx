@@ -46,7 +46,7 @@ const Splash: React.FC = () => {
   ];
   const logoStartAnim = useRef(new Animated.Value(0)).current;
   const endAnimNumber = 1;
-  const duration = 1500;
+  const duration = 900;
 
   useEffect(() => {
     if (isInitialized) {
@@ -58,14 +58,14 @@ const Splash: React.FC = () => {
     });
     Animated.timing(logoStartAnim, {
       toValue: endAnimNumber,
-      duration: 3000,
+      duration: 1100,
       delay: duration * animStartAnims.length,
       useNativeDriver: true,
     }).start(() => {
       setTimeout(() => {
         setHasAnimationPlayedOnce(true);
         dispatch(initialize());
-      }, 3000);
+      }, 1100);
     });
   }, []);
 

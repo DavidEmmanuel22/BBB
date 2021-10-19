@@ -6,11 +6,12 @@ import { WHITE } from '../constants/colors';
 import { Profile } from '../screens/Profile';
 import { NewPassword } from '../screens/NewPassword';
 import Orders from '../screens/Orders';
-import Reviews from '../screens/Reviews';
 import BottomTabNavigation from './bottomTabNavigator';
 import Filter from '../screens/Filter';
+import Reviews from '../screens/review/Reviews';
+import ReviewDetail from '../screens/review/ReviewDetail';
 import MyDirections from '../screens/MyDirections';
-import ReviewDetail from '../screens/ReviewDetail';
+import Cart from '../screens/Cart';
 
 const Stack = createStackNavigator();
 
@@ -33,6 +34,7 @@ const MainStackNavigation = () => {
       <Stack.Screen name="NewPassword" component={NewPassword} />
       <Stack.Screen name="Filter" component={Filter} />
       <Stack.Screen name="directions" component={MyDirections} />
+      <Stack.Screen name="Cart" component={Cart} />
     </Stack.Navigator>
   );
 };

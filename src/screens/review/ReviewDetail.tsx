@@ -1,9 +1,19 @@
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
+import dayjs from 'dayjs';
 import React from 'react';
 import { Image, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
-import { BRAND_BLUE, DARKER_BLUE, GRAY, LIGHTER_GRAY, PRIMARY_BLUE, YELLOW } from '../constants/colors';
-import { EFFRA } from '../constants/fonts';
-import { getHeight } from '../utils/interfaceDimentions';
+import { BRAND_BLUE, DARKER_BLUE, GRAY, LIGHTER_GRAY, PRIMARY_BLUE, YELLOW } from '../../constants/colors';
+import { EFFRA } from '../../constants/fonts';
+import { getHeight } from '../../utils/interfaceDimentions';
+
+const convertArrayToObject = (array: any[], key: string) =>
+  array.reduce(
+    (obj: any, item: any) => ({
+      ...obj,
+      [item[key]]: item,
+    }),
+    {}
+  );
 
 type HeaderProps = {
   onPress?: () => void;
@@ -84,9 +94,13 @@ const Qualification = ({ label, boldLabel, limit, size, actives, colorActive = P
   );
 };
 
-type ReviewDetailProps = { navigation: any };
+type ReviewDetailProps = { navigation: any; route: any };
 
-const ReviewDetail = ({ navigation }: ReviewDetailProps) => {
+const ReviewDetail = ({ navigation, route }: ReviewDetailProps) => {
+  const { review } = route?.params || {};
+
+  const ratingsObj = convertArrayToObject(review?.ratings || [], 'rating_name');
+  console.log(ratingsObj);
   return (
     <ScrollView>
       <Header onPress={() => navigation.goBack()} />
@@ -95,20 +109,24 @@ const ReviewDetail = ({ navigation }: ReviewDetailProps) => {
           <Product />
         </SectionTitle>
         <SectionTitle title="Calificaciones">
-          <Qualification label="General" boldLabel limit={5} actives={3} colorActive={YELLOW} size={25} />
-          <Qualification label="Calidad" limit={5} actives={3} />
-          <Qualification label="Valor" limit={5} actives={3} />
-          <Qualification label="Precio" limit={5} actives={3} />
+          <Qualification
+            label="General"
+            boldLabel
+            limit={5}
+            actives={ratingsObj?.Rating?.value || 0}
+            colorActive={YELLOW}
+            size={25}
+          />
+          <Qualification label="Calidad" limit={5} actives={ratingsObj?.Quality?.value || 0} />
+          <Qualification label="Valor" limit={5} actives={ratingsObj?.Value?.value || 0} />
+          <Qualification label="Precio" limit={5} actives={ratingsObj?.Price?.value || 0} />
         </SectionTitle>
         <SectionTitle title="Tu opinión">
-          <Text style={styles.opinionTitle}>Excelente producto!!!</Text>
-          <Text style={styles.opinionDescription}>
-            Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim
-            velit mollit. Exercitation veniam consequat.
-          </Text>
+          <Text style={styles.opinionTitle}>{review?.title}</Text>
+          <Text style={styles.opinionDescription}>{review?.detail}</Text>
         </SectionTitle>
         <SectionTitle title="Fecha de publicación">
-          <Text style={styles.opinionTitle}>28 de agosto de 2021</Text>
+          <Text style={styles.opinionTitle}>{dayjs(review?.created_at).format('D [de] MMM [del] YYYY')}</Text>
         </SectionTitle>
       </View>
     </ScrollView>
