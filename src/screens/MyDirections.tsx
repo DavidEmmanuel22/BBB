@@ -1,12 +1,27 @@
 import React from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
+import { TouchableOpacity } from 'react-native';
 import { View, StatusBar, StyleSheet, Text } from 'react-native';
-import { GRAY2, PRIMARY_BLUE, WHITE, DARK, LIGHTER_GRAY2 } from '../constants/colors';
+import { GRAY2, PRIMARY_BLUE, WHITE, DARK, LIGHTER_GRAY2, BLUE } from '../constants/colors';
 import Container from '../components/Container';
 import { ScrollView } from 'react-native-gesture-handler';
 import Button, { BUTTONTYPE } from '../components/Button';
 import IconGeneric from '../components/IconGeneric';
-import { EFFRA } from '../constants/fonts';
+import { getHeight } from '../utils/interfaceDimentions';
 
+type HeaderProps = {
+  onPress?: () => void;
+};
+const Header = ({ onPress }: HeaderProps) => {
+  return (
+    <View style={styles.headerContainer}>
+      <TouchableOpacity onPress={onPress} style={styles.iconLeft}>
+        <FontAwesomeIcon style={styles.icon} icon="arrow-left" />
+      </TouchableOpacity>
+      <Text style={styles.headerTitle}>Mis Direcciones</Text>
+    </View>
+  );
+};
 const MyDirections: React.FC = () => {
   const styles = StyleSheet.create({
     filterButton: {
@@ -29,15 +44,15 @@ const MyDirections: React.FC = () => {
     textTypeBlueDark: {
       fontFamily: 'TerminaW05-Bold',
       color: DARK,
-      fontSize: 20,
+      fontSize: 16,
       marginTop: -50,
       marginHorizontal: 0,
       textAlign: 'center',
     },
     textTypeBlue: {
-      fontFamily: EFFRA,
+      fontFamily: 'Effra_Rg',
       color: GRAY2,
-      fontSize: 18,
+      fontSize: 16,
       marginTop: 18,
       marginHorizontal: 0,
       textAlign: 'center',
@@ -54,6 +69,7 @@ const MyDirections: React.FC = () => {
 
   return (
     <ScrollView>
+      <Header />
       <Container>
         <StatusBar animated={true} backgroundColor="white" />
         <View style={styles.icon}>
@@ -76,3 +92,30 @@ const MyDirections: React.FC = () => {
 };
 
 export default MyDirections;
+const styles = StyleSheet.create({
+  containetStyle: {
+    paddingLeft: 0,
+    paddingRight: 0,
+    margin: 0,
+  },
+  headerContainer: {
+    position: 'relative',
+    height: getHeight(100),
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: BLUE,
+  },
+  iconLeft: {
+    position: 'absolute',
+    left: 25,
+  },
+  icon: {
+    color: 'white',
+  },
+  headerTitle: {
+    fontSize: 20,
+    fontFamily: 'TerminaW05-Bold',
+    color: 'white',
+  },
+});
