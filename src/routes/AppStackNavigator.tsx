@@ -4,6 +4,7 @@ import { NavigationContainer } from '@react-navigation/native';
 
 import MainStackNavigation from './MainStackNavigation';
 import { selectUIInitialized } from '../store/slices/uiSlice';
+import { navigationRef } from '../utils/navigations';
 
 const AppStackNavigator = () => {
   const isInitialized = useSelector(selectUIInitialized);
@@ -13,7 +14,7 @@ const AppStackNavigator = () => {
   }
 
   return (
-    <NavigationContainer>
+    <NavigationContainer ref={navigationRef}>
       <MainStackNavigation />
     </NavigationContainer>
   );

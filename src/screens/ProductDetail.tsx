@@ -11,6 +11,8 @@ import DeliverySection from '../components/ProductDetail/DeliverySection';
 import TabOptionsProduct from '../components/ProductDetail/TabOptionsProduct';
 import { ProductDetailController } from '../controllers/ProductDetailController';
 import { PRIMARY_BLUE } from '../constants/colors';
+import fetchHelper from '../utils/fetchHelper';
+import { URL_PRODUCT_REVIEWS } from '../constants/URLs';
 
 interface IProps {
   navigation: NavigationProp<any, any>;
@@ -23,6 +25,14 @@ const ProductDetail: React.FC<IProps> = ({ route }) => {
 
   useEffect(() => {
     initializeProduct(sku);
+
+    fetchHelper(URL_PRODUCT_REVIEWS('47133365'), {}, { useAdminToken: true })
+      .then(() => {
+        // console.log('res', res);
+      })
+      .catch(() => {
+        // console.log('error', error);
+      });
     return () => {};
   }, []);
   return (

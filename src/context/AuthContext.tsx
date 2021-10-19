@@ -25,8 +25,8 @@ type AuthContextProviderProps = {
 
 const { GetUserData } = LoginModel();
 
-const USER = 'user';
-const CUSTOMER_ACCESS_TOKEN = 'customerAccessToken';
+export const USER = 'user';
+export const CUSTOMER_ACCESS_TOKEN = 'customerAccessToken';
 
 //Provider
 export const AuthContextProvider: React.FC<AuthContextProviderProps> = ({ children }) => {
