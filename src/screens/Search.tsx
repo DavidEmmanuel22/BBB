@@ -1,7 +1,8 @@
 import React, { useEffect } from 'react';
-import { Image, Text, View, StyleSheet, TouchableOpacity, ScrollView, Modal } from 'react-native';
+import { Image, Text, View, StyleSheet, TouchableOpacity, ScrollView, Modal, Alert } from 'react-native';
+import TextComponent from '../components/Text';
 import { useDispatch, useSelector } from 'react-redux';
-import { BRAND_BLUE, DARK, LIGHTER_GRAY, LIGHTER_GRAY2, PRIMARY_BLUE } from '../constants/colors';
+import { BLUE, BRAND_BLUE, DARK, GRAY, LIGHTER_GRAY, LIGHTER_GRAY2, PRIMARY_BLUE } from '../constants/colors';
 import {
   changeData,
   selectData,
@@ -11,19 +12,30 @@ import {
 } from '../store/slices/searchSlice';
 import { SearchController } from '../controllers/SearchController';
 import { EFFRA, EFFRA_BOLD } from '../constants/fonts';
+import { getHeight, getWidth } from '../utils/interfaceDimentions';
+import { RowContent } from '../utils/stylesGenetic';
+import { separateDecimals } from '../utils/separeteDecimals';
+import { useNavigation } from '@react-navigation/core';
 
 const Search: React.FC = () => {
-  const { findItems, buscando, showModal, setshowModal } = SearchController();
+  const { findItems, buscando, showModal, setshowModal, startAmount, setstartAmount } = SearchController();
 
   const dispatch = useDispatch();
   const searchText = useSelector(selectData);
   const searches = useSelector(selectSearches);
   const items = useSelector(selectObjects);
   const enterKey = useSelector(selectEnterKeyPressed);
+  const navigation = useNavigation();
+
+  const isCloseToBottom = ({ layoutMeasurement, contentOffset, contentSize }) => {
+    const paddingToBottom = 20;
+    return layoutMeasurement.height + contentOffset.y >= contentSize.height - paddingToBottom;
+  };
 
   useEffect(() => {
+    setstartAmount(0);
     if (searchText.length >= 3) {
-      findItems(searchText);
+      findItems(searchText, '150', startAmount + '');
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [searchText]);
@@ -41,7 +53,7 @@ const Search: React.FC = () => {
               </Text>
             </TouchableOpacity>
             <View style={styles.itemSeparator} />
-
+            {/*
             <TouchableOpacity style={styles.itemContainer}>
               <Image style={styles.QRImage} source={require('../assets/Search/CategoriesIcon.png')} />
 
@@ -50,6 +62,7 @@ const Search: React.FC = () => {
               </Text>
             </TouchableOpacity>
             <View style={styles.itemSeparator} />
+            */}
 
             <ScrollView style={{ height: '75%' }}>
               {searches.length > 0 ? (
@@ -78,13 +91,18 @@ const Search: React.FC = () => {
           </View>
         ) : (
           <ScrollView style={{ height: '100%' }}>
-            <Text style={styles.Amount}>
+            <TextComponent style={styles.Amount}>
               {items?.placements[0].numFound} {items?.placements[0].docs ? 'coincidencias' : ''}
-            </Text>
+            </TextComponent>
 
             {items?.placements[0].docs.length ? (
               items?.placements[0].docs.map((item) => (
-                <TouchableOpacity style={styles.itemsContainer}>
+                <TouchableOpacity
+                  onPress={() => {
+                    navigation.navigate('ProductDetail', { sku: item.id });
+                  }}
+                  style={styles.itemsContainer}
+                >
                   <View style={{ flexDirection: 'row' }}>
                     <Image style={styles.itemImage} source={{ uri: item.imageId }} />
 
@@ -111,10 +129,17 @@ const Search: React.FC = () => {
           </ScrollView>
         )
       ) : (
-        <ScrollView>
-          <Text style={styles.Amount}>
-            {items?.placements[0].docs.length} {items?.placements[0].docs ? 'coincidencias' : ''}
-          </Text>
+        <ScrollView
+          onScroll={({ nativeEvent }) => {
+            if (isCloseToBottom(nativeEvent)) {
+              setstartAmount(startAmount + 150);
+              findItems(searchText, '150', startAmount + '');
+            }
+          }}
+        >
+          <TextComponent style={styles.Amount}>
+            {items?.placements[0].numFound} {items?.placements[0].docs ? 'coincidencias' : ''}
+          </TextComponent>
 
           <Modal transparent={true} animationType="slide" visible={showModal} onRequestClose={() => {}}>
             <View style={styles.modalView}>
@@ -149,18 +174,16 @@ const Search: React.FC = () => {
 
           <TouchableOpacity
             onPress={() => setshowModal(!showModal)}
-            style={{ position: 'absolute', right: 1, marginRight: 28, marginTop: 10, flexDirection: 'row' }}
+            style={{ position: 'absolute', right: 1, marginRight: 28, marginTop: 16, flexDirection: 'row' }}
           >
-            <Text
+            <TextComponent
               style={{
                 color: PRIMARY_BLUE,
-                fontFamily: EFFRA,
-                fontSize: 16,
                 marginRight: 8,
               }}
             >
               Marcas
-            </Text>
+            </TextComponent>
             <Image
               style={{ height: 16, width: 16, alignSelf: 'center' }}
               source={require('../assets/Search/FiltrarIcon.png')}
@@ -168,18 +191,51 @@ const Search: React.FC = () => {
           </TouchableOpacity>
           <View style={styles.showItemContainer}>
             {items?.placements[0].docs.map((item) => (
-              <TouchableOpacity style={styles.showItemView}>
-                <Image style={styles.showItemImage} source={{ uri: item.imageId }} />
-                <Text numberOfLines={2} style={styles.showItemText}>
-                  {item.name}
-                </Text>
-                <Text numberOfLines={1} style={styles.showItemTextPrice}>
-                  ${item.priceCents}
-                </Text>
-                <TouchableOpacity style={styles.showItemButton}>
-                  <Text style={styles.showItemButtonText}>Agregar</Text>
+              <View style={styles.contain}>
+                <TouchableOpacity
+                  onPress={() => {
+                    navigation.navigate('ProductDetail', { sku: item.id });
+                  }}
+                >
+                  <Image
+                    style={styles.image}
+                    source={{
+                      uri: item.imageId,
+                    }}
+                  />
                 </TouchableOpacity>
-              </TouchableOpacity>
+
+                <TextComponent size={getWidth(14)} style={styles.description}>
+                  {item.name || ''}
+                </TextComponent>
+                <View style={styles.contentPrice}>
+                  <View style={RowContent}>
+                    <TextComponent color={BLUE} size={getWidth(15)} style={styles.normal}>
+                      {item.special_price
+                        ? separateDecimals(item.special_price || 0).price
+                        : separateDecimals(item.priceCents || 0).price}
+                    </TextComponent>
+                    <TextComponent size={getWidth(8)} color={BLUE}>
+                      {item.special_price
+                        ? separateDecimals(item.special_price || 0).decimals
+                        : separateDecimals(item.priceCents || 0).decimals}
+                    </TextComponent>
+                  </View>
+                  {item.special_price && (
+                    <View style={RowContent}>
+                      <TextComponent color={GRAY} size={getWidth(15)} style={styles.discount}>
+                        {separateDecimals(item.priceCents || 0).price}
+                      </TextComponent>
+                      <TextComponent color={GRAY} size={getWidth(8)} style={styles.discount}>
+                        {separateDecimals(item.priceCents || 0).decimals}
+                      </TextComponent>
+                    </View>
+                  )}
+                </View>
+                <TouchableOpacity style={styles.button}>
+                  <TextComponent color={PRIMARY_BLUE}>Agregar</TextComponent>
+                </TouchableOpacity>
+              </View>
             ))}
           </View>
         </ScrollView>
@@ -265,12 +321,8 @@ const styles = StyleSheet.create({
     marginTop: 6,
   },
   Amount: {
-    alignSelf: 'flex-start',
-    marginLeft: 20,
-    marginTop: 12,
-    fontFamily: EFFRA_BOLD,
-    fontSize: 16,
-    color: DARK,
+    marginLeft: 24,
+    marginTop: 16,
   },
   showItemContainer: {
     marginTop: 10,
@@ -278,39 +330,42 @@ const styles = StyleSheet.create({
     flexWrap: 'wrap',
     flexDirection: 'row',
   },
-  showItemView: {
+  contain: {
+    width: getWidth(160),
+    height: getHeight(290),
+    marginTop: getHeight(8),
+    marginHorizontal: getWidth(4),
     borderColor: LIGHTER_GRAY,
-    borderWidth: 1,
-    marginHorizontal: 5,
-    marginVertical: 5,
+    borderWidth: getWidth(1),
+    justifyContent: 'space-evenly',
+    alignItems: 'center',
   },
-  showItemImage: {
-    height: 120,
-    width: 120,
-    margin: 12,
+  image: {
+    height: getWidth(128),
+    width: getWidth(128),
   },
-  showItemText: {
-    width: 100,
-    alignSelf: 'center',
-    fontFamily: EFFRA,
-    fontSize: 14,
+  description: {
+    maxHeight: getHeight(40),
+    textAlign: 'center',
+    marginHorizontal: getWidth(8),
   },
-  showItemTextPrice: {
-    fontFamily: EFFRA,
-    fontSize: 14,
-    alignSelf: 'center',
-    color: BRAND_BLUE,
+  contentPrice: {
+    flexDirection: 'row',
+    justifyContent: 'space-evenly',
+    alignSelf: 'stretch',
   },
-  showItemButton: {
+  normal: {},
+  discount: {
+    textDecorationLine: 'line-through',
+  },
+  button: {
+    marginHorizontal: getWidth(8),
     borderColor: LIGHTER_GRAY,
-    borderWidth: 1,
-    margin: 6,
-  },
-  showItemButtonText: {
-    alignSelf: 'center',
-    color: PRIMARY_BLUE,
-    fontFamily: EFFRA,
-    fontSize: 14,
+    borderWidth: getWidth(1),
+    alignSelf: 'stretch',
+    justifyContent: 'center',
+    alignItems: 'center',
+    paddingVertical: getHeight(8),
   },
 });
 
