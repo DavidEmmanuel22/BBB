@@ -1,11 +1,12 @@
 /* eslint-disable react-native/no-inline-styles */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { NavigationProp, RouteProp } from '@react-navigation/core';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { View, StyleSheet, Image, TouchableOpacity, ScrollView, StatusBar, Text } from 'react-native';
 import { PRIMARY_BLUE, LIGHTER_GRAY, DARKER_BLUE, DARK } from '../constants/colors';
 import { EFFRA, TERMINABOLD } from '../constants/fonts';
 import useAuthContext from '../context/AuthContext';
+import { MyAccountController } from '../controllers/MyAccountController';
 
 interface IProps {
   route: RouteProp<any, any>;
@@ -14,7 +15,11 @@ interface IProps {
 
 export const MyAccount: React.FC<IProps> = ({ navigation }) => {
   const { signOut, accessToken, user, isLoadingGetUserData }: any = useAuthContext();
+  const { notificationsClicked, setNotificationsClicked } = MyAccountController();
 
+  useEffect(() => {
+    setNotificationsClicked(false);
+  })
   return (
     <View style={styles.container}>
       {/* Status bar color change */}
@@ -38,9 +43,21 @@ export const MyAccount: React.FC<IProps> = ({ navigation }) => {
           marginRight: 33,
         }}
       >
-        <TouchableOpacity>
-          <Image source={require('../assets/MyAccount/NotificationsIcon.png')} style={{ marginHorizontal: 10 }} />
-        </TouchableOpacity>
+        {notificationsClicked ? (
+          <TouchableOpacity>
+            <Image source={require('../assets/MyAccount/NotificationsONIcon.png')} style={{ marginHorizontal: 10 }} />
+          </TouchableOpacity>
+        ) : (
+          <TouchableOpacity
+            onPress={() => {
+              setNotificationsClicked(!notificationsClicked);
+              navigation.navigate('Notifications');
+            }}
+          >
+            <Image source={require('../assets/MyAccount/NotificationsIcon.png')} style={{ marginHorizontal: 10 }} />
+          </TouchableOpacity>
+        )}
+
         <TouchableOpacity>
           <Image source={require('../assets/MyAccount/ConfigIcon.png')} style={{ marginHorizontal: 10 }} />
         </TouchableOpacity>

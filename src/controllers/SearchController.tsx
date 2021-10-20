@@ -1,9 +1,9 @@
 import { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import useAuthContext from '../context/AuthContext';
 import { Convert } from '../models/Objects/Items';
 import { SearchModel } from '../models/SearchModel';
-import { changeItems } from '../store/slices/searchSlice';
+import { changeItems, selectMarcaClicked, setMarcaClicked, setMarcas } from '../store/slices/searchSlice';
 
 export const SearchController = () => {
   const dispatch = useDispatch();
@@ -11,20 +11,28 @@ export const SearchController = () => {
 
   const { findObjects } = SearchModel();
 
+  const marcaClicked = useSelector(selectMarcaClicked);
+
+  const [startAmount, setstartAmount] = useState(0);
   const [buscando, setBuscando] = useState(false);
   const [showModal, setshowModal] = useState(false);
 
-  const findItems = async (text: string) => {
+  const findItems = async (text: string, amount: string, start: string) => {
     setBuscando(true);
+
+    let response : string = "";
     if (user) {
-      let response = await findObjects(user.email, text, '150', '0');
-      let obj = Convert.toItems(response);
-      dispatch(changeItems(obj));
+      response = await findObjects(user.email, text, amount, startAmount+"");
     } else {
-      let response = await findObjects('', text, '150', '0');
-      let obj = Convert.toItems(response);
-      dispatch(changeItems(obj));
+      response = await findObjects('', text, amount, startAmount+"");
     }
+    
+    let obj = Convert.toItems(response);
+    if (!marcaClicked) {
+      dispatch(setMarcas(obj.placements[0].facets[2].values))
+    }
+    dispatch(setMarcaClicked(false));
+    dispatch(changeItems(obj));
     setBuscando(false);
   };
 
@@ -33,5 +41,7 @@ export const SearchController = () => {
     buscando,
     showModal,
     setshowModal,
+    startAmount,
+    setstartAmount
   };
 };
