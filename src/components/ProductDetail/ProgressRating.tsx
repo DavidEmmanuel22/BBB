@@ -5,9 +5,9 @@ import { getHeight, getWidth } from '../../utils/interfaceDimentions';
 import { RowContent } from '../../utils/stylesGenetic';
 import Text from '../Text';
 import ProgressBar from './ProgressBar';
-const RatingProgress = ({ stars = 5, count = 3, totalCount = 10 }) => {
+const RatingProgress = ({ stars = 5, count = 3, totalCount = 10, index = 0 }) => {
   return (
-    <View style={[RowContent, styles.spaceUp, styles.ratingProgress]}>
+    <View key={'RatingProgress' + index} style={[RowContent, styles.spaceUp, styles.ratingProgress]}>
       <Text size={getWidth(14)}>{`${stars} estrellas`}</Text>
       <ProgressBar totalSteps={totalCount} index={count} />
       <Text color={count > 0 ? PRIMARY_BLUE : GRAY2} size={getWidth(14)}>

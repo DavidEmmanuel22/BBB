@@ -11,8 +11,6 @@ import DeliverySection from '../components/ProductDetail/DeliverySection';
 import TabOptionsProduct from '../components/ProductDetail/TabOptionsProduct';
 import { ProductDetailController } from '../controllers/ProductDetailController';
 import { PRIMARY_BLUE } from '../constants/colors';
-import fetchHelper from '../utils/fetchHelper';
-import { URL_PRODUCT_REVIEWS } from '../constants/URLs';
 
 interface IProps {
   navigation: NavigationProp<any, any>;
@@ -20,19 +18,40 @@ interface IProps {
 }
 
 const ProductDetail: React.FC<IProps> = ({ route }) => {
-  const { initializeProduct, product, loading } = ProductDetailController();
+  const { initializeProduct, product, loading, reviews } = ProductDetailController();
   const sku = route.params?.sku;
+  // const id = route.params?.id;
+
+  const reviewValues = reviews.map((review) => {
+    return review.ratings?.map((item) => {
+      return item;
+    });
+  });
+  const quality = reviewValues.map((item) => {
+    return item?.filter((itemInt) => itemInt.rating_name === 'Quality')[0];
+  });
+
+  const value = reviewValues.map((item) => {
+    return item?.filter((itemInt) => itemInt.rating_name === 'Value')[0];
+  });
+
+  const price = reviewValues.map((item) => {
+    return item?.filter((itemInt) => itemInt.rating_name === 'Price')[0];
+  });
+
+  const allQualifications = [quality, value, price];
+
+  const allQualificationsCount = quality.concat(value).concat(price).length;
+
+  const rating = reviewValues.map((item) => {
+    return item?.filter((itemInt) => itemInt.rating_name === 'Rating')[0];
+  });
+
+  const reviewGeneral = rating.reduce((sum, item) => sum + (item?.value || 0), 0) / rating.length;
 
   useEffect(() => {
     initializeProduct(sku);
 
-    fetchHelper(URL_PRODUCT_REVIEWS('47133365'), {}, { useAdminToken: true })
-      .then(() => {
-        // console.log('res', res);
-      })
-      .catch(() => {
-        // console.log('error', error);
-      });
     return () => {};
   }, []);
   return (
@@ -42,9 +61,16 @@ const ProductDetail: React.FC<IProps> = ({ route }) => {
       ) : (
         <KeyboardAvoidingView keyboardVerticalOffset={80} behavior={'position'}>
           <ImageSelector product={product} />
-          <ProductDescription product={product} />
+          <ProductDescription reviewCounts={reviews.length} reviewRating={reviewGeneral} product={product} />
           <DeliverySection />
-          <TabOptionsProduct product={product} />
+          <TabOptionsProduct
+            allQualifications={allQualifications}
+            countQualification={allQualificationsCount}
+            reviewRating={reviewGeneral}
+            product={product}
+            reviews={reviews}
+            allRatings={rating}
+          />
         </KeyboardAvoidingView>
       )}
     </Container>

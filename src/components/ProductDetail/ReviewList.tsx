@@ -7,6 +7,7 @@ import IconGeneric from '../IconGeneric';
 import Text from '../Text';
 import { AirbnbRating } from 'react-native-ratings';
 import { AddOpinion } from './TabOptionsProduct';
+import { ProductReview } from '../../models/Objects/Product';
 
 export const ReviewItem = ({
   title = 'Excelente',
@@ -18,7 +19,7 @@ export const ReviewItem = ({
 }) => {
   return (
     <View key={'reviewList' + index} style={styles.contentReview}>
-      <View style={RowContent}>
+      <View key={'reviewList2' + index} style={RowContent}>
         <IconGeneric
           style={styles.spaceRight}
           iconColor={BLUE}
@@ -50,8 +51,11 @@ export const ReviewItem = ({
     </View>
   );
 };
+// const rating = reviewValues.map((item) => {
+//   return item?.filter((itemInt) => itemInt.rating_name === 'Rating')[0];
+// });
 
-const ReviewList = ({ data = [0] }) => {
+const ReviewList = ({ data = [] }: { data: Array<ProductReview> }) => {
   return (
     <View>
       <Text medium style={styles.reviewText} size={getWidth(18)} color={BLUE}>
@@ -61,7 +65,18 @@ const ReviewList = ({ data = [0] }) => {
         <Text>No existen opiniones</Text>
       ) : (
         data.map((item, index) => {
-          return <ReviewItem index={index} />;
+          const stars = item.ratings?.filter((itemInt) => itemInt.rating_name === 'Rating')[0];
+          const dateItem = new Date(item.created_at).toLocaleDateString();
+          return (
+            <ReviewItem
+              date={dateItem}
+              name={item.nickname}
+              title={item.title}
+              description={item.detail}
+              index={index}
+              rating={stars?.value}
+            />
+          );
         })
       )}
       <AddOpinion />

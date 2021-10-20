@@ -34,7 +34,6 @@ const fetchHelper = async (url = '', options = {}, { useAdminToken = false, useU
 
   return axios(fetchOptions)
     .then((response) => {
-      console.log('res');
       if (response.status >= 400) {
         let error = {
           message: `Bad response from server at ${url} => ${response.status}, ${response.statusText}`,
@@ -61,11 +60,10 @@ const fetchHelper = async (url = '', options = {}, { useAdminToken = false, useU
             });
         });
       }
-
       if (response.status === 204) {
         return Promise.resolve('Success');
       }
-      return new Promise((resolve) => {
+      return new Promise<any>((resolve) => {
         resolve(response);
       });
     })

@@ -26,7 +26,7 @@ const ProductItem: React.FC<IProps> = ({ item }) => {
       {imageProduct && (
         <TouchableOpacity
           onPress={() => {
-            navigation.navigate('ProductDetail', { sku: item.sku });
+            navigation.navigate('ProductDetail', { sku: item.sku, id: item.id });
           }}
         >
           <Image

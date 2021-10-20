@@ -15,8 +15,10 @@ import { GetAttribute } from '../../utils/genericFunctions';
 
 interface IProps {
   product: ProductDetail;
+  reviewRating: number;
+  reviewCounts: number;
 }
-const ProductDescription: React.FC<IProps> = ({ product }) => {
+const ProductDescription: React.FC<IProps> = ({ product, reviewCounts = 0, reviewRating = 0 }) => {
   const priceSpecial = GetAttribute(product.custom_attributes, 'special_price');
 
   return (
@@ -28,9 +30,9 @@ const ProductDescription: React.FC<IProps> = ({ product }) => {
         {product?.name}
       </Text>
       <View style={RowContent}>
-        <Rating readonly startingValue={4} ratingCount={5} imageSize={getWidth(20)} style={styles.rating} />
+        <Rating readonly startingValue={reviewRating} ratingCount={5} imageSize={getWidth(20)} style={styles.rating} />
         <Text color={GRAY2} size={getWidth(14)}>
-          2 opiniones
+          {reviewCounts} opiniones
         </Text>
       </View>
       <View style={[RowContent, styles.contentPrice]}>

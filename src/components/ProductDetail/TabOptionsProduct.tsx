@@ -5,16 +5,21 @@ import { View, FlatList, TouchableOpacity, StyleSheet, ViewStyle } from 'react-n
 import { BLUE, GRAY2, LIGHTER_GRAY, PRIMARY_BLUE } from '../../constants/colors';
 import { getHeight, getWidth } from '../../utils/interfaceDimentions';
 import Text from '../Text';
-import { ProductDetail } from '../../models/Objects/Product';
+import { ProductDetail, ProductReview } from '../../models/Objects/Product';
 import { formatDescription, GetAttribute } from '../../utils/genericFunctions';
 import IconGeneric from '../IconGeneric';
 import { Rating, AirbnbRating } from 'react-native-ratings';
 import { RowContent } from '../../utils/stylesGenetic';
 import RatingProgress from './ProgressRating';
 import ReviewList from './ReviewList';
-
+import { ReviewTitleQualification } from '../../constants/generics';
 interface IProps {
   product: ProductDetail;
+  reviews: Array<ProductReview>;
+  reviewRating: number;
+  countQualification: number;
+  allQualifications: Array<any>;
+  allRatings: Array<any>;
 }
 export const ShowMoreButton = ({ showMore = true, onPress = () => {} }) => {
   return (
@@ -34,7 +39,14 @@ export const AddOpinion = ({ onPress = () => {} }) => {
     </TouchableOpacity>
   );
 };
-const TabOptionsProduct: React.FC<IProps> = ({ product }) => {
+const TabOptionsProduct: React.FC<IProps> = ({
+  product,
+  reviews,
+  reviewRating = 0,
+  countQualification = 0,
+  allQualifications,
+  allRatings,
+}) => {
   const [indexTab, setIndexTab] = useState(0);
   const routes = [
     { key: 'details', title: 'Detalles' },
@@ -43,9 +55,7 @@ const TabOptionsProduct: React.FC<IProps> = ({ product }) => {
   ];
   const shortDescription = GetAttribute(product.custom_attributes, 'short_description') || '';
   const description = GetAttribute(product.custom_attributes, 'description') || '';
-  const ratingProduct = 4;
-  const countReviews = 3;
-  const countRatings = 5;
+
   const [showMoreDescription, setShowMoreDescription] = useState(false);
   const Details = () => {
     return (
@@ -65,10 +75,13 @@ const TabOptionsProduct: React.FC<IProps> = ({ product }) => {
       </View>
     );
   };
-  const OtherAspects = ({ titleOther = 'Prueba', ratingOther = 4 }) => {
+  const OtherAspects = ({ titleOther = 'Quality', ratingOther = 4 }) => {
+    const title = ReviewTitleQualification(titleOther);
     return (
       <View style={styles.otherAspects}>
-        <Text size={getWidth(14)}>{titleOther}</Text>
+        <Text medium size={getWidth(14)}>
+          {title}
+        </Text>
         <AirbnbRating
           selectedColor={PRIMARY_BLUE}
           showRating={false}
@@ -83,7 +96,7 @@ const TabOptionsProduct: React.FC<IProps> = ({ product }) => {
     return <View style={styles.separation} />;
   };
   const Reviews = ({ rating = 0 }) => {
-    const ratingsList = [0, 0, 0];
+    const starsCount = [5, 4, 3, 2, 1];
     return (
       <View>
         <Text size={getWidth(18)} color={BLUE}>
@@ -94,20 +107,23 @@ const TabOptionsProduct: React.FC<IProps> = ({ product }) => {
           <Text>{`${rating} de 5`} </Text>
         </View>
         <Text color={GRAY2} style={styles.spaceUp}>
-          {`${countRatings} calificaciones, ${countReviews} opiniones`}{' '}
+          {`${countQualification} calificaciones, ${reviews.length} opiniones`}{' '}
         </Text>
-        {ratingsList.map(() => (
-          <RatingProgress />
-        ))}
+        {starsCount.map((item, index) => {
+          const rates = allRatings.filter((rate) => rate.value === item);
+          return <RatingProgress count={rates.length} totalCount={allRatings.length} stars={item} index={index} />;
+        })}
         <AddOpinion />
         <Separation />
         <Text style={styles.spaceUp} size={getWidth(18)} color={BLUE}>
           Otros aspectos evaluados
         </Text>
-        {ratingsList.map(() => (
-          <OtherAspects />
-        ))}
-        <ReviewList data={[0, 0, 0]} />
+        {allQualifications.map((item) => {
+          const title = item[0].rating_name;
+          const stars = item.reduce((sum: any, rate: { value: number }) => sum + rate.value, 0) / item.length;
+          return <OtherAspects titleOther={title} ratingOther={stars} />;
+        })}
+        <ReviewList data={reviews} />
         <Separation />
       </View>
     );
@@ -130,7 +146,7 @@ const TabOptionsProduct: React.FC<IProps> = ({ product }) => {
       />
 
       {indexTab === 0 && <Details />}
-      {indexTab === 1 && <Reviews rating={ratingProduct} />}
+      {indexTab === 1 && <Reviews rating={reviewRating} />}
       {indexTab === 2 && <Details />}
     </View>
   );

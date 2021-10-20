@@ -17,9 +17,10 @@ const ImageSelector: React.FC<IProps> = ({ product }) => {
 
   const [imageSelect, setImageSelect] = useState(imagesSeparate ? formatImage(imagesSeparate[0]) : '');
 
-  const ImageSelection = ({ uri = '', isSelection = false }) => {
+  const ImageSelection = ({ uri = '', isSelection = false, index = 0 }) => {
     return (
       <TouchableOpacity
+        key={'imageSelect' + index}
         onPress={() => {
           setImageSelect(uri);
         }}
@@ -72,9 +73,9 @@ const ImageSelector: React.FC<IProps> = ({ product }) => {
       </View>
 
       <View style={styles.contentImages}>
-        {imagesSeparate?.map((uri) => {
+        {imagesSeparate?.map((uri, index) => {
           const uriFormat = formatImage(uri);
-          return <ImageSelection uri={uriFormat} isSelection={imageSelect === uriFormat} />;
+          return <ImageSelection index={index} uri={uriFormat} isSelection={imageSelect === uriFormat} />;
         })}
       </View>
     </View>
