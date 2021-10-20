@@ -9,6 +9,8 @@ import {
   selectSearches,
   selectObjects,
   selectEnterKeyPressed,
+  setMarcaClicked,
+  selectMarcaClicked,
 } from '../store/slices/searchSlice';
 import { SearchController } from '../controllers/SearchController';
 import { EFFRA, EFFRA_BOLD } from '../constants/fonts';
@@ -16,6 +18,7 @@ import { getHeight, getWidth } from '../utils/interfaceDimentions';
 import { RowContent } from '../utils/stylesGenetic';
 import { separateDecimals } from '../utils/separeteDecimals';
 import { useNavigation } from '@react-navigation/core';
+import { selectMarcas } from '../store/slices/searchSlice';
 
 const Search: React.FC = () => {
   const { findItems, buscando, showModal, setshowModal, startAmount, setstartAmount } = SearchController();
@@ -25,6 +28,8 @@ const Search: React.FC = () => {
   const searches = useSelector(selectSearches);
   const items = useSelector(selectObjects);
   const enterKey = useSelector(selectEnterKeyPressed);
+  const marcas = useSelector(selectMarcas);
+  const marcaClicked = useSelector(selectMarcaClicked);
   const navigation = useNavigation();
 
   const isCloseToBottom = ({ layoutMeasurement, contentOffset, contentSize }) => {
@@ -42,6 +47,42 @@ const Search: React.FC = () => {
 
   return (
     <View>
+      {marcas ? (
+        <Modal transparent={true} animationType="slide" visible={showModal} onRequestClose={() => {}}>
+          <View style={styles.modalView}>
+            <Text style={styles.modalTitle}>Marcas</Text>
+
+            <TouchableOpacity style={styles.modalXImage} onPress={() => setshowModal(!showModal)}>
+              <Image source={require('../assets/NewPassword/XIcon.png')} />
+            </TouchableOpacity>
+
+            <ScrollView>
+              {marcas.map((item) => (
+                <>
+                  <TouchableOpacity
+                    onPress={() => {
+                      setshowModal(!showModal);
+                      dispatch(setMarcaClicked(true));
+                      dispatch(changeData(item.value));
+                    }}
+                    style={styles.itemContainer}
+                  >
+                    <Image style={styles.QRImage} source={require('../assets/Search/StarIcon.png')} />
+
+                    <Text numberOfLines={1} style={styles.itemText}>
+                      {item.value}
+                    </Text>
+                  </TouchableOpacity>
+                  <View style={styles.itemSeparator} />
+                </>
+              ))}
+            </ScrollView>
+          </View>
+        </Modal>
+      ) : (
+        <></>
+      )}
+
       {enterKey ? (
         searchText.length <= 2 ? (
           <View>
@@ -94,6 +135,27 @@ const Search: React.FC = () => {
             <TextComponent style={styles.Amount}>
               {items?.placements[0].numFound} {items?.placements[0].docs ? 'coincidencias' : ''}
             </TextComponent>
+            {marcas ? (
+              <TouchableOpacity
+                onPress={() => setshowModal(!showModal)}
+                style={{ position: 'absolute', right: 1, marginRight: 28, marginTop: 16, flexDirection: 'row' }}
+              >
+                <TextComponent
+                  style={{
+                    color: PRIMARY_BLUE,
+                    marginRight: 8,
+                  }}
+                >
+                  Marcas
+                </TextComponent>
+                <Image
+                  style={{ height: 16, width: 16, alignSelf: 'center' }}
+                  source={require('../assets/Search/FiltrarIcon.png')}
+                />
+              </TouchableOpacity>
+            ) : (
+              <></>
+            )}
 
             {items?.placements[0].docs.length ? (
               items?.placements[0].docs.map((item) => (
@@ -140,37 +202,6 @@ const Search: React.FC = () => {
           <TextComponent style={styles.Amount}>
             {items?.placements[0].numFound} {items?.placements[0].docs ? 'coincidencias' : ''}
           </TextComponent>
-
-          <Modal transparent={true} animationType="slide" visible={showModal} onRequestClose={() => {}}>
-            <View style={styles.modalView}>
-              <Text style={styles.modalTitle}>Marcas</Text>
-
-              <TouchableOpacity style={styles.modalXImage} onPress={() => setshowModal(!showModal)}>
-                <Image source={require('../assets/NewPassword/XIcon.png')} />
-              </TouchableOpacity>
-
-              <ScrollView>
-                {items?.placements[0].facets[2].values.map((item) => (
-                  <>
-                    <TouchableOpacity
-                      onPress={() => {
-                        setshowModal(!showModal);
-                        dispatch(changeData(item.value));
-                      }}
-                      style={styles.itemContainer}
-                    >
-                      <Image style={styles.QRImage} source={require('../assets/Search/StarIcon.png')} />
-
-                      <Text numberOfLines={1} style={styles.itemText}>
-                        {item.value}
-                      </Text>
-                    </TouchableOpacity>
-                    <View style={styles.itemSeparator} />
-                  </>
-                ))}
-              </ScrollView>
-            </View>
-          </Modal>
 
           <TouchableOpacity
             onPress={() => setshowModal(!showModal)}
