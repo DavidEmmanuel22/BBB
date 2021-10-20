@@ -11,13 +11,12 @@ interface IProps {
 }
 
 export const Notifications: React.FC<IProps> = ({ navigation }) => {
-  
-    const [prueba, setprueba] = useState(false);
+  const [prueba, setprueba] = useState(false);
 
   return (
     <View>
       {prueba ? (
-        <TouchableOpacity  onPress={() => setprueba(!prueba)}>
+        <TouchableOpacity onPress={() => setprueba(!prueba)}>
           <StatusBar animated={true} backgroundColor="white" />
           <View style={stylesNotifications.TopBar}>
             <Text style={stylesNotifications.TopBarText}>notificaciones</Text>
@@ -39,10 +38,10 @@ export const Notifications: React.FC<IProps> = ({ navigation }) => {
               </Text>
             </TouchableOpacity>
           </View>
-          <ScrollView style={{height:"85%", marginTop:6}}>
-            <View style={{ marginHorizontal: 16 }}>
+          <ScrollView style={stylesNotifications.ScrollContainer}>
+            <View style={stylesNotifications.itemContainer}>
               <Image
-                style={{ width: '100%', resizeMode: 'contain' }}
+                style={stylesNotifications.itemImage}
                 source={require('../assets/Notifications/pruebaNotificacion.png')}
               />
               <View>
@@ -53,13 +52,12 @@ export const Notifications: React.FC<IProps> = ({ navigation }) => {
                   BVVA, 4 meses sin intereses en compras mínimo $1,200.00 MXN (del 6 al 12 de septiembre de 2021)
                 </Text>
                 <Image
-                  style={{ position: 'absolute', right: 1 }}
+                  style={stylesNotifications.trashIcon}
                   source={require('../assets/Notifications/TrashIcon.png')}
                 />
               </View>
-              <View style={{ height: 1, backgroundColor: LIGHTER_GRAY, marginTop: 8 }} />
+              <View style={stylesNotifications.separator} />
             </View>
-          
           </ScrollView>
         </TouchableOpacity>
       ) : (
@@ -118,6 +116,26 @@ const stylesNotifications = StyleSheet.create({
   },
   btnCleanImage: {
     marginRight: 6,
+  },
+  ScrollContainer: {
+    height: '85%',
+    marginTop: 6,
+  },
+  itemContainer: {
+    marginHorizontal: 16,
+  },
+  itemImage: {
+    width: '100%',
+    resizeMode: 'contain',
+  },
+  trashIcon: {
+    position: 'absolute',
+    right: 1,
+  },
+  separator: {
+    height: 1,
+    backgroundColor: LIGHTER_GRAY,
+    marginTop: 8,
   },
 });
 
