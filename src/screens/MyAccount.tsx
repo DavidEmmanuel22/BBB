@@ -19,7 +19,7 @@ export const MyAccount: React.FC<IProps> = ({ navigation }) => {
 
   useEffect(() => {
     setNotificationsClicked(false);
-  })
+  });
   return (
     <View style={styles.container}>
       {/* Status bar color change */}
@@ -61,7 +61,7 @@ export const MyAccount: React.FC<IProps> = ({ navigation }) => {
         <TouchableOpacity>
           <Image source={require('../assets/MyAccount/ConfigIcon.png')} style={{ marginHorizontal: 10 }} />
         </TouchableOpacity>
-        <TouchableOpacity>
+        <TouchableOpacity onPress={() => navigation.navigate('contactUs')}>
           <Image source={require('../assets/MyAccount/SupportIcon.png')} style={{ marginLeft: 10 }} />
         </TouchableOpacity>
       </View>

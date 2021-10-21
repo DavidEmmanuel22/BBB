@@ -7,8 +7,37 @@ import {
   faArrowLeft,
   faArrowRight,
   faTimes,
+  faHeadset,
+  faQuestionCircle,
+  faCommentDots,
+  faShareAlt,
+  faCheckCircle,
+  faPlus,
 } from '@fortawesome/free-solid-svg-icons';
 
-import { faStar as farFaStart } from '@fortawesome/free-regular-svg-icons';
+import {
+  faStar as farFaStart,
+  faQuestionCircle as farFaQuestionCircle,
+  faCommentDots as farFaCommentDots,
+  faCheckCircle as farFaCheckCircle,
+} from '@fortawesome/free-regular-svg-icons';
 
-library.add(fab, faStar, farFaStart, faChevronLeft, faChevronRight, faArrowLeft, faArrowRight, faTimes);
+library.add(
+  fab,
+  faStar,
+  faPlus,
+  farFaStart,
+  faChevronLeft,
+  faChevronRight,
+  faArrowLeft,
+  faArrowRight,
+  faTimes,
+  faHeadset,
+  faQuestionCircle,
+  faCommentDots,
+  faShareAlt,
+  farFaQuestionCircle,
+  farFaCommentDots,
+  faCheckCircle,
+  farFaCheckCircle
+);

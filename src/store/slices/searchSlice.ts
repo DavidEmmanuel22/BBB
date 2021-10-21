@@ -18,7 +18,7 @@ const initialState: SearchState = {
   Objects: null,
   EnterKeyDown: true,
   Marcas: null,
-  marcaClicked: false
+  marcaClicked: false,
 };
 
 export const searchSlice = createSlice({

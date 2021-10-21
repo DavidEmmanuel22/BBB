@@ -17,19 +17,19 @@ export const SearchController = () => {
   const [buscando, setBuscando] = useState(false);
   const [showModal, setshowModal] = useState(false);
 
-  const findItems = async (text: string, amount: string, start: string) => {
+  const findItems = async (text: string, amount: string) => {
     setBuscando(true);
 
-    let response : string = "";
+    let response: string = '';
     if (user) {
-      response = await findObjects(user.email, text, amount, startAmount+"");
+      response = await findObjects(user.email, text, amount, startAmount + '');
     } else {
-      response = await findObjects('', text, amount, startAmount+"");
+      response = await findObjects('', text, amount, startAmount + '');
     }
-    
+
     let obj = Convert.toItems(response);
     if (!marcaClicked) {
-      dispatch(setMarcas(obj.placements[0].facets[2].values))
+      dispatch(setMarcas(obj.placements[0].facets[2].values));
     }
     dispatch(setMarcaClicked(false));
     dispatch(changeItems(obj));
@@ -42,6 +42,6 @@ export const SearchController = () => {
     showModal,
     setshowModal,
     startAmount,
-    setstartAmount
+    setstartAmount,
   };
 };

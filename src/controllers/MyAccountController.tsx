@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 
 export const MyAccountController = () => {
   const [notificationsClicked, setNotificationsClicked] = useState(false);

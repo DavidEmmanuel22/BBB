@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react';
-import { Image, Text, View, StyleSheet, TouchableOpacity, ScrollView, Modal, Alert } from 'react-native';
+import { Image, Text, View, StyleSheet, TouchableOpacity, ScrollView, Modal } from 'react-native';
 import TextComponent from '../components/Text';
 import { useDispatch, useSelector } from 'react-redux';
-import { BLUE, BRAND_BLUE, DARK, GRAY, LIGHTER_GRAY, LIGHTER_GRAY2, PRIMARY_BLUE } from '../constants/colors';
+import { BLUE, DARK, GRAY, LIGHTER_GRAY, LIGHTER_GRAY2, PRIMARY_BLUE } from '../constants/colors';
 import {
   changeData,
   selectData,
@@ -10,7 +10,6 @@ import {
   selectObjects,
   selectEnterKeyPressed,
   setMarcaClicked,
-  selectMarcaClicked,
 } from '../store/slices/searchSlice';
 import { SearchController } from '../controllers/SearchController';
 import { EFFRA, EFFRA_BOLD } from '../constants/fonts';
@@ -29,10 +28,9 @@ const Search: React.FC = () => {
   const items = useSelector(selectObjects);
   const enterKey = useSelector(selectEnterKeyPressed);
   const marcas = useSelector(selectMarcas);
-  const marcaClicked = useSelector(selectMarcaClicked);
-  const navigation = useNavigation();
+  const navigation: any = useNavigation();
 
-  const isCloseToBottom = ({ layoutMeasurement, contentOffset, contentSize }) => {
+  const isCloseToBottom = ({ layoutMeasurement, contentOffset, contentSize }: any) => {
     const paddingToBottom = 20;
     return layoutMeasurement.height + contentOffset.y >= contentSize.height - paddingToBottom;
   };
@@ -40,7 +38,7 @@ const Search: React.FC = () => {
   useEffect(() => {
     setstartAmount(0);
     if (searchText.length >= 3) {
-      findItems(searchText, '150', startAmount + '');
+      findItems(searchText, '150');
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [searchText]);
@@ -195,7 +193,7 @@ const Search: React.FC = () => {
           onScroll={({ nativeEvent }) => {
             if (isCloseToBottom(nativeEvent)) {
               setstartAmount(startAmount + 150);
-              findItems(searchText, '150', startAmount + '');
+              findItems(searchText, '150');
             }
           }}
         >
@@ -223,11 +221,7 @@ const Search: React.FC = () => {
           <View style={styles.showItemContainer}>
             {items?.placements[0].docs.map((item) => (
               <View style={styles.contain}>
-                <TouchableOpacity
-                  onPress={() => {
-                    navigation.navigate('ProductDetail', { sku: item.id });
-                  }}
-                >
+                <TouchableOpacity onPress={() => navigation.navigate('ProductDetail', { sku: item.id })}>
                   <Image
                     style={styles.image}
                     source={{
