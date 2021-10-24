@@ -61,7 +61,11 @@ const ProductDetail: React.FC<IProps> = ({ route }) => {
       ) : (
         <KeyboardAvoidingView keyboardVerticalOffset={80} behavior={'position'}>
           <ImageSelector product={product} />
-          <ProductDescription reviewCounts={reviews.length} reviewRating={reviewGeneral} product={product} />
+          <ProductDescription
+            reviewCounts={reviews.length}
+            reviewRating={reviewGeneral ? reviewGeneral : 0}
+            product={product}
+          />
           <DeliverySection />
           <TabOptionsProduct
             allQualifications={allQualifications}

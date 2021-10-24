@@ -51,9 +51,6 @@ export const ReviewItem = ({
     </View>
   );
 };
-// const rating = reviewValues.map((item) => {
-//   return item?.filter((itemInt) => itemInt.rating_name === 'Rating')[0];
-// });
 
 const ReviewList = ({ data = [] }: { data: Array<ProductReview> }) => {
   return (
