@@ -11,6 +11,8 @@ import DeliverySection from '../components/ProductDetail/DeliverySection';
 import TabOptionsProduct from '../components/ProductDetail/TabOptionsProduct';
 import { ProductDetailController } from '../controllers/ProductDetailController';
 import { PRIMARY_BLUE } from '../constants/colors';
+import Button from '../components/Button';
+import { CartController } from '../controllers/CartController';
 
 interface IProps {
   navigation: NavigationProp<any, any>;
@@ -19,6 +21,7 @@ interface IProps {
 
 const ProductDetail: React.FC<IProps> = ({ route }) => {
   const { initializeProduct, product, loading, reviews } = ProductDetailController();
+  const { initCart } = CartController();
   const sku = route.params?.sku;
   // const id = route.params?.id;
 
@@ -74,6 +77,12 @@ const ProductDetail: React.FC<IProps> = ({ route }) => {
             product={product}
             reviews={reviews}
             allRatings={rating}
+          />
+          <Button
+            title="Agregar"
+            onPress={() => {
+              initCart();
+            }}
           />
         </KeyboardAvoidingView>
       )}

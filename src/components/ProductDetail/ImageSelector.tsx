@@ -26,7 +26,7 @@ const ImageSelector: React.FC<IProps> = ({ product }) => {
         }}
         style={selectionImage(isSelection)}
       >
-        <View style={styles.imageContent}>
+        <View key={'imageSelectView' + index} style={styles.imageContent}>
           <Image
             source={{
               uri: uri,
