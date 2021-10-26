@@ -5,6 +5,8 @@ import uiReducer from './slices/uiSlice';
 import categorySlice from './slices/categorySlice';
 import product from './slices/productSlice';
 import searchSlice from './slices/searchSlice';
+import cartSlice from './slices/cartSlice';
+import notificationsSlice from './slices/notificationsSlice';
 
 export const store = configureStore({
   reducer: {
@@ -13,6 +15,8 @@ export const store = configureStore({
     category: categorySlice,
     product,
     search: searchSlice,
+    cart: cartSlice,
+    notifications: notificationsSlice,
   },
   devTools: true,
 });

@@ -5,13 +5,14 @@ import { LIGHTER_GRAY2, WHITE } from '../constants/colors';
 import { changeSelect, selectUIISelected } from '../store/slices/uiSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import CategoryItem from './home/CategoryItem';
-import { getWidth } from '../utils/interfaceDimentions';
+import { getHeight, getWidth } from '../utils/interfaceDimentions';
 import Text from '../components/Text';
 import IconGeneric from './IconGeneric';
 import { selectUISubTitleHeader, selectUITitleHeader } from '../store/slices/uiSlice';
 import { addSearch, changeData, recoverSearches, selectData } from '../store/slices/searchSlice';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Header from './Header';
+import { CartController } from '../controllers/CartController';
 
 interface itemNav {
   id: number;
@@ -38,6 +39,9 @@ const SearchHeader: React.FC<IProps> = ({ ...props }) => {
   const [showTab, setShowTab] = useState(false);
   const title = useSelector(selectUITitleHeader);
   const subTitle = useSelector(selectUISubTitleHeader);
+
+  const { currentCart } = CartController();
+  const numberItems = currentCart ? currentCart.items_count : 0;
   const searchInputRef = useRef<TextInput>(null);
   useEffect(() => {
     if (typeof props.route.name === 'string' && ScreensWithoutTabs.includes(props.route.name)) {
@@ -79,7 +83,7 @@ const SearchHeader: React.FC<IProps> = ({ ...props }) => {
     <>
       <Header>
         {showTab || isSearch ? (
-          <View style={{ width: '75%' }}>
+          <View style={Styles.contentInput}>
             <TextInput
               value={searchText}
               placeholder="Busca tu producto"
@@ -109,7 +113,7 @@ const SearchHeader: React.FC<IProps> = ({ ...props }) => {
             <Image style={Styles.searchImage} source={require('../assets/SearchIcon.png')} />
           </View>
         ) : (
-          <View style={{ width: '75%', flexDirection: 'row', alignItems: 'center' }}>
+          <View style={Styles.contentBack}>
             <IconGeneric
               onPress={() => {
                 props.navigation.goBack();
@@ -130,10 +134,12 @@ const SearchHeader: React.FC<IProps> = ({ ...props }) => {
           </View>
         )}
         {showQR ? (
-          <TouchableOpacity
-            style={{ alignSelf: 'center', marginLeft: 20 }}
-            onPress={() => props.navigation.navigate('Cart')}
-          >
+          <TouchableOpacity style={Styles.touchCart} onPress={() => props.navigation.navigate('Cart')}>
+            {numberItems > 0 && (
+              <View style={Styles.carCount}>
+                <Text size={getWidth(14)}>{numberItems}</Text>
+              </View>
+            )}
             <Image source={require('../assets/CarIcon.png')} />
           </TouchableOpacity>
         ) : (
@@ -142,7 +148,7 @@ const SearchHeader: React.FC<IProps> = ({ ...props }) => {
               dispatch(changeData(''));
               props.navigation.goBack();
             }}
-            style={{ alignSelf: 'center', marginLeft: 20 }}
+            style={Styles.touchExit}
           >
             <Image source={require('../assets/Search/XIcon.png')} />
           </TouchableOpacity>
@@ -156,7 +162,7 @@ const SearchHeader: React.FC<IProps> = ({ ...props }) => {
             showsHorizontalScrollIndicator={false}
             data={categories}
             renderItem={({ item }: any) => (
-              <View key={item.id} style={{ marginRight: 28 }}>
+              <View key={item.id} style={{ marginRight: getWidth(28) }}>
                 <CategoryItem
                   isSelected={item.id === categorySelect}
                   label={item.text}
@@ -174,36 +180,54 @@ const SearchHeader: React.FC<IProps> = ({ ...props }) => {
   );
 };
 const Styles = StyleSheet.create({
+  contentInput: { width: '75%' },
+  contentBack: { width: '75%', flexDirection: 'row', alignItems: 'center' },
+  touchExit: { alignSelf: 'center', marginLeft: getWidth(20) },
+  touchCart: {
+    alignSelf: 'center',
+    marginLeft: getWidth(20),
+  },
+  carCount: {
+    position: 'absolute',
+    backgroundColor: 'white',
+    width: getWidth(20),
+    height: getWidth(20),
+    borderRadius: getWidth(10),
+    right: getWidth(-15),
+    top: getWidth(-15),
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
   tabContainer: {
-    marginLeft: 32,
-    marginRight: 32,
+    marginLeft: getWidth(32),
+    marginRight: getWidth(32),
     flexDirection: 'row',
   },
   input: {
-    borderRadius: 200,
+    borderRadius: getWidth(200),
     backgroundColor: 'white',
     color: 'black',
-    paddingLeft: 36,
-    fontSize: 16,
-    height: 40,
+    paddingLeft: getWidth(36),
+    fontSize: getWidth(16),
+    height: getHeight(40),
   },
   qrButton: {
     position: 'absolute',
-    right: 1,
-    marginTop: 12,
-    marginRight: 20,
+    right: getWidth(1),
+    marginTop: getHeight(15),
+    marginRight: getWidth(20),
   },
   cleanButton: {
     position: 'absolute',
-    right: 1,
-    marginTop: 9,
-    marginRight: 14,
+    right: getWidth(1),
+    marginTop: getHeight(9),
+    marginRight: getWidth(14),
   },
   searchImage: {
     position: 'absolute',
-    left: 1,
-    marginTop: 10,
-    marginLeft: 12,
+    left: getWidth(1),
+    marginTop: getHeight(15),
+    marginLeft: getWidth(12),
   },
 });
 

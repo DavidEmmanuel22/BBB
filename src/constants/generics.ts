@@ -10,3 +10,6 @@ export const ReviewTitleQualification = (title = ''): string => {
       return 'Calidad';
   }
 };
+
+export const CartGuestToken = 'cartGuestToken';
+export const CartToken = 'cartToken';
