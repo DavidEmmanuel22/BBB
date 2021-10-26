@@ -216,6 +216,8 @@ PODS:
     - React-Core
   - react-native-safe-area-context (3.3.0):
     - React-Core
+  - react-native-webview (11.14.1):
+    - React-Core
   - React-perflogger (0.64.1)
   - React-RCTActionSheet (0.64.1):
     - React-Core/RCTActionSheetHeaders (= 0.64.1)
@@ -293,8 +295,8 @@ PODS:
   - RNScreens (3.5.0):
     - React-Core
     - React-RCTImage
-  - RNSVG (12.2.0):
-    - React-Core
+  - RNSVG (12.1.1):
+    - React
   - RNVectorIcons (8.1.0):
     - React-Core
   - SDWebImage (5.11.1):
@@ -325,6 +327,7 @@ DEPENDENCIES:
   - React-jsinspector (from `../node_modules/react-native/ReactCommon/jsinspector`)
   - react-native-pager-view (from `../node_modules/react-native-pager-view`)
   - react-native-safe-area-context (from `../node_modules/react-native-safe-area-context`)
+  - react-native-webview (from `../node_modules/react-native-webview`)
   - React-perflogger (from `../node_modules/react-native/ReactCommon/reactperflogger`)
   - React-RCTActionSheet (from `../node_modules/react-native/Libraries/ActionSheetIOS`)
   - React-RCTAnimation (from `../node_modules/react-native/Libraries/NativeAnimation`)
@@ -388,6 +391,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native-pager-view"
   react-native-safe-area-context:
     :path: "../node_modules/react-native-safe-area-context"
+  react-native-webview:
+    :path: "../node_modules/react-native-webview"
   React-perflogger:
     :path: "../node_modules/react-native/ReactCommon/reactperflogger"
   React-RCTActionSheet:
@@ -449,6 +454,7 @@ SPEC CHECKSUMS:
   React-jsinspector: 500a59626037be5b3b3d89c5151bc3baa9abf1a9
   react-native-pager-view: 5ab4d0b4b44d89f77310cb3eb8129745f274ce55
   react-native-safe-area-context: 61c8c484a3a9e7d1fda19f7b1794b35bbfd2262a
+  react-native-webview: db22ab831b8c5f7697957a67f7a7ac1cecfed18d
   React-perflogger: aad6d4b4a267936b3667260d1f649b6f6069a675
   React-RCTActionSheet: fc376be462c9c8d6ad82c0905442fd77f82a9d2a
   React-RCTAnimation: ba0a1c3a2738be224a08092fa7f1b444ab77d309
@@ -466,7 +472,7 @@ SPEC CHECKSUMS:
   RNFastImage: 1f2cab428712a4baaf78d6169eaec7f622556dd7
   RNGestureHandler: a479ebd5ed4221a810967000735517df0d2db211
   RNScreens: 01ab149b5dd5c27f5ff26741b1d2bdf2cee1af35
-  RNSVG: 4ecc2e8f38b6ebe7889909570c26f3abe8059767
+  RNSVG: 551acb6562324b1d52a4e0758f7ca0ec234e278f
   RNVectorIcons: 31cebfcf94e8cf8686eb5303ae0357da64d7a5a4
   SDWebImage: a7f831e1a65eb5e285e3fb046a23fcfbf08e696d
   SDWebImageWebPCoder: f93010f3f6c031e2f8fb3081ca4ee6966c539815

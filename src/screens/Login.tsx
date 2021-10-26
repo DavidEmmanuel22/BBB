@@ -131,7 +131,7 @@ const Login: React.FC<IProps> = ({ navigation }) => {
 
       {/* Privacy policy text */}
       <View style={[LogInCLicked ? { opacity: 0.2 } : { opacity: 1 }]} pointerEvents={LogInCLicked ? 'none' : 'auto'}>
-        <LoginRegisterDisclaimer parent="login" />
+        <LoginRegisterDisclaimer parent="login" navigation={navigation} />
       </View>
     </ScrollView>
   );
@@ -142,7 +142,7 @@ const styles = StyleSheet.create({
     fontFamily: 'TerminaW05-Bold',
     color: DARKER_BLUE,
     fontSize: 24,
-    marginTop: 24,
+    marginTop: 54,
     marginHorizontal: 30,
   },
   containerInputEmail: {
