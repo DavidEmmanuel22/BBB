@@ -21,7 +21,7 @@ interface IProps {
 
 const ProductDetail: React.FC<IProps> = ({ route }) => {
   const { initializeProduct, product, loading, reviews } = ProductDetailController();
-  const { initCart } = CartController();
+  const { AddToCart, loadingCart } = CartController();
   const sku = route.params?.sku;
   // const id = route.params?.id;
 
@@ -79,9 +79,10 @@ const ProductDetail: React.FC<IProps> = ({ route }) => {
             allRatings={rating}
           />
           <Button
+            loading={loadingCart}
             title="Agregar"
             onPress={() => {
-              initCart();
+              AddToCart(sku, 1);
             }}
           />
         </KeyboardAvoidingView>

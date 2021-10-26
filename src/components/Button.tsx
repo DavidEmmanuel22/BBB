@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import React from 'react';
-import { TouchableOpacity, View, Text, ButtonProps, StyleSheet } from 'react-native';
+import { TouchableOpacity, View, Text, ButtonProps, StyleSheet, ActivityIndicator } from 'react-native';
 
 import { PRIMARY_BLUE, LIGHTER_GRAY, DARK, WHITE } from '../constants/colors';
 
@@ -21,6 +21,7 @@ interface IProps extends ButtonProps {
   textStyle?: Object;
   icon?(): React.ReactNode;
   iconStyle?: Object;
+  loading?: boolean;
 }
 
 const Button: React.FC<IProps> = ({
@@ -31,6 +32,7 @@ const Button: React.FC<IProps> = ({
   textStyle = {},
   icon = null,
   iconStyle = {},
+  loading = false,
 }) => {
   const buttonTypeStyles = () => {
     switch (type) {
@@ -44,7 +46,7 @@ const Button: React.FC<IProps> = ({
   };
 
   return (
-    <TouchableOpacity onPress={onPress}>
+    <TouchableOpacity disabled={loading} onPress={onPress}>
       <View
         style={{
           ...styles.btn,
@@ -53,15 +55,19 @@ const Button: React.FC<IProps> = ({
         }}
       >
         {icon !== null ? <View style={{ ...styles.iconContainer, ...iconStyle }}>{icon()}</View> : null}
-        <Text
-          style={{
-            ...styles.btnText,
-            ...buttonTypeStyles()[1],
-            ...textStyle,
-          }}
-        >
-          {title}
-        </Text>
+        {loading ? (
+          <ActivityIndicator />
+        ) : (
+          <Text
+            style={{
+              ...styles.btnText,
+              ...buttonTypeStyles()[1],
+              ...textStyle,
+            }}
+          >
+            {title}
+          </Text>
+        )}
       </View>
     </TouchableOpacity>
   );

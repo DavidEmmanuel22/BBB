@@ -12,6 +12,7 @@ import { selectUISubTitleHeader, selectUITitleHeader } from '../store/slices/uiS
 import { addSearch, changeData, recoverSearches, selectData } from '../store/slices/searchSlice';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Header from './Header';
+import { CartController } from '../controllers/CartController';
 
 interface itemNav {
   id: number;
@@ -38,6 +39,9 @@ const SearchHeader: React.FC<IProps> = ({ ...props }) => {
   const [showTab, setShowTab] = useState(false);
   const title = useSelector(selectUITitleHeader);
   const subTitle = useSelector(selectUISubTitleHeader);
+
+  const { currentCart } = CartController();
+  const numberItems = currentCart ? currentCart.items_count : 0;
   const searchInputRef = useRef<TextInput>(null);
   useEffect(() => {
     if (typeof props.route.name === 'string' && ScreensWithoutTabs.includes(props.route.name)) {
@@ -131,9 +135,11 @@ const SearchHeader: React.FC<IProps> = ({ ...props }) => {
         )}
         {showQR ? (
           <TouchableOpacity style={Styles.touchCart} onPress={() => props.navigation.navigate('Cart')}>
-            <View style={Styles.carCount}>
-              <Text size={getWidth(14)}>1</Text>
-            </View>
+            {numberItems > 0 && (
+              <View style={Styles.carCount}>
+                <Text size={getWidth(14)}>{numberItems}</Text>
+              </View>
+            )}
             <Image source={require('../assets/CarIcon.png')} />
           </TouchableOpacity>
         ) : (

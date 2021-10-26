@@ -2,8 +2,9 @@
 
 import { useNavigation } from '@react-navigation/native';
 import React from 'react';
-import { StyleSheet, Image, View, TouchableOpacity } from 'react-native';
+import { StyleSheet, Image, View, TouchableOpacity, ActivityIndicator } from 'react-native';
 import { BLUE, GRAY, LIGHTER_GRAY, PRIMARY_BLUE } from '../../constants/colors';
+import { CartController } from '../../controllers/CartController';
 import { ProductByCategory } from '../../models/Objects/ProductByCategory';
 import { GetAttribute } from '../../utils/genericFunctions';
 import { getHeight, getWidth } from '../../utils/interfaceDimentions';
@@ -21,6 +22,11 @@ const ProductItem: React.FC<IProps> = ({ item }) => {
   const priceSpecial = GetAttribute(item.custom_attributes, 'special_price');
   const priceDeal = separateDecimals(parseFloat(priceSpecial || '0') || 0);
   const navigation = useNavigation();
+  const { loadingCart, AddToCart } = CartController();
+  const handleAddToCart = async () => {
+    const successAdd = await AddToCart(item.sku!, 1);
+    console.log('successAdd', successAdd);
+  };
   return (
     <View style={styles.contain}>
       {imageProduct && (
@@ -60,8 +66,8 @@ const ProductItem: React.FC<IProps> = ({ item }) => {
           </View>
         )}
       </View>
-      <TouchableOpacity style={styles.button}>
-        <Text color={PRIMARY_BLUE}>Agregar</Text>
+      <TouchableOpacity disabled={loadingCart} onPress={handleAddToCart} style={styles.button}>
+        {loadingCart ? <ActivityIndicator /> : <Text color={PRIMARY_BLUE}>Agregar</Text>}
       </TouchableOpacity>
     </View>
   );

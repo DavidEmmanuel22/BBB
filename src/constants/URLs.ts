@@ -24,3 +24,5 @@ export const URL_PRODUCT_DETAIL = (sku = '') => `https://mcstaging.bedbathandbey
 export const URL_PRODUCT_REVIEWS = (sku = '') =>
   `https://mcstaging.bedbathandbeyond.com.mx/index.php/rest/default/V1/products/${sku}/reviews`;
 export const URL_CART = `${BASE_URL}${BASE_INDEX_V1}guest-carts`;
+export const URL_GET_CART = (token = '') => `${BASE_URL}${BASE_INDEX_V1}guest-carts/${token}`;
+export const URL_ADD_CART_GUEST = (token = '') => `${BASE_URL}${BASE_INDEX_V1}guest-carts/${token}/items`;
