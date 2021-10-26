@@ -1,22 +1,54 @@
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { NavigationProp } from '@react-navigation/core';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { View, StyleSheet, StatusBar, Image, TouchableOpacity, ScrollView } from 'react-native';
 import Text from '../components/Text';
 import { BRAND_BLUE, DARK, DARKER_BLUE, GRAY2, LIGHTER_GRAY, PRIMARY_BLUE } from '../constants/colors';
 import { TERMINABOLD } from '../constants/fonts';
 import { getHeight } from '../utils/interfaceDimentions';
+import { useDispatch, useSelector } from 'react-redux';
+import {
+  addNotification,
+  notificationClicked,
+  recoverNotifications,
+  removeAllNotifications,
+  removeNotification,
+  selectNotifications,
+} from '../store/slices/notificationsSlice';
+import { Notification } from '../models/Objects/Notification';
 
 interface IProps {
   navigation: NavigationProp<any, any>;
 }
 
 export const Notifications: React.FC<IProps> = ({ navigation }) => {
-  const [prueba, setprueba] = useState(false);
+  const dispatch = useDispatch();
+  const notifications: Array<Notification> = useSelector(selectNotifications);
+
+  const recoverNotifica = async () => {
+    const recNotificationJSON = await AsyncStorage.getItem('notifications');
+    if (recNotificationJSON && recNotificationJSON != '[]') {
+      const recNotification = JSON.parse(recNotificationJSON);
+      dispatch(recoverNotifications({ pastNotifications: recNotification }));
+    }
+
+    const newNotificationJSON = await AsyncStorage.getItem('newNotification');
+    if (newNotificationJSON) {
+      await AsyncStorage.removeItem('newNotification');
+      dispatch(addNotification({ notification: newNotificationJSON }));
+    }
+
+    setTimeout(recoverNotifica, 6000);
+  };
+
+  useEffect(() => {
+    recoverNotifica();
+  }, []);
 
   return (
     <View>
-      {prueba ? (
-        <TouchableOpacity onPress={() => setprueba(!prueba)}>
+      {notifications.length > 0 ? (
+        <View>
           <StatusBar animated={true} backgroundColor="white" />
           <View style={stylesNotifications.TopBar}>
             <Text style={stylesNotifications.TopBarText}>notificaciones</Text>
@@ -26,9 +58,9 @@ export const Notifications: React.FC<IProps> = ({ navigation }) => {
           </View>
           <View style={stylesNotifications.container}>
             <Text style={stylesNotifications.amountNotifications} bold={true}>
-              1 notificación nueva
+              {notifications.filter((item) => item.clicked == false).length} notificación nueva
             </Text>
-            <TouchableOpacity style={stylesNotifications.btnCleanContainer} onPress={() => {}}>
+            <TouchableOpacity style={stylesNotifications.btnCleanContainer} onPress={() => {dispatch(removeAllNotifications(""))}}>
               <Image
                 style={stylesNotifications.btnCleanImage}
                 source={require('../assets/Notifications/EraseIcon.png')}
@@ -39,29 +71,45 @@ export const Notifications: React.FC<IProps> = ({ navigation }) => {
             </TouchableOpacity>
           </View>
           <ScrollView style={stylesNotifications.ScrollContainer}>
-            <View style={stylesNotifications.itemContainer}>
-              <Image
-                style={stylesNotifications.itemImage}
-                source={require('../assets/Notifications/pruebaNotificacion.png')}
-              />
-              <View>
-                <Text color={GRAY2} size={13}>
-                  Hace un momento
-                </Text>
-                <Text color={DARK} size={14} bold={true}>
-                  BVVA, 4 meses sin intereses en compras mínimo $1,200.00 MXN (del 6 al 12 de septiembre de 2021)
-                </Text>
-                <Image
-                  style={stylesNotifications.trashIcon}
-                  source={require('../assets/Notifications/TrashIcon.png')}
-                />
+            {notifications.map((item) => (
+              <View style={stylesNotifications.itemContainer}>
+                <TouchableOpacity onPress={() => dispatch(notificationClicked({ notification: item }))}>
+                  <Image style={stylesNotifications.itemImage} source={{ uri: item.image }} />
+                </TouchableOpacity>
+                <View>
+                  <TouchableOpacity
+                  style={stylesNotifications.textContainer}
+                  onPress={() => dispatch(notificationClicked({ notification: item }))}>
+                    <Text color={GRAY2} size={13}>
+                      {item.time}
+                    </Text>
+                    {!item.clicked ? (
+                      <Text color={DARK} size={14} bold={true}>
+                        {item.body}
+                      </Text>
+                    ) : (
+                      <Text color={DARK} size={14}>
+                        {item.body}
+                      </Text>
+                    )}
+                  </TouchableOpacity>
+                  <TouchableOpacity
+                    style={stylesNotifications.btnTrash}
+                    onPress={() => dispatch(removeNotification({ notification: item }))}
+                  >
+                    <Image
+                      style={stylesNotifications.trashIcon}
+                      source={require('../assets/Notifications/TrashIcon.png')}
+                    />
+                  </TouchableOpacity>
+                </View>
+                <View style={stylesNotifications.separator} />
               </View>
-              <View style={stylesNotifications.separator} />
-            </View>
+            ))}
           </ScrollView>
-        </TouchableOpacity>
+        </View>
       ) : (
-        <TouchableOpacity onPress={() => setprueba(!prueba)}>
+        <View>
           <StatusBar animated={true} backgroundColor={BRAND_BLUE} barStyle="light-content" />
           <View style={stylesNoNotifications.TopBar}>
             <Text style={stylesNoNotifications.TopBarText}>notificaciones</Text>
@@ -78,7 +126,7 @@ export const Notifications: React.FC<IProps> = ({ navigation }) => {
               No tienes notificaciones
             </Text>
           </View>
-        </TouchableOpacity>
+        </View>
       )}
     </View>
   );
@@ -109,6 +157,9 @@ const stylesNotifications = StyleSheet.create({
     position: 'absolute',
     left: 1,
   },
+  textContainer:{
+    marginLeft:12
+  },
   btnCleanContainer: {
     flexDirection: 'row',
     right: 1,
@@ -126,9 +177,14 @@ const stylesNotifications = StyleSheet.create({
   },
   itemImage: {
     width: '100%',
+    height: 95,
+    marginBottom: 12,
     resizeMode: 'contain',
   },
   trashIcon: {
+    marginRight: 14,
+  },
+  btnTrash: {
     position: 'absolute',
     right: 1,
   },
@@ -136,6 +192,7 @@ const stylesNotifications = StyleSheet.create({
     height: 1,
     backgroundColor: LIGHTER_GRAY,
     marginTop: 8,
+    marginBottom: 12,
   },
 });
 
