@@ -21,6 +21,7 @@ interface IProps extends ButtonProps {
   textStyle?: Object;
   icon?(): React.ReactNode;
   iconStyle?: Object;
+  disabled?: boolean;
 }
 
 const Button: React.FC<IProps> = ({
@@ -31,6 +32,7 @@ const Button: React.FC<IProps> = ({
   textStyle = {},
   icon = null,
   iconStyle = {},
+  disabled = false,
 }) => {
   const buttonTypeStyles = () => {
     switch (type) {
@@ -44,7 +46,7 @@ const Button: React.FC<IProps> = ({
   };
 
   return (
-    <TouchableOpacity onPress={onPress}>
+    <TouchableOpacity disabled={disabled} onPress={onPress}>
       <View
         style={{
           ...styles.btn,

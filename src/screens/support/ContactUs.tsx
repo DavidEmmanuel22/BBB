@@ -1,11 +1,14 @@
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
-import React, { useState } from 'react';
-import { ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
-import { TextInput } from 'react-native-gesture-handler';
-import Button from '../../components/Button';
+import React, { useEffect, useState } from 'react';
+import { useMutation } from 'react-query';
+import { Linking, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { BRAND_BLUE, DARKER_BLUE, GRAY3, LIGHTER_GRAY, PRIMARY_BLUE } from '../../constants/colors';
 import { EFFRA } from '../../constants/fonts';
 import { getHeight } from '../../utils/interfaceDimentions';
+import ContactForm from './ContactForm';
+import { createComment } from '../../models/Support';
+import { TokenModel } from '../../models/TokenModel';
+import Indicator from '../../components/Indicator';
 
 type HeaderProps = {
   onPress?: () => void;
@@ -23,6 +26,22 @@ const SuccessNote = ({ onPress }: any) => {
         <View style={styles.optionSuccess}>
           <FontAwesomeIcon style={styles.optionSuccessIcon} icon="plus" />
           <Text style={styles.optionSuccessLabel}>Enviar otra nota</Text>
+        </View>
+      </TouchableOpacity>
+    </View>
+  );
+};
+
+const ErrorNote = ({ onPress }: any) => {
+  return (
+    <View style={styles.successNoteContainer}>
+      <FontAwesomeIcon size={50} style={styles.iconError} icon="times" />
+      <Text style={styles.successTitle}>Error!</Text>
+      <Text style={styles.successDescription}>Intenta nuevamente.</Text>
+      <TouchableOpacity onPress={onPress}>
+        <View style={styles.optionSuccess}>
+          <FontAwesomeIcon style={styles.optionSuccessIcon} icon="plus" />
+          <Text style={styles.optionSuccessLabel}>Intentar de nuevo</Text>
         </View>
       </TouchableOpacity>
     </View>
@@ -59,30 +78,50 @@ const SectionItem = ({ label, leftIcon }: any) => {
   );
 };
 
+const handleCall = () => {
+  Linking.openURL('tel:8000239663');
+};
+
+const { GetAdminToken } = TokenModel();
 const ContactUs = () => {
   const [isSuccessMessage, setIsSuccessMessage] = useState(false);
+  const [adminToken, setAdminToken] = useState<any>();
+  const [isError, setIsError] = useState(false);
+
+  useEffect(() => {
+    GetAdminToken().then((token) => setAdminToken(token));
+  }, []);
+
+  const { mutate, isLoading } = useMutation('createComment', createComment, {
+    onSuccess: async () => setIsSuccessMessage(true),
+    onError: () => setIsError(true),
+  });
 
   return (
     <ScrollView>
       <Header />
       <View style={styles.container}>
         <SectionTitle title="Call Center">
-          <View style={styles.sectionCallCenter}>
-            <FontAwesomeIcon style={styles.iconInSection} size={25} icon="headset" />
-            <Text style={styles.phoneNumber}>800-0-239663</Text>
-          </View>
+          <TouchableOpacity onPress={() => handleCall()}>
+            <View style={styles.sectionCallCenter}>
+              <FontAwesomeIcon style={styles.iconInSection} size={25} icon="headset" />
+              <Text style={styles.phoneNumber}>800-0-239663</Text>
+            </View>
+          </TouchableOpacity>
         </SectionTitle>
-        {isSuccessMessage && <SuccessNote onPress={() => setIsSuccessMessage(false)} />}
-        {!isSuccessMessage && (
+        {isLoading && <Indicator />}
+        {isError && <ErrorNote onPress={() => setIsError(false)} />}
+        {isSuccessMessage && !isLoading && <SuccessNote onPress={() => setIsSuccessMessage(false)} />}
+        {!isSuccessMessage && !isLoading && (
           <SectionTitle title="Déjanos una nota">
-            <TextInput
-              placeholder="Escribe tu duda, consulta,nota, etc…"
-              style={styles.textArea}
-              multiline={true}
-              numberOfLines={5}
-              onChangeText={() => {}}
+            <ContactForm
+              onPress={(data: any) =>
+                mutate({
+                  ...data,
+                  adminToken,
+                })
+              }
             />
-            <Button containerStyle={styles.button} title="Enviar" onPress={() => setIsSuccessMessage(true)} />
           </SectionTitle>
         )}
         <SectionTitle title="Más temas de ayuda">
@@ -168,12 +207,19 @@ const styles = StyleSheet.create({
     height: 150,
     padding: 16,
     textAlignVertical: 'top',
+  },
+  textInput: {
+    marginBottom: 12,
     borderWidth: 1,
     borderStyle: 'solid',
     borderColor: LIGHTER_GRAY,
   },
   icon: {
     color: PRIMARY_BLUE,
+    marginRight: 12,
+  },
+  iconError: {
+    color: 'red',
     marginRight: 12,
   },
   phoneNumber: {
