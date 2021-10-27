@@ -2,7 +2,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { NavigationProp, RouteProp } from '@react-navigation/core';
 import React, { useEffect } from 'react';
-import { View, StyleSheet, Image, TouchableOpacity, ScrollView, StatusBar, Text } from 'react-native';
+import { View, StyleSheet, Image, TouchableOpacity, ScrollView, StatusBar, Text, Linking } from 'react-native';
 import { PRIMARY_BLUE, LIGHTER_GRAY, DARKER_BLUE, DARK } from '../constants/colors';
 import { EFFRA, TERMINABOLD } from '../constants/fonts';
 import useAuthContext from '../context/AuthContext';
@@ -58,7 +58,7 @@ export const MyAccount: React.FC<IProps> = ({ navigation }) => {
           </TouchableOpacity>
         )}
 
-        <TouchableOpacity>
+        <TouchableOpacity onPress={() => Linking.openSettings() }>
           <Image source={require('../assets/MyAccount/ConfigIcon.png')} style={{ marginHorizontal: 10 }} />
         </TouchableOpacity>
         <TouchableOpacity onPress={() => navigation.navigate('contactUs')}>
