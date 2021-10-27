@@ -39,6 +39,7 @@ const Home: React.FC<IProps> = ({ navigation }) => {
   };
   useEffect(() => {
     checkCartInit();
+
     return () => {};
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);

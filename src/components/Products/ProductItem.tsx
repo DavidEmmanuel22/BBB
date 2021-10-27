@@ -24,8 +24,7 @@ const ProductItem: React.FC<IProps> = ({ item }) => {
   const navigation = useNavigation();
   const { loadingCart, AddToCart } = CartController();
   const handleAddToCart = async () => {
-    const successAdd = await AddToCart(item.sku!, 1);
-    console.log('successAdd', successAdd);
+    await AddToCart(item.sku!, 1);
   };
   return (
     <View style={styles.contain}>

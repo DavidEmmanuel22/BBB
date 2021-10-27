@@ -50,8 +50,23 @@ const App = () => {
     });
 
     //Method for handling notifications opened
-    OneSignal.setNotificationOpenedHandler((notification) => {
+    OneSignal.setNotificationOpenedHandler(async (notification) => {
       console.log('OneSignal: notification opened:', notification);
+
+      var today = new Date();
+      var date = today.getDate() + '/' + (today.getMonth() + 1) + '/' + today.getFullYear();
+      var time = today.getHours() + ':' + today.getMinutes();
+      var dateTime = date + ' ' + time;
+
+      const newNotification : Notification = {
+        image: notification.notification.bigPicture,
+        title: notification.notification.title,
+        body: notification.notification.body,
+        time: dateTime,
+        clicked: false
+      }
+
+      await AsyncStorage.setItem("newNotification", JSON.stringify(newNotification));
     });
 
   }, []);
