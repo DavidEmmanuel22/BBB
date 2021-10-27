@@ -2,9 +2,9 @@ import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
 import HomeStackNavigator from './HomeStackNavigator';
+import MenuStackNavigator from './MenuStackNavigator';
 import Discounts from '../screens/Discounts';
 import Wishlist from '../screens/Wishlist';
-import Menu from '../screens/Menu';
 import Icon from '../components/Icon';
 import { PRIMARY_BLUE } from '../constants/colors';
 import AuthStackNavigator from './AuthStackNavigator';
@@ -72,7 +72,7 @@ const BottomTabNavigation = () => {
       />
       <Tab.Screen
         name="Menu"
-        component={Menu}
+        component={MenuStackNavigator}
         options={{
           tabBarLabel: '',
           tabBarIcon: ({ color, size }) => <Icon name="hamburguer-icon" color={color} size={size} />,
