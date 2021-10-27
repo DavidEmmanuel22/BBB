@@ -26,3 +26,8 @@ export const URL_PRODUCT_REVIEWS = (sku = '') =>
 export const URL_CART = `${BASE_URL}${BASE_INDEX_V1}guest-carts`;
 export const URL_GET_CART = (token = '') => `${BASE_URL}${BASE_INDEX_V1}guest-carts/${token}`;
 export const URL_ADD_CART_GUEST = (token = '') => `${BASE_URL}${BASE_INDEX_V1}guest-carts/${token}/items`;
+
+//Cart customer
+export const URL_CART_CUSTOMER = `${BASE_URL}${BASE_INDEX_V1}carts/mine`;
+export const URL_GET_CART_CUSTOMER = `${BASE_URL}${BASE_INDEX_V1}carts/mine/totals`;
+export const URL_ADD_CART_CUSTOMER = `${BASE_URL}${BASE_INDEX_V1}carts/mine/items`;

@@ -142,7 +142,7 @@ const styles = StyleSheet.create({
     fontFamily: 'TerminaW05-Bold',
     color: DARKER_BLUE,
     fontSize: 24,
-    marginTop: 24,
+    marginTop: 60,
     marginHorizontal: 30,
   },
   containerInputEmail: {
