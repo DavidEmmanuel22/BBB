@@ -31,9 +31,11 @@ const StaticView: React.FC<IProps> = ({ url }) => {
         <Image source={require('../assets/images/splash/BBB.png')} style={{ width: 130, height: 40 }} />
       </Header>
       <View style={styles.container}>
-        <WebView
-          source={{ html: getMainData(html) }}
-        />
+        { status === 'success' &&
+          <WebView
+            source={{ html: getMainData(html) }}
+          />
+        }
       </View>
     </>
   );

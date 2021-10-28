@@ -1,12 +1,20 @@
+import { NavigationProp } from '@react-navigation/core';
 import React from 'react';
-import { Text } from 'react-native';
+import { Text, TouchableOpacity } from 'react-native';
 
 import Container from '../components/Container';
 
-const Menu: React.FC = () => {
+interface IProps {
+  navigation: NavigationProp<any, any>
+}
+
+const Menu: React.FC<IProps> = ({ navigation }) => {
   return (
     <Container>
       <Text>Menú</Text>
+      <TouchableOpacity onPress={() => navigation.navigate('PaymentMethodsAndRefunds')}>
+        <Text>Métodos de pago y reembolsos</Text>
+      </TouchableOpacity>
     </Container>
   );
 };
