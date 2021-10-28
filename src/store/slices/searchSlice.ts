@@ -1,7 +1,7 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { createSlice } from '@reduxjs/toolkit';
 import { RootState } from '../';
-import { Items, Value } from '../../models/Objects/Items';
+import { Doc, Items, Value } from '../../models/Objects/Items';
 
 interface SearchState {
   searchText: string;
@@ -10,6 +10,7 @@ interface SearchState {
   EnterKeyDown: boolean;
   Marcas: Value[] | null;
   marcaClicked: boolean;
+  products: Array<Doc>;
 }
 
 const initialState: SearchState = {
@@ -19,6 +20,7 @@ const initialState: SearchState = {
   EnterKeyDown: true,
   Marcas: null,
   marcaClicked: false,
+  products: []
 };
 
 export const searchSlice = createSlice({
@@ -29,6 +31,7 @@ export const searchSlice = createSlice({
       state.searchText = action.payload;
       state.Objects = null;
       state.EnterKeyDown = true;
+      state.products = [];
     },
     addSearch: (state, action) => {
       if (action.payload) {
@@ -38,6 +41,9 @@ export const searchSlice = createSlice({
         }
       }
       state.EnterKeyDown = false;
+    },
+    addProducts: (state, action) => {
+      state.products = state.products.concat(action.payload.newProducts);
     },
     changeItems: (state, action) => {
       state.Objects = action.payload;
@@ -55,7 +61,7 @@ export const searchSlice = createSlice({
 });
 
 // Actions
-export const { changeData, addSearch, changeItems, recoverSearches, setMarcas, setMarcaClicked } = searchSlice.actions;
+export const { changeData, addSearch, addProducts, changeItems, recoverSearches, setMarcas, setMarcaClicked } = searchSlice.actions;
 
 // Selectors
 export const selectObjects = (state: RootState) => state.search.Objects;
@@ -64,6 +70,7 @@ export const selectData = (state: RootState) => state.search.searchText;
 export const selectSearches = (state: RootState) => state.search.searches;
 export const selectMarcas = (state: RootState) => state.search.Marcas;
 export const selectMarcaClicked = (state: RootState) => state.search.marcaClicked;
+export const selectProducts = (state: RootState) => state.search.products;
 
 // Reducer
 export default searchSlice.reducer;

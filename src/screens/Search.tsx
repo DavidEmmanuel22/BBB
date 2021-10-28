@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Image, Text, View, StyleSheet, TouchableOpacity, ScrollView, Modal } from 'react-native';
+import { Image, Text, View, StyleSheet, TouchableOpacity, ScrollView, Modal, FlatList } from 'react-native';
 import TextComponent from '../components/Text';
 import { useDispatch, useSelector } from 'react-redux';
 import { BLUE, DARK, GRAY, LIGHTER_GRAY, LIGHTER_GRAY2, PRIMARY_BLUE } from '../constants/colors';
@@ -10,17 +10,19 @@ import {
   selectObjects,
   selectEnterKeyPressed,
   setMarcaClicked,
+  selectMarcas,
+  selectProducts,
 } from '../store/slices/searchSlice';
 import { SearchController } from '../controllers/SearchController';
-import { EFFRA, EFFRA_BOLD } from '../constants/fonts';
+import { EFFRA } from '../constants/fonts';
 import { getHeight, getWidth } from '../utils/interfaceDimentions';
 import { RowContent } from '../utils/stylesGenetic';
 import { separateDecimals } from '../utils/separeteDecimals';
 import { useNavigation } from '@react-navigation/core';
-import { selectMarcas } from '../store/slices/searchSlice';
+import { Product } from '../components/Search/Product';
 
 const Search: React.FC = () => {
-  const { findItems, buscando, showModal, setshowModal, startAmount, setstartAmount } = SearchController();
+  const { findItems, showModal, setshowModal, startAmount, setstartAmount } = SearchController();
 
   const dispatch = useDispatch();
   const searchText = useSelector(selectData);
@@ -28,19 +30,19 @@ const Search: React.FC = () => {
   const items = useSelector(selectObjects);
   const enterKey = useSelector(selectEnterKeyPressed);
   const marcas = useSelector(selectMarcas);
+  const products = useSelector(selectProducts);
   const navigation: any = useNavigation();
 
-  const isCloseToBottom = ({ layoutMeasurement, contentOffset, contentSize }: any) => {
-    const paddingToBottom = 20;
-    return layoutMeasurement.height + contentOffset.y >= contentSize.height - paddingToBottom;
+  const loadMore = () => {
+    setstartAmount(startAmount + 50);
+    findItems(searchText, '50');
   };
 
   useEffect(() => {
     setstartAmount(0);
     if (searchText.length >= 3) {
-      findItems(searchText, '150');
+      findItems(searchText, '50');
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [searchText]);
 
   return (
@@ -92,16 +94,6 @@ const Search: React.FC = () => {
               </Text>
             </TouchableOpacity>
             <View style={styles.itemSeparator} />
-            {/*
-            <TouchableOpacity style={styles.itemContainer}>
-              <Image style={styles.QRImage} source={require('../assets/Search/CategoriesIcon.png')} />
-
-              <Text numberOfLines={1} style={styles.itemText}>
-                Explorar categorías
-              </Text>
-            </TouchableOpacity>
-            <View style={styles.itemSeparator} />
-            */}
 
             <ScrollView style={{ height: '75%' }}>
               {searches.length > 0 ? (
@@ -118,7 +110,7 @@ const Search: React.FC = () => {
                   </TouchableOpacity>
                 ))
               ) : (
-                <TouchableOpacity style={styles.itemContainer}>
+                <TouchableOpacity disabled={true} style={styles.itemContainer}>
                   <Image style={styles.QRImage} source={require('../assets/Search/FindIcon.png')} />
 
                   <Text numberOfLines={1} style={[styles.itemText, { color: LIGHTER_GRAY2 }]}>
@@ -129,9 +121,9 @@ const Search: React.FC = () => {
             </ScrollView>
           </View>
         ) : (
-          <ScrollView style={{ height: '100%' }}>
+          <View>
             <TextComponent style={styles.Amount}>
-              {items?.placements[0].numFound} {items?.placements[0].docs ? 'coincidencias' : ''}
+              {items?.placements[0].numFound} {products ? 'coincidencias' : ''}
             </TextComponent>
             {marcas ? (
               <TouchableOpacity
@@ -155,9 +147,13 @@ const Search: React.FC = () => {
               <></>
             )}
 
-            {items?.placements[0].docs.length ? (
-              items?.placements[0].docs.map((item) => (
+            <FlatList
+              key={'_'}
+              keyExtractor={(item) => '_' + item.id}
+              numColumns={1}
+              renderItem={({ item, index }) => (
                 <TouchableOpacity
+                  key={'_' + item.id}
                   onPress={() => {
                     navigation.navigate('ProductDetail', { sku: item.id });
                   }}
@@ -172,33 +168,16 @@ const Search: React.FC = () => {
                   </View>
                   <View style={styles.itemSeparator} />
                 </TouchableOpacity>
-              ))
-            ) : buscando ? (
-              <View />
-            ) : (
-              <View>
-                <Image
-                  style={{ alignSelf: 'center', marginTop: '50%', height: 55, width: 70 }}
-                  source={require('../assets/Search/NotFinfIcon.png')}
-                />
-                <Text style={{ alignSelf: 'center', marginTop: 12, fontFamily: EFFRA_BOLD, fontSize: 16 }}>
-                  Lo sentimos, no encontramos tu producto.
-                </Text>
-              </View>
-            )}
-          </ScrollView>
+              )}
+              data={products}
+              onEndReached={loadMore}
+            />
+          </View>
         )
       ) : (
-        <ScrollView
-          onScroll={({ nativeEvent }) => {
-            if (isCloseToBottom(nativeEvent)) {
-              setstartAmount(startAmount + 150);
-              findItems(searchText, '150');
-            }
-          }}
-        >
+        <View style={{ height: '100%' }}>
           <TextComponent style={styles.Amount}>
-            {items?.placements[0].numFound} {items?.placements[0].docs ? 'coincidencias' : ''}
+            {items?.placements[0].numFound} {products ? 'coincidencias' : ''}
           </TextComponent>
 
           <TouchableOpacity
@@ -218,52 +197,17 @@ const Search: React.FC = () => {
               source={require('../assets/Search/FiltrarIcon.png')}
             />
           </TouchableOpacity>
-          <View style={styles.showItemContainer}>
-            {items?.placements[0].docs.map((item) => (
-              <View style={styles.contain}>
-                <TouchableOpacity onPress={() => navigation.navigate('ProductDetail', { sku: item.id })}>
-                  <Image
-                    style={styles.image}
-                    source={{
-                      uri: item.imageId,
-                    }}
-                  />
-                </TouchableOpacity>
 
-                <TextComponent size={getWidth(14)} style={styles.description}>
-                  {item.name || ''}
-                </TextComponent>
-                <View style={styles.contentPrice}>
-                  <View style={RowContent}>
-                    <TextComponent color={BLUE} size={getWidth(15)} style={styles.normal}>
-                      {item.special_price
-                        ? separateDecimals(item.special_price || 0).price
-                        : separateDecimals(item.priceCents || 0).price}
-                    </TextComponent>
-                    <TextComponent size={getWidth(8)} color={BLUE}>
-                      {item.special_price
-                        ? separateDecimals(item.special_price || 0).decimals
-                        : separateDecimals(item.priceCents || 0).decimals}
-                    </TextComponent>
-                  </View>
-                  {item.special_price && (
-                    <View style={RowContent}>
-                      <TextComponent color={GRAY} size={getWidth(15)} style={styles.discount}>
-                        {separateDecimals(item.priceCents || 0).price}
-                      </TextComponent>
-                      <TextComponent color={GRAY} size={getWidth(8)} style={styles.discount}>
-                        {separateDecimals(item.priceCents || 0).decimals}
-                      </TextComponent>
-                    </View>
-                  )}
-                </View>
-                <TouchableOpacity style={styles.button}>
-                  <TextComponent color={PRIMARY_BLUE}>Agregar</TextComponent>
-                </TouchableOpacity>
-              </View>
-            ))}
-          </View>
-        </ScrollView>
+          <FlatList
+            key={'#'}
+            keyExtractor={(item) => '#' + item.id}
+            contentContainerStyle={{ alignItems: 'center' }}
+            numColumns={2}
+            renderItem={({ item, index }) => <Product key={'#' + item.id} item={item} />}
+            data={products}
+            onEndReached={loadMore}
+          />
+        </View>
       )}
     </View>
   );
@@ -321,6 +265,7 @@ const styles = StyleSheet.create({
     height: 1,
     backgroundColor: LIGHTER_GRAY,
     marginTop: 10,
+    marginHorizontal: 10,
   },
   searchContainer: {
     marginHorizontal: 10,
@@ -348,12 +293,6 @@ const styles = StyleSheet.create({
   Amount: {
     marginLeft: 24,
     marginTop: 16,
-  },
-  showItemContainer: {
-    marginTop: 10,
-    justifyContent: 'center',
-    flexWrap: 'wrap',
-    flexDirection: 'row',
   },
   contain: {
     width: getWidth(160),
@@ -391,6 +330,9 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     paddingVertical: getHeight(8),
+  },
+  wrapperColumn: {
+    justifyContent: 'space-between',
   },
 });
 
