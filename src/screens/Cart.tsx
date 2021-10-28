@@ -10,9 +10,11 @@ import { GRAY, WHITE } from '../constants/colors';
 import { TERMINABOLD } from '../constants/fonts';
 import Icon from '../components/Icon';
 import Button from '../components/Button';
-
+import { CartController } from '../controllers/CartController';
+import AllCart from '../components/Cart/AllCart';
 const Cart: React.FC = () => {
-  const [isEmpty] = useState(true);
+  const { currentCart } = CartController();
+  const numberItems = currentCart ? currentCart.items_count : 0;
 
   return (
     <>
@@ -22,17 +24,17 @@ const Cart: React.FC = () => {
         </Text>
       </Header>
       <View style={[RowContent, { minHeight: '90%', justifyContent: 'center' }]}>
-        {
-          isEmpty ? (
-            <View style={styles.container}>
-              <Icon name="cart-icon" size={32} color={GRAY} />
-              <Text medium={true} style={styles.textTitle}>
-                Tu carrito está vacío
-              </Text>
-              <Button title="Agregar productos" onPress={() => {}} containerStyle={styles.productsBtn} />
-            </View>
-          ) : null // TODO: not empty component
-        }
+        {numberItems === 0 ? (
+          <View style={styles.container}>
+            <Icon name="cart-icon" size={32} color={GRAY} />
+            <Text medium={true} style={styles.textTitle}>
+              Tu carrito está vacío
+            </Text>
+            <Button title="Agregar productos" onPress={() => {}} containerStyle={styles.productsBtn} />
+          </View>
+        ) : (
+          <AllCart />
+        )}
       </View>
     </>
   );

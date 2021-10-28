@@ -3,14 +3,20 @@ import { TouchableOpacity } from 'react-native';
 import SvgIcon from 'react-native-svg-icon';
 
 import icons from '../utils/iconList';
-
-const IconGeneric = ({ iconColor = '', onPress = () => {}, ...rest }) =>
+interface IProps {
+  iconColor: string;
+  onPress?: any;
+  name: string;
+  height?: number;
+  width?: number;
+}
+const IconGeneric = ({ iconColor = '', onPress, width, height, name, ...rest }: IProps) =>
   onPress ? (
     <TouchableOpacity onPress={onPress}>
-      <SvgIcon fill={iconColor} {...rest} svgs={icons} />
+      <SvgIcon width={width} height={height} name={name} fill={iconColor} {...rest} svgs={icons} />
     </TouchableOpacity>
   ) : (
-    <SvgIcon fill={iconColor} {...rest} svgs={icons} />
+    <SvgIcon width={width} height={height} name={name} fill={iconColor} {...rest} svgs={icons} />
   );
 
 export default IconGeneric;

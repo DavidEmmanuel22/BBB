@@ -7,6 +7,7 @@ import product from './slices/productSlice';
 import searchSlice from './slices/searchSlice';
 import cartSlice from './slices/cartSlice';
 import notificationsSlice from './slices/notificationsSlice';
+import outletSlice from './slices/outletSlice';
 
 export const store = configureStore({
   reducer: {
@@ -17,6 +18,7 @@ export const store = configureStore({
     search: searchSlice,
     cart: cartSlice,
     notifications: notificationsSlice,
+    outlet: outletSlice,
   },
   devTools: true,
 });

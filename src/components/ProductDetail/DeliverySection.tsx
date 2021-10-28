@@ -66,7 +66,7 @@ const DeliverySection: React.FC<IProps> = ({}) => {
         <View style={RowContent}>
           <View style={Dot(DARK)} />
           <Text medium size={getWidth(14)}>
-            {priceDelivery !== '0' ? 'Envió a estándar:$' + priceDelivery : 'Recoger en tienda: $0.00'}
+            {priceDelivery !== '0' ? 'Envió estándar:$' + priceDelivery : 'Recoger en tienda: $0.00'}
           </Text>
         </View>
         <View style={RowContent}>
