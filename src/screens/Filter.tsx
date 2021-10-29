@@ -9,8 +9,15 @@ import Collapsable from '../components/Collapsable';
 import InputRdbFilter from '../components/InputRdbFilter';
 import IconGeneric from '../components/IconGeneric';
 import { EFFRA } from '../constants/fonts';
+import { RouteProp } from '@react-navigation/core';
 
-const Filter: React.FC = () => {
+interface IProps {
+  route: RouteProp<any, any>;
+}
+
+const Filter: React.FC<IProps> = ({ route }) => {
+  const item = route.params;
+
   const styles = StyleSheet.create({
     filterButton: {
       height: 36,
@@ -83,7 +90,7 @@ const Filter: React.FC = () => {
         <View style={styles.line} />
 
         <Text style={styles.textTypeBlue}>Filtrar</Text>
-        <Collapsable />
+        <Collapsable category={item} />
         <Text style={styles.textTypeBlue}>Por precio</Text>
         <MultiSlider
           values={[350, 1000]}

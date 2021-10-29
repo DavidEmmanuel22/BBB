@@ -39,6 +39,7 @@ const ProductsByCategory: React.FC<IProps> = ({ navigation, route }) => {
 
   useEffect(() => {
     initializeProducts(categorySelect, parentCategory);
+    console.log(category.id);
     return () => {};
   }, []);
 
@@ -65,7 +66,7 @@ const ProductsByCategory: React.FC<IProps> = ({ navigation, route }) => {
     return (
       <View style={styles.contentHeader}>
         <Text>{totalProductos}</Text>
-        <TouchableOpacity style={styles.contentFilter} onPress={() => navigation.navigate('Filter')}>
+        <TouchableOpacity style={styles.contentFilter} onPress={() => navigation.navigate('Filter', category)}>
           <Text style={styles.filterText} color={PRIMARY_BLUE}>
             Filtrar
           </Text>

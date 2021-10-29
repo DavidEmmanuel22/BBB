@@ -10,6 +10,7 @@ import { TabView } from 'react-native-tab-view';
 import { useDispatch, useSelector } from 'react-redux';
 import { changeSelect, selectUIISelected } from '../store/slices/uiSlice';
 import { CartController } from '../controllers/CartController';
+import { CodesColorsController } from '../controllers/CodesColorsController';
 
 interface IProps {
   navigation: NavigationProp<any, any>;
@@ -18,6 +19,7 @@ interface IProps {
 const Home: React.FC<IProps> = ({ navigation }) => {
   const index = useSelector(selectUIISelected);
   const dispatch = useDispatch();
+  const { initializeCodesColors } = CodesColorsController();
 
   const layout = useWindowDimensions();
   const { checkCartInit } = CartController();
@@ -47,7 +49,7 @@ const Home: React.FC<IProps> = ({ navigation }) => {
   };
   useEffect(() => {
     checkCartInit();
-
+    initializeCodesColors();
     return () => {};
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);

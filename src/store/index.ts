@@ -1,4 +1,4 @@
-import { configureStore, ThunkAction, Action, getDefaultMiddleware } from '@reduxjs/toolkit';
+import { configureStore, ThunkAction, Action } from '@reduxjs/toolkit';
 
 import userReducer from './slices/userSlice';
 import uiReducer from './slices/uiSlice';
@@ -8,6 +8,7 @@ import searchSlice from './slices/searchSlice';
 import cartSlice from './slices/cartSlice';
 import notificationsSlice from './slices/notificationsSlice';
 import outletSlice from './slices/outletSlice';
+import codesColors from './slices/CodesColorsSlice';
 
 export const store = configureStore({
   reducer: {
@@ -19,6 +20,7 @@ export const store = configureStore({
     cart: cartSlice,
     notifications: notificationsSlice,
     outlet: outletSlice,
+    codesColors,
   },
   devTools: true,
 });
