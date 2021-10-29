@@ -110,7 +110,9 @@ const SearchHeader: React.FC<IProps> = ({ ...props }) => {
               </TouchableOpacity>
             )}
 
-            <Image style={Styles.searchImage} source={require('../assets/SearchIcon.png')} />
+            <TouchableOpacity disabled={true} style={Styles.searchImage}>
+              <Image source={require('../assets/SearchIcon.png')} />
+            </TouchableOpacity>
           </View>
         ) : (
           <View style={Styles.contentBack}>
@@ -180,7 +182,7 @@ const SearchHeader: React.FC<IProps> = ({ ...props }) => {
   );
 };
 const Styles = StyleSheet.create({
-  contentInput: { width: '75%' },
+  contentInput: { width: '80%' },
   contentBack: { width: '75%', flexDirection: 'row', alignItems: 'center' },
   touchExit: { alignSelf: 'center', marginLeft: getWidth(20) },
   touchCart: {
@@ -209,25 +211,27 @@ const Styles = StyleSheet.create({
     color: 'black',
     paddingLeft: getWidth(36),
     fontSize: getWidth(16),
-    height: getHeight(40),
   },
   qrButton: {
     position: 'absolute',
+    height: '100%',
     right: getWidth(1),
-    marginTop: getHeight(15),
+    justifyContent: 'center',
     marginRight: getWidth(20),
   },
   cleanButton: {
     position: 'absolute',
+    height: '100%',
     right: getWidth(1),
-    marginTop: getHeight(9),
-    marginRight: getWidth(14),
+    justifyContent: 'center',
+    marginRight: getWidth(20),
   },
   searchImage: {
     position: 'absolute',
+    height: '100%',
     left: getWidth(1),
-    marginTop: getHeight(15),
-    marginLeft: getWidth(12),
+    justifyContent: 'center',
+    marginLeft: getWidth(11),
   },
 });
 

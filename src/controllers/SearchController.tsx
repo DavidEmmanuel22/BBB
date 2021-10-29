@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import useAuthContext from '../context/AuthContext';
 import { Convert } from '../models/Objects/Items';
 import { SearchModel } from '../models/SearchModel';
-import { changeItems, selectMarcaClicked, setMarcaClicked, setMarcas } from '../store/slices/searchSlice';
+import { addProducts, changeItems, selectMarcaClicked, setMarcaClicked, setMarcas } from '../store/slices/searchSlice';
 
 export const SearchController = () => {
   const dispatch = useDispatch();
@@ -33,6 +33,7 @@ export const SearchController = () => {
     }
     dispatch(setMarcaClicked(false));
     dispatch(changeItems(obj));
+    dispatch(addProducts({ newProducts: obj.placements[0].docs }));
     setBuscando(false);
   };
 

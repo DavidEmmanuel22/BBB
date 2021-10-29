@@ -36,7 +36,6 @@ const styles = StyleSheet.create({
     backgroundColor: BLUE,
     justifyContent: 'center',
     alignItems: 'center',
-    paddingTop: getHeight(35),
     position: 'relative',
   },
   backArrow: {
