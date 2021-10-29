@@ -15,7 +15,7 @@ import SubCategoryList from './subCategoryList';
 import { Collapse, CollapseHeader, CollapseBody } from 'accordion-collapse-react-native';
 import { flexGeneric } from '../../utils/stylesGenetic';
 import { CategoryModel } from '../../models/CategoriesModel';
-import { GetAttribute } from '../../utils/genericFunctions';
+import { formatImage, GetAttribute } from '../../utils/genericFunctions';
 import { BASE_URL } from '../../constants/URLs';
 import { Categories } from '../../models/Objects/Categories';
 
@@ -32,10 +32,15 @@ const AnimateBox: React.FC<IProps> = ({ data }) => {
   const [urlImage, setUrlImage] = useState('');
   const { GetCategoryInfo } = CategoryModel();
   const [show, setShow] = useState(false);
+
   useEffect(() => {
     GetCategoryInfo(id || 0).then((res) => {
       const uriImage = GetAttribute(res.custom_attributes || [], 'image');
       setUrlImage(BASE_URL + uriImage);
+      if (name?.includes('Outlet')) {
+        let uriImage1 = GetAttribute(res.custom_attributes || [], 'megamenu_show_catimage_img');
+        setUrlImage(BASE_URL + uriImage1);
+      }
     });
     return () => {};
   }, []);
@@ -54,7 +59,7 @@ const AnimateBox: React.FC<IProps> = ({ data }) => {
               resizeMode="cover"
               style={styles.image}
               source={{
-                uri: urlImage,
+                uri: formatImage(urlImage),
               }}
             />
           )}

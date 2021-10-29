@@ -47,7 +47,6 @@ export const CartController = () => {
     if (tokenCartGuest) {
       //Add to guest cart
       success = await AddCartGuest(sku, quantity, tokenCartGuest!);
-      console.log('holiss', success);
       if (success) {
         showMessage({ message: 'El producto se añadió al carrito.', type: 'info', hideOnPress: true, duration: 3000 });
       }

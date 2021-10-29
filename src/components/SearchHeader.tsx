@@ -22,8 +22,8 @@ interface itemNav {
 const categories: Array<itemNav> = [
   { id: 0, text: 'Destacados', nameNav: 'Index' },
   { id: 1, text: 'Categorías', nameNav: 'Categories' },
-  { id: 2, text: 'Zona oulet', nameNav: '' },
-  { id: 4, text: 'Mesa', nameNav: '' },
+  { id: 2, text: 'Zona outlet', nameNav: '' },
+  { id: 3, text: 'Marcas', nameNav: '' },
 ];
 interface IProps extends StackHeaderProps {
   close?: boolean;

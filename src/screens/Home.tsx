@@ -4,6 +4,8 @@ import { useWindowDimensions } from 'react-native';
 import { NavigationProp } from '@react-navigation/core';
 import Principal from './Principal';
 import Categories from './Categories';
+import ZoneOutlet from './ZoneOutlet';
+import Brands from './Brands';
 import { TabView } from 'react-native-tab-view';
 import { useDispatch, useSelector } from 'react-redux';
 import { changeSelect, selectUIISelected } from '../store/slices/uiSlice';
@@ -22,6 +24,8 @@ const Home: React.FC<IProps> = ({ navigation }) => {
   const [routes] = React.useState([
     { key: 'destacados', title: 'Destacados' },
     { key: 'categorias', title: 'Categorías' },
+    { key: 'zoneOutlet', title: 'Zona outlet' },
+    { key: 'brands', title: 'Marcas' },
   ]);
   const renderScene = ({ route }: any) => {
     switch (route.key) {
@@ -29,6 +33,10 @@ const Home: React.FC<IProps> = ({ navigation }) => {
         return <Principal navigation={navigation} />;
       case 'categorias':
         return <Categories navigation={navigation} />;
+      case 'zoneOutlet':
+        return <ZoneOutlet navigation={navigation} />;
+      case 'brands':
+        return <Brands navigation={navigation} />;
       default:
         return null;
     }

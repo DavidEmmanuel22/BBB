@@ -36,6 +36,7 @@ const ProductsByCategory: React.FC<IProps> = ({ navigation, route }) => {
 
   const [categorySelect, setCategorySelect] = useState(category);
   const { products, initializeProducts, totalProducts, isLoading, changePage } = ProductsByCategoryController();
+
   useEffect(() => {
     initializeProducts(categorySelect, parentCategory);
     return () => {};

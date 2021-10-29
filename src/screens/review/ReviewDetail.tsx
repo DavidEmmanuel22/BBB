@@ -100,7 +100,6 @@ const ReviewDetail = ({ navigation, route }: ReviewDetailProps) => {
   const { review } = route?.params || {};
 
   const ratingsObj = convertArrayToObject(review?.ratings || [], 'rating_name');
-  console.log(ratingsObj);
   return (
     <ScrollView>
       <Header onPress={() => navigation.goBack()} />
